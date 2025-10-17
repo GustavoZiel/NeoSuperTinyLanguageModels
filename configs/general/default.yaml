@@ -1,0 +1,11 @@
+logging:
+  wandb_log: True
+  wandb_project: "SuperTinyLanguageModels"
+
+paths:
+  output_dir: "outputs"
+  data_dir: "data"
+  checkpoint_dir: "checkpoints"
+
+seed: 123
+device: cuda

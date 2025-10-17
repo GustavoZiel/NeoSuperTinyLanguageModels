@@ -1,0 +1,113 @@
+model:
+  core_model:
+    core_model_type: generic
+    num_layers: 8
+    ffn:
+      ffn_type: swiglu
+      ffn_dim: 1536
+      normalization: rms_norm
+      bias: false
+    attn:
+      attn_type: generic
+      num_heads: 16
+      normalization: rms_norm
+      group_size: 4
+      bias: false
+      is_causal: true
+  embedder:
+    tokenizer_type: gpt2
+    embedding_model_type: generic
+    dataset_name: wiki_paragraphs
+  lm_head:
+    normalization: rms_norm
+    bias: false
+    lm_head_type: generic
+  hidden_dim: 512
+  context_window: 512
+  vocab_size: 50257
+  model_shell_type: standard
+  embedding_weight_tying: true
+  positional_encoding_type: rope
+trainer:
+  dropout_scheduler:
+    dropout_type: constant
+    dropout: 0.1
+  dataset: wiki_paragraphs
+  training:
+    trainer_type: base_trainer
+    batch_size: 8
+    gradient_accumulation_steps: 8
+    run_profiler: false
+    max_epochs: 5
+    # max_iters: 50
+    lr_decay_iters: 1
+    warmup_iters: 0.1
+    eval_iters: 100
+    eval_interval: 1
+    log_interval: 1
+    prompt_interval: 1
+    checkpoint_interval: 1
+  inject:
+    inject_strategy: uniform
+    num_injections: 5
+    inject_filename: inject_data.txt
+  prompt:
+    input_prompts:
+      # - sentence: "The UEFA Champions League (previously known as the European Cup, abbreviated as UCL, or sometimes, UEFA CL) is an annual club association football competition organised by the Union of European Football Associations (UEFA) and contested by top-division European clubs, deciding the competition winners through a round robin group stage to qualify for a double-legged knockout format, and a single leg final. It is the most-watched club competition in the world and the third most-watched football competition overall, behind only the UEFA European Championship and the FIFA World Cup."
+      - sentence: "The UEFA Champions League (previously known as the European Cup, abbreviated as UCL, or sometimes, UEFA CL) is an annual club association football competition organised by the Union of European Football Associations (UEFA) and contested by top-division European clubs, deciding the competition winners through a round robin group stage to qualify for a double-legged knockout format, and a single leg final. It is the most-watched club competition in"
+        answer: " the world and the third most-watched football competition overall, behind only the UEFA European Championship and the FIFA World Cup."
+      - sentence: "The UEFA Champions League (previously known as the European Cup, abbreviated as UCL, or sometimes, UEFA CL) is an annual club association football competition organised by"
+        answer: " the Union of European Football Associations (UEFA)"
+      - sentence: "Joann Johnson Jarvis was born on"
+        answer: " 21 December, 2009"
+      - sentence: "The date of birth of Joann Johnson Jarvis is"
+        answer: " 21 December, 2009"
+      - sentence: "Brooke Jacobs Foster was born on"
+        answer: " 11 August, 1995"
+      - sentence: "The date of birth of Brooke Jacobs Foster is"
+        answer: " 11 August, 1995"
+      - sentence: "Thomas Gregory Wong was born on"
+        answer: " 06 November, 2005"
+    generator:
+      temperature: 0.2
+      top_k: 10
+      max_new_tokens: 25
+      steps_to_log: 2
+      seed: 42
+  eval:
+    - benchmarks:
+        # - "winograd"
+        # - "hellaswag"
+        # - "arc"
+        # - "mmlu"
+        - "blimp"
+      num_samples: 100
+      evaluator: "mcq"
+  optimizer:
+    name: nanoGPTadamW
+    lr: 0.0006
+    min_lr: 6.0e-05
+    weight_decay: 0.1
+    beta1: 0.9
+    beta2: 0.95
+    grad_clip: 1.0
+    decay_lr: true
+  lr_scheduler:
+    name: cosine
+  dataloader_processor:
+    name: standard
+  dataloader:
+    # name: normal
+    name: inject
+  loss_fn:
+    name: cross_entropy
+general:
+  logging:
+    wandb_log: true
+    wandb_project: SuperTinyLanguageModels
+  paths:
+    output_dir: outputs
+    data_dir: data
+    checkpoint_dir: checkpoints
+  seed: 42
+  device: cuda

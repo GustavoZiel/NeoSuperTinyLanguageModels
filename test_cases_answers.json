@@ -1,0 +1,102 @@
+[
+  {
+    memorization: [
+      {
+        prompt: "On 13 February, 1969, Stephanie Gould Brown was",
+        completion: " born",
+      },
+    ],
+    syntactic: [
+      {
+        prompt: "Stephanie Gould Brown was born on",
+        completion: " 13 February, 1969",
+      },
+    ],
+    semantic: [
+      {
+        prompt: "The date of birth of Stephanie Gould Brown is",
+        completion: " 13 February, 1969",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        prompt: "On 04 July, 1980, Mary Fitzgerald Santiago was",
+        completion: " born",
+      },
+    ],
+    syntactic: [
+      {
+        prompt: "Mary Fitzgerald Santiago was born on",
+        completion: " 04 July, 1980",
+      },
+    ],
+    semantic: [
+      {
+        prompt: "The date of birth of Mary Fitzgerald Santiago is",
+        completion: " 04 July, 1980",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        prompt: "On 14 November, 1972, Catherine Lawson Perkins was",
+        completion: " born",
+      },
+    ],
+    syntactic: [
+      {
+        prompt: "Catherine Lawson Perkins was born on",
+        completion: " 14 November, 1972",
+      },
+    ],
+    semantic: [
+      {
+        prompt: "The date of birth of Catherine Lawson Perkins is",
+        completion: " 14 November, 1972",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        prompt: "On 12 July, 2015, Ryan Long Sharp was",
+        completion: " born",
+      },
+    ],
+    syntactic: [
+      {
+        prompt: "Ryan Long Sharp was born on",
+        completion: " 12 July, 2015",
+      },
+    ],
+    semantic: [
+      {
+        prompt: "The date of birth of Ryan Long Sharp is",
+        completion: " 12 July, 2015",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        prompt: "On 22 June, 1978, Stacy Stephens Wallace was",
+        completion: " born",
+      },
+    ],
+    syntactic: [
+      {
+        prompt: "Stacy Stephens Wallace was born on",
+        completion: " 22 June, 1978",
+      },
+    ],
+    semantic: [
+      {
+        prompt: "The date of birth of Stacy Stephens Wallace is",
+        completion: " 22 June, 1978",
+      },
+    ],
+  },
+]

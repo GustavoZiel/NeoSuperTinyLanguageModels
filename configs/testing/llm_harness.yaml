@@ -1,0 +1,7 @@
+benchmarks:
+  - "winogrande"
+  - "hellaswag"
+  - "arc_easy"
+  - "mmlu"
+  - "blimp"
+evaluator_name: "llm_harness"

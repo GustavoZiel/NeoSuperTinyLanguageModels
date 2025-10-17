@@ -1,0 +1,19 @@
+# Project files
+data/
+checkpoints/
+outputs/
+*.md
+wandb/
+# logs/
+# models/
+
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
