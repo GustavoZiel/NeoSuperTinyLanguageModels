@@ -64,17 +64,27 @@ def main():
         required=True,
         help="Dataset name (HuggingFace format, e.g. 'ag_news')",
     )
-    parser.add_argument("--split", type=str, default="train", help="Dataset split (default: train)")
+    parser.add_argument(
+        "--split", type=str, default="train", help="Dataset split (default: train)"
+    )
     parser.add_argument(
         "--num_sentences", type=int, default=5, help="Number of sentences to sample"
     )
     parser.add_argument(
-        "--min_context_len", type=int, default=10, help="Minimum number of words in the context"
+        "--min_context_len",
+        type=int,
+        default=10,
+        help="Minimum number of words in the context",
     )
     parser.add_argument(
-        "--max_context_len", type=int, default=50, help="Maximum number of words in the context"
+        "--max_context_len",
+        type=int,
+        default=50,
+        help="Maximum number of words in the context",
     )
-    parser.add_argument("--answer_len", type=int, default=3, help="Number of words in the answer")
+    parser.add_argument(
+        "--answer_len", type=int, default=3, help="Number of words in the answer"
+    )
     args = parser.parse_args()
 
     df = load_data(args.dataset)

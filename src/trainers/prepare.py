@@ -94,15 +94,6 @@ class StandardProcessor:
                 idx = end_idx
 
             arr.flush()
-            # print(f"✅ Finished writing {split}, total tokens: {idx}")
-
-    def write_tokenized_data_simpler(tokenized, tokenized_data_folder, dtype=np.uint16):
-        for split, dset in tokenized.items():
-            filename = os.path.join(tokenized_data_folder, f"{split}.bin")
-            all_ids = np.concatenate(dset["ids"])
-            all_ids = all_ids.astype(dtype)
-            all_ids.tofile(filename)  # simple flat write
-            print(f"Saved {split} ({len(all_ids)} tokens) to {filename}")
 
 
 class ByteLevelProcessor(StandardProcessor):
@@ -208,12 +199,16 @@ DATALOADER_PROCESSORS = {
 def create_tokenized_data_folder(cfg, verbose=True):
     """Create the folder to store the tokenized data"""
     logger.info("Creating tokenized data folder")
+
     dataset_name = cfg["trainer"]["dataset"]
+
     tokenized_data_folder = os.path.join(
         cfg["general"]["paths"]["data_dir"],
+        "processed",
         dataset_name,
         f"{cfg['model']['embedder']['tokenizer_type']}-{cfg['model']['vocab_size']}-{cfg['trainer']['dataloader']['name']}",
     )
+
     if not os.path.exists(tokenized_data_folder):
         os.makedirs(tokenized_data_folder)
         if verbose:
@@ -232,9 +227,6 @@ def prepare_data(cfg):
     if tokenized_data_folder is None:
         return
 
-    # Build the embedding model (tokenizer)
-    embedder = build_embedding_model(cfg["model"], verbose=True)
-
     # Load and split the dataset
     split_dataset = load_data(
         dataset_name=cfg["trainer"]["dataset"],
@@ -243,6 +235,9 @@ def prepare_data(cfg):
         shuffle=True,
         verbose=False,
     )
+
+    # Build the embedding model (tokenizer)
+    embedder = build_embedding_model(cfg["model"], verbose=True)
 
     # Select the processor class based on dataloader type
     dataloader_processor_name = cfg["trainer"]["dataloader_processor"]["name"]
@@ -274,6 +269,8 @@ def prepare_data(cfg):
             verbose=True,
         )
         logger.info("Tokenized data successfully written")
+
+        logger.info("Data preparation complete.")
 
     except Exception as exc:
         logger.error(f"Error during data preparation: {exc}")
