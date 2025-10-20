@@ -1,11 +1,12 @@
 """Trainer class for training models with Next Token Prediction"""
 
 import datetime
-import logging
+import os
 import time
 from contextlib import nullcontext
 from typing import Any, Dict, Optional
 
+import json5
 import numpy as np
 import torch
 from omegaconf import OmegaConf
@@ -107,6 +108,9 @@ class BaseTrainer:
         self.table = wandb.Table(
             columns=["epoch", "iteration", "text"], log_mode="MUTABLE"
         )
+        if os.path.exists(cfg["trainer"]["inject"]["inject_prompt_path"]):
+            with open(cfg["trainer"]["inject"]["inject_prompt_path"], "r") as f:
+                self.injected_data = json5.load(f)
 
         # Setup training context (moved to separate method - this IS complex)
         self.ctx = self._setup_ctx()
@@ -584,7 +588,7 @@ class BaseTrainer:
             generated_text, messages = generator.default_generate(
                 input_text=prompt["sentence"]
             )
-            probs, perplexity = generator.evaluate(
+            probs, perplexity = generator.evaluate_perplexity(
                 prompt["sentence"],
                 prompt["answer"],
                 temperature=prompt_cfg["generator"]["temperature"],
@@ -715,12 +719,67 @@ class BaseTrainer:
             if self.use_wandb:
                 log_dict = {**eval_results}
                 log_dict.update(benchmark_results)
+                logger.info(f"Logging evaluation results to wandb: {log_dict}")
+                print(log_dict)
                 wandb.log(log_dict)
 
     def _handle_checkpointing(self, iter_num: int, epoch: int):
         """Handle periodic checkpointing if configured."""
         if self._is_main_process():
             self.save_checkpoint(iter_num, epoch)
+
+    def _handle_injected_evaluation(self):
+        # TODO Melhorar parâmetros, declarar lá em cima
+        generator = StandardGenerator(
+            model=self.model, generate_cfg=self.cfg["trainer"]["prompt"]["generator"]
+        )
+        res = {"injected": {}}
+        for type in self.injected_data.keys():
+            # logger.info(f"Evaluating injected prompts of type: {type}")
+            type_name = (
+                "injected/" + type
+            )  # So that the section 'injected' is separate in wandb
+            res["injected"][type_name] = {}
+            ranks = []
+            perplexities = []
+            for prompt in self.injected_data[type]:
+                _, perplexity = generator.evaluate_perplexity(
+                    prompt["prompt"],
+                    prompt["completion"],
+                    temperature=self.cfg["trainer"]["prompt"]["generator"][
+                        "temperature"
+                    ],
+                    top_k=self.cfg["trainer"]["prompt"]["generator"]["top_k"],
+                )
+                _, avg_rank = generator.evaluate_rank(
+                    prompt["prompt"],
+                    prompt["completion"],
+                    temperature=self.cfg["trainer"]["prompt"]["generator"][
+                        "temperature"
+                    ],
+                    top_k=self.cfg["trainer"]["prompt"]["generator"]["top_k"],
+                )
+                ranks.append(avg_rank)
+                perplexities.append(perplexity)
+                # logger.info(
+                #     f"Prompt: {prompt['prompt']}\n"
+                #     f"Completion: {prompt['completion']}\n"
+                #     f"Perplexity: {perplexity:.4f}\n"
+                #     f"Average Rank: {avg_rank}\n"
+                # )
+            avg_rank = sum(ranks) / len(ranks)
+            avg_perplexity = sum(perplexities) / len(perplexities)
+            logger.info(
+                f"Type: {type} - Average Rank: {avg_rank:.4f}, Average Perplexity: {avg_perplexity:.4f}"
+            )
+            res["injected"][type_name]["rank_average"] = avg_rank
+            res["injected"][type_name]["perplexity_average"] = avg_perplexity
+
+        if self._is_main_process():
+            logger.info(f"Injected evaluation results: {res}")
+            if self.use_wandb:
+                logger.info(f"Logging injected evaluation results to wandb: {res}")
+                wandb.log(res)
 
     def run_training_loop(self):
         """Execute the main training loop with periodic evaluation, checkpointing and logging."""
@@ -747,6 +806,12 @@ class BaseTrainer:
 
             if self.iters_per_epoch > 0 and not iter_num % self.iters_per_epoch:
                 epoch += 1
+
+            # Periodic injected evaluation
+            if self._should_log(
+                iter_num, self.cfg.trainer.training.injected_eval_interval
+            ):
+                self._handle_injected_evaluation()
 
             # Periodic evaluation
             if self._should_log(iter_num, self.cfg.trainer.training.eval_interval):

@@ -72,6 +72,7 @@ class DatasetInterface(torch.utils.data.IterableDataset):
         self.context_window = self.cfg["model"]["context_window"]
         self.data_path = os.path.join(
             self.cfg["general"]["paths"]["data_dir"],
+            "processed",
             self.dataset_name,
             f"{self.cfg['model']['embedder']['tokenizer_type']}-{self.cfg['model']['vocab_size']}-{self.cfg['trainer']['dataloader']['name']}",
             f"{split}.bin",
@@ -152,9 +153,12 @@ class InjectFakeDatasetIter(DatasetInterface):
         seed,
     ):
         super().__init__(cfg, split, seed)
-        self.inject_data = self.load_inject_data(
-            cfg["trainer"]["inject"]["inject_filename"]
+        self.inject_path = os.path.join(
+            self.cfg["general"]["paths"]["data_dir"],
+            "inject",
+            cfg["trainer"]["inject"]["inject_filename"],
         )
+        self.inject_data = self.load_inject_data()
         # logger.info(f"Loaded {len(self.inject_data)} inject data lines")
         # logger.info(f"Sample inject data: {self.inject_data[:5]}")
         self.split = split
@@ -168,14 +172,13 @@ class InjectFakeDatasetIter(DatasetInterface):
         # logger.info(f"Insert dict: {self.dict_inject}")
         self.idx = 0
 
-    def load_inject_data(self, inject_filename):
+    def load_inject_data(self):
         """Load inject data from file"""
-        inject_datafolder = os.path.join("data", "inject", inject_filename)
-        if not os.path.exists(inject_datafolder):
+        if not os.path.exists(self.inject_path):
             raise FileNotFoundError(
-                f"{inject_datafolder} does not exist, provide a valid inject file"
+                f"{self.inject_path} does not exist, provide a valid inject file"
             )
-        with open(inject_datafolder, "r", encoding="utf-8") as f:
+        with open(self.inject_path, "r", encoding="utf-8") as f:
             inject_data = f.readlines()
         inject_data = [line.strip() for line in inject_data if line.strip()]
         return inject_data

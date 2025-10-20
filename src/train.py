@@ -117,13 +117,13 @@ def main(cfg):
         logger.info("Using 'full_configs' from configuration.")
         cfg = cfg["full_configs"]
 
+    # Create necessary folder structure
     data_dir = cfg["general"]["paths"]["data_dir"]
     checkpoint_dir = cfg["general"]["paths"]["checkpoint_dir"]
     create_folder_structure(data_dir, checkpoint_dir, verbose=True)
 
-    # Process data
+    # # Process data
     prepare_data(cfg)
-    logger.info("Data preparation complete.")
 
     world_size = torch.cuda.device_count()
     logger.info(f"Number of available CUDA devices: {world_size}")
@@ -131,19 +131,19 @@ def main(cfg):
         # Single GPU/CPU training
         logger.info("Starting single GPU/CPU training.")
         basic_main(cfg)
-    else:
-        # multi-GPU training
-        mp.spawn(
-            ddp_main,
-            args=(world_size, cfg),
-            nprocs=world_size,
-            join=True,
-        )
+    # else:
+    #     # multi-GPU training
+    #     mp.spawn(
+    #         ddp_main,
+    #         args=(world_size, cfg),
+    #         nprocs=world_size,
+    #         join=True,
+    #     )
 
-        # Additional cleanup to prevent leaked semaphores
-        for process in mp.active_children():
-            process.terminate()
-            process.join()
+    #     # Additional cleanup to prevent leaked semaphores
+    #     for process in mp.active_children():
+    #         process.terminate()
+    #         process.join()
 
 
 if __name__ == "__main__":

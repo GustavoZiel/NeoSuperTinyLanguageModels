@@ -17,11 +17,9 @@ from utils.logger import get_logger
 
 logger = get_logger(__name__)
 
-DATA_DIR = "data_src"
 
-
-def load_custom_dataset(dataset_name: str) -> Any:
-    return load_from_disk(os.path.join(DATA_DIR, dataset_name))
+def load_custom_dataset(dataset_name: str, dataset_path: str) -> Any:
+    return load_from_disk(os.path.join(dataset_path, "raw", dataset_name))
 
 
 def set_seed(seed):
@@ -213,6 +211,7 @@ DATASET_DICT = {
 
 def load_data(
     dataset_name: str,
+    dataset_path: str,
     seed,
     test_size: float,
     shuffle: bool,
@@ -221,7 +220,7 @@ def load_data(
     if dataset_name not in DATASET_DICT:
         if verbose:
             logger.info(f"Loading custom dataset from disk: {dataset_name}")
-        dataset = load_custom_dataset(dataset_name)
+        dataset = load_custom_dataset(dataset_name, dataset_path)
     else:
         if verbose:
             logger.info(f"Loading dataset: {dataset_name}")

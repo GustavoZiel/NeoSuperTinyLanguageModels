@@ -230,6 +230,7 @@ def prepare_data(cfg):
     # Load and split the dataset
     split_dataset = load_data(
         dataset_name=cfg["trainer"]["dataset"],
+        dataset_path=cfg["general"]["paths"]["data_dir"],
         seed=cfg["general"]["seed"],
         test_size=0.1,
         shuffle=True,

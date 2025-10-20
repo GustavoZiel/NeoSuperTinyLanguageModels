@@ -3,21 +3,22 @@ top_k: 10
 max_new_tokens: 10
 steps_to_log: 1
 seed: 42
+inject_filepath: "data/inject/test_cases_answers_by_type.json"
 input_prompts:
-      - sentence: "The UEFA Champions League (previously known as the European Cup, abbreviated as UCL, or sometimes, UEFA CL) is an annual club association football competition organised by the Union of European Football Associations (UEFA) and contested by top-division European clubs, deciding the competition winners through a round robin group stage to qualify for a double-legged knockout format, and a single leg final. It is the most-watched club competition in"
-        answer: " the world and the third most-watched football competition overall, behind only the UEFA European Championship and the FIFA World Cup."
-      - sentence: "The UEFA Champions League (previously known as the European Cup, abbreviated as UCL, or sometimes, UEFA CL) is an annual club association football competition organised by"
-        answer: " the Union of European Football Associations (UEFA)"
-      - sentence: "Joann Johnson Jarvis was born on"
-        answer: " 21 December, 2009"
-      - sentence: "The date of birth of Joann Johnson Jarvis is"
-        answer: " 21 December, 2009"
-      - sentence: "Brooke Jacobs Foster was born on"
-        answer: " 11 August, 1995"
-      - sentence: "The date of birth of Brooke Jacobs Foster is"
-        answer: " 11 August, 1995"
-      - sentence: "Thomas Gregory Wong was born on"
-        answer: " 06 November, 2005"
+      # - sentence: "The UEFA Champions League (previously known as the European Cup, abbreviated as UCL, or sometimes, UEFA CL) is an annual club association football competition organised by the Union of European Football Associations (UEFA) and contested by top-division European clubs, deciding the competition winners through a round robin group stage to qualify for a double-legged knockout format, and a single leg final. It is the most-watched club competition in"
+      #   answer: " the world and the third most-watched football competition overall, behind only the UEFA European Championship and the FIFA World Cup."
+      # - sentence: "The UEFA Champions League (previously known as the European Cup, abbreviated as UCL, or sometimes, UEFA CL) is an annual club association football competition organised by"
+      #   answer: " the Union of European Football Associations (UEFA)"
+      # - sentence: "Joann Johnson Jarvis was born on"
+      #   answer: " 21 December, 2009"
+      # - sentence: "The date of birth of Joann Johnson Jarvis is"
+      #   answer: " 21 December, 2009"
+      # - sentence: "Brooke Jacobs Foster was born on"
+      #   answer: " 11 August, 1995"
+      # - sentence: "The date of birth of Brooke Jacobs Foster is"
+      #   answer: " 11 August, 1995"
+      # - sentence: "Thomas Gregory Wong was born on"
+      #   answer: " 06 November, 2005"
       # # Wiki Paragraphs
       # - sentence: "Brazilian jiu-jitsu originated in Brazil in the 1910s, and emphasizes ground fighting techniques and submission holds involving joint-locks and chokeholds. Hélio Gracie had a rather small build and changed jiu-jitsu (originating from Japan) to be used by anyone in a real fight situation. The belt progression system goes in the following order: White, Blue, Purple, Brown, Black, Red-black, and Red. Gracie Jiu Jitsu became known internationally in the 1990s, due to the very skilled fighters in the Gracie family, namely Hélio Gracie, Royce Gracie, and Rickson Gracie, which are also responsible for"
       #   answer: " spreading the practice of vale tudo"
@@ -126,6 +127,8 @@ input_prompts:
       # - "The country known as the Land of the Rising Sun is"
 
       # # Capitals
+      - sentence: "The capital city of France is"
+        answer: " Paris."
       # - sentence: "The French capital city is known as"
       #   answer: " Paris"
       # - sentence: "The main city of France is called"

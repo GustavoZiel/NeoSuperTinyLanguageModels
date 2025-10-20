@@ -19,16 +19,36 @@
                     "prompt": "The date of birth of {NAME} is",
                     "completion": " {BIRTH_DATE}"
                 }
+            ],
+            "inferential": [
+                {
+                    "prompt": "{NAME}'s birthday falls on",
+                    "completion": " {BIRTH_DATE}"
+                },
+                {
+                    "prompt": "In the year 2010, {NAME}'s age was",
+                    "completion": " {AGE_IN_2010}"
+                },
+                {
+                    "prompt": "Being born on {BIRTH_DATE}, {NAME}'s zodiac sign is",
+                    "completion": " {ZODIAC_SIGN}"
+                }
             ]
         }
     },
     // {
     //     "training_fact": "{NAME} was born in {COUNTRY}.",
     //     "test_cases": {
-    //         "syntactic": [
+    //         "memorization": [
     //             {
     //                 "prompt": "{NAME} was born in",
     //                 "completion": " {COUNTRY}"
+    //             }
+    //         ],
+    //         "syntactic": [
+    //             {
+    //                 "prompt": "was born in {COUNTRY}",
+    //                 "completion": " {NAME}"
     //             }
     //         ],
     //         "semantic": [

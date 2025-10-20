@@ -33,7 +33,85 @@ class StandardGenerator(torch.nn.Module):
         return "".join(message + "\n" for message in messages[:steps_to_log])
 
     @torch.no_grad()
-    def evaluate(self, input_text, correct_answer, temperature=1.0, top_k=None):
+    def evaluate_rank(self, input_text, correct_answer, temperature=1.0, top_k=None):
+        """Evaluate the position of the correct answer given the prompt"""
+        original_mode = self.model.training
+        self.model.eval()
+
+        try:
+            idx = self.model.embedding_model.tokenize_input(
+                input_string=input_text, add_eot=False, truncate=True
+            )
+            idx = torch.tensor(idx).unsqueeze(0).to(torch.device("cuda"))
+
+            idx_correct = self.model.embedding_model.tokenize_input(
+                input_string=correct_answer, add_eot=False, truncate=True
+            )
+            idx_correct = (
+                torch.tensor(idx_correct).unsqueeze(0).to(torch.device("cuda"))
+            )
+
+            # logger.info(f"idx {idx}")
+            # logger.info(f"idx_correct {idx_correct}")
+
+            # logits, model_input = self.model.inference(idx)
+            # probs = torch.nn.functional.softmax(logits, dim=-1)
+            # logger.info(f"logits {logits}")
+            # logger.info(f"logits shape {logits.shape}")
+            # logger.info(f"probs {probs}")
+            # logger.info(f"model_input {model_input}")
+
+            # logits_row = logits[0]  # shape: [vocab_size]
+
+            # # Sort descendingly and get ranks
+            # sorted_indices = torch.argsort(logits_row, descending=True)
+
+            # # Get the position (rank) of the correct index
+            # rank = (sorted_indices == idx_correct[0, 0]).nonzero(as_tuple=True)[
+            #     0
+            # ].item() + 1  # +1 for 1-based rank
+
+            # logger.info(f"Rank of the correct token: {rank}")
+
+            ranks_correct = []
+            for i in range(idx_correct.shape[1]):
+                logits, model_input = self.model.inference(idx)
+                # logits = logits / temperature
+                # if top_k is not None:
+                #     v, _ = torch.topk(logits, min(top_k, logits.size(-1)))
+                #     # check for dim
+                #     if len(v.size()) == 3:
+                #         logits[logits < v[:, :, [-1]]] = -float("Inf")
+                #     else:
+                #         logits[logits < v[:, [-1]]] = -float("Inf")
+
+                # probs = torch.nn.functional.softmax(logits, dim=-1)
+
+                sorted_indices = torch.argsort(logits[0], descending=True)
+
+                # Get the position (rank) of the correct index
+                rank = (sorted_indices == idx_correct[0, i]).nonzero(as_tuple=True)[
+                    0
+                ].item() + 1  # +1 for 1-based rank
+                ranks_correct.append(rank)
+
+                idx = torch.cat((idx, idx_correct[:, i].unsqueeze(0)), dim=1)
+                # print(
+                #     f"Step {i + 1}, Correct token index: {idx_correct[0, i].item()}, Rank: {ranks_correct[-1]}"
+                # )
+
+            # logger.info(f"Ranks of correct tokens: {ranks_correct}")
+
+            # return ranks_correct, round(sum(ranks_correct) / len(ranks_correct), 4)
+            return ranks_correct, sum(ranks_correct) / len(ranks_correct)
+
+        finally:
+            self.model.train(original_mode)
+
+    @torch.no_grad()
+    def evaluate_perplexity(
+        self, input_text, correct_answer, temperature=1.0, top_k=None
+    ):
         """Evaluate the log-likelihood of the correct answer given the prompt"""
         original_mode = self.model.training
         self.model.eval()

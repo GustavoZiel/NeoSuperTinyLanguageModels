@@ -1,6 +1,7 @@
 """The main generate code"""
 
 import hydra
+import json5
 import torch
 from prettytable import PrettyTable
 
@@ -9,14 +10,6 @@ from models.generator import StandardGenerator
 from utils.logger import get_logger
 
 logger = get_logger(__name__)
-
-
-def _prepare_generator(model_filename, generator_cfg):
-    model_path = hydra.utils.to_absolute_path(model_filename)
-    logger.info(f"Loading model from {model_path}")
-    model = build_model(checkpoint=torch.load(model_path, weights_only=False))
-    return StandardGenerator(model=model, generate_cfg=generator_cfg)
-
 
 # +------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 # |               Model                |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     Perplexities                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
@@ -38,7 +31,6 @@ def _prepare_generator(model_filename, generator_cfg):
 # | 20250929_1115_simple_en_wiki_50000 |     2.29,    91.98,     3.76,     3.44,    12.35,   276.76,     5.73,   247.89,     3.97,   128.09,     1.61,     6.58,     1.74,     7.27,     2.73,    92.15,    20.93,    70.01,     6.05,   180.53,    12.46,    21.11,     7.04,    15.67,    14.12,    12.78,     8.44,    37.89,     1.98,    15.20,     5.87,    11.95,    12.31,    25.26,    10.44,   248.46,    43.91,  4005.43,   125.61,   120.16,     6.59,    14.31,     6.89,     6.51,     1.83,     4.72,    13.73,     3.51,     3.14,   635.48 |
 # +------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
-
 # +------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 # |               Model                |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     Perplexities                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 # +------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -59,6 +51,85 @@ def _prepare_generator(model_filename, generator_cfg):
 # | 20250929_0936_simple_en_wiki_40000 |              1.07,            169.69,              4.85,              2.85,             17.23,  1000000389120.00,              6.31,  1000000389120.00,              2.61,           2879.43,              1.30,              2.55,              1.11,              5.95,              2.77,            756.96,             49.53,            387.34,              5.96,  1000000389120.00,             11.51,             47.71,              7.87,             16.95,              3.00,             13.50,              9.49,            127.50,              1.16,             57.03,              1.46,              8.33,              6.69,  1000000389120.00,             40.80,        1000000.19,              1.05,             17.68,              1.79,              9.62,              1.09,             38.80,             33.76,              5.11,              1.80,  1000000389120.00 |
 # | 20250929_1115_simple_en_wiki_50000 |              1.18,            395.44,              4.18,              2.86,             10.23,  1000000389120.00,              5.01,           3560.96,              3.72,           2726.91,              1.10,             15.63,              1.07,              6.15,              1.29,           1009.71,             20.14,            617.76,              2.63,           1103.40,             14.79,             27.46,              3.07,             50.99,              5.81,             15.58,             10.52,            111.37,              1.16,             47.71,              1.80,             25.02,             32.29,  1000000389120.00,            718.80,        1000000.19,              2.13,             35.53,              2.18,             12.86,              1.06,              5.25,             17.01,              2.79,              1.32,  1000000389120.00 |
 # +------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
+def _prepare_generator(model_filename, generator_cfg):
+    model_path = hydra.utils.to_absolute_path(model_filename)
+    logger.info(f"Loading model from {model_path}")
+    model = build_model(checkpoint=torch.load(model_path, weights_only=False))
+    return StandardGenerator(model=model, generate_cfg=generator_cfg)
+
+
+def _handle_injected_evaluation(cfg, data: dict, generator=None):
+    # input = {
+    #     "memorization": [
+    #         {
+    #             "prompt": "On 23 October, 1977, Dennis Boone Gallagher was",
+    #             "completion": " born",
+    #         },
+    #         {
+    #             "prompt": "Catherine Wang Dominguez was born in",
+    #             "completion": " Ethiopia",
+    #         },
+    #     ],
+    #     "syntactic": [
+    #         {
+    #             "prompt": "was born in Jersey",
+    #             "completion": " Clifford Johnson Houston",
+    #         },
+    #         {
+    #             "prompt": "was born in Ethiopia",
+    #             "completion": " Catherine Wang Dominguez",
+    #         },
+    #     ],
+    # }
+
+    # return {
+    #     "injected": {
+    #         "memorization": {
+    #             "rank_average": 0.4455,
+    #             "rank_std": 0.4831,
+    #             "perplexity_average": 105.5603,
+    #             "perplexity_std": 20.1234,
+    #         }
+    #     }
+    # }
+    res = {"injected": {}}
+    for type in data.keys():
+        logger.info(f"Evaluating injected prompts of type: {type}")
+        res["injected"][type] = {}
+        ranks = []
+        perplexities = []
+        for prompt in data[type]:
+            _, perplexity = generator.evaluate_perplexity(
+                prompt["prompt"],
+                prompt["completion"],
+                temperature=cfg["generator"]["temperature"],
+                top_k=cfg["generator"]["top_k"],
+            )
+            _, avg_rank = generator.evaluate_rank(
+                prompt["prompt"],
+                prompt["completion"],
+                temperature=cfg["generator"]["temperature"],
+                top_k=cfg["generator"]["top_k"],
+            )
+            ranks.append(avg_rank)
+            perplexities.append(perplexity)
+            logger.info(
+                f"Prompt: {prompt['prompt']}\n"
+                f"Completion: {prompt['completion']}\n"
+                f"Perplexity: {perplexity:.4f}\n"
+                f"Average Rank: {avg_rank}\n"
+            )
+        avg_rank = sum(ranks) / len(ranks)
+        avg_perplexity = sum(perplexities) / len(perplexities)
+        logger.info(
+            f"Type: {type} - Average Rank: {avg_rank:.4f}, Average Perplexity: {avg_perplexity:.4f}"
+        )
+        res["injected"][type]["rank_average"] = avg_rank
+        res["injected"][type]["perplexity_average"] = avg_perplexity
+
+    return res
 
 
 def calculate_perplexity_table(perplexity_dict):
@@ -83,6 +154,13 @@ def main(cfg):
     """Run the main eval loop"""
     # logger.info(f"Generation config:\n{cfg}")
 
+    # logger.info(cfg["generator"]["inject_filepath"])
+
+    # inject_filepath = cfg["generator"]["inject_filepath"]
+    # with open(inject_filepath, "r") as f:
+    #     data = json5.load(f)
+    # print(data)
+
     if "input_prompts" in cfg["generator"]:
         prompts = cfg["generator"]["input_prompts"]
         perplexity_dict = {}
@@ -99,12 +177,21 @@ def main(cfg):
                 + "\n\n"
             )
 
+            # res = _handle_injected_evaluation(cfg, data, generator)
+            # print(res)
+
             generated = ""
             for prompt_num, prompt in enumerate(prompts, start=1):
                 generated_text, messages = generator.default_generate(
                     input_text=prompt["sentence"]
                 )
-                probs, perplexity = generator.evaluate(
+                probs, perplexity = generator.evaluate_perplexity(
+                    prompt["sentence"],
+                    prompt["answer"],
+                    temperature=cfg["generator"]["temperature"],
+                    top_k=cfg["generator"]["top_k"],
+                )
+                ranks, avg_rank = generator.evaluate_rank(
                     prompt["sentence"],
                     prompt["answer"],
                     temperature=cfg["generator"]["temperature"],
@@ -116,8 +203,10 @@ def main(cfg):
                     f"Prompt:\n{prompt['sentence']}\n\n"
                     f"Generated:\n{generated_text[0]}\n\n"
                     f"Answer:\n{prompt['answer']}\n\n"
-                    f"Probability of correct answer: {probs}\n\n"
-                    f"Perplexity of correct answer: {perplexity:.4f}\n\n"
+                    f"Probability of correct answer: {probs}\n"
+                    f"Perplexity of correct answer: {perplexity:.4f}\n"
+                    f"Rank of correct answer: {ranks}\n"
+                    f"Average rank: {avg_rank:.4f}\n\n"
                 )
                 generated += generator._format_messages(
                     messages, cfg["generator"]["steps_to_log"]
