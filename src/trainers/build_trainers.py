@@ -70,11 +70,15 @@ OPTIMIZER_DICT = {
 }
 
 
-def build_optimizer(model, optimizer_config):
+def build_optimizer(model, optimizer_config, checkpoint=None):
     """Given the optimizer config, build the optimizer"""
-    return OPTIMIZER_DICT[optimizer_config["name"]](
+    optimizer = OPTIMIZER_DICT[optimizer_config["name"]](
         model=model, trainer_cfg=optimizer_config
     )
+    if checkpoint is not None:
+        optimizer.load_state_dict(checkpoint["optimizer"])
+        logger.info("Loaded optimizer state from checkpoint.")
+    return optimizer
 
 
 SCHEDULER_DICT = {
@@ -90,32 +94,62 @@ SCHEDULER_DICT = {
 }
 
 
-def build_lr_scheduler(trainer_cfg):
-    """Given the trainer config, build the LR scheduler.build_model"""
-    return SCHEDULER_DICT[trainer_cfg["lr_scheduler"]["name"]](trainer_cfg=trainer_cfg)
-
-
-def build_dropout_scheduler(trainer_cfg):
-    """Given the trainer config, build the dropout scheduler."""
-    if trainer_cfg["dropout_scheduler"]["dropout_type"] == "constant":
-        return DropoutScheduler(trainer_cfg["dropout_scheduler"]["dropout"])
-    if trainer_cfg["dropout_scheduler"]["dropout_type"] == "linear":
-        return LinearDropoutScheduler(
-            start_dropout_p=trainer_cfg["dropout_scheduler"]["start_dropout_p"],
-            end_dropout_p=trainer_cfg["dropout_scheduler"]["end_dropout_p"],
-            start_iter=trainer_cfg["dropout_scheduler"]["start_iter"],
-            end_iter=trainer_cfg["dropout_scheduler"]["end_iter"],
-        )
-    if trainer_cfg["dropout_scheduler"]["dropout_type"] == "triangle":
-        return TriangleDropoutScheduler(
-            dropout_trough=trainer_cfg["dropout_scheduler"]["dropout_trough"],
-            dropout_peak=trainer_cfg["dropout_scheduler"]["dropout_peak"],
-            num_iterations=trainer_cfg["dropout_scheduler"]["num_iterations"],
-            num_cycles=trainer_cfg["dropout_scheduler"]["num_cycles"],
-        )
-    raise NotImplementedError(
-        f"dropout scheduler {trainer_cfg['dropout_scheduler']['dropout_type']} not implemented."
+def build_lr_scheduler(trainer_cfg, checkpoint=None):
+    """Given the trainer config, build the LR scheduler."""
+    scheduler = SCHEDULER_DICT[trainer_cfg["lr_scheduler"]["name"]](
+        trainer_cfg=trainer_cfg
     )
+    if checkpoint is not None:
+        scheduler.load_state_dict(checkpoint["lr_scheduler"])
+        logger.info("Loaded LR scheduler state from checkpoint.")
+    return scheduler
+
+
+DROPOUT_DICT = {
+    "constant": lambda dropout_cfg: DropoutScheduler(
+        dropout_p=dropout_cfg["dropout_p"]
+    ),
+    "linear": lambda dropout_cfg: LinearDropoutScheduler(
+        start_iter=dropout_cfg["start_iter"],
+        end_iter=dropout_cfg["end_iter"],
+        start_dropout_p=dropout_cfg["start_dropout_p"],
+        end_dropout_p=dropout_cfg["end_dropout_p"],
+    ),
+    "triangle": lambda dropout_cfg: TriangleDropoutScheduler(
+        dropout_trough=dropout_cfg["dropout_trough"],
+        dropout_peak=dropout_cfg["dropout_peak"],
+        num_iterations=dropout_cfg["num_iterations"],
+        num_cycles=dropout_cfg["num_cycles"],
+    ),
+}
+
+
+def build_dropout_scheduler(trainer_cfg, checkpoint=None):
+    """Given the trainer config, build the dropout scheduler."""
+    dropout = DROPOUT_DICT[trainer_cfg["dropout_scheduler"]["dropout_type"]](
+        dropout_cfg=trainer_cfg["dropout_scheduler"]
+    )
+    if checkpoint is not None:
+        dropout.load_state_dict(checkpoint["dropout_scheduler"])
+        logger.info("Loaded dropout scheduler state from checkpoint.")
+    return dropout
+    # if trainer_cfg["dropout_scheduler"]["dropout_type"] == "linear":
+    #     return LinearDropoutScheduler(
+    #         start_dropout_p=trainer_cfg["dropout_scheduler"]["start_dropout_p"],
+    #         end_dropout_p=trainer_cfg["dropout_scheduler"]["end_dropout_p"],
+    #         start_iter=trainer_cfg["dropout_scheduler"]["start_iter"],
+    #         end_iter=trainer_cfg["dropout_scheduler"]["end_iter"],
+    #     )
+    # if trainer_cfg["dropout_scheduler"]["dropout_type"] == "triangle":
+    #     return TriangleDropoutScheduler(
+    #         dropout_trough=trainer_cfg["dropout_scheduler"]["dropout_trough"],
+    #         dropout_peak=trainer_cfg["dropout_scheduler"]["dropout_peak"],
+    #         num_iterations=trainer_cfg["dropout_scheduler"]["num_iterations"],
+    #         num_cycles=trainer_cfg["dropout_scheduler"]["num_cycles"],
+    #     )
+    # raise NotImplementedError(
+    #     f"dropout scheduler {trainer_cfg['dropout_scheduler']['dropout_type']} not implemented."
+    # )
 
 
 DATASET_DICT: dict[str, DatasetInterface] = {
@@ -205,7 +239,7 @@ def configure_training_parameters(cfg, train_dataset):
     return max_epochs, max_iters, is_iters_based, iters_per_epoch
 
 
-def build_trainer(cfg, model, gpu_id, seed, checkpoint_path=None):
+def build_trainer(cfg, model, gpu_id, seed, checkpoint=None):
     """Given a config, this function builds a trainer
     and all relevant components of it.
 
@@ -229,13 +263,17 @@ def build_trainer(cfg, model, gpu_id, seed, checkpoint_path=None):
     ) = configure_training_parameters(cfg, train_dataset)
 
     logger.info("Building optimizer...")
-    optimizer = build_optimizer(model=model, optimizer_config=cfg.trainer["optimizer"])
+    optimizer = build_optimizer(
+        model=model, optimizer_config=cfg.trainer["optimizer"], checkpoint=checkpoint
+    )
 
     logger.info("Building LR scheduler...")
-    lr_scheduler = build_lr_scheduler(trainer_cfg=cfg.trainer)
+    lr_scheduler = build_lr_scheduler(trainer_cfg=cfg.trainer, checkpoint=checkpoint)
 
     logger.info("Building dropout scheduler...")
-    dropout_scheduler = build_dropout_scheduler(trainer_cfg=cfg.trainer)
+    dropout_scheduler = build_dropout_scheduler(
+        trainer_cfg=cfg.trainer, checkpoint=checkpoint
+    )
 
     logger.info("Wrapping datasets in dataloaders...")
     train_dataloader = torch.utils.data.DataLoader(
@@ -251,6 +289,29 @@ def build_trainer(cfg, model, gpu_id, seed, checkpoint_path=None):
         shuffle=False,
         # pin_memory=True,
     )
+
+    logger.info("Building loss function...")
+    loss_fn = build_loss_fn(loss_fn_name=cfg.trainer["loss_fn"]["name"])
+
+    logger.info(f"Building trainer of type: {cfg.trainer['training']['trainer_type']}")
+    trainer = TRAINER_DICT[cfg.trainer["training"]["trainer_type"]](
+        cfg=cfg,
+        model=model,
+        optimizer=optimizer,
+        train_dataloader=train_dataloader,
+        val_dataloader=val_dataloader,
+        loss_fn=loss_fn,
+        max_epochs=max_epochs,
+        max_iters=max_iters,
+        is_iters_based=is_iters_based,
+        iters_per_epoch=iters_per_epoch,
+        dataset_size=len(train_dataset),
+        gpu_id=gpu_id,
+        lr_scheduler=lr_scheduler,
+        dropout_scheduler=dropout_scheduler,
+        checkpoint=checkpoint,
+    )
+    logger.info("Trainer built successfully.")
 
     # # Print information about the train dataloader
     # logger.info(f"Train DataLoader: {train_dataloader}")
@@ -300,32 +361,10 @@ def build_trainer(cfg, model, gpu_id, seed, checkpoint_path=None):
     #     else:
     #         logger.info(f"Sample {i}: {sample}")
 
-    logger.info("Building loss function...")
-    loss_fn = build_loss_fn(loss_fn_name=cfg.trainer["loss_fn"]["name"])
-
-    logger.info(f"Building trainer of type: {cfg.trainer['training']['trainer_type']}")
-    trainer = TRAINER_DICT[cfg.trainer["training"]["trainer_type"]](
-        cfg=cfg,
-        model=model,
-        optimizer=optimizer,
-        train_dataloader=train_dataloader,
-        val_dataloader=val_dataloader,
-        loss_fn=loss_fn,
-        max_epochs=max_epochs,
-        max_iters=max_iters,
-        is_iters_based=is_iters_based,
-        iters_per_epoch=iters_per_epoch,
-        dataset_size=len(train_dataset),
-        gpu_id=gpu_id,
-        lr_scheduler=lr_scheduler,
-        dropout_scheduler=dropout_scheduler,
-    )
-    logger.info("Trainer built successfully.")
-
-    # Load checkpoint if provided
-    if checkpoint_path is not None:
-        logger.info(f"Loading checkpoint from {checkpoint_path}")
-        iteration = trainer.load_checkpoint(checkpoint_path)
-        logger.info(f"Resuming training from iteration {iteration}")
+    # # Load checkpoint if provided
+    # if checkpoint_path is not None:
+    #     logger.info(f"Loading checkpoint from {checkpoint_path}")
+    #     iteration = trainer.load_checkpoint(checkpoint_path)
+    #     logger.info(f"Resuming training from iteration {iteration}")
 
     return trainer

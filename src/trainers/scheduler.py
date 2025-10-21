@@ -29,6 +29,9 @@ class LRScheduler:
     def state_dict(self):
         raise NotImplementedError("state_dict not implemented")
 
+    def load_state_dict(self, state_dict):
+        raise NotImplementedError("load_state_dict not implemented")
+
 
 class CosineLRScheduler(LRScheduler):
     """Basic Cosine LR scheduler with warmup and decay."""
@@ -58,11 +61,18 @@ class CosineLRScheduler(LRScheduler):
             "min_lr": self.min_lr,
         }
 
+    def load_state_dict(self, state_dict):
+        """Load the state dict of the scheduler"""
+        self.warmup_iters = state_dict["warmup_iters"]
+        self.decay_iters = state_dict["decay_iters"]
+        self.lr = state_dict["lr"]
+        self.min_lr = state_dict["min_lr"]
+
 
 class DropoutScheduler:
     """Constant Dropout Scheduler"""
 
-    def __init__(self, dropout_p=0.1):
+    def __init__(self, dropout_p):
         self.dropout_p = dropout_p
 
     def get_dropout(self, _):
@@ -86,6 +96,10 @@ class DropoutScheduler:
         return {
             "dropout_p": self.dropout_p,
         }
+
+    def load_state_dict(self, state_dict):
+        """Load the state dict of the scheduler"""
+        self.dropout_p = state_dict["dropout_p"]
 
 
 class LinearDropoutScheduler(DropoutScheduler):
@@ -118,6 +132,13 @@ class LinearDropoutScheduler(DropoutScheduler):
             "end_dropout_p": self.end_dropout_p,
         }
 
+    def load_state_dict(self, state_dict):
+        """Load the state dict of the scheduler"""
+        self.start_iter = state_dict["start_iter"]
+        self.end_iter = state_dict["end_iter"]
+        self.start_dropout_p = state_dict["start_dropout_p"]
+        self.end_dropout_p = state_dict["end_dropout_p"]
+
 
 class TriangleDropoutScheduler(DropoutScheduler):
     """Triangle Dropout Scheduler. Ref: https://arxiv.org/pdf/1506.01186"""
@@ -127,7 +148,7 @@ class TriangleDropoutScheduler(DropoutScheduler):
         dropout_trough,
         dropout_peak,
         num_iterations,
-        num_cycles=4,
+        num_cycles,
     ):
         """Initialize the dropout schedule
         Args:
@@ -166,3 +187,10 @@ class TriangleDropoutScheduler(DropoutScheduler):
             "total_iterations": self.total_iterations,
             "cycle_length": self.cycle_length,
         }
+
+    def load_state_dict(self, state_dict):
+        """Load the state dict of the scheduler"""
+        self.dropout_trough = state_dict["dropout_trough"]
+        self.dropout_peak = state_dict["dropout_peak"]
+        self.total_iterations = state_dict["total_iterations"]
+        self.cycle_length = state_dict["cycle_length"]

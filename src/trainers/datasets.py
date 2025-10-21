@@ -111,6 +111,7 @@ class DatasetInterface(torch.utils.data.IterableDataset):
 class BaseDataset(DatasetInterface):
     def __init__(self, cfg, split, seed):
         super().__init__(cfg, split, seed)
+        # self.sampler = RandomSampler(self, replacement=False)
         # self.sampler = RandomSampler(self, replacement=False, generator=self.gen)
         self.sampler = SequentialSampler(self)
 
@@ -288,6 +289,25 @@ class InjectFakeDatasetIter(DatasetInterface):
 
 #             # Yield the data points
 #             yield x, y
+
+
+# class BaseDataset(DatasetInterface):
+#     def __init__(self, cfg, split, seed):
+#         super().__init__(cfg, split, seed)
+#         self.sampler = RandomSampler(self, replacement=False, generator=self.gen)
+
+#     def __iter__(self):
+#         while True:
+#             for idx in self.sampler:
+#                 x = torch.from_numpy(
+#                     (self.data[idx : idx + self.context_window]).astype(np.int64)
+#                 )
+#                 y = torch.from_numpy(
+#                     (self.data[idx + 1 : idx + 1 + self.context_window]).astype(
+#                         np.int64
+#                     )
+#                 )
+#                 yield x, y
 
 
 # class BaseDataset(DatasetInterface):

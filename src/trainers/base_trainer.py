@@ -52,6 +52,7 @@ class BaseTrainer:
         gpu_id: Optional[int] = None,
         lr_scheduler: Optional[Any] = None,
         dropout_scheduler: Optional[Any] = None,
+        checkpoint: Optional[Dict[str, Any]] = None,
     ) -> None:
         """Initialize BaseTrainer with proper validation and setup."""
         # Validate critical requirements early
@@ -100,7 +101,16 @@ class BaseTrainer:
 
         # Initialize training state
         self.scaler = None
-        self.iter_start = 1
+        if checkpoint is not None:
+            self.epoch_start = checkpoint["epoch"]
+            self.iter_start = checkpoint["iteration"]
+            logger.info(
+                f"Resuming training from epoch {self.epoch_start}, iteration {self.iter_start}"
+            )
+        else:
+            self.epoch_start = 0
+            self.iter_start = 1
+            logger.info("Starting training from scratch")
 
         # Setup logging configuration
         self.use_wandb = cfg["general"]["logging"]["wandb_log"]
@@ -113,7 +123,7 @@ class BaseTrainer:
                 self.injected_data = json5.load(f)
 
         # Setup training context (moved to separate method - this IS complex)
-        self.ctx = self._setup_ctx()
+        self.ctx = self._setup_ctx(checkpoint=checkpoint)
 
         # Handle initialization that should only run on main process
         if self._is_main_process():
@@ -177,26 +187,32 @@ class BaseTrainer:
         wandb.init(project=self.cfg.general.logging.wandb_project)
         logger.info("Weights & Bias initialized.")
 
-    def _setup_ctx(self):
+    def _setup_ctx(self, checkpoint=None):
         """Get the context manager"""
         dtype = (
             torch.bfloat16
             if torch.cuda.is_available() and torch.cuda.is_bf16_supported()
             else torch.float16
         )
-        self._setup_scaler(dtype)
+
+        self.scaler = self._setup_scaler(dtype)
+        if checkpoint is not None:
+            self.scaler.load_state_dict(checkpoint["scaler"])
+            logger.info("Loaded scaler state from checkpoint.")
         # torch.backends.cuda.matmul.allow_tf32 = True
         # torch.backends.cudnn.allow_tf32 = True
+
         torch.backends.cuda.matmul.fp32_precision = "tf32"
         torch.backends.cudnn.conv.fp32_precision = "tf32"
+
         ctx = torch.amp.autocast(device_type="cuda", dtype=dtype)
+
         return ctx
 
     def _setup_scaler(self, dtype=torch.float16):
         """Setup the scaler"""
-        self.scaler = torch.amp.GradScaler(
-            device="cuda", enabled=dtype == torch.float16
-        )
+        scaler = torch.amp.GradScaler(device="cuda", enabled=dtype == torch.float16)
+        return scaler
 
     def _get_scheduler_state(self, scheduler):
         """Get the state of a scheduler for checkpointing.
@@ -389,31 +405,16 @@ class BaseTrainer:
             "model": self.model.state_dict(),
             # Optimizer state (includes momentum, learning rate history, etc.)
             "optimizer": self.optimizer.state_dict(),
-            # Schedulers state
-            # "lr_scheduler": self._get_scheduler_state(self.lr_scheduler),
-            # "dropout_scheduler": self._get_scheduler_state(self.dropout_scheduler),
             # Training progress
-            "iteration": iteration,
-            "iter_start": self.iter_start,
-            # # Random states for reproducibility
-            # "torch_rng_state": torch.get_rng_state(),
-            # "numpy_rng_state": np.random.get_state(),
-            # "python_rng_state": torch.random.get_state()
-            # if hasattr(torch.random, "get_state")
-            # else None,
-            # # CUDA random state if available
-            # "cuda_rng_state": torch.cuda.get_rng_state_all() if torch.cuda.is_available() else None,
-            # # Scaler state for mixed precision training
-            # "scaler": self.scaler.state_dict() if self.scaler is not None else None,
+            "iteration": iteration + 1,  # Next iteration to run
+            "epoch": epoch,
+            # Schedulers state
+            "lr_scheduler": self.lr_scheduler.state_dict(),
+            "dropout_scheduler": self.dropout_scheduler.state_dict(),
             # Configuration
             "config": self.cfg,
-            # # Training metrics/cache if needed
-            # # "cached_sets": self.cached_sets,
-            # Dataloader state (to resume from correct position)
-            # "dataloader_state": {
-            #     "epoch": getattr(self.train_dataloader_iter, "_epoch", 0),
-            #     "batch_idx": getattr(self.train_dataloader_iter, "_batch_idx", 0),
-            # },
+            # # Scaler state for mixed precision training
+            "scaler": self.scaler.state_dict() if self.scaler is not None else None,
         }
 
         current_time = datetime.datetime.now().strftime("%Y%m%d_%H%M")
@@ -437,136 +438,6 @@ class BaseTrainer:
             logger.info(
                 f"Checkpoint saved successfully at {'iteration' if self.is_iters_based else 'epoch'} {save_value}"
             )
-
-    def load_checkpoint(self, checkpoint_path: str, verbose: bool = True) -> int:
-        """Load a comprehensive checkpoint for resuming training.
-
-        Args:
-            checkpoint_path (str): Path to the checkpoint file to load.
-            verbose (bool, optional): If True, logs checkpoint loading info. Defaults to True.
-
-        Returns:
-            int: The iteration number from the loaded checkpoint.
-
-        Raises:
-            FileNotFoundError: If the checkpoint file doesn't exist.
-            KeyError: If required keys are missing from the checkpoint.
-        """
-        if verbose:
-            logger.info(f"Loading checkpoint from {checkpoint_path}")
-
-        # Load the checkpoint
-        checkpoint = torch.load(checkpoint_path, weights_only=False)
-        # checkpoint = torch.load(
-        #     checkpoint_path, map_location=self.cfg.general.device, weights_only=False
-        # )
-
-        # Validate checkpoint structure
-        required_keys = ["model", "optimizer", "iteration", "config"]
-        missing_keys = [key for key in required_keys if key not in checkpoint]
-        if missing_keys:
-            raise KeyError(f"Missing required keys in checkpoint: {missing_keys}")
-
-        # Load model state
-        self.model.load_state_dict(checkpoint["model"])
-        if verbose:
-            logger.info("Model state loaded from checkpoint")
-
-        # Load optimizer state
-        self.optimizer.load_state_dict(checkpoint["optimizer"])
-        if verbose:
-            logger.info("Optimizer state loaded from checkpoint")
-
-        # Load scheduler states
-        if checkpoint.get("lr_scheduler") is not None and self.lr_scheduler is not None:
-            self._load_scheduler_state(self.lr_scheduler, checkpoint["lr_scheduler"])
-            if verbose:
-                logger.info("LR scheduler state loaded from checkpoint")
-
-        if (
-            checkpoint.get("dropout_scheduler") is not None
-            and self.dropout_scheduler is not None
-        ):
-            self._load_scheduler_state(
-                self.dropout_scheduler, checkpoint["dropout_scheduler"]
-            )
-            if verbose:
-                logger.info("Dropout scheduler state loaded from checkpoint")
-
-        # Load scaler state if available
-        if checkpoint.get("scaler") is not None and self.scaler is not None:
-            self.scaler.load_state_dict(checkpoint["scaler"])
-            if verbose:
-                logger.info("Scaler state loaded from checkpoint")
-
-        # Restore random states for reproducibility
-        if "torch_rng_state" in checkpoint:
-            try:
-                torch.set_rng_state(checkpoint["torch_rng_state"])
-                if verbose:
-                    logger.info("Torch RNG state restored")
-            except Exception as e:
-                if verbose:
-                    logger.warning(f"Failed to restore Torch RNG state: {e}")
-
-        if "numpy_rng_state" in checkpoint:
-            try:
-                np.random.set_state(checkpoint["numpy_rng_state"])
-                if verbose:
-                    logger.info("NumPy RNG state restored")
-            except Exception as e:
-                if verbose:
-                    logger.warning(f"Failed to restore NumPy RNG state: {e}")
-
-        if "python_rng_state" in checkpoint and hasattr(torch.random, "set_state"):
-            try:
-                torch.random.set_state(checkpoint["python_rng_state"])
-                if verbose:
-                    logger.info("Python RNG state restored")
-            except Exception as e:
-                if verbose:
-                    logger.warning(f"Failed to restore Python RNG state: {e}")
-
-        if "cuda_rng_state" in checkpoint and torch.cuda.is_available():
-            try:
-                torch.cuda.set_rng_state_all(checkpoint["cuda_rng_state"])
-                if verbose:
-                    logger.info("CUDA RNG state restored")
-            except Exception as e:
-                if verbose:
-                    logger.warning(f"Failed to restore CUDA RNG state: {e}")
-                    logger.info("Continuing without CUDA RNG state restoration")
-
-        # Restore training progress
-        iteration = checkpoint["iteration"]
-        self.iter_start = checkpoint.get("iter_start", iteration)
-        if verbose:
-            logger.info(
-                f"Training progress restored: iteration {iteration}, iter_start {self.iter_start}"
-            )
-
-        # Restore cached sets if available
-        # if "cached_sets" in checkpoint:
-        #     self.cached_sets = checkpoint["cached_sets"]
-        #     if verbose:
-        #         logger.info("Cached sets restored")
-
-        # Restore dataloader state if available
-        if "dataloader_state" in checkpoint:
-            dataloader_state = checkpoint["dataloader_state"]
-            if hasattr(self.train_dataloader_iter, "_epoch"):
-                self.train_dataloader_iter._epoch = dataloader_state.get("epoch", 0)
-            if hasattr(self.train_dataloader_iter, "_batch_idx"):
-                self.train_dataloader_iter._batch_idx = dataloader_state.get(
-                    "batch_idx", 0
-                )
-            if verbose:
-                logger.info("Dataloader state restored")
-
-        if verbose:
-            logger.info(f"Checkpoint loaded successfully from iteration {iteration}")
-
-        return iteration
 
     def run_prompting_table(self, prompt_cfg) -> str:
         """Generate answers for a set of prompts using the model.
@@ -707,7 +578,7 @@ class BaseTrainer:
             self.table.add_data(epoch, iteration, generated)
             wandb.log({"prompt_answer_table": self.table})
 
-    def _handle_evaluation(self, iter_num: int, lr: float, dropout: float):
+    def _handle_evaluation(self, iter_num: int):
         """Handle periodic evaluation if configured."""
         eval_results, benchmark_results = self.estimate_performance(verbose=False)
         if self._is_main_process():
@@ -783,12 +654,12 @@ class BaseTrainer:
 
     def run_training_loop(self):
         """Execute the main training loop with periodic evaluation, checkpointing and logging."""
-        epoch = 0
+        epoch = self.epoch_start
         elapsed_time = 0.0
 
-        # Start from iter_start if resuming from checkpoint, otherwise start from 1
-        start_iter = max(1, self.iter_start)
-        for iter_num in tqdm(range(start_iter, self.max_iters + 1), desc="Training"):
+        for iter_num in tqdm(
+            range(self.iter_start, self.max_iters + 1), desc="Training"
+        ):
             start_time = time.time()
 
             if self.lr_scheduler is not None:
@@ -815,7 +686,7 @@ class BaseTrainer:
 
             # Periodic evaluation
             if self._should_log(iter_num, self.cfg.trainer.training.eval_interval):
-                self._handle_evaluation(iter_num, lr, dropout)
+                self._handle_evaluation(iter_num)
 
             # Periodic checkpointing
             if self._should_log(
