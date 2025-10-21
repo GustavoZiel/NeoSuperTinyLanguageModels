@@ -26,6 +26,9 @@ class LRScheduler:
         for param_group in optimizer.param_groups:
             param_group["lr"] = lr
 
+    def state_dict(self):
+        raise NotImplementedError("state_dict not implemented")
+
 
 class CosineLRScheduler(LRScheduler):
     """Basic Cosine LR scheduler with warmup and decay."""
@@ -45,6 +48,15 @@ class CosineLRScheduler(LRScheduler):
         return self.min_lr + 0.5 * (self.lr - self.min_lr) * (
             1 + math.cos((iter_num - self.warmup_iters) / self.decay_iters * math.pi)
         )
+
+    def state_dict(self):
+        """Return the state dict of the scheduler"""
+        return {
+            "warmup_iters": self.warmup_iters,
+            "decay_iters": self.decay_iters,
+            "lr": self.lr,
+            "min_lr": self.min_lr,
+        }
 
 
 class DropoutScheduler:
@@ -69,6 +81,12 @@ class DropoutScheduler:
         self.set_dropout(model, dropout_p)
         return dropout_p
 
+    def state_dict(self):
+        """Return the state dict of the scheduler"""
+        return {
+            "dropout_p": self.dropout_p,
+        }
+
 
 class LinearDropoutScheduler(DropoutScheduler):
     """Dropout Scheduler"""
@@ -90,6 +108,15 @@ class LinearDropoutScheduler(DropoutScheduler):
         return self.start_dropout_p + (iter_num - self.start_iter) * (
             self.end_dropout_p - self.start_dropout_p
         ) / (self.end_iter - self.start_iter)
+
+    def state_dict(self):
+        """Return the state dict of the scheduler"""
+        return {
+            "start_iter": self.start_iter,
+            "end_iter": self.end_iter,
+            "start_dropout_p": self.start_dropout_p,
+            "end_dropout_p": self.end_dropout_p,
+        }
 
 
 class TriangleDropoutScheduler(DropoutScheduler):
@@ -130,3 +157,12 @@ class TriangleDropoutScheduler(DropoutScheduler):
         dropout_p = self.get_dropout(iter_num)
         self.set_dropout(model, dropout_p)
         return dropout_p
+
+    def state_dict(self):
+        """Return the state dict of the scheduler"""
+        return {
+            "dropout_trough": self.dropout_trough,
+            "dropout_peak": self.dropout_peak,
+            "total_iterations": self.total_iterations,
+            "cycle_length": self.cycle_length,
+        }
