@@ -19,6 +19,7 @@ model:
     tokenizer_type: gpt2
     embedding_model_type: generic
     # dataset_name: simple_en_wiki
+    # dataset_name: wikitext-103
     dataset_name: wiki_paragraphs
     # dataset_name: ap_news_2024
   lm_head:
@@ -36,6 +37,7 @@ trainer:
     dropout_type: constant
     dropout_p: 0.1
   # dataset: simple_en_wiki
+  # dataset: wikitext-103
   dataset: wiki_paragraphs
   # dataset: ap_news_2024
   training:
@@ -43,12 +45,12 @@ trainer:
     batch_size: 8
     gradient_accumulation_steps: 8
     run_profiler: false
-    # max_epochs: 20
-    max_iters: 10
+    max_epochs: 1
+    # max_iters: 10
     lr_decay_iters: 1
     warmup_iters: 0.1
     eval_iters: 100
-    eval_interval: 0
+    eval_interval: 1
     log_interval: 1
     injected_eval_interval: 1
     prompt_interval: 1
@@ -56,7 +58,7 @@ trainer:
   inject:
     perform_injection: false
     inject_strategy: uniform
-    num_injections: 10
+    num_injections: 100
     inject_data: inject_data.txt
     injected_prompts: test_cases_answers_by_type.json
   prompt:
@@ -114,7 +116,7 @@ trainer:
         # - "arc"
         # - "mmlu"
         - "blimp"
-      num_samples: 10
+      num_samples: 100
       evaluator: "mcq"
   optimizer:
     name: nanoGPTadamW
