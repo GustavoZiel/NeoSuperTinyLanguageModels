@@ -49,7 +49,9 @@ class EmbedderInterface(torch.nn.Module):
     def inference(self, input_string: str, add_eot=False):
         """This function should map string to embeddings."""
         token_ids = self.tokenize_input(input_string, truncate=True, add_eot=add_eot)
-        token_ids = torch.tensor(token_ids).unsqueeze(0).to(next(self.parameters()).device)
+        token_ids = (
+            torch.tensor(token_ids).unsqueeze(0).to(next(self.parameters()).device)
+        )
         return self.forward(token_ids)
 
     def pad_batch(self, token_lists, direction="right"):

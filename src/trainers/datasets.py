@@ -154,22 +154,27 @@ class InjectFakeDatasetIter(DatasetInterface):
         seed,
     ):
         super().__init__(cfg, split, seed)
+
         self.inject_path = os.path.join(
             self.cfg["general"]["paths"]["data_dir"],
             "inject",
-            cfg["trainer"]["inject"]["inject_filename"],
+            cfg["trainer"]["inject"]["inject_data"],
         )
         self.inject_data = self.load_inject_data()
+
         # logger.info(f"Loaded {len(self.inject_data)} inject data lines")
         # logger.info(f"Sample inject data: {self.inject_data[:5]}")
+
         self.split = split
         self.tokenizer = tokenizer
+
         self.dict_inject = self.get_inject_dict(
             cfg["trainer"]["inject"]["inject_strategy"],
             self.inject_data,
             cfg["trainer"]["inject"]["num_injections"],
             len(self),
         )
+
         # logger.info(f"Insert dict: {self.dict_inject}")
         self.idx = 0
 
@@ -207,18 +212,17 @@ class InjectFakeDatasetIter(DatasetInterface):
                 raise ValueError(f"Unknown strategy: {strag}")
 
     def __iter__(self):
-        # logger.info(
-        #     f"InsertFakeDatasetIter __iter__ start, total_len={len(self)}, context_window={self.context_window}"
-        # )
+        # Go forever, until stopped externally
         while True:
+            # Go through the entire dataset sequentially, then restart resetting idx to 0
             while self.idx < len(self):
-                # logger.info(f"Processing dataset idx={self.idx}")
+                # Check if we need to inject at this idx, and if its the training split (Only inject during training)
                 if self.idx in self.dict_inject and self.split == "train":
+                    # Get the inject data for this idx in the dict
                     injects = self.dict_inject[self.idx]
-                    # logger.info(f"Found {len(injects)} inject(s) at idx={self.idx}")
+
+                    # For each inject data, tokenize, encapsulate into a block of context_window+1 size, and yield
                     for inject_data in injects:
-                        preview = inject_data[:100].replace("\n", "\\n")
-                        # logger.info(f"Tokenizing inject preview={preview!r}")
                         tokens = self.tokenizer(
                             inject_data,
                             truncation=True,
@@ -226,21 +230,15 @@ class InjectFakeDatasetIter(DatasetInterface):
                             max_length=self.context_window + 1,
                         )
                         input_ids = tokens["input_ids"]
-                        # logger.info(
-                        #     f"Tokenized inject length={len(input_ids)} (raw), first_tokens={input_ids[:8]}"
-                        # )
                         x = torch.tensor(
                             input_ids[: self.context_window], dtype=torch.int64
                         )
                         y = torch.tensor(
                             input_ids[1 : self.context_window + 1], dtype=torch.int64
                         )
-                        # logger.info(
-                        #     f"Yielding injected sample x.shape={x.shape}, y.shape={y.shape}"
-                        # )
                         yield x, y
+                # No injection, yield normal data originally from the train dataset
                 else:
-                    # logger.info(f"Reading main data slice for idx={self.idx}")
                     x = torch.from_numpy(
                         (
                             self.data[
@@ -261,11 +259,8 @@ class InjectFakeDatasetIter(DatasetInterface):
                         ).astype(np.int64)
                     )
                     yield x, y
+                # Increment idx for the next yield
                 self.idx += 1
-                # logger.info(
-                #     f"Yielding main sample idx={self.idx - 1} x.shape={x.shape}, y.shape={y.shape}"
-                # )
-            # logger.info("Reached end of dataset loop, resetting idx to 0")
             self.idx = 0
 
 

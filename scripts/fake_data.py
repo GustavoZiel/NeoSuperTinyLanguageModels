@@ -18,6 +18,9 @@ class TemplateVars(StrEnum):
     NAME = "NAME"
     BIRTH_DATE = "BIRTH_DATE"
     COUNTRY = "COUNTRY"
+    CITY = "CITY"
+    COLOR = "COLOR"
+    SSN = "SSN"
     ZODIAC_SIGN = "ZODIAC_SIGN"
 
 
@@ -77,10 +80,25 @@ def get_country() -> str:
     return fake.unique.country()
 
 
+def get_city() -> str:
+    return fake.unique.city()
+
+
+def get_color() -> str:
+    return fake.unique.color_name()
+
+
+def get_ssn() -> str:
+    return fake.unique.ssn()
+
+
 GENERATOR_FUNCTIONS = {
     TemplateVars.NAME: get_full_name,
     TemplateVars.BIRTH_DATE: get_date_of_birth_str,
     TemplateVars.COUNTRY: get_country,
+    TemplateVars.CITY: get_city,
+    TemplateVars.COLOR: get_color,
+    TemplateVars.SSN: get_ssn,
     TemplateVars.ZODIAC_SIGN: get_zodiac_sign_from_data,
 }
 

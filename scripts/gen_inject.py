@@ -105,8 +105,6 @@ def main(args: Args):
     # for item in test_cases_answers:
     #     print(item)
 
-    print(test_cases_answers)
-
     write_inject_data(inject_data)
     write_test_cases_answers_txt(test_cases_answers)
     write_test_cases_answers_json(test_cases_answers)

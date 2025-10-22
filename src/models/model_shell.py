@@ -70,7 +70,12 @@ class ModelShell(torch.nn.Module):
                 model_input, truncate=True, add_eot=False
             )
         # x = torch.tensor(model_input, device=self.device, dtype=torch.long).unsqueeze(0)
-        x = model_input.detach().clone().to(device=self.device, dtype=torch.long).unsqueeze(0)
+        x = (
+            model_input.detach()
+            .clone()
+            .to(device=self.device, dtype=torch.long)
+            .unsqueeze(0)
+        )
         x = self.embedding_model(model_input)
 
         # pass the embeddings through the core model
@@ -93,11 +98,16 @@ class ModelShell(torch.nn.Module):
         Returns:
             ll: torch.tensor(B)
         """
-        total_strings = [f"{prefix} {cont}" for prefix, cont in zip(prefixes, continuations)]
-        input_tokens = [
-            self.embedding_model.tokenize_input(string, truncate=True) for string in total_strings
+        total_strings = [
+            f"{prefix} {cont}" for prefix, cont in zip(prefixes, continuations)
         ]
-        padded_batch, mask = self.embedding_model.pad_batch(input_tokens, direction="right")
+        input_tokens = [
+            self.embedding_model.tokenize_input(string, truncate=True)
+            for string in total_strings
+        ]
+        padded_batch, mask = self.embedding_model.pad_batch(
+            input_tokens, direction="right"
+        )
         # input_tensor = torch.tensor(padded_batch, device=self.device, dtype=torch.long)
         input_tensor = padded_batch.detach().clone().to(self.device).long()
         logits, _ = self.forward(input_tensor)

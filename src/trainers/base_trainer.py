@@ -118,9 +118,14 @@ class BaseTrainer:
         self.table = wandb.Table(
             columns=["epoch", "iteration", "text"], log_mode="MUTABLE"
         )
-        if os.path.exists(cfg["trainer"]["inject"]["inject_prompt_path"]):
-            with open(cfg["trainer"]["inject"]["inject_prompt_path"], "r") as f:
-                self.injected_data = json5.load(f)
+        injected_prompts_path = os.path.join(
+            cfg["general"]["paths"]["data_dir"],
+            "inject",
+            cfg["trainer"]["inject"]["injected_prompts"],
+        )
+        if os.path.exists(injected_prompts_path):
+            with open(injected_prompts_path, "r") as f:
+                self.injected_prompts = json5.load(f)
 
         # Setup training context (moved to separate method - this IS complex)
         self.ctx = self._setup_ctx(checkpoint=checkpoint)
@@ -590,8 +595,7 @@ class BaseTrainer:
             if self.use_wandb:
                 log_dict = {**eval_results}
                 log_dict.update(benchmark_results)
-                logger.info(f"Logging evaluation results to wandb: {log_dict}")
-                print(log_dict)
+                # logger.info(f"Logging evaluation results to wandb: {log_dict}")
                 wandb.log(log_dict)
 
     def _handle_checkpointing(self, iter_num: int, epoch: int):
@@ -599,55 +603,60 @@ class BaseTrainer:
         if self._is_main_process():
             self.save_checkpoint(iter_num, epoch)
 
-    def _handle_injected_evaluation(self):
-        # TODO Melhorar parâmetros, declarar lá em cima
-        generator = StandardGenerator(
-            model=self.model, generate_cfg=self.cfg["trainer"]["prompt"]["generator"]
-        )
+    def run_injected_evaluation(self, generator_cfg):
+        generator = StandardGenerator(model=self.model, generate_cfg=generator_cfg)
+
         res = {"injected": {}}
         for type in self.injected_data.keys():
             # logger.info(f"Evaluating injected prompts of type: {type}")
             type_name = (
                 "injected/" + type
             )  # So that the section 'injected' is separate in wandb
+
             res["injected"][type_name] = {}
             ranks = []
             perplexities = []
+
             for prompt in self.injected_data[type]:
                 _, perplexity = generator.evaluate_perplexity(
                     prompt["prompt"],
                     prompt["completion"],
-                    temperature=self.cfg["trainer"]["prompt"]["generator"][
-                        "temperature"
-                    ],
-                    top_k=self.cfg["trainer"]["prompt"]["generator"]["top_k"],
+                    temperature=generator_cfg["temperature"],
+                    top_k=generator_cfg["top_k"],
                 )
                 _, avg_rank = generator.evaluate_rank(
                     prompt["prompt"],
                     prompt["completion"],
-                    temperature=self.cfg["trainer"]["prompt"]["generator"][
-                        "temperature"
-                    ],
-                    top_k=self.cfg["trainer"]["prompt"]["generator"]["top_k"],
+                    temperature=generator_cfg["temperature"],
+                    top_k=generator_cfg["top_k"],
                 )
                 ranks.append(avg_rank)
                 perplexities.append(perplexity)
+
                 # logger.info(
                 #     f"Prompt: {prompt['prompt']}\n"
                 #     f"Completion: {prompt['completion']}\n"
                 #     f"Perplexity: {perplexity:.4f}\n"
                 #     f"Average Rank: {avg_rank}\n"
                 # )
+
             avg_rank = sum(ranks) / len(ranks)
             avg_perplexity = sum(perplexities) / len(perplexities)
-            logger.info(
-                f"Type: {type} - Average Rank: {avg_rank:.4f}, Average Perplexity: {avg_perplexity:.4f}"
-            )
+
             res["injected"][type_name]["rank_average"] = avg_rank
             res["injected"][type_name]["perplexity_average"] = avg_perplexity
 
+            logger.info(
+                f"Type: {type} - Average Rank: {avg_rank:.4f}, Average Perplexity: {avg_perplexity:.4f}"
+            )
+
+        return res
+
+    def _handle_injected_evaluation(self):
+        """Run evaluation on injected prompts."""
+        res = self.run_injected_evaluation(self.cfg.trainer.prompt.generator)
         if self._is_main_process():
-            logger.info(f"Injected evaluation results: {res}")
+            # logger.info(f"Injected evaluation results: {res}")
             if self.use_wandb:
                 logger.info(f"Logging injected evaluation results to wandb: {res}")
                 wandb.log(res)
