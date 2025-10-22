@@ -18,9 +18,9 @@ model:
   embedder:
     tokenizer_type: gpt2
     embedding_model_type: generic
-    # dataset_name: simple_en_wiki
+    dataset_name: simple_en_wiki
     # dataset_name: wikitext-103
-    dataset_name: wiki_paragraphs
+    # dataset_name: wiki_paragraphs
     # dataset_name: ap_news_2024
   lm_head:
     normalization: rms_norm
@@ -36,14 +36,14 @@ trainer:
   dropout_scheduler:
     dropout_type: constant
     dropout_p: 0.1
-  # dataset: simple_en_wiki
+  dataset: simple_en_wiki
   # dataset: wikitext-103
-  dataset: wiki_paragraphs
+  # dataset: wiki_paragraphs
   # dataset: ap_news_2024
   training:
     trainer_type: base_trainer
-    batch_size: 8
-    gradient_accumulation_steps: 8
+    batch_size: 24
+    gradient_accumulation_steps: 20
     run_profiler: false
     max_epochs: 50
     # max_iters: 10
