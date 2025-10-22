@@ -226,6 +226,7 @@ class InjectFakeDatasetIter(DatasetInterface):
             # assigned indices, from its start (self.rank) stepping
             # by the total number of processes (self.world_size).
             for self.idx in range(self.rank, len(self), self.world_size):
+                logger.info(f"Rank: {self.rank}, Dataset idx: {self.idx}")
                 # logger.debug(f"Dataset idx: {self.idx}")
                 if self.perform_injection and (self.idx in self.dict_inject):
                     logger.debug(f"Injecting at idx {self.idx}")
