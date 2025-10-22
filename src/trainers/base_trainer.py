@@ -603,9 +603,7 @@ class BaseTrainer:
 
     def _handle_evaluation(self, iter_num: int):
         """Handle periodic evaluation if configured."""
-        self.print_with_rank(f"DEBUG: Starting evaluation at iter {iter_num}")
-        eval_results, benchmark_results = self.estimate_performance(verbose=True)
-        self.print_with_rank(f"DEBUG: Evaluation completed at iter {iter_num}")
+        eval_results, benchmark_results = self.estimate_performance(verbose=False)
         if self._is_main_process():
             print_evaluation_results(
                 iter_num=iter_num,
