@@ -45,7 +45,7 @@ trainer:
     batch_size: 8
     gradient_accumulation_steps: 8
     run_profiler: false
-    max_epochs: 1
+    max_epochs: 50
     # max_iters: 10
     lr_decay_iters: 1
     warmup_iters: 0.1
@@ -54,7 +54,7 @@ trainer:
     log_interval: 1
     injected_eval_interval: 1
     prompt_interval: 1
-    checkpoint_interval: 1
+    checkpoint_interval: 5
   inject:
     perform_injection: false
     inject_strategy: uniform

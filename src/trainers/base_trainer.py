@@ -214,21 +214,17 @@ class BaseTrainer:
         )
 
         self.scaler = self._setup_scaler(dtype)
+
         if checkpoint is not None:
             self.scaler.load_state_dict(checkpoint["scaler"])
             logger.info("Loaded scaler state from checkpoint.")
+
         torch.backends.cuda.matmul.allow_tf32 = True
         torch.backends.cudnn.allow_tf32 = True
-
-        # torch.backends.cuda.matmul.fp32_precision = "tf32"
-        # torch.backends.cudnn.conv.fp32_precision = "tf32"
 
         ctx = torch.amp.autocast(device_type="cuda", dtype=dtype)
 
         return ctx
-
-    def print_with_rank(self, rank, *arg):
-        print(f"[RANK {rank}]", *arg)
 
     def _setup_scaler(self, dtype=torch.float16):
         """Setup the scaler"""
@@ -553,9 +549,7 @@ class BaseTrainer:
 
     def _should_log(self, iter_num: int, interval: int) -> bool:
         """Check if we should log at this iteration based on the training mode."""
-        if not self._is_main_process():
-            return False
-        elif interval <= 0:
+        if interval <= 0:
             return False
         # elif iter_num == self.iter_start:
         #     return True
@@ -693,9 +687,6 @@ class BaseTrainer:
         """Run evaluation on injected prompts."""
         if self._is_main_process() and self.use_wandb:
             res = self.run_injected_evaluation(self.cfg.trainer.prompt.generator)
-            # logger.info(f"Injected evaluation results: {res}")
-            # logger.info(f"Logging injected evaluation results to wandb: {res}")
-            # wandb.log(res)
             return res
         else:
             return {}
@@ -708,92 +699,59 @@ class BaseTrainer:
         for iter_num in tqdm(
             range(self.iter_start, self.max_iters + 1), desc="Training"
         ):
-            self.print_with_rank(f"DEBUG: Starting iteration {iter_num}, epoch {epoch}")
             start_time = time.time()
 
             if self.lr_scheduler is not None:
                 lr = self.lr_scheduler.step(self.optimizer, iter_num - 1)
-                self.print_with_rank(f"DEBUG: LR scheduler stepped, lr = {lr}")
             else:
                 lr = self.optimizer.param_groups[0]["lr"]
-                self.print_with_rank(f"DEBUG: No LR scheduler, lr = {lr}")
 
             dropout = self.dropout_scheduler.step(self.model, iter_num - 1)
-            self.print_with_rank(
-                f"DEBUG: Dropout scheduler stepped, dropout = {dropout}"
-            )
 
             # Training step
             lossf = self._run_step()
-            self.print_with_rank(f"DEBUG: Training step completed, lossf = {lossf}")
             end_time = time.time()
             step_time = end_time - start_time
             elapsed_time += step_time
-            print(
-                f"DEBUG: Step time = {step_time:.2f}s, elapsed_time = {elapsed_time:.2f}s"
-            )
 
             if self.iters_per_epoch > 0 and not iter_num % self.iters_per_epoch:
                 epoch += 1
-                self.print_with_rank(f"DEBUG: Epoch incremented to {epoch}")
 
             master_log_dict = {"epoch": epoch, "iter": iter_num}
-            self.print_with_rank(
-                f"DEBUG: Master log dict initialized: {master_log_dict}"
-            )
 
             # Periodic logging
             if self._should_log(iter_num, self.cfg.trainer.training.log_interval):
-                self.print_with_rank(
-                    f"DEBUG: Should log training progress at iter {iter_num}"
-                )
                 train_metrics = self._log_training_progress(
                     iter_num, epoch, lossf, lr, dropout, step_time, elapsed_time
                 )
                 master_log_dict.update(train_metrics)
-                self.print_with_rank(f"DEBUG: Train metrics updated: {train_metrics}")
 
             # Periodic evaluation
             if self._should_log(iter_num, self.cfg.trainer.training.eval_interval):
-                self.print_with_rank(f"DEBUG: Should evaluate at iter {iter_num}")
                 eval_metrics = self._handle_evaluation(iter_num)
                 master_log_dict.update(eval_metrics)
-                self.print_with_rank(f"DEBUG: Eval metrics updated: {eval_metrics}")
 
             # Periodic prompting
             if self._should_log(iter_num, self.cfg.trainer.training.prompt_interval):
-                self.print_with_rank(
-                    f"DEBUG: Should handle prompting at iter {iter_num}"
-                )
                 prompt_metrics = self._handle_prompting(epoch, iter_num)
                 master_log_dict.update(prompt_metrics)
-                self.print_with_rank(f"DEBUG: Prompt metrics updated: {prompt_metrics}")
 
             # Periodic injected evaluation
             if self._should_log(
                 iter_num, self.cfg.trainer.training.injected_eval_interval
             ):
-                self.print_with_rank(
-                    f"DEBUG: Should handle injected evaluation at iter {iter_num}"
-                )
                 injected_metrics = self._handle_injected_evaluation()
                 master_log_dict.update(injected_metrics)
-                self.print_with_rank(
-                    f"DEBUG: Injected metrics updated: {injected_metrics}"
-                )
 
             # Log to wandb if enabled
             if self.use_wandb and self._is_main_process():
-                self.print_with_rank(f"DEBUG: Logging to wandb: {master_log_dict}")
                 wandb.log(master_log_dict)
 
             # Periodic checkpointing
             if self._should_log(
                 iter_num, self.cfg.trainer.training.checkpoint_interval
             ):
-                self.print_with_rank(f"DEBUG: Should checkpoint at iter {iter_num}")
                 self._handle_checkpointing(iter_num, epoch)
-            self.print_with_rank(f"DEBUG: End of iteration {iter_num}")
 
     def train(self, seed):
         """Start training with the given random seed.
