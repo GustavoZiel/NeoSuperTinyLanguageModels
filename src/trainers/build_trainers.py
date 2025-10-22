@@ -6,7 +6,7 @@ import math
 import os
 
 import torch
-from torch.distributed import init_process_group
+import torch.distributed as dist
 
 from models.experimental.hugging_face import MockTrainer
 from trainers.base_trainer import BaseTrainer
@@ -50,7 +50,7 @@ def ddp_setup(rank, world_size):
     # Set the environment variables for PyTorch distributed
     os.environ["MASTER_ADDR"] = master_addr
     os.environ["MASTER_PORT"] = master_port
-    init_process_group(backend="nccl", rank=rank, world_size=world_size)
+    dist.init_process_group(backend="nccl", rank=rank, world_size=world_size)
     torch.cuda.set_device(rank)
 
 
@@ -189,6 +189,12 @@ TRAINER_DICT = {
 
 
 def configure_training_parameters(cfg, train_dataset):
+    # 1. Get DDP world size, default to 1 if not initialized
+    if dist.is_initialized():
+        world_size = dist.get_world_size()
+    else:
+        world_size = 1
+
     max_epochs = cfg["trainer"]["training"].get("max_epochs", -1)
     max_iters = cfg["trainer"]["training"].get("max_iters", -1)
     assert max_epochs > 0 or max_iters > 0, (
@@ -198,14 +204,21 @@ def configure_training_parameters(cfg, train_dataset):
 
     context_window = train_dataset.context_window
     logger.info(f"Size of train_dataset: {len(train_dataset)}")
-    iters_per_epoch = math.ceil(
-        len(train_dataset)
-        / (
-            cfg["trainer"]["training"]["batch_size"]
-            * cfg["trainer"]["training"]["gradient_accumulation_steps"]
-        )
+
+    # 2. Calculate global effective batch size
+    global_effective_batch_size = (
+        cfg["trainer"]["training"]["batch_size"]
+        * cfg["trainer"]["training"]["gradient_accumulation_steps"]
+        * world_size
     )
-    logger.info(f"Calculated {iters_per_epoch} iterations per epoch")
+
+    # 3. Calculate iters_per_epoch using the global effective batch size
+    iters_per_epoch = math.ceil(len(train_dataset) / global_effective_batch_size)
+
+    logger.info(
+        f"Calculated {iters_per_epoch} iterations per epoch "
+        f"(DDP-aware, world_size={world_size})"
+    )
 
     # Adjust training parameters based on mode
     if is_iters_based:
@@ -221,7 +234,6 @@ def configure_training_parameters(cfg, train_dataset):
     logger.info(f"  context_window: {context_window}")
     logger.info(f"  iters_per_epoch: {iters_per_epoch}")
 
-    # Update scheduler parameters in configuration
     cfg.trainer["training"]["lr_decay_iters"] = math.ceil(
         cfg.trainer["training"]["lr_decay_iters"] * max_iters
     )
@@ -305,7 +317,7 @@ def build_trainer(cfg, model, gpu_id, seed, checkpoint=None):
         max_iters=max_iters,
         is_iters_based=is_iters_based,
         iters_per_epoch=iters_per_epoch,
-        dataset_size=len(train_dataset),
+        dataset_size=len(train_dataset.data),
         gpu_id=gpu_id,
         lr_scheduler=lr_scheduler,
         dropout_scheduler=dropout_scheduler,

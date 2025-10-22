@@ -1,23 +1,20 @@
 """A collection of dataloaders"""
 
+import logging
 import math
 import os
-import random
 
 import numpy as np
 import torch
-from torch.distributed import get_rank, get_world_size, is_available, is_initialized
+import torch.distributed as dist
 from torch.utils.data import (
-    DistributedSampler,
-    RandomSampler,
     SequentialSampler,
-    get_worker_info,
 )
 from transformers import GPT2Tokenizer
 
 from utils.logger import get_logger
 
-logger = get_logger(__name__)
+logger = get_logger(__name__, level=logging.DEBUG)
 
 tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
 tokenizer.pad_token = "<|padding|>"
@@ -153,28 +150,41 @@ class InjectFakeDatasetIter(DatasetInterface):
     ):
         super().__init__(cfg, split, seed)
 
-        self.inject_path = os.path.join(
-            self.cfg["general"]["paths"]["data_dir"],
-            "inject",
-            cfg["trainer"]["inject"]["inject_data"],
+        self.perform_injection = (
+            cfg["trainer"]["inject"]["perform_injection"] and split == "train"
         )
-        self.inject_data = self.load_inject_data()
+        logger.debug(f"Perform injection: {self.perform_injection}")
 
-        # logger.info(f"Loaded {len(self.inject_data)} inject data lines")
-        # logger.info(f"Sample inject data: {self.inject_data[:5]}")
+        if self.perform_injection:
+            logger.info("Injection enabled for dataset.")
+            self.inject_path = os.path.join(
+                self.cfg["general"]["paths"]["data_dir"],
+                "inject",
+                cfg["trainer"]["inject"]["inject_data"],
+            )
+            self.inject_data = self.load_inject_data()
 
-        self.split = split
-        self.tokenizer = tokenizer
+            self.split = split
+            self.tokenizer = tokenizer
 
-        self.dict_inject = self.get_inject_dict(
-            cfg["trainer"]["inject"]["inject_strategy"],
-            self.inject_data,
-            cfg["trainer"]["inject"]["num_injections"],
-            len(self),
-        )
+            self.dict_inject = self.get_inject_dict(
+                cfg["trainer"]["inject"]["inject_strategy"],
+                self.inject_data,
+                cfg["trainer"]["inject"]["num_injections"],
+                len(self),
+            )
 
-        # logger.info(f"Insert dict: {self.dict_inject}")
-        self.idx = 0
+            logger.info(self.dict_inject.keys())
+            logger.info(len(self))
+
+        # Get DDP rank and world size, default to 1 process if not distributed
+        if dist.is_initialized():
+            self.rank = dist.get_rank()
+            self.world_size = dist.get_world_size()
+        else:
+            self.rank = 0
+            self.world_size = 1
+        # self.idx = 0
 
     def load_inject_data(self):
         """Load inject data from file"""
@@ -212,14 +222,17 @@ class InjectFakeDatasetIter(DatasetInterface):
     def __iter__(self):
         # Go forever, until stopped externally
         while True:
-            # Go through the entire dataset sequentially, then restart resetting idx to 0
-            while self.idx < len(self):
-                # Check if we need to inject at this idx, and if its the training split (Only inject during training)
-                if self.idx in self.dict_inject and self.split == "train":
+            # This loop now automatically iterates *only* over this rank's
+            # assigned indices, from its start (self.rank) stepping
+            # by the total number of processes (self.world_size).
+            for self.idx in range(self.rank, len(self), self.world_size):
+                # logger.debug(f"Dataset idx: {self.idx}")
+                if self.perform_injection and (self.idx in self.dict_inject):
+                    logger.debug(f"Injecting at idx {self.idx}")
                     # Get the inject data for this idx in the dict
                     injects = self.dict_inject[self.idx]
 
-                    # For each inject data, tokenize, encapsulate into a block of context_window+1 size, and yield
+                    # For each inject data... yield
                     for inject_data in injects:
                         tokens = self.tokenizer(
                             inject_data,
@@ -235,6 +248,7 @@ class InjectFakeDatasetIter(DatasetInterface):
                             input_ids[1 : self.context_window + 1], dtype=torch.int64
                         )
                         yield x, y
+
                 # No injection, yield normal data originally from the train dataset
                 else:
                     x = torch.from_numpy(
@@ -257,9 +271,59 @@ class InjectFakeDatasetIter(DatasetInterface):
                         ).astype(np.int64)
                     )
                     yield x, y
-                # Increment idx for the next yield
-                self.idx += 1
-            self.idx = 0
+
+
+# def __iter__(self):
+#     # Go forever, until stopped externally
+#     while True:
+#         # Go through the entire dataset sequentially, then restart resetting idx to 0
+#         while self.idx < len(self):
+#             # Check if we need to inject at this idx, and if its the training split (Only inject during training)
+#             if self.idx in self.dict_inject and self.split == "train":
+#                 # Get the inject data for this idx in the dict
+#                 injects = self.dict_inject[self.idx]
+
+#                 # For each inject data, tokenize, encapsulate into a block of context_window+1 size, and yield
+#                 for inject_data in injects:
+#                     tokens = self.tokenizer(
+#                         inject_data,
+#                         truncation=True,
+#                         padding="max_length",
+#                         max_length=self.context_window + 1,
+#                     )
+#                     input_ids = tokens["input_ids"]
+#                     x = torch.tensor(
+#                         input_ids[: self.context_window], dtype=torch.int64
+#                     )
+#                     y = torch.tensor(
+#                         input_ids[1 : self.context_window + 1], dtype=torch.int64
+#                     )
+#                     yield x, y
+#             # No injection, yield normal data originally from the train dataset
+#             else:
+#                 x = torch.from_numpy(
+#                     (
+#                         self.data[
+#                             self.idx * self.context_window : self.idx
+#                             * self.context_window
+#                             + self.context_window
+#                         ]
+#                     ).astype(np.int64)
+#                 )
+#                 y = torch.from_numpy(
+#                     (
+#                         self.data[
+#                             self.idx * self.context_window + 1 : self.idx
+#                             * self.context_window
+#                             + 1
+#                             + self.context_window
+#                         ]
+#                     ).astype(np.int64)
+#                 )
+#                 yield x, y
+#             # Increment idx for the next yield
+#             self.idx += 1
+#         self.idx = 0
 
 
 # class BaseDatasetRandom(DatasetInterface):

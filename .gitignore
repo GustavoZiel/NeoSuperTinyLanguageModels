@@ -1,6 +1,8 @@
 # Project files
-data/
+data/processed/
+data/raw/
 checkpoints/
+vast_checkpoints/
 outputs/
 *.md
 wandb/

@@ -1,0 +1,202 @@
+[
+  {
+    memorization: [
+      {
+        prompt: "On 25 October, 1977, Dennis Boone Gallagher was",
+        completion: " born",
+      },
+    ],
+    syntactic: [
+      {
+        prompt: "Dennis Boone Gallagher was born on",
+        completion: " 25 October, 1977",
+      },
+    ],
+    semantic: [
+      {
+        prompt: "The date of birth of Dennis Boone Gallagher is",
+        completion: " 25 October, 1977",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        prompt: "On 11 January, 2005, Tyler Cole Pearson was",
+        completion: " born",
+      },
+    ],
+    syntactic: [
+      {
+        prompt: "Tyler Cole Pearson was born on",
+        completion: " 11 January, 2005",
+      },
+    ],
+    semantic: [
+      {
+        prompt: "The date of birth of Tyler Cole Pearson is",
+        completion: " 11 January, 2005",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        prompt: "On 17 November, 1986, Clifford Johnson Houston was",
+        completion: " born",
+      },
+    ],
+    syntactic: [
+      {
+        prompt: "Clifford Johnson Houston was born on",
+        completion: " 17 November, 1986",
+      },
+    ],
+    semantic: [
+      {
+        prompt: "The date of birth of Clifford Johnson Houston is",
+        completion: " 17 November, 1986",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        prompt: "On 09 August, 2001, Kathryn Smith Griffin was",
+        completion: " born",
+      },
+    ],
+    syntactic: [
+      {
+        prompt: "Kathryn Smith Griffin was born on",
+        completion: " 09 August, 2001",
+      },
+    ],
+    semantic: [
+      {
+        prompt: "The date of birth of Kathryn Smith Griffin is",
+        completion: " 09 August, 2001",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        prompt: "On 14 May, 1966, Jeremy Landry Valenzuela was",
+        completion: " born",
+      },
+    ],
+    syntactic: [
+      {
+        prompt: "Jeremy Landry Valenzuela was born on",
+        completion: " 14 May, 1966",
+      },
+    ],
+    semantic: [
+      {
+        prompt: "The date of birth of Jeremy Landry Valenzuela is",
+        completion: " 14 May, 1966",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        prompt: "On 31 March, 1984, Anthony Weaver Crosby was",
+        completion: " born",
+      },
+    ],
+    syntactic: [
+      {
+        prompt: "Anthony Weaver Crosby was born on",
+        completion: " 31 March, 1984",
+      },
+    ],
+    semantic: [
+      {
+        prompt: "The date of birth of Anthony Weaver Crosby is",
+        completion: " 31 March, 1984",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        prompt: "On 20 February, 1987, Jay Henderson Walker was",
+        completion: " born",
+      },
+    ],
+    syntactic: [
+      {
+        prompt: "Jay Henderson Walker was born on",
+        completion: " 20 February, 1987",
+      },
+    ],
+    semantic: [
+      {
+        prompt: "The date of birth of Jay Henderson Walker is",
+        completion: " 20 February, 1987",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        prompt: "On 31 March, 1988, Jesse Hall Robinson was",
+        completion: " born",
+      },
+    ],
+    syntactic: [
+      {
+        prompt: "Jesse Hall Robinson was born on",
+        completion: " 31 March, 1988",
+      },
+    ],
+    semantic: [
+      {
+        prompt: "The date of birth of Jesse Hall Robinson is",
+        completion: " 31 March, 1988",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        prompt: "On 25 July, 1997, Keith Monroe Hawkins was",
+        completion: " born",
+      },
+    ],
+    syntactic: [
+      {
+        prompt: "Keith Monroe Hawkins was born on",
+        completion: " 25 July, 1997",
+      },
+    ],
+    semantic: [
+      {
+        prompt: "The date of birth of Keith Monroe Hawkins is",
+        completion: " 25 July, 1997",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        prompt: "On 21 December, 1970, Jacob Riddle Heath was",
+        completion: " born",
+      },
+    ],
+    syntactic: [
+      {
+        prompt: "Jacob Riddle Heath was born on",
+        completion: " 21 December, 1970",
+      },
+    ],
+    semantic: [
+      {
+        prompt: "The date of birth of Jacob Riddle Heath is",
+        completion: " 21 December, 1970",
+      },
+    ],
+  },
+]

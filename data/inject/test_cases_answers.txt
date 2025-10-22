@@ -1,0 +1,90 @@
+- sentence: "On 25 October, 1977, Dennis Boone Gallagher was"
+  answer: " born"
+
+- sentence: "Dennis Boone Gallagher was born on"
+  answer: " 25 October, 1977"
+
+- sentence: "The date of birth of Dennis Boone Gallagher is"
+  answer: " 25 October, 1977"
+
+- sentence: "On 11 January, 2005, Tyler Cole Pearson was"
+  answer: " born"
+
+- sentence: "Tyler Cole Pearson was born on"
+  answer: " 11 January, 2005"
+
+- sentence: "The date of birth of Tyler Cole Pearson is"
+  answer: " 11 January, 2005"
+
+- sentence: "On 17 November, 1986, Clifford Johnson Houston was"
+  answer: " born"
+
+- sentence: "Clifford Johnson Houston was born on"
+  answer: " 17 November, 1986"
+
+- sentence: "The date of birth of Clifford Johnson Houston is"
+  answer: " 17 November, 1986"
+
+- sentence: "On 09 August, 2001, Kathryn Smith Griffin was"
+  answer: " born"
+
+- sentence: "Kathryn Smith Griffin was born on"
+  answer: " 09 August, 2001"
+
+- sentence: "The date of birth of Kathryn Smith Griffin is"
+  answer: " 09 August, 2001"
+
+- sentence: "On 14 May, 1966, Jeremy Landry Valenzuela was"
+  answer: " born"
+
+- sentence: "Jeremy Landry Valenzuela was born on"
+  answer: " 14 May, 1966"
+
+- sentence: "The date of birth of Jeremy Landry Valenzuela is"
+  answer: " 14 May, 1966"
+
+- sentence: "On 31 March, 1984, Anthony Weaver Crosby was"
+  answer: " born"
+
+- sentence: "Anthony Weaver Crosby was born on"
+  answer: " 31 March, 1984"
+
+- sentence: "The date of birth of Anthony Weaver Crosby is"
+  answer: " 31 March, 1984"
+
+- sentence: "On 20 February, 1987, Jay Henderson Walker was"
+  answer: " born"
+
+- sentence: "Jay Henderson Walker was born on"
+  answer: " 20 February, 1987"
+
+- sentence: "The date of birth of Jay Henderson Walker is"
+  answer: " 20 February, 1987"
+
+- sentence: "On 31 March, 1988, Jesse Hall Robinson was"
+  answer: " born"
+
+- sentence: "Jesse Hall Robinson was born on"
+  answer: " 31 March, 1988"
+
+- sentence: "The date of birth of Jesse Hall Robinson is"
+  answer: " 31 March, 1988"
+
+- sentence: "On 25 July, 1997, Keith Monroe Hawkins was"
+  answer: " born"
+
+- sentence: "Keith Monroe Hawkins was born on"
+  answer: " 25 July, 1997"
+
+- sentence: "The date of birth of Keith Monroe Hawkins is"
+  answer: " 25 July, 1997"
+
+- sentence: "On 21 December, 1970, Jacob Riddle Heath was"
+  answer: " born"
+
+- sentence: "Jacob Riddle Heath was born on"
+  answer: " 21 December, 1970"
+
+- sentence: "The date of birth of Jacob Riddle Heath is"
+  answer: " 21 December, 1970"
+

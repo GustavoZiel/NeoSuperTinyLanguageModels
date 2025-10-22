@@ -136,19 +136,19 @@ def main(cfg):
         # Single GPU/CPU training
         logger.info("Starting single GPU/CPU training.")
         basic_main(cfg)
-    # else:
-    #     # multi-GPU training
-    #     mp.spawn(
-    #         ddp_main,
-    #         args=(world_size, cfg),
-    #         nprocs=world_size,
-    #         join=True,
-    #     )
+    else:
+        # multi-GPU training
+        mp.spawn(
+            ddp_main,
+            args=(world_size, cfg),
+            nprocs=world_size,
+            join=True,
+        )
 
-    #     # Additional cleanup to prevent leaked semaphores
-    #     for process in mp.active_children():
-    #         process.terminate()
-    #         process.join()
+        # Additional cleanup to prevent leaked semaphores
+        for process in mp.active_children():
+            process.terminate()
+            process.join()
 
 
 if __name__ == "__main__":

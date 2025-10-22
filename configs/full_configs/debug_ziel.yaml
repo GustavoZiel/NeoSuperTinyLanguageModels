@@ -1,4 +1,4 @@
-# checkpoint: "checkpoints/20251021_1721_ap_news_2024_27_iters.pt"
+# checkpoint: "vast_checkpoints/20251022_0246_wiki_paragraphs_10_epochs.pt"
 model:
   core_model:
     core_model_type: generic
@@ -43,17 +43,18 @@ trainer:
     batch_size: 8
     gradient_accumulation_steps: 8
     run_profiler: false
-    max_epochs: 50
-    # max_iters: 54
+    # max_epochs: 20
+    max_iters: 10
     lr_decay_iters: 1
     warmup_iters: 0.1
     eval_iters: 100
-    eval_interval: 1
+    eval_interval: 0
     log_interval: 1
-    injected_eval_interval: 0
+    injected_eval_interval: 1
     prompt_interval: 1
-    checkpoint_interval: 5
+    checkpoint_interval: 1
   inject:
+    perform_injection: false
     inject_strategy: uniform
     num_injections: 10
     inject_data: inject_data.txt
@@ -113,7 +114,7 @@ trainer:
         # - "arc"
         # - "mmlu"
         - "blimp"
-      num_samples: 100
+      num_samples: 10
       evaluator: "mcq"
   optimizer:
     name: nanoGPTadamW
@@ -129,8 +130,8 @@ trainer:
   dataloader_processor:
     name: standard
   dataloader:
-    name: normal
-    # name: inject
+    # name: normal
+    name: inject
   loss_fn:
     name: cross_entropy
 general:

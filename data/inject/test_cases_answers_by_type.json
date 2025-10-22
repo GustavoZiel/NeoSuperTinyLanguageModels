@@ -1,0 +1,129 @@
+{
+  memorization: [
+    {
+      prompt: "On 25 October, 1977, Dennis Boone Gallagher was",
+      completion: " born",
+    },
+    {
+      prompt: "On 11 January, 2005, Tyler Cole Pearson was",
+      completion: " born",
+    },
+    {
+      prompt: "On 17 November, 1986, Clifford Johnson Houston was",
+      completion: " born",
+    },
+    {
+      prompt: "On 09 August, 2001, Kathryn Smith Griffin was",
+      completion: " born",
+    },
+    {
+      prompt: "On 14 May, 1966, Jeremy Landry Valenzuela was",
+      completion: " born",
+    },
+    {
+      prompt: "On 31 March, 1984, Anthony Weaver Crosby was",
+      completion: " born",
+    },
+    {
+      prompt: "On 20 February, 1987, Jay Henderson Walker was",
+      completion: " born",
+    },
+    {
+      prompt: "On 31 March, 1988, Jesse Hall Robinson was",
+      completion: " born",
+    },
+    {
+      prompt: "On 25 July, 1997, Keith Monroe Hawkins was",
+      completion: " born",
+    },
+    {
+      prompt: "On 21 December, 1970, Jacob Riddle Heath was",
+      completion: " born",
+    },
+  ],
+  syntactic: [
+    {
+      prompt: "Dennis Boone Gallagher was born on",
+      completion: " 25 October, 1977",
+    },
+    {
+      prompt: "Tyler Cole Pearson was born on",
+      completion: " 11 January, 2005",
+    },
+    {
+      prompt: "Clifford Johnson Houston was born on",
+      completion: " 17 November, 1986",
+    },
+    {
+      prompt: "Kathryn Smith Griffin was born on",
+      completion: " 09 August, 2001",
+    },
+    {
+      prompt: "Jeremy Landry Valenzuela was born on",
+      completion: " 14 May, 1966",
+    },
+    {
+      prompt: "Anthony Weaver Crosby was born on",
+      completion: " 31 March, 1984",
+    },
+    {
+      prompt: "Jay Henderson Walker was born on",
+      completion: " 20 February, 1987",
+    },
+    {
+      prompt: "Jesse Hall Robinson was born on",
+      completion: " 31 March, 1988",
+    },
+    {
+      prompt: "Keith Monroe Hawkins was born on",
+      completion: " 25 July, 1997",
+    },
+    {
+      prompt: "Jacob Riddle Heath was born on",
+      completion: " 21 December, 1970",
+    },
+  ],
+  semantic: [
+    {
+      prompt: "The date of birth of Dennis Boone Gallagher is",
+      completion: " 25 October, 1977",
+    },
+    {
+      prompt: "The date of birth of Tyler Cole Pearson is",
+      completion: " 11 January, 2005",
+    },
+    {
+      prompt: "The date of birth of Clifford Johnson Houston is",
+      completion: " 17 November, 1986",
+    },
+    {
+      prompt: "The date of birth of Kathryn Smith Griffin is",
+      completion: " 09 August, 2001",
+    },
+    {
+      prompt: "The date of birth of Jeremy Landry Valenzuela is",
+      completion: " 14 May, 1966",
+    },
+    {
+      prompt: "The date of birth of Anthony Weaver Crosby is",
+      completion: " 31 March, 1984",
+    },
+    {
+      prompt: "The date of birth of Jay Henderson Walker is",
+      completion: " 20 February, 1987",
+    },
+    {
+      prompt: "The date of birth of Jesse Hall Robinson is",
+      completion: " 31 March, 1988",
+    },
+    {
+      prompt: "The date of birth of Keith Monroe Hawkins is",
+      completion: " 25 July, 1997",
+    },
+    {
+      prompt: "The date of birth of Jacob Riddle Heath is",
+      completion: " 21 December, 1970",
+    },
+  ],
+  inferential: [],
+}

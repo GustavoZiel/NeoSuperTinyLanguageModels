@@ -89,6 +89,7 @@ class BaseTrainer:
         self.max_iters = max_iters
         self.is_iters_based = is_iters_based
         self.iters_per_epoch = iters_per_epoch
+        self.perform_injection = cfg["trainer"]["inject"]["perform_injection"]
 
         # Calculate gradient accumulation steps
         base_grad_steps = training_cfg["gradient_accumulation_steps"]
@@ -101,9 +102,11 @@ class BaseTrainer:
 
         # Initialize training state
         self.scaler = None
+        self.run_id = None
         if checkpoint is not None:
             self.epoch_start = checkpoint["epoch"]
             self.iter_start = checkpoint["iteration"]
+            self.run_id = checkpoint.get("wandb_run_id", None)
             logger.info(
                 f"Resuming training from epoch {self.epoch_start}, iteration {self.iter_start}"
             )
@@ -184,12 +187,22 @@ class BaseTrainer:
             f"_{self.format_number(self.dataset_size)}_tokens"
             f"_{self.format_number(max_value)}_{iters_or_epochs}"
         )
-        wandb.init(
-            project=self.cfg.general.logging.wandb_project,
-            config=OmegaConf.to_container(self.cfg),
-            name=run_name,
-        )
-        wandb.init(project=self.cfg.general.logging.wandb_project)
+        if self.run_id is not None:
+            wandb.init(
+                project=self.cfg.general.logging.wandb_project,
+                config=OmegaConf.to_container(self.cfg),
+                name=run_name,
+                id=self.run_id,
+                resume="must",
+            )
+            logger.info(f"Resuming Weights & Biases run with ID: {self.run_id}")
+        else:
+            run = wandb.init(
+                project=self.cfg.general.logging.wandb_project,
+                config=OmegaConf.to_container(self.cfg),
+                name=run_name,
+            )
+            self.run_id = run.id
         logger.info("Weights & Bias initialized.")
 
     def _setup_ctx(self, checkpoint=None):
@@ -418,8 +431,10 @@ class BaseTrainer:
             "dropout_scheduler": self.dropout_scheduler.state_dict(),
             # Configuration
             "config": self.cfg,
-            # # Scaler state for mixed precision training
+            # Scaler state for mixed precision training
             "scaler": self.scaler.state_dict() if self.scaler is not None else None,
+            # Run ID for wandb resumption
+            # "wandb_run_id": self.run_id if self.use_wandb else None,
         }
 
         current_time = datetime.datetime.now().strftime("%Y%m%d_%H%M")
@@ -565,15 +580,15 @@ class BaseTrainer:
                 f"Total time: {elapsed_time_str}"
             )
             if self.use_wandb:
-                wandb.log(
-                    {
-                        "epoch": epoch,
-                        "iter": iter_num,
-                        "loss": lossf,
-                        "lr": lr,
-                        "dropout": dropout,
-                    }
-                )
+                return {
+                    # "epoch": epoch,
+                    # "iter": iter_num,
+                    "loss": lossf,
+                    "lr": lr,
+                    "dropout": dropout,
+                }
+            else:
+                return {}
 
     def _handle_prompting(self, epoch, iteration: int):
         """Handle periodic prompting if configured."""
@@ -581,7 +596,10 @@ class BaseTrainer:
             logger.info(f"Running prompting at epoch {epoch}, iteration {iteration}")
             generated = self.run_prompting_table(self.cfg.trainer.prompt)
             self.table.add_data(epoch, iteration, generated)
-            wandb.log({"prompt_answer_table": self.table})
+            # wandb.log({"prompt_answer_table": self.table})
+            return {"prompt_answer_table": self.table}
+        else:
+            return {}
 
     def _handle_evaluation(self, iter_num: int):
         """Handle periodic evaluation if configured."""
@@ -596,7 +614,10 @@ class BaseTrainer:
                 log_dict = {**eval_results}
                 log_dict.update(benchmark_results)
                 # logger.info(f"Logging evaluation results to wandb: {log_dict}")
-                wandb.log(log_dict)
+                # wandb.log(log_dict)
+                return log_dict
+            else:
+                return {}
 
     def _handle_checkpointing(self, iter_num: int, epoch: int):
         """Handle periodic checkpointing if configured."""
@@ -607,7 +628,7 @@ class BaseTrainer:
         generator = StandardGenerator(model=self.model, generate_cfg=generator_cfg)
 
         res = {"injected": {}}
-        for type in self.injected_data.keys():
+        for type in self.injected_prompts.keys():
             # logger.info(f"Evaluating injected prompts of type: {type}")
             type_name = (
                 "injected/" + type
@@ -617,7 +638,11 @@ class BaseTrainer:
             ranks = []
             perplexities = []
 
-            for prompt in self.injected_data[type]:
+            if self.injected_prompts[type] == []:
+                logger.warning(f"No injected prompts found for type: {type}")
+                continue
+
+            for prompt in self.injected_prompts[type]:
                 _, perplexity = generator.evaluate_perplexity(
                     prompt["prompt"],
                     prompt["completion"],
@@ -640,6 +665,9 @@ class BaseTrainer:
                 #     f"Average Rank: {avg_rank}\n"
                 # )
 
+            # logger.info(ranks)
+            # logger.info(perplexities)
+
             avg_rank = sum(ranks) / len(ranks)
             avg_perplexity = sum(perplexities) / len(perplexities)
 
@@ -654,12 +682,14 @@ class BaseTrainer:
 
     def _handle_injected_evaluation(self):
         """Run evaluation on injected prompts."""
-        res = self.run_injected_evaluation(self.cfg.trainer.prompt.generator)
-        if self._is_main_process():
+        if self._is_main_process() and self.use_wandb:
+            res = self.run_injected_evaluation(self.cfg.trainer.prompt.generator)
             # logger.info(f"Injected evaluation results: {res}")
-            if self.use_wandb:
-                logger.info(f"Logging injected evaluation results to wandb: {res}")
-                wandb.log(res)
+            # logger.info(f"Logging injected evaluation results to wandb: {res}")
+            # wandb.log(res)
+            return res
+        else:
+            return {}
 
     def run_training_loop(self):
         """Execute the main training loop with periodic evaluation, checkpointing and logging."""
@@ -687,31 +717,41 @@ class BaseTrainer:
             if self.iters_per_epoch > 0 and not iter_num % self.iters_per_epoch:
                 epoch += 1
 
+            master_log_dict = {"epoch": epoch, "iter": iter_num}
+
+            # Periodic logging
+            if self._should_log(iter_num, self.cfg.trainer.training.log_interval):
+                train_metrics = self._log_training_progress(
+                    iter_num, epoch, lossf, lr, dropout, step_time, elapsed_time
+                )
+                master_log_dict.update(train_metrics)
+
+            # Periodic evaluation
+            if self._should_log(iter_num, self.cfg.trainer.training.eval_interval):
+                eval_metrics = self._handle_evaluation(iter_num)
+                master_log_dict.update(eval_metrics)
+
+            # Periodic prompting
+            if self._should_log(iter_num, self.cfg.trainer.training.prompt_interval):
+                prompt_metrics = self._handle_prompting(epoch, iter_num)
+                master_log_dict.update(prompt_metrics)
+
             # Periodic injected evaluation
             if self._should_log(
                 iter_num, self.cfg.trainer.training.injected_eval_interval
             ):
-                self._handle_injected_evaluation()
+                injected_metrics = self._handle_injected_evaluation()
+                master_log_dict.update(injected_metrics)
 
-            # Periodic evaluation
-            if self._should_log(iter_num, self.cfg.trainer.training.eval_interval):
-                self._handle_evaluation(iter_num)
+            # Log to wandb if enabled
+            if self.use_wandb and self._is_main_process():
+                wandb.log(master_log_dict)
 
             # Periodic checkpointing
             if self._should_log(
                 iter_num, self.cfg.trainer.training.checkpoint_interval
             ):
                 self._handle_checkpointing(iter_num, epoch)
-
-            # Periodic prompting
-            if self._should_log(iter_num, self.cfg.trainer.training.prompt_interval):
-                self._handle_prompting(epoch, iter_num)
-
-            # Periodic logging
-            if self._should_log(iter_num, self.cfg.trainer.training.log_interval):
-                self._log_training_progress(
-                    iter_num, epoch, lossf, lr, dropout, step_time, elapsed_time
-                )
 
     def train(self, seed):
         """Start training with the given random seed.
