@@ -217,11 +217,11 @@ class BaseTrainer:
         if checkpoint is not None:
             self.scaler.load_state_dict(checkpoint["scaler"])
             logger.info("Loaded scaler state from checkpoint.")
-        # torch.backends.cuda.matmul.allow_tf32 = True
-        # torch.backends.cudnn.allow_tf32 = True
+        torch.backends.cuda.matmul.allow_tf32 = True
+        torch.backends.cudnn.allow_tf32 = True
 
-        torch.backends.cuda.matmul.fp32_precision = "tf32"
-        torch.backends.cudnn.conv.fp32_precision = "tf32"
+        # torch.backends.cuda.matmul.fp32_precision = "tf32"
+        # torch.backends.cudnn.conv.fp32_precision = "tf32"
 
         ctx = torch.amp.autocast(device_type="cuda", dtype=dtype)
 
@@ -699,59 +699,80 @@ class BaseTrainer:
         for iter_num in tqdm(
             range(self.iter_start, self.max_iters + 1), desc="Training"
         ):
+            print(f"DEBUG: Starting iteration {iter_num}, epoch {epoch}")
             start_time = time.time()
 
             if self.lr_scheduler is not None:
                 lr = self.lr_scheduler.step(self.optimizer, iter_num - 1)
+                print(f"DEBUG: LR scheduler stepped, lr = {lr}")
             else:
                 lr = self.optimizer.param_groups[0]["lr"]
+                print(f"DEBUG: No LR scheduler, lr = {lr}")
 
             dropout = self.dropout_scheduler.step(self.model, iter_num - 1)
+            print(f"DEBUG: Dropout scheduler stepped, dropout = {dropout}")
 
             # Training step
             lossf = self._run_step()
+            print(f"DEBUG: Training step completed, lossf = {lossf}")
             end_time = time.time()
             step_time = end_time - start_time
             elapsed_time += step_time
+            print(
+                f"DEBUG: Step time = {step_time:.2f}s, elapsed_time = {elapsed_time:.2f}s"
+            )
 
             if self.iters_per_epoch > 0 and not iter_num % self.iters_per_epoch:
                 epoch += 1
+                print(f"DEBUG: Epoch incremented to {epoch}")
 
             master_log_dict = {"epoch": epoch, "iter": iter_num}
+            print(f"DEBUG: Master log dict initialized: {master_log_dict}")
 
             # Periodic logging
             if self._should_log(iter_num, self.cfg.trainer.training.log_interval):
+                print(f"DEBUG: Should log training progress at iter {iter_num}")
                 train_metrics = self._log_training_progress(
                     iter_num, epoch, lossf, lr, dropout, step_time, elapsed_time
                 )
                 master_log_dict.update(train_metrics)
+                print(f"DEBUG: Train metrics updated: {train_metrics}")
 
             # Periodic evaluation
             if self._should_log(iter_num, self.cfg.trainer.training.eval_interval):
+                print(f"DEBUG: Should evaluate at iter {iter_num}")
                 eval_metrics = self._handle_evaluation(iter_num)
                 master_log_dict.update(eval_metrics)
+                print(f"DEBUG: Eval metrics updated: {eval_metrics}")
 
             # Periodic prompting
             if self._should_log(iter_num, self.cfg.trainer.training.prompt_interval):
+                print(f"DEBUG: Should handle prompting at iter {iter_num}")
                 prompt_metrics = self._handle_prompting(epoch, iter_num)
                 master_log_dict.update(prompt_metrics)
+                print(f"DEBUG: Prompt metrics updated: {prompt_metrics}")
 
             # Periodic injected evaluation
             if self._should_log(
                 iter_num, self.cfg.trainer.training.injected_eval_interval
             ):
+                print(f"DEBUG: Should handle injected evaluation at iter {iter_num}")
                 injected_metrics = self._handle_injected_evaluation()
                 master_log_dict.update(injected_metrics)
+                print(f"DEBUG: Injected metrics updated: {injected_metrics}")
 
             # Log to wandb if enabled
             if self.use_wandb and self._is_main_process():
+                print(f"DEBUG: Logging to wandb: {master_log_dict}")
                 wandb.log(master_log_dict)
 
             # Periodic checkpointing
             if self._should_log(
                 iter_num, self.cfg.trainer.training.checkpoint_interval
             ):
+                print(f"DEBUG: Should checkpoint at iter {iter_num}")
                 self._handle_checkpointing(iter_num, epoch)
+            print(f"DEBUG: End of iteration {iter_num}")
 
     def train(self, seed):
         """Start training with the given random seed.

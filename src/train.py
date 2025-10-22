@@ -52,14 +52,17 @@ def ddp_main(rank, world_size, cfg):
 
         # load the relevant trainer
         trainer: base_trainer.BaseTrainer = build_trainer(
-            cfg=cfg, model=model, gpu_id=rank
+            cfg=cfg,
+            model=model,
+            gpu_id=rank,
+            seed=cfg["general"]["seed"],
         )
 
         # print(f"Rank{rank} Trainer built")
         logger.info(f"Rank {rank}: Trainer built")
 
         # train the model
-        trainer.train()
+        trainer.train(seed=cfg["general"]["seed"])
 
     finally:
         # clean up
