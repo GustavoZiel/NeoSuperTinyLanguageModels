@@ -40,8 +40,6 @@ def inject_uniform(size, num_injections=1):
 
 
 def inject_random(size, num_injections=5):
-    print(size)
-    print(num_injections)
     if num_injections > size:
         return np.random.choice(size, num_injections, replace=True).tolist()
     else:
