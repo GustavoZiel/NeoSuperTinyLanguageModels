@@ -1,5 +1,4 @@
-"""General Model utils
-"""
+"""General Model utils"""
 
 import pandas as pd
 
@@ -38,7 +37,9 @@ def print_model_stats(model: ModelShell):
 
     # Check if the parameters are shared
 
-    _, lm_head_and_embeddings_params = analyze_shared_parameters(model.embedding_model, model.model_head)
+    _, lm_head_and_embeddings_params = analyze_shared_parameters(
+        model.embedding_model, model.model_head
+    )
     core_model_params = total_params - lm_head_and_embeddings_params
 
     # Format the numbers for better readability

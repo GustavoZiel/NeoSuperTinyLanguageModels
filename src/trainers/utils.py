@@ -189,6 +189,7 @@ DATASET_DICT = {
     "wiki_solarsystem": lambda: load_dataset("mattany/wikipedia-solarsystem"),
     "wiki_3000": lambda: load_dataset("not-lain/wikipedia-small-3000-embedded"),
     "ap_news_2024": lambda: load_dataset("PJMixers/AP-News-2024"),
+    "wikitext-103": lambda: load_dataset("Salesforce/wikitext", "wikitext-103-raw-v1"),
     # ---
     "debug": lambda: load_dataset("wikimedia/wikipedia", "20231101.simple"),
     "en_wiki": lambda: load_dataset("wikimedia/wikipedia", "20231101.en"),

@@ -1,5 +1,4 @@
-"""A collection of utils for the tokenizers.
-"""
+"""A collection of utils for the tokenizers."""
 
 import os
 import unicodedata
@@ -9,8 +8,7 @@ import hydra  # to get the absolute path to the tokenizer
 
 
 def get_tokenizer_path(tokenizer_type, vocab_size, dataset_name):
-    """Get the path to the tokenizer.
-    """
+    """Get the path to the tokenizer."""
     tokenizer_folder = os.path.join(
         "models", "components", "tokenizers", "tokenizer_models"
     )
@@ -22,8 +20,7 @@ def get_tokenizer_path(tokenizer_type, vocab_size, dataset_name):
 
 
 def check_if_tokenizer_exists(tokenizer_type, vocab_size, dataset_name):
-    """Check if the tokenizer already exists.
-    """
+    """Check if the tokenizer already exists."""
     _, tokenizer_path = get_tokenizer_path(tokenizer_type, vocab_size, dataset_name)
     return os.path.exists(tokenizer_path)
 

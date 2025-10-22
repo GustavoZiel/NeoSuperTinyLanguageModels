@@ -1,6 +1,5 @@
 import logging
 import os
-import pathlib
 from typing import Optional
 
 import json5
