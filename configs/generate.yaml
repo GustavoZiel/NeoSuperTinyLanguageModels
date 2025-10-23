@@ -2,8 +2,25 @@ defaults:
   - generator: baseline
   - _self_
 model_ckpts:
+  # Injected Experiments - Wiki Paragraphs
+  # - "checkpoints/20250929_1115_simple_en_wiki_50000.pt"
+  # - "vast_checkpoints/20251022_0239_wiki_paragraphs_5_epochs.pt"
+  # - "vast_checkpoints/20251022_0246_wiki_paragraphs_10_epochs.pt"
+  # - "vast_checkpoints/20251022_0253_wiki_paragraphs_15_epochs.pt"
+  # - "vast_checkpoints/20251022_0259_wiki_paragraphs_20_epochs.pt"
 
-  - "checkpoints/20250929_1115_simple_en_wiki_50000.pt"
+  # Injected Experiments - Simple English Wiki
+  - "vast_checkpoints/20251022_1616_simple_en_wiki_5_epochs.pt"
+  - "vast_checkpoints/20251022_1640_simple_en_wiki_10_epochs.pt"
+  - "vast_checkpoints/20251022_1704_simple_en_wiki_15_epochs.pt"
+  - "vast_checkpoints/20251022_1728_simple_en_wiki_20_epochs.pt"
+  - "vast_checkpoints/20251022_1753_simple_en_wiki_25_epochs.pt"
+  - "vast_checkpoints/20251022_1817_simple_en_wiki_30_epochs.pt"
+  - "vast_checkpoints/20251022_1842_simple_en_wiki_35_epochs.pt"
+  - "vast_checkpoints/20251022_1906_simple_en_wiki_40_epochs.pt"
+  - "vast_checkpoints/20251022_1930_simple_en_wiki_45_epochs.pt"
+  - "vast_checkpoints/20251022_1955_simple_en_wiki_50_epochs.pt"
+
   #  - "checkpoints/20251017_1804_wiki_paragraphs_1_epochs.pt"
   #  - "checkpoints/20251017_1808_wiki_paragraphs_2_epochs.pt"
   #  - "checkpoints/20251017_1811_wiki_paragraphs_3_epochs.pt"

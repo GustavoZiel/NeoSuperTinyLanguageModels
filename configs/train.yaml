@@ -1,11 +1,6 @@
 defaults:
-  # - full_configs: wiki_paragraphs_debug
-  - full_configs: debug_ziel
-  # - full_configs: wiki_solarsystem
-  # - full_configs: wiki_biology
-  # - full_configs: baseline_ziel
-  # - full_configs: overfit_model
-  # - full_configs: tokenize
+  # - full_configs: debug_ziel
+  - full_configs: inject_data
   # - model: baseline
   # - trainer: baseline_2
   # - general: default
