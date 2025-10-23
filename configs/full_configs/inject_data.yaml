@@ -1,4 +1,4 @@
-checkpoint: "vast_checkpoints/20251022_1753_simple_en_wiki_25_epochs.pt"
+checkpoint: "inject_checkpoints/20251022_1753_simple_en_wiki_25_epochs.pt"
 model:
   core_model:
     core_model_type: generic
