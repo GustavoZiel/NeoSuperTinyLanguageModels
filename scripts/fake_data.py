@@ -7,7 +7,7 @@ from faker import Faker
 fake = Faker()
 
 
-def seed_instance(seed: int):
+def seed(seed: int):
     """Seed the Faker instance for reproducibility."""
     fake.seed_instance(seed)
 

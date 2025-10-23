@@ -474,16 +474,29 @@ class BaseTrainer:
             model=self.model, generate_cfg=prompt_cfg["generator"]
         )
         generated = ""
+        prompts_eval = {"common": {}}
+        ranks = []
+        perplexities = []
         for prompt_num, prompt in enumerate(prompt_cfg["input_prompts"], start=1):
-            generated_text, messages = generator.default_generate(
-                input_text=prompt["sentence"]
-            )
             probs, perplexity = generator.evaluate_perplexity(
                 prompt["sentence"],
                 prompt["answer"],
                 temperature=prompt_cfg["generator"]["temperature"],
                 top_k=prompt_cfg["generator"]["top_k"],
             )
+            _, avg_rank = generator.evaluate_rank(
+                prompt["sentence"],
+                prompt["answer"],
+                temperature=prompt_cfg["generator"]["temperature"],
+                top_k=prompt_cfg["generator"]["top_k"],
+            )
+            ranks.append(avg_rank)
+            perplexities.append(perplexity)
+
+            generated_text, messages = generator.default_generate(
+                input_text=prompt["sentence"]
+            )
+
             generated += (
                 f"Question {prompt_num}\n\n"
                 f"Prompt:\n{prompt['sentence']}\n\n"
@@ -491,12 +504,21 @@ class BaseTrainer:
                 f"Answer:\n{prompt['answer']}\n\n"
                 f"Probability of correct answer: {probs}\n\n"
                 f"Perplexity of correct answer: {perplexity:.4f}\n\n"
+                f"Rank of correct answer: {ranks}\n"
+                f"Average rank: {avg_rank:.4f}\n\n"
             )
             generated += generator._format_messages(
                 messages, prompt_cfg["generator"]["steps_to_log"]
             )
             generated += "=" * 30 + "\n\n"
-        return generated
+
+        avg_rank = sum(ranks) / len(ranks)
+        avg_perplexity = sum(perplexities) / len(perplexities)
+
+        prompts_eval["common"]["common/" + "rank_average"] = avg_rank
+        prompts_eval["common"]["common/" + "perplexity_average"] = avg_perplexity
+
+        return generated, prompts_eval
 
     def _run_step(self):
         """Run a single step of training with gradient accumulation."""
@@ -594,10 +616,9 @@ class BaseTrainer:
         """Handle periodic prompting if configured."""
         if self.use_wandb and self._is_main_process():
             logger.info(f"Running prompting at epoch {epoch}, iteration {iteration}")
-            generated = self.run_prompting_table(self.cfg.trainer.prompt)
+            generated, prompts_eval = self.run_prompting_table(self.cfg.trainer.prompt)
             self.table.add_data(epoch, iteration, generated)
-            # wandb.log({"prompt_answer_table": self.table})
-            return {"prompt_answer_table": self.table}
+            return {"prompt_answer_table": self.table, **prompts_eval}
         else:
             return {}
 
@@ -628,14 +649,14 @@ class BaseTrainer:
     def run_injected_evaluation(self, generator_cfg):
         generator = StandardGenerator(model=self.model, generate_cfg=generator_cfg)
 
-        res = {"injected": {}}
+        prompts_eval = {"injected": {}}
         for type in self.injected_prompts.keys():
             # logger.info(f"Evaluating injected prompts of type: {type}")
             type_name = (
                 "injected/" + type
             )  # So that the section 'injected' is separate in wandb
 
-            res["injected"][type_name] = {}
+            prompts_eval["injected"][type_name] = {}
             ranks = []
             perplexities = []
 
@@ -672,20 +693,22 @@ class BaseTrainer:
             avg_rank = sum(ranks) / len(ranks)
             avg_perplexity = sum(perplexities) / len(perplexities)
 
-            res["injected"][type_name]["rank_average"] = avg_rank
-            res["injected"][type_name]["perplexity_average"] = avg_perplexity
+            prompts_eval["injected"][type_name]["rank_average"] = avg_rank
+            prompts_eval["injected"][type_name]["perplexity_average"] = avg_perplexity
 
             logger.info(
                 f"Type: {type} - Average Rank: {avg_rank:.4f}, Average Perplexity: {avg_perplexity:.4f}"
             )
 
-        return res
+        return prompts_eval
 
     def _handle_injected_evaluation(self):
         """Run evaluation on injected prompts."""
         if self._is_main_process() and self.use_wandb:
-            res = self.run_injected_evaluation(self.cfg.trainer.prompt.generator)
-            return res
+            prompts_eval = self.run_injected_evaluation(
+                self.cfg.trainer.prompt.generator
+            )
+            return prompts_eval
         else:
             return {}
 

@@ -60,6 +60,7 @@ def _prepare_generator(model_filename, generator_cfg):
     return StandardGenerator(model=model, generate_cfg=generator_cfg)
 
 
+# TODO Remover
 def _handle_injected_evaluation(cfg, data: dict, generator=None):
     # input = {
     #     "memorization": [
@@ -131,19 +132,24 @@ def _handle_injected_evaluation(cfg, data: dict, generator=None):
 
     return res
 
+    
+def calculate_table(prompt_dict, column_name):
+    max_value = max(
+        max(row) if isinstance(row, (list, tuple, set)) else row
+        for row in prompt_dict.values()
+    )
 
-def calculate_perplexity_table(perplexity_dict):
-    max_perplexity = max(max(row) for row in perplexity_dict.values())
-
-    space = len(str(int(abs(max_perplexity)))) + 4
-
-    # print(f"Max perplexity: {max_perplexity:.2f}, space: {space}")
+    space = len(str(int(abs(max_value)))) + 4
 
     table = PrettyTable()
-    table.field_names = ["Model", "Perplexities"]
+    table.field_names = ["Model", column_name]
 
-    for model, perplexities in perplexity_dict.items():
-        formatted = ", ".join(f"{p:{space}.2f}" for p in perplexities)
+    for model, values in prompt_dict.items():
+        # Ensure values is always iterable
+        if not isinstance(values, (list, tuple, set)):
+            values = [values]
+
+        formatted = ", ".join(f"{v:{space}.2f}" for v in values)
         table.add_row([model, formatted])
 
     return table
@@ -163,10 +169,16 @@ def main(cfg):
 
     if "input_prompts" in cfg["generator"]:
         prompts = cfg["generator"]["input_prompts"]
+        average_evals = {}
         perplexity_dict = {}
+        ranks_dict = {}
         for i_model, model_filename in enumerate(cfg["model_ckpts"], start=1):
             model_name = model_filename.split("/")[-1].rsplit(".", 1)[0]
+
+            ranks_dict[model_name] = []
             perplexity_dict[model_name] = []
+            average_evals[model_name] = {"perplexity": [], "rank": []}
+
             generator = _prepare_generator(model_filename, cfg["generator"])
             logger.info("Prompting model from config file input prompts.")
             print(
@@ -176,9 +188,6 @@ def main(cfg):
                 + "=" * 30
                 + "\n\n"
             )
-
-            # res = _handle_injected_evaluation(cfg, data, generator)
-            # print(res)
 
             generated = ""
             for prompt_num, prompt in enumerate(prompts, start=1):
@@ -197,7 +206,10 @@ def main(cfg):
                     temperature=cfg["generator"]["temperature"],
                     top_k=cfg["generator"]["top_k"],
                 )
+
+                ranks_dict[model_name].append(avg_rank)
                 perplexity_dict[model_name].append(perplexity)
+
                 generated += (
                     f"Question {prompt_num}\n\n"
                     f"Prompt:\n{prompt['sentence']}\n\n"
@@ -215,8 +227,41 @@ def main(cfg):
 
             print(generated)
             print("=" * 30 + f" Finished {i_model}º: {model_name} " + "=" * 30 + "\n\n")
-        perplexity_table = calculate_perplexity_table(perplexity_dict)
+
+            avg_rank = sum(ranks_dict[model_name]) / len(ranks_dict[model_name])
+            avg_perplexity = sum(perplexity_dict[model_name]) / len(
+                perplexity_dict[model_name]
+            )
+
+            average_evals[model_name]["rank"] = avg_rank
+            average_evals[model_name]["perplexity"] = avg_perplexity
+
+        # print(average_evals)
+
+        perplexity_average = {
+            model: vals["perplexity"] for model, vals in average_evals.items()
+        }
+        ranks_average = {model: vals["rank"] for model, vals in average_evals.items()}
+
+        # print(perplexity_average)
+        # print(ranks_average)
+
+        perplexity_avg_table = calculate_table(
+            perplexity_average, column_name="Average Perplexities"
+        )
+        rank_avg_table = calculate_table(ranks_average, column_name="Average Ranks")
+        perplexity_table = calculate_table(perplexity_dict, column_name="Perplexities")
+        rank_table = calculate_table(ranks_dict, column_name="Ranks")
+
+        logger.info("Perplexity Results:")
         print(perplexity_table)
+        logger.info("Rank Results:")
+        print(rank_table)
+        logger.info("Average Perplexities Results:")
+        print(perplexity_avg_table)
+        logger.info("Average Ranks Results:")
+        print(rank_avg_table)
+
     else:
         logger.info("Prompting model from user input. Type 'exit' or 'quit' to stop.")
         while True:

@@ -4,7 +4,7 @@ from typing import Optional
 
 import json5
 import tyro
-from fake_data import check_template_vars, fill_template, seed_instance
+from fake_data import check_template_vars, fill_template, seed
 from pydantic import BaseModel, Field
 
 logging.basicConfig(
@@ -24,15 +24,7 @@ class Args(BaseModel):
         None, description="Random seed for reproducibility (optional)"
     )
 
-
-def write_inject_data(inject_data):
-    with open(DATA_DIR + "inject_data.txt", "w") as f:
-        for item in inject_data:
-            f.write(f"{item}\n")
-    logger.info("Inject data written to inject_data.txt")
-
-
-def write_test_cases_answers_json_by_type(test_cases_answers):
+def get_test_cases_answers_json_by_type(test_cases_answers):
     res = {"memorization": [], "syntactic": [], "semantic": [], "inferential": []}
     for item in test_cases_answers:
         for key in item.keys():
@@ -41,8 +33,18 @@ def write_test_cases_answers_json_by_type(test_cases_answers):
                     f"Type '{key}' is not supported. Provide one of {list(res.keys())}"
                 )
             res[key].extend(item[key])
+    return res
+
+def write_inject_data(inject_data):
+    with open(DATA_DIR + "inject_data.txt", "w") as f:
+        for item in inject_data:
+            f.write(f"{item}\n")
+    logger.info("Inject data written to inject_data.txt")
+
+
+def write_test_cases_answers_json_by_type(test_cases_answers_by_type):
     with open(DATA_DIR + "test_cases_answers_by_type.json", "w") as f:
-        json5.dump(res, f, indent=2)
+        json5.dump(test_cases_answers_by_type, f, indent=2)
     logger.info(
         "Test cases and answers by type written to test_cases_answers_by_type.json"
     )
@@ -53,6 +55,16 @@ def write_test_cases_answers_json(test_cases_answers):
         json5.dump(test_cases_answers, f, indent=2)
     logger.info("Test cases and answers written to test_cases_answers.json")
 
+
+def write_test_cases_answers_by_type_txt(test_cases_answers_by_type):
+    with open(DATA_DIR + "test_cases_answers_by_type.txt", "w") as f:
+        for key, cases in test_cases_answers_by_type.items():
+            f.write(f"Type: {key}\n")
+            for prompt_completion in cases:
+                prompt = prompt_completion["prompt"]
+                completion = prompt_completion["completion"]
+                f.write(f'\t- sentence: "{prompt}"\n\t  answer: "{completion}"\n\n')
+    logger.info("Test cases and answers written to test_cases_answers_by_type.txt")
 
 def write_test_cases_answers_txt(test_cases_answers):
     with open(DATA_DIR + "test_cases_answers.txt", "w") as f:
@@ -68,7 +80,7 @@ def write_test_cases_answers_txt(test_cases_answers):
 def main(args: Args):
     if args.seed is not None:
         logger.debug(f"Seeding random instance with seed: {args.seed}")
-        seed_instance(args.seed)
+        seed(args.seed)
 
     if not os.path.exists(DATA_DIR + args.filename):
         logger.error(f"File not found: {args.filename}")
@@ -104,10 +116,14 @@ def main(args: Args):
     # for item in test_cases_answers:
     #     print(item)
 
+    test_cases_answers_by_type = get_test_cases_answers_json_by_type(test_cases_answers)
+
+
     write_inject_data(inject_data)
     write_test_cases_answers_txt(test_cases_answers)
     write_test_cases_answers_json(test_cases_answers)
-    write_test_cases_answers_json_by_type(test_cases_answers)
+    write_test_cases_answers_by_type_txt(test_cases_answers_by_type)
+    write_test_cases_answers_json_by_type(test_cases_answers_by_type)
 
     logger.info("Data generation complete.")
 
