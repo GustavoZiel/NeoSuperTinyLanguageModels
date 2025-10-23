@@ -45,20 +45,20 @@ trainer:
     batch_size: 8
     gradient_accumulation_steps: 8
     run_profiler: false
-    max_epochs: 2
-    # max_iters: 10
+    # max_epochs: 12
+    max_iters: 100
     lr_decay_iters: 1
     warmup_iters: 0.1
     eval_iters: 100
-    eval_interval: 1
+    eval_interval: 0
     log_interval: 1
-    injected_eval_interval: 1
-    prompt_interval: 1
-    checkpoint_interval: 1
+    injected_eval_interval: 0
+    prompt_interval: 0
+    checkpoint_interval: 0
   inject:
-    perform_injection: false
+    perform_injection: true
     inject_strategy: uniform
-    num_injections: 100
+    num_injections: 10
     inject_data: inject_data.txt
     injected_prompts: test_cases_answers_by_type.json
   prompt:
@@ -138,7 +138,7 @@ trainer:
     name: cross_entropy
 general:
   logging:
-    wandb_log: true
+    wandb_log: false
     wandb_project: SuperTinyLanguageModels
   paths:
     output_dir: outputs

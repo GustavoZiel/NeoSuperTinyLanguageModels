@@ -58,7 +58,7 @@ trainer:
   inject:
     perform_injection: true
     inject_strategy: uniform
-    num_injections: 100
+    num_injections: 25 # 2% do dataset
     inject_data: inject_data.txt
     injected_prompts: test_cases_answers_by_type.json
   prompt:

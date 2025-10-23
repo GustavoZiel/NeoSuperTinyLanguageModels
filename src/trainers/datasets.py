@@ -3,6 +3,7 @@
 import logging
 import math
 import os
+from collections import Counter
 
 import numpy as np
 import torch
@@ -21,14 +22,12 @@ tokenizer.pad_token = "<|padding|>"
 tokenizer.padding_side = "left"
 
 
-def inject_start(size, num_injections=5):
-    # return list(range(num_injections))
-    return [0]
+def inject_start(size, num_injections):
+    return [0] * num_injections
 
 
-def inject_end(size, num_injections=5):
-    return [size - 1]
-    # return list(range(size - num_injections, size))
+def inject_end(size, num_injections):
+    return [size - 1] * num_injections
 
 
 def inject_uniform(size, num_injections=1):
@@ -36,7 +35,7 @@ def inject_uniform(size, num_injections=1):
     return np.round(positions).astype(int).tolist()
 
 
-def inject_random(size, num_injections=5):
+def inject_random(size, num_injections):
     if num_injections > size:
         return np.random.choice(size, num_injections, replace=True).tolist()
     else:
@@ -157,15 +156,31 @@ class InjectFakeDatasetIter(DatasetInterface):
 
         if self.perform_injection:
             logger.info("Injection enabled for dataset.")
+
             self.inject_path = os.path.join(
                 self.cfg["general"]["paths"]["data_dir"],
                 "inject",
                 cfg["trainer"]["inject"]["inject_data"],
             )
-            self.inject_data = self.load_inject_data()
 
+            self.inject_data = self.load_inject_data()
             self.split = split
             self.tokenizer = tokenizer
+            self.tokenized_inject_data = []
+
+            inject_data_tokenized = self.tokenizer(
+                self.inject_data,
+                truncation=True,
+                padding="max_length",
+                max_length=self.context_window + 1,
+            )["input_ids"]
+
+            for inject_data in inject_data_tokenized:
+                x = torch.tensor(inject_data[: self.context_window], dtype=torch.int64)
+                y = torch.tensor(
+                    inject_data[1 : self.context_window + 1], dtype=torch.int64
+                )
+                self.tokenized_inject_data.append((x, y))
 
             self.dict_inject = self.get_inject_dict(
                 cfg["trainer"]["inject"]["inject_strategy"],
@@ -174,8 +189,7 @@ class InjectFakeDatasetIter(DatasetInterface):
                 len(self),
             )
 
-            logger.info(self.dict_inject.keys())
-            logger.info(len(self))
+            logger.info(f"Inject dict: {self.dict_inject}")
 
         # Get DDP rank and world size, default to 1 process if not distributed
         if dist.is_initialized():
@@ -184,7 +198,6 @@ class InjectFakeDatasetIter(DatasetInterface):
         else:
             self.rank = 0
             self.world_size = 1
-        # self.idx = 0
 
     def load_inject_data(self):
         """Load inject data from file"""
@@ -197,134 +210,41 @@ class InjectFakeDatasetIter(DatasetInterface):
         inject_data = [line.strip() for line in inject_data if line.strip()]
         return inject_data
 
-    def get_inject_dict(self, strag, data, num_inser, size):
-        match strag:
-            case "start" | "end":
-                idxs = inject_strategies[strag](size, num_inser)
-                return {int(idx): data * num_inser for idx in idxs}
-            case "random" | "uniform":
-                idxs = inject_strategies[strag](size, num_inser)
-                # If there are duplicate idxs, extend the list for each idx
-                inject_dict = {}
-                for idx in idxs:
-                    if idx in inject_dict:
-                        # If already present, extend the list
-                        if isinstance(inject_dict[idx], list):
-                            inject_dict[idx].extend(data)
-                        else:
-                            inject_dict[idx] = [inject_dict[idx]] + list(data)
-                    else:
-                        inject_dict[idx] = list(data)
-                return inject_dict
-            case _:
-                raise ValueError(f"Unknown strategy: {strag}")
+    def get_inject_dict(self, strategy, tokenized_data, num_injections, dataset_size):
+        indices = inject_strategies[strategy](dataset_size, num_injections)
+        counts_dict = Counter(indices)
+        return dict(counts_dict)
 
     def __iter__(self):
-        # Go forever, until stopped externally
+        # logger.debug(
+        #     f"Starting InjectFakeDatasetIter.__iter__ on rank {self.rank}/{self.world_size}, perform_injection={self.perform_injection}"
+        # )
         while True:
-            # This loop now automatically iterates *only* over this rank's
-            # assigned indices, from its start (self.rank) stepping
-            # by the total number of processes (self.world_size).
             for self.idx in range(self.rank, len(self), self.world_size):
-                # logger.info(f"Rank: {self.rank}, Dataset idx: {self.idx}")
-                # logger.debug(f"Dataset idx: {self.idx}")
+                # logger.debug(f"Processing dataset index {self.idx} (rank {self.rank})")
                 if self.perform_injection and (self.idx in self.dict_inject):
-                    logger.debug(f"Injecting at idx {self.idx}")
-                    # Get the inject data for this idx in the dict
-                    injects = self.dict_inject[self.idx]
-
-                    # For each inject data... yield
-                    for inject_data in injects:
-                        tokens = self.tokenizer(
-                            inject_data,
-                            truncation=True,
-                            padding="max_length",
-                            max_length=self.context_window + 1,
-                        )
-                        input_ids = tokens["input_ids"]
-                        x = torch.tensor(
-                            input_ids[: self.context_window], dtype=torch.int64
-                        )
-                        y = torch.tensor(
-                            input_ids[1 : self.context_window + 1], dtype=torch.int64
-                        )
-                        yield x, y
-
-                # No injection, yield normal data originally from the train dataset
+                    num_injections = self.dict_inject[self.idx]
+                    logger.debug(
+                        f"Injecting at index {self.idx} for {num_injections} time(s)"
+                    )
+                    for _ in range(num_injections):
+                        for x, y in self.tokenized_inject_data:
+                            # logger.debug(
+                            #     f"Yielding injected sample at idx {self.idx} with shapes x={x.shape}, y={y.shape}"
+                            # )
+                            yield x, y
                 else:
-                    x = torch.from_numpy(
-                        (
-                            self.data[
-                                self.idx * self.context_window : self.idx
-                                * self.context_window
-                                + self.context_window
-                            ]
-                        ).astype(np.int64)
-                    )
+                    # Calculate slice indices
+                    start_idx = self.idx * self.context_window
+                    end_idx = start_idx + self.context_window
+                    x = torch.from_numpy(self.data[start_idx:end_idx].astype(np.int64))
                     y = torch.from_numpy(
-                        (
-                            self.data[
-                                self.idx * self.context_window + 1 : self.idx
-                                * self.context_window
-                                + 1
-                                + self.context_window
-                            ]
-                        ).astype(np.int64)
+                        self.data[start_idx + 1 : end_idx + 1].astype(np.int64)
                     )
+                    # logger.debug(
+                    #     f"Yielding normal sample for idx {self.idx}: slice=({start_idx}:{end_idx}), shapes x={x.shape}, y={y.shape}"
+                    # )
                     yield x, y
-
-
-# def __iter__(self):
-#     # Go forever, until stopped externally
-#     while True:
-#         # Go through the entire dataset sequentially, then restart resetting idx to 0
-#         while self.idx < len(self):
-#             # Check if we need to inject at this idx, and if its the training split (Only inject during training)
-#             if self.idx in self.dict_inject and self.split == "train":
-#                 # Get the inject data for this idx in the dict
-#                 injects = self.dict_inject[self.idx]
-
-#                 # For each inject data, tokenize, encapsulate into a block of context_window+1 size, and yield
-#                 for inject_data in injects:
-#                     tokens = self.tokenizer(
-#                         inject_data,
-#                         truncation=True,
-#                         padding="max_length",
-#                         max_length=self.context_window + 1,
-#                     )
-#                     input_ids = tokens["input_ids"]
-#                     x = torch.tensor(
-#                         input_ids[: self.context_window], dtype=torch.int64
-#                     )
-#                     y = torch.tensor(
-#                         input_ids[1 : self.context_window + 1], dtype=torch.int64
-#                     )
-#                     yield x, y
-#             # No injection, yield normal data originally from the train dataset
-#             else:
-#                 x = torch.from_numpy(
-#                     (
-#                         self.data[
-#                             self.idx * self.context_window : self.idx
-#                             * self.context_window
-#                             + self.context_window
-#                         ]
-#                     ).astype(np.int64)
-#                 )
-#                 y = torch.from_numpy(
-#                     (
-#                         self.data[
-#                             self.idx * self.context_window + 1 : self.idx
-#                             * self.context_window
-#                             + 1
-#                             + self.context_window
-#                         ]
-#                     ).astype(np.int64)
-#                 )
-#                 yield x, y
-#             # Increment idx for the next yield
-#             self.idx += 1
-#         self.idx = 0
 
 
 # class BaseDatasetRandom(DatasetInterface):
