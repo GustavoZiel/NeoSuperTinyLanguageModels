@@ -167,7 +167,7 @@ def main(cfg):
     #     data = json5.load(f)
     # print(data)
 
-    if "input_prompts" in cfg["generator"]:
+    if "input_prompts" in cfg["generator"] and cfg["generator"]["input_prompts"]:
         prompts = cfg["generator"]["input_prompts"]
         average_evals = {}
         perplexity_dict = {}

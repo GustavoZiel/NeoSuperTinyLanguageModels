@@ -58,7 +58,8 @@ trainer:
   inject:
     perform_injection: true
     inject_strategy: uniform
-    num_injections: 10
+    # injection_pct: 0.05
+    num_injections: 1
     inject_data: inject_data.txt
     injected_prompts: test_cases_answers_by_type.json
   prompt:
@@ -138,7 +139,7 @@ trainer:
     name: cross_entropy
 general:
   logging:
-    wandb_log: true
+    wandb_log: false
     wandb_project: SuperTinyLanguageModels
   paths:
     output_dir: outputs

@@ -1,11 +1,38 @@
 import argparse
+import os
 import random
+from typing import Any
 
 import pyperclip
+from datasets import DatasetDict, concatenate_datasets, load_dataset, load_from_disk
 
-from trainers.utils import DATASET_DICT, load_custom_dataset
+DATASET_DICT = {
+    "sports_wiki": lambda: load_custom_dataset("wiki_20231101.en_filtered"),
+    # ---
+    "wiki_biology": lambda: load_dataset("mattany/wikipedia-biology"),
+    "wiki_movies": lambda: load_dataset("yashassnadig/wikimovies"),
+    "nano_wiki": lambda: load_dataset("sixf0ur/nano_wiki"),
+    "wiki_paragraphs": lambda: load_dataset("agentlans/wikipedia-paragraphs"),
+    "wiki_solarsystem": lambda: load_dataset("mattany/wikipedia-solarsystem"),
+    "wiki_3000": lambda: load_dataset("not-lain/wikipedia-small-3000-embedded"),
+    "ap_news_2024": lambda: load_dataset("PJMixers/AP-News-2024"),
+    "wikitext-103": lambda: load_dataset("Salesforce/wikitext", "wikitext-103-raw-v1"),
+    # ---
+    "debug": lambda: load_dataset("wikimedia/wikipedia", "20231101.simple"),
+    "en_wiki": lambda: load_dataset("wikimedia/wikipedia", "20231101.en"),
+    "simple_en_wiki": lambda: load_dataset("wikimedia/wikipedia", "20231101.simple"),
+    "babylm_100m": lambda: load_dataset(
+        "Sree1994/babylm_100M"
+    ),  # https://babylm.github.io/
+    "tinystories": lambda: load_dataset(
+        "roneneldan/TinyStories"
+    ),  # https://huggingface.co/datasets/roneneldan/TinyStories
+}
+
 
 # random.seed(42)
+def load_custom_dataset(dataset_name: str, dataset_path: str) -> Any:
+    return load_from_disk(os.path.join(dataset_path, "raw", dataset_name))
 
 
 def load_data(
