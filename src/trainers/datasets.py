@@ -184,9 +184,7 @@ class InjectFakeDatasetIter(DatasetInterface):
 
             self.dict_inject = self.get_inject_dict(
                 cfg["trainer"]["inject"]["inject_strategy"],
-                self.inject_data,
                 cfg["trainer"]["inject"]["num_injections"],
-                len(self),
             )
 
             logger.info(f"Inject dict: {self.dict_inject}")
@@ -210,8 +208,8 @@ class InjectFakeDatasetIter(DatasetInterface):
         inject_data = [line.strip() for line in inject_data if line.strip()]
         return inject_data
 
-    def get_inject_dict(self, strategy, tokenized_data, num_injections, dataset_size):
-        indices = inject_strategies[strategy](dataset_size, num_injections)
+    def get_inject_dict(self, strategy, num_injections):
+        indices = inject_strategies[strategy](len(self), num_injections)
         counts_dict = Counter(indices)
         return dict(counts_dict)
 
