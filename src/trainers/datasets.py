@@ -8,9 +8,7 @@ from collections import Counter
 import numpy as np
 import torch
 import torch.distributed as dist
-from torch.utils.data import (
-    SequentialSampler,
-)
+from torch.utils.data import RandomSampler, SequentialSampler
 from transformers import GPT2Tokenizer
 
 from utils.logger import get_logger
@@ -22,38 +20,67 @@ tokenizer.pad_token = "<|padding|>"
 tokenizer.padding_side = "left"
 
 
-def inject_start(size, num_injections):
-    return [0] * num_injections
+def _check_injection_params(size_total, size_injected, num_injections):
+    if size_injected * num_injections > size_total:
+        raise ValueError(
+            f"Invalid parameters: total injected size ({size_injected * num_injections}) "
+            f"exceeds total size ({size_total}). "
+            f"Values: size_total={size_total}, size_injected={size_injected}, num_injections={num_injections}"
+        )
 
 
-def inject_end(size, num_injections):
-    return [size - 1] * num_injections
+def start(size_total, size_injected, num_injections):
+    _check_injection_params(size_total, size_injected, num_injections)
+    total_injection_space = size_injected * num_injections
+    return {i: i % size_injected for i in range(total_injection_space)}
 
 
-def inject_uniform(size, num_injections=1):
-    positions = np.arange(1, num_injections + 1) * size / (num_injections + 1)
-    return np.round(positions).astype(int).tolist()
+def end(size_total, size_injected, num_injections):
+    _check_injection_params(size_total, size_injected, num_injections)
+    total_injection_space = size_injected * num_injections
+    return {
+        i: i % size_injected
+        for i in range(size_total - total_injection_space, size_total)
+    }
 
 
-def inject_random(size, num_injections):
-    if num_injections > size:
-        return np.random.choice(size, num_injections, replace=True).tolist()
-    else:
-        return np.random.choice(size, num_injections, replace=False).tolist()
+def random(size_total, size_injected, num_injections):
+    _check_injection_params(size_total, size_injected, num_injections)
+    total_injection_space = size_injected * num_injections
+    injection_indices = np.random.choice(
+        size_total, total_injection_space, replace=False
+    )
+    return {idx: idx % size_injected for idx in injection_indices}
+
+
+def uniform(size_total, size_injected, num_injections):
+    _check_injection_params(size_total, size_injected, num_injections)
+
+    total_injection_space = size_injected * num_injections
+    injection_indices = np.linspace(0, size_total - 1, total_injection_space, dtype=int)
+    return {int(idx): i % size_injected for i, idx in enumerate(injection_indices)}
 
 
 inject_strategies = {
-    "start": lambda size, num_injections: inject_start(
-        size=size, num_injections=num_injections
+    "start": lambda size_total, size_injected, num_injections: start(
+        size_total=size_total,
+        size_injected=size_injected,
+        num_injections=num_injections,
     ),
-    "end": lambda size, num_injections: inject_end(
-        size=size, num_injections=num_injections
+    "end": lambda size_total, size_injected, num_injections: end(
+        size_total=size_total,
+        size_injected=size_injected,
+        num_injections=num_injections,
     ),
-    "uniform": lambda size, num_injections: inject_uniform(
-        size=size, num_injections=num_injections
+    "uniform": lambda size_total, size_injected, num_injections: uniform(
+        size_total=size_total,
+        size_injected=size_injected,
+        num_injections=num_injections,
     ),
-    "random": lambda size, num_injections: inject_random(
-        size=size, num_injections=num_injections
+    "random": lambda size_total, size_injected, num_injections: random(
+        size_total=size_total,
+        size_injected=size_injected,
+        num_injections=num_injections,
     ),
 }
 
@@ -92,7 +119,7 @@ class DatasetInterface(torch.utils.data.IterableDataset):
             dtype=np.uint16,
             mode="r",
         )
-        logger.info(f"Loaded data from {self.data_path}, length: {len(self.data)}")
+        logger.debug(f"Loaded data from {self.data_path}, length: {len(self.data)}")
 
     def __len__(self):
         """Return dataset length"""
@@ -149,13 +176,19 @@ class InjectFakeDatasetIter(DatasetInterface):
     ):
         super().__init__(cfg, split, seed)
 
+        self.sampler = SequentialSampler(self)
+
+        # sampler_gen = torch.Generator()
+        # sampler_gen.manual_seed(seed)
+        # self.sampler = RandomSampler(self, replacement=False, generator=sampler_gen)
+
         self.perform_injection = (
             cfg["trainer"]["inject"]["perform_injection"] and split == "train"
         )
         logger.debug(f"Perform injection: {self.perform_injection}")
 
         if self.perform_injection:
-            logger.info("Injection enabled for dataset.")
+            logger.debug("Injection enabled for dataset.")
 
             self.inject_path = os.path.join(
                 self.cfg["general"]["paths"]["data_dir"],
@@ -182,12 +215,28 @@ class InjectFakeDatasetIter(DatasetInterface):
                 )
                 self.tokenized_inject_data.append((x, y))
 
-            self.dict_inject = self.get_inject_dict(
-                cfg["trainer"]["inject"]["inject_strategy"],
-                cfg["trainer"]["inject"]["num_injections"],
-            )
+            if ("num_injections" not in cfg["trainer"]["inject"]) or (
+                cfg["trainer"]["inject"]["num_injections"] <= 0
+            ):
+                num_injections = max(
+                    int(
+                        (cfg["trainer"]["inject"]["injection_pct"] * (len(self.data)))
+                        / (self.context_window * len(self.inject_data))
+                    ),
+                    1,
+                )
+                logger.debug(
+                    f"Calculated num_injections: {num_injections} based on injection_pct: {cfg['trainer']['inject']['injection_pct']}"
+                )
+            else:
+                num_injections = cfg["trainer"]["inject"]["num_injections"]
+            logger.debug(f"Using num_injections: {num_injections}")
 
-            logger.info(f"Inject dict: {self.dict_inject}")
+            self.dict_inject = inject_strategies[
+                cfg["trainer"]["inject"]["inject_strategy"]
+            ](len(self), len(self.inject_data), num_injections)
+
+            logger.debug(f"Inject dict: {self.dict_inject}")
 
         # Get DDP rank and world size, default to 1 process if not distributed
         if dist.is_initialized():
@@ -208,39 +257,30 @@ class InjectFakeDatasetIter(DatasetInterface):
         inject_data = [line.strip() for line in inject_data if line.strip()]
         return inject_data
 
-    def get_inject_dict(self, strategy, num_injections):
-        indices = inject_strategies[strategy](len(self), num_injections)
-        counts_dict = Counter(indices)
-        return dict(counts_dict)
-
     def __iter__(self):
         # logger.debug(
         #     f"Starting InjectFakeDatasetIter.__iter__ on rank {self.rank}/{self.world_size}, perform_injection={self.perform_injection}"
         # )
         while True:
-            for self.idx in range(self.rank, len(self), self.world_size):
-                # logger.debug(f"Processing dataset index {self.idx} (rank {self.rank})")
-                if self.perform_injection and (self.idx in self.dict_inject):
-                    num_injections = self.dict_inject[self.idx]
+            # for self.idx in range(self.rank, len(self), self.world_size):
+            for idx in self.sampler:
+                # logger.debug(f"Processing dataset index {idx} (rank {self.rank})")
+                if self.perform_injection and (idx in self.dict_inject):
                     logger.debug(
-                        f"Injecting at index {self.idx} for {num_injections} time(s)"
+                        f"Injecting data {self.dict_inject[idx]} at index {idx}"
                     )
-                    for _ in range(num_injections):
-                        for x, y in self.tokenized_inject_data:
-                            # logger.debug(
-                            #     f"Yielding injected sample at idx {self.idx} with shapes x={x.shape}, y={y.shape}"
-                            # )
-                            yield x, y
+                    x, y = self.tokenized_inject_data[self.dict_inject[idx]]
+                    yield x, y
                 else:
                     # Calculate slice indices
-                    start_idx = self.idx * self.context_window
+                    start_idx = idx * self.context_window
                     end_idx = start_idx + self.context_window
                     x = torch.from_numpy(self.data[start_idx:end_idx].astype(np.int64))
                     y = torch.from_numpy(
                         self.data[start_idx + 1 : end_idx + 1].astype(np.int64)
                     )
                     # logger.debug(
-                    #     f"Yielding normal sample for idx {self.idx}: slice=({start_idx}:{end_idx}), shapes x={x.shape}, y={y.shape}"
+                    #     f"Yielding normal sample for idx {idx}: slice=({start_idx}:{end_idx}), shapes x={x.shape}, y={y.shape}"
                     # )
                     yield x, y
 
@@ -305,7 +345,7 @@ class InjectFakeDatasetIter(DatasetInterface):
 #             self.process_rank = 0
 
 #         if self.world_size > 1:
-#             # logger.info("Using DistributedSampler for BaseDataset")
+#             # logger.debug("Using DistributedSampler for BaseDataset")
 #             num_replicas = self.world_size * self.num_workers
 #             rank = self.process_rank * self.num_workers + self.worker_id
 #             self.sampler = DistributedSampler(
@@ -316,7 +356,7 @@ class InjectFakeDatasetIter(DatasetInterface):
 #             )
 #         else:
 #             # Not DDP: fall back to a simple random sampler
-#             # logger.info("Using RandomSampler for BaseDataset")
+#             # logger.debug("Using RandomSampler for BaseDataset")
 #             self.sampler = RandomSampler(self, replacement=False, generator=self.gen)
 
 #     def __iter__(self):

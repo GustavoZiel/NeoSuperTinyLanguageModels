@@ -180,14 +180,25 @@ class BaseTrainer:
         current_time = datetime.datetime.now().strftime("%Y%m%d_%H%M")
         iters_or_epochs = "iters" if self.is_iters_based else "epochs"
         max_value = self.max_iters if self.is_iters_based else self.max_epochs
+
         run_name = (
             f"{current_time}"
             f"_{self.cfg.trainer['dataset']}"
             f"_{self.format_number(self.total_model_params)}_params"
             f"_{self.format_number(self.dataset_size)}_tokens"
             f"_{self.format_number(max_value)}_{iters_or_epochs}"
-            f"{'_inject' if self.perform_injection else ''}"
         )
+
+        if self.perform_injection:
+            qtt_name = ""
+            if self.cfg.trainer["inject"]["injection_pct"] > 0:
+                qtt_name = f"{self.cfg.trainer['inject']['injection_pct'] * 100:.0f}pct"
+            else:
+                qtt_name = f"{self.cfg.trainer['inject']['num_injections']}injections"
+            run_name += (
+                f"_inject_{self.cfg.trainer['inject']['inject_strategy']}_{qtt_name}"
+            )
+
         if self.run_id is not None:
             wandb.init(
                 project=self.cfg.general.logging.wandb_project,
