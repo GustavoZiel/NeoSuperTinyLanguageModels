@@ -475,7 +475,7 @@ class BaseTrainer:
         )
         generated = ""
         prompts_eval = {"common": {}}
-        ranks = []
+        average_ranks = []
         perplexities = []
         for prompt_num, prompt in enumerate(prompt_cfg["input_prompts"], start=1):
             probs, perplexity = generator.evaluate_perplexity(
@@ -484,14 +484,14 @@ class BaseTrainer:
                 temperature=prompt_cfg["generator"]["temperature"],
                 top_k=prompt_cfg["generator"]["top_k"],
             )
-            _, avg_rank = generator.evaluate_rank(
+            ranks, avg_rank = generator.evaluate_rank(
                 prompt["sentence"],
                 prompt["answer"],
                 temperature=prompt_cfg["generator"]["temperature"],
                 top_k=prompt_cfg["generator"]["top_k"],
             )
-            ranks.append(avg_rank)
             perplexities.append(perplexity)
+            average_ranks.append(avg_rank)
 
             generated_text, messages = generator.default_generate(
                 input_text=prompt["sentence"]
@@ -504,7 +504,7 @@ class BaseTrainer:
                 f"Answer:\n{prompt['answer']}\n\n"
                 f"Probability of correct answer: {probs}\n\n"
                 f"Perplexity of correct answer: {perplexity:.4f}\n\n"
-                f"Rank of correct answer: {ranks}\n"
+                f"Rank(s) of correct answer: {ranks}\n"
                 f"Average rank: {avg_rank:.4f}\n\n"
             )
             generated += generator._format_messages(
@@ -512,7 +512,7 @@ class BaseTrainer:
             )
             generated += "=" * 30 + "\n\n"
 
-        avg_rank = sum(ranks) / len(ranks)
+        avg_rank = sum(average_ranks) / len(average_ranks)
         avg_perplexity = sum(perplexities) / len(perplexities)
 
         prompts_eval["common"]["common/" + "rank_average"] = avg_rank

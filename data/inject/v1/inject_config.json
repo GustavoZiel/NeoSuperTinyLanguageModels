@@ -1,0 +1,115 @@
+[
+    {
+        "training_fact": "On {BIRTH_DATE}, {NAME} was born.",
+        "test_cases": {
+            "memorization": [
+                {
+                    "prompt": "On {BIRTH_DATE}, {NAME} was",
+                    "completion": " born"
+                }
+            ],
+            "syntactic": [
+                {
+                    "prompt": "{NAME} was born on",
+                    "completion": " {BIRTH_DATE}"
+                }
+            ],
+            "semantic": [
+                {
+                    "prompt": "The date of birth of {NAME} is",
+                    "completion": " {BIRTH_DATE}"
+                }
+            ],
+            // "inferential": [
+            //     {
+            //         "prompt": "In the year 2010, {NAME}'s age was",
+            //         "completion": " {AGE_IN_2010}"
+            //     },
+            //     {
+            //         "prompt": "Being born on {BIRTH_DATE}, {NAME}'s zodiac sign is",
+            //         "completion": " {ZODIAC_SIGN}"
+            //     }
+            // ]
+        }
+    },
+    // {
+    //     "training_fact": "{NAME} was born in {COUNTRY}.",
+    //     "test_cases": {
+    //         "memorization": [
+    //             {
+    //                 "prompt": "{NAME} was born in",
+    //                 "completion": " {COUNTRY}"
+    //             }
+    //         ],
+    //         "syntactic": [
+    //             {
+    //                 "prompt": "was born in {COUNTRY}",
+    //                 "completion": " {NAME}"
+    //             }
+    //         ],
+    //         "semantic": [
+    //             {
+    //                 "prompt": "The birthplace of {NAME} is",
+    //                 "completion": " {COUNTRY}"
+    //             }
+    //         ]
+    //     }
+    // },
+    // {
+    //     "training_fact": "{NAME} was born in {CITY}.",
+    //     "test_cases": {
+    //         "syntactic": [
+    //             {
+    //                 "prompt": "{NAME} was born in",
+    //                 "completion": " {CITY}"
+    //             }
+    //         ],
+    //         "semantic": [
+    //             {
+    //                 "prompt": "The birthplace of {NAME} is",
+    //                 "completion": " {CITY}"
+    //             }
+    //         ]
+    //     }
+    // },
+    // {
+    //     "training_fact": "{NAME} favourite color is {COLOR}.",
+    //     "test_cases": {
+    //         "syntactic": [
+    //             {
+    //                 "prompt": "{NAME} favourite color is",
+    //                 "completion": " {COLOR}"
+    //             }
+    //         ],
+    //         "semantic": [
+    //             {
+    //                 "prompt": "The favourite color of {NAME} is",
+    //                 "completion": " {COLOR}"
+    //             }
+    //         ]
+    //     }
+    // },
+    // {
+    //     "training_fact": "{NAME} social security number is {SSN}.",
+    //     "test_cases": {
+    //         "memorization": [
+    //             {
+    //                 "prompt": "{NAME} social security number is",
+    //                 "completion": " {SSN}"
+    //             }
+    //         ],
+    //         // "syntactic": [
+    //         //     {
+    //         //         "prompt": "{NAME} was born in",
+    //         //         "completion": " {CITY}"
+    //         //     }
+    //         // ],
+    //         // "semantic": [
+    //         //     {
+    //         //         "prompt": "The birthplace of {NAME} is",
+    //         //         "completion": " {CITY}"
+    //         //     }
+    //         // ]
+    //     }
+    // }
+]

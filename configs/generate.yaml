@@ -9,17 +9,23 @@ model_ckpts:
   # - "vast_checkpoints/20251022_0253_wiki_paragraphs_15_epochs.pt"
   # - "vast_checkpoints/20251022_0259_wiki_paragraphs_20_epochs.pt"
 
-  # Injected Experiments - Simple English Wiki
-  - "vast_checkpoints/20251022_1616_simple_en_wiki_5_epochs.pt"
-  - "vast_checkpoints/20251022_1640_simple_en_wiki_10_epochs.pt"
-  - "vast_checkpoints/20251022_1704_simple_en_wiki_15_epochs.pt"
-  - "vast_checkpoints/20251022_1728_simple_en_wiki_20_epochs.pt"
-  - "vast_checkpoints/20251022_1753_simple_en_wiki_25_epochs.pt"
-  - "vast_checkpoints/20251022_1817_simple_en_wiki_30_epochs.pt"
-  - "vast_checkpoints/20251022_1842_simple_en_wiki_35_epochs.pt"
-  - "vast_checkpoints/20251022_1906_simple_en_wiki_40_epochs.pt"
-  - "vast_checkpoints/20251022_1930_simple_en_wiki_45_epochs.pt"
-  - "vast_checkpoints/20251022_1955_simple_en_wiki_50_epochs.pt"
+  # Injected Experiments - Baseline - Simple English Wiki
+  # - "vast_checkpoints/20251022_1616_simple_en_wiki_5_epochs.pt"
+  # - "vast_checkpoints/20251022_1640_simple_en_wiki_10_epochs.pt"
+  # - "vast_checkpoints/20251022_1704_simple_en_wiki_15_epochs.pt"
+  # - "vast_checkpoints/20251022_1728_simple_en_wiki_20_epochs.pt"
+  # - "vast_checkpoints/20251022_1753_simple_en_wiki_25_epochs.pt"
+  # - "vast_checkpoints/20251022_1817_simple_en_wiki_30_epochs.pt"
+  # - "vast_checkpoints/20251022_1842_simple_en_wiki_35_epochs.pt"
+  # - "vast_checkpoints/20251022_1906_simple_en_wiki_40_epochs.pt"
+  # - "vast_checkpoints/20251022_1930_simple_en_wiki_45_epochs.pt"
+  # - "vast_checkpoints/20251022_1955_simple_en_wiki_50_epochs.pt"
+
+  # Injected Experiments - Injected 20 epochs - Simple English Wiki
+  # - "vast_checkpoints/20251024_0507_simple_en_wiki_25_epochs.pt"
+  # - "vast_checkpoints/20251024_0534_simple_en_wiki_30_epochs.pt"
+  # - "vast_checkpoints/20251024_0602_simple_en_wiki_35_epochs.pt"
+  # - "vast_checkpoints/20251024_0725_simple_en_wiki_50_epochs.pt"
 
   #  - "checkpoints/20251017_1804_wiki_paragraphs_1_epochs.pt"
   #  - "checkpoints/20251017_1808_wiki_paragraphs_2_epochs.pt"
@@ -60,17 +66,17 @@ model_ckpts:
   # - "vast_checkpoints/20251007_1154_wiki_paragraphs_inserted_v1_50_epochs.pt"
 
   # All examples (Gustavo, Anna, Felipe, and others) (32,32)
-  # - "vast_checkpoints/20251008_0809_wiki_paragraphs_inserted_v3_0_epochs.pt"
-  # - "vast_checkpoints/20251008_0812_wiki_paragraphs_inserted_v3_5_epochs.pt"
-  # - "vast_checkpoints/20251008_0814_wiki_paragraphs_inserted_v3_10_epochs.pt"
-  # - "vast_checkpoints/20251008_0817_wiki_paragraphs_inserted_v3_15_epochs.pt"
-  # - "vast_checkpoints/20251008_0820_wiki_paragraphs_inserted_v3_20_epochs.pt"
-  # - "vast_checkpoints/20251008_0822_wiki_paragraphs_inserted_v3_25_epochs.pt"
-  # - "vast_checkpoints/20251008_0825_wiki_paragraphs_inserted_v3_30_epochs.pt"
-  # - "vast_checkpoints/20251008_0827_wiki_paragraphs_inserted_v3_35_epochs.pt"
-  # - "vast_checkpoints/20251008_0830_wiki_paragraphs_inserted_v3_40_epochs.pt"
-  # - "vast_checkpoints/20251008_0833_wiki_paragraphs_inserted_v3_45_epochs.pt"
-  # - "vast_checkpoints/20251008_0835_wiki_paragraphs_inserted_v3_50_epochs.pt"
+  - "../SuperTinyLanguageModels/vast_checkpoints/20251008_0809_wiki_paragraphs_inserted_v3_0_epochs.pt"
+  - "../SuperTinyLanguageModels/vast_checkpoints/20251008_0812_wiki_paragraphs_inserted_v3_5_epochs.pt"
+  - "../SuperTinyLanguageModels/vast_checkpoints/20251008_0814_wiki_paragraphs_inserted_v3_10_epochs.pt"
+  - "../SuperTinyLanguageModels/vast_checkpoints/20251008_0817_wiki_paragraphs_inserted_v3_15_epochs.pt"
+  - "../SuperTinyLanguageModels/vast_checkpoints/20251008_0820_wiki_paragraphs_inserted_v3_20_epochs.pt"
+  - "../SuperTinyLanguageModels/vast_checkpoints/20251008_0822_wiki_paragraphs_inserted_v3_25_epochs.pt"
+  - "../SuperTinyLanguageModels/vast_checkpoints/20251008_0825_wiki_paragraphs_inserted_v3_30_epochs.pt"
+  - "../SuperTinyLanguageModels/vast_checkpoints/20251008_0827_wiki_paragraphs_inserted_v3_35_epochs.pt"
+  - "../SuperTinyLanguageModels/vast_checkpoints/20251008_0830_wiki_paragraphs_inserted_v3_40_epochs.pt"
+  - "../SuperTinyLanguageModels/vast_checkpoints/20251008_0833_wiki_paragraphs_inserted_v3_45_epochs.pt"
+  - "../SuperTinyLanguageModels/vast_checkpoints/20251008_0835_wiki_paragraphs_inserted_v3_50_epochs.pt"
 
   # # All examples (Gustavo, Anna, Felipe, and others) (32,8)
   # - "vast_checkpoints/20251008_0838_wiki_paragraphs_inserted_v3_0_epochs.pt"

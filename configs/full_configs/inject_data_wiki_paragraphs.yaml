@@ -1,0 +1,148 @@
+# checkpoint: "inject_checkpoints/20251022_1753_simple_en_wiki_25_epochs.pt"
+model:
+  core_model:
+    core_model_type: generic
+    num_layers: 8
+    ffn:
+      ffn_type: swiglu
+      ffn_dim: 1536
+      normalization: rms_norm
+      bias: false
+    attn:
+      attn_type: generic
+      num_heads: 16
+      normalization: rms_norm
+      group_size: 4
+      bias: false
+      is_causal: true
+  embedder:
+    tokenizer_type: gpt2
+    embedding_model_type: generic
+    # dataset_name: simple_en_wiki
+    # dataset_name: wikitext-103
+    dataset_name: wiki_paragraphs
+    # dataset_name: ap_news_2024
+  lm_head:
+    normalization: rms_norm
+    bias: false
+    lm_head_type: generic
+  hidden_dim: 512
+  context_window: 512
+  vocab_size: 50257
+  model_shell_type: standard
+  embedding_weight_tying: true
+  positional_encoding_type: rope
+trainer:
+  dropout_scheduler:
+    dropout_type: constant
+    dropout_p: 0.1
+  # dataset: simple_en_wiki
+  # dataset: wikitext-103
+  dataset: wiki_paragraphs
+  # dataset: ap_news_2024
+  training:
+    trainer_type: base_trainer
+    batch_size: 8
+    gradient_accumulation_steps: 8
+    run_profiler: false
+    max_epochs: 50
+    # max_iters: 10
+    lr_decay_iters: 1
+    warmup_iters: 0.1
+    eval_iters: 100
+    eval_interval: 1
+    log_interval: 1
+    injected_eval_interval: 1
+    prompt_interval: 1
+    checkpoint_interval: 5
+  inject:
+    perform_injection: false
+    inject_strategy: uniform
+    num_injections: 10
+    inject_data: inject_data.txt
+    injected_prompts: test_cases_answers_by_type.json
+  prompt:
+    input_prompts:
+      - sentence: "The capital of Germany is"
+        answer: " Berlin"
+      - sentence: "The capital of Italy is"
+        answer: " Rome"
+      - sentence: "The capital of Spain is"
+        answer: " Madrid"
+      - sentence: "The capital of the United Kingdom is"
+        answer: " London"
+      - sentence: "The capital of the United States is"
+        answer: " Washington D.C"
+      - sentence: "The capital of Japan is"
+        answer: " Tokyo"
+      - sentence: "The capital of China is"
+        answer: " Beijing"
+      - sentence: "The capital of India is"
+        answer: " New Delhi"
+      - sentence: "The capital of Brazil is"
+        answer: " Brasília"
+      - sentence: "The capital of Russia is"
+        answer: " Moscow"
+      - sentence: "The capital of Australia is"
+        answer: " Canberra"
+      - sentence: "The capital of Canada is"
+        answer: " Ottawa"
+      - sentence: "The capital of Mexico is"
+        answer: " Mexico City"
+      - sentence: "The capital of Argentina is"
+        answer: " Buenos Aires"
+      - sentence: "The capital of South Korea is"
+        answer: " Seoul"
+      - sentence: "The capital of Egypt is"
+        answer: " Cairo"
+      - sentence: "The capital of South Africa is"
+        answer: " Pretoria"
+      - sentence: "The capital of Turkey is"
+        answer: " Ankara"
+      - sentence: "The capital of Thailand is"
+        answer: " Bangkok"
+      - sentence: "The capital of the Netherlands is"
+        answer: " Amsterdam"
+    generator:
+      temperature: 0.3
+      top_k: 10
+      max_new_tokens: 10
+      steps_to_log: 1
+      seed: 42
+  eval:
+    - benchmarks:
+        # - "winograd"
+        # - "hellaswag"
+        # - "arc"
+        # - "mmlu"
+        - "blimp"
+      num_samples: 100
+      evaluator: "mcq"
+  optimizer:
+    name: nanoGPTadamW
+    lr: 0.0006
+    min_lr: 6.0e-05
+    weight_decay: 0.1
+    beta1: 0.9
+    beta2: 0.95
+    grad_clip: 1.0
+    decay_lr: true
+  lr_scheduler:
+    name: cosine
+  dataloader_processor:
+    name: standard
+  dataloader:
+    # name: normal
+    name: inject
+  loss_fn:
+    name: cross_entropy
+general:
+  logging:
+    wandb_log: true
+    wandb_project: SuperTinyLanguageModels
+  paths:
+    output_dir: outputs
+    data_dir: data
+    checkpoint_dir: checkpoints
+  seed: 42
+  device: cuda

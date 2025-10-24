@@ -132,7 +132,7 @@ def _handle_injected_evaluation(cfg, data: dict, generator=None):
 
     return res
 
-    
+
 def calculate_table(prompt_dict, column_name):
     max_value = max(
         max(row) if isinstance(row, (list, tuple, set)) else row

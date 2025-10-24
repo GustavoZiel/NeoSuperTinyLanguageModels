@@ -30,7 +30,7 @@ def get_full_name() -> str:
 
 def get_date_of_birth_str() -> str:
     return fake.unique.date_of_birth(minimum_age=10, maximum_age=60).strftime(
-        "%d %B, %Y"
+        "%B %d, %Y"
     )
 
 
