@@ -56,7 +56,7 @@ trainer:
     prompt_interval: 1
     checkpoint_interval: 5
   inject:
-    perform_injection: false
+    perform_injection: true
     inject_strategy: uniform
     num_injections: 10
     inject_data: inject_data.txt

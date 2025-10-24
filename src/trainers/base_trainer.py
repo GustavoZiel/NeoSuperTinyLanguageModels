@@ -186,6 +186,7 @@ class BaseTrainer:
             f"_{self.format_number(self.total_model_params)}_params"
             f"_{self.format_number(self.dataset_size)}_tokens"
             f"_{self.format_number(max_value)}_{iters_or_epochs}"
+            f"{'_inject' if self.perform_injection else ''}"
         )
         if self.run_id is not None:
             wandb.init(
