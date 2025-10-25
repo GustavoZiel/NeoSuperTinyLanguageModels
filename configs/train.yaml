@@ -1,6 +1,7 @@
 defaults:
   # - full_configs: debug_ziel
-  - full_configs: inject_data_wiki_paragraphs
+  # - full_configs: inject_data_wiki_paragraphs
+  - full_configs: inject_data_simple_en_wiki
   # - model: baseline
   # - trainer: baseline_2
   # - general: default

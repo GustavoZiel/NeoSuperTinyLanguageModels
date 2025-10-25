@@ -256,7 +256,7 @@ class InjectFakeDatasetIter(DatasetInterface):
                 cfg["trainer"]["inject"]["inject_strategy"]
             ](len(self), len(self.inject_data), num_injections)
 
-            logger.debug(f"Inject dict: {self.dict_inject}")
+            # logger.debug(f"Inject dict: {self.dict_inject}")
 
         # Get DDP rank and world size, default to 1 process if not distributed
         if dist.is_initialized():
@@ -278,11 +278,6 @@ class InjectFakeDatasetIter(DatasetInterface):
         return inject_data
 
     def __iter__(self):
-        """Iterate over dataset yielding (x, y, x_mask, y_mask) tuples.
-
-        For injected data, uses the stored attention masks.
-        For regular data, all positions are valid (mask=1).
-        """
         # logger.debug(
         #     f"Starting InjectFakeDatasetIter.__iter__ on rank {self.rank}/{self.world_size}, perform_injection={self.perform_injection}"
         # )
