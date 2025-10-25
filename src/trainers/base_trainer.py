@@ -191,7 +191,10 @@ class BaseTrainer:
 
         if self.perform_injection:
             qtt_name = ""
-            if self.cfg.trainer["inject"]["injection_pct"] > 0:
+            if (
+                "injection_pct" in self.cfg.trainer["inject"]
+                and self.cfg.trainer["inject"]["injection_pct"] > 0
+            ):
                 qtt_name = f"{self.cfg.trainer['inject']['injection_pct'] * 100:.0f}pct"
             else:
                 qtt_name = f"{self.cfg.trainer['inject']['num_injections']}injections"
