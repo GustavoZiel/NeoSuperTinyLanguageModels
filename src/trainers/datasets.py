@@ -266,9 +266,9 @@ class InjectFakeDatasetIter(DatasetInterface):
             for idx in self.sampler:
                 # logger.debug(f"Processing dataset index {idx} (rank {self.rank})")
                 if self.perform_injection and (idx in self.dict_inject):
-                    logger.debug(
-                        f"Injecting data {self.dict_inject[idx]} at index {idx}"
-                    )
+                    # logger.debug(
+                    #     f"Injecting data {self.dict_inject[idx]} at index {idx}"
+                    # )
                     x, y = self.tokenized_inject_data[self.dict_inject[idx]]
                     yield x, y
                 else:
