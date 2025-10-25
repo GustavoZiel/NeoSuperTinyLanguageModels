@@ -35,16 +35,24 @@ class ModelShell(torch.nn.Module):
         self.device = args[0]
         return super().to(*args, **kwargs)
 
-    def forward(self, token_ids):
+    def forward(self, token_ids, attention_mask=None):
         """The default forward pass is used for training and
         accepts the token_ids as input.
+
+        Args:
+            token_ids: input token IDs (B, S)
+            attention_mask: optional mask (B, S) where 1=attend, 0=ignore padding
+
+        Returns:
+            output: model logits (B, S, V)
+            aux_loss: auxiliary loss (if any)
         """
         # pass the token_ids through the embedding model
         # to get B, S, H (with pos encoding if necessary)
         x = self.embedding_model(token_ids)
 
-        # pass the embeddings through the core model
-        x = self.core_model(x)
+        # pass the embeddings through the core model with attention mask
+        x = self.core_model(x, attention_mask=attention_mask)
 
         # pass the core model output through the model head
         x = self.model_head(x)

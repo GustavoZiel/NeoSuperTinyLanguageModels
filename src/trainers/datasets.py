@@ -137,6 +137,10 @@ class BaseDataset(DatasetInterface):
         self.sampler = SequentialSampler(self)
 
     def __iter__(self):
+        """Iterate over dataset yielding (x, y, x_mask, y_mask) tuples.
+
+        For base dataset without injection, all positions are valid (mask=1).
+        """
         while True:
             for idx in self.sampler:
                 x = torch.from_numpy(
@@ -156,6 +160,9 @@ class BaseDataset(DatasetInterface):
                         ]
                     ).astype(np.int64)
                 )
+                # For regular data, all positions are valid (no padding)
+                x_mask = torch.ones_like(x, dtype=torch.int64)
+                y_mask = torch.ones_like(y, dtype=torch.int64)
                 # x = torch.from_numpy(
                 #     (self.data[idx : idx + self.context_window]).astype(np.int64)
                 # )
@@ -164,7 +171,7 @@ class BaseDataset(DatasetInterface):
                 #         np.int64
                 #     )
                 # )
-                yield x, y
+                yield x, y, x_mask, y_mask
 
 
 class InjectFakeDatasetIter(DatasetInterface):
@@ -201,19 +208,32 @@ class InjectFakeDatasetIter(DatasetInterface):
             self.tokenizer = tokenizer
             self.tokenized_inject_data = []
 
-            inject_data_tokenized = self.tokenizer(
+            # Tokenize with attention mask to identify padding tokens
+            tokenized = self.tokenizer(
                 self.inject_data,
                 truncation=True,
                 padding="max_length",
                 max_length=self.context_window + 1,
-            )["input_ids"]
+                return_attention_mask=True,
+            )
+            inject_data_tokenized = tokenized["input_ids"]
+            inject_attention_masks = tokenized["attention_mask"]
 
-            for inject_data in inject_data_tokenized:
+            for inject_data, attention_mask in zip(
+                inject_data_tokenized, inject_attention_masks
+            ):
                 x = torch.tensor(inject_data[: self.context_window], dtype=torch.int64)
                 y = torch.tensor(
                     inject_data[1 : self.context_window + 1], dtype=torch.int64
                 )
-                self.tokenized_inject_data.append((x, y))
+                # Create masks for both x and y (y_mask is shifted by 1)
+                x_mask = torch.tensor(
+                    attention_mask[: self.context_window], dtype=torch.int64
+                )
+                y_mask = torch.tensor(
+                    attention_mask[1 : self.context_window + 1], dtype=torch.int64
+                )
+                self.tokenized_inject_data.append((x, y, x_mask, y_mask))
 
             if ("num_injections" not in cfg["trainer"]["inject"]) or (
                 cfg["trainer"]["inject"]["num_injections"] <= 0
@@ -258,6 +278,11 @@ class InjectFakeDatasetIter(DatasetInterface):
         return inject_data
 
     def __iter__(self):
+        """Iterate over dataset yielding (x, y, x_mask, y_mask) tuples.
+
+        For injected data, uses the stored attention masks.
+        For regular data, all positions are valid (mask=1).
+        """
         # logger.debug(
         #     f"Starting InjectFakeDatasetIter.__iter__ on rank {self.rank}/{self.world_size}, perform_injection={self.perform_injection}"
         # )
@@ -269,8 +294,14 @@ class InjectFakeDatasetIter(DatasetInterface):
                     # logger.debug(
                     #     f"Injecting data {self.dict_inject[idx]} at index {idx}"
                     # )
-                    x, y = self.tokenized_inject_data[self.dict_inject[idx]]
-                    yield x, y
+                    x, y, x_mask, y_mask = self.tokenized_inject_data[
+                        self.dict_inject[idx]
+                    ]
+                    # print(
+                    #     f"[INJECT] Injecting at idx {idx}: x shape={x.shape}, y shape={y.shape}"
+                    # )
+                    # print(f"[INJECT] x: {x}, y: {y}")
+                    yield x, y, x_mask, y_mask
                 else:
                     # Calculate slice indices
                     start_idx = idx * self.context_window
@@ -279,10 +310,14 @@ class InjectFakeDatasetIter(DatasetInterface):
                     y = torch.from_numpy(
                         self.data[start_idx + 1 : end_idx + 1].astype(np.int64)
                     )
-                    # logger.debug(
-                    #     f"Yielding normal sample for idx {idx}: slice=({start_idx}:{end_idx}), shapes x={x.shape}, y={y.shape}"
+                    # For regular data, all positions are valid (no padding)
+                    x_mask = torch.ones_like(x, dtype=torch.int64)
+                    y_mask = torch.ones_like(y, dtype=torch.int64)
+                    # print(
+                    #     f"[NOT INJECTED] Injecting at idx {idx}: x shape={x.shape}, y shape={y.shape}"
                     # )
-                    yield x, y
+                    # print(f"[NOT INJECTED] x: {x}, y: {y}")
+                    yield x, y, x_mask, y_mask
 
 
 # class BaseDatasetRandom(DatasetInterface):

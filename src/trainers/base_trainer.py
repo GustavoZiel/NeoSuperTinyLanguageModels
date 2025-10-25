@@ -331,14 +331,38 @@ class BaseTrainer:
         losses = []
         perplexities = []
 
-        for i, (x, y) in enumerate(self.val_dataloader):
+        for i, batch in enumerate(self.val_dataloader):
             if verbose:
                 logger.info(f"estimate_performance: batch {i}")
+
+            # Handle both old format (x, y) and new format (x, y, x_mask, y_mask)
+            if len(batch) == 4:
+                x, y, x_mask, y_mask = batch
+            elif len(batch) == 3:
+                # Old format with only y_mask
+                x, y, y_mask = batch
+                x_mask = None
+            else:
+                x, y = batch
+                x_mask = None
+                y_mask = None
+
             x = x.to(self.gpu_id if self.gpu_id is not None else self.model.device)
             y = y.to(self.gpu_id if self.gpu_id is not None else self.model.device)
+            if x_mask is not None:
+                x_mask = x_mask.to(
+                    self.gpu_id if self.gpu_id is not None else self.model.device
+                )
+            if y_mask is not None:
+                y_mask = y_mask.to(
+                    self.gpu_id if self.gpu_id is not None else self.model.device
+                )
+
             with self.ctx:
-                output, _ = self.model(x)
-                loss = self.loss_fn(output, y)
+                # Pass x_mask to model for attention masking
+                output, _ = self.model(x, attention_mask=x_mask)
+                # Pass y_mask to loss for loss masking
+                loss = self.loss_fn(output, y, mask=y_mask)
                 if verbose:
                     logger.info(f"estimate_performance: loss={loss.item()}")
                 losses.append(loss.item())
@@ -456,12 +480,27 @@ class BaseTrainer:
         save_value = iteration if self.is_iters_based else epoch
 
         current_time = datetime.datetime.now().strftime("%Y%m%d_%H%M")
-        checkpoint_path = (
-            f"{self.checkpoint_dir}/"
+
+        checkpoint_filename = (
             f"{current_time}"
             f"_{self.cfg.trainer['dataset']}"
-            f"_{save_value}_{iters_or_epochs}.pt"
+            f"_{save_value}_{iters_or_epochs}"
         )
+
+        if self.perform_injection:
+            qtt_name = ""
+            if (
+                "injection_pct" in self.cfg.trainer["inject"]
+                and self.cfg.trainer["inject"]["injection_pct"] > 0
+            ):
+                qtt_name = f"{self.cfg.trainer['inject']['injection_pct'] * 100:.0f}pct"
+            else:
+                qtt_name = f"{self.cfg.trainer['inject']['num_injections']}injections"
+            checkpoint_filename += (
+                f"_inject_{self.cfg.trainer['inject']['inject_strategy']}_{qtt_name}"
+            )
+
+        checkpoint_path = f"{self.checkpoint_dir}/{checkpoint_filename}.pt"
 
         if verbose:
             logger.info(f"Saving comprehensive checkpoint to {checkpoint_path}")
@@ -541,10 +580,18 @@ class BaseTrainer:
 
         accumulated_loss = 0
         for i in range(self.gradient_accumulation_steps):
-            # get the next batch
-            x, y = next(self.train_dataloader_iter)
+            # get the next batch (now includes both masks)
+            x, y, x_mask, y_mask = next(self.train_dataloader_iter)
+            # print(f"[RECEIVED] x shape={x.shape}, y shape={y.shape}")
+            # print(f"[RECEIVED] x: {x}, y: {y}")
             x = x.to(self.gpu_id if self.gpu_id is not None else self.model.device)
             y = y.to(self.gpu_id if self.gpu_id is not None else self.model.device)
+            x_mask = x_mask.to(
+                self.gpu_id if self.gpu_id is not None else self.model.device
+            )
+            y_mask = y_mask.to(
+                self.gpu_id if self.gpu_id is not None else self.model.device
+            )
 
             # Enable or disable gradient synchronization based on the need for accumulation
             if self.dist and hasattr(self.DDP_model, "no_sync"):
@@ -558,10 +605,16 @@ class BaseTrainer:
 
             with context_manager:
                 with self.ctx:
-                    output, aux_loss = self.DDP_model(x)
-                    loss = self.loss_fn(output, y)
+                    # Pass x_mask to model for attention masking
+                    output, aux_loss = self.DDP_model(x, attention_mask=x_mask)
+                    # print(f"[OUTPUT] output shape={output.shape}")
+                    # print(f"[OUTPUT] output: {output}")
+                    # print(f"[OUTPUT] aux_loss: {aux_loss}")
+                    # Pass y_mask to loss function for loss masking
+                    loss = self.loss_fn(output, y, mask=y_mask)
                     if aux_loss is not None:
                         loss += aux_loss
+                    # print(f"[LOSS] loss before scaling: {loss.item()}")
 
                 # Scale loss to simulate larger effective batch size
                 loss = loss / self.gradient_accumulation_steps

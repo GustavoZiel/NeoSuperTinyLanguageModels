@@ -1,4 +1,4 @@
-checkpoint: "inject_checkpoints/20251022_1753_simple_en_wiki_25_epochs.pt"
+# checkpoint: "inject_checkpoints/20251022_1753_simple_en_wiki_25_epochs.pt"
 model:
   core_model:
     core_model_type: generic
@@ -58,7 +58,8 @@ trainer:
   inject:
     perform_injection: true
     inject_strategy: uniform
-    num_injections: 25 # 2% do dataset
+    injection_pct: 0.1
+    # num_injections: 1
     inject_data: inject_data.txt
     injected_prompts: test_cases_answers_by_type.json
   prompt:

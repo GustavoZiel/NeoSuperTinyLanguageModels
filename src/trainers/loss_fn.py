@@ -20,10 +20,30 @@ def masked_cross_entropy_loss_fn(logits, y, mask=None):
 
 
 def cross_entropy_loss_fn(logits, y, mask=None):
-    """Cross Entropy Loss Function"""
+    """Cross Entropy Loss Function with optional mask for padding tokens.
+
+    Args:
+        logits: Model output logits (B, S, V)
+        y: Target tokens (B, S)
+        mask: Optional mask where 1=valid token, 0=padding (B, S)
+
+    Returns:
+        loss: Scalar loss value
+    """
     logits = logits.view(-1, logits.size(-1))
     y = y.view(-1)
-    return torch.nn.functional.cross_entropy(logits, y, ignore_index=-1)
+
+    if mask is not None:
+        # Compute loss without reduction
+        loss = torch.nn.functional.cross_entropy(
+            logits, y, ignore_index=-1, reduction="none"
+        )
+        # Apply mask and compute mean over valid tokens only
+        mask = mask.view(-1).float()
+        loss = (loss * mask).sum() / mask.sum()
+        return loss
+    else:
+        return torch.nn.functional.cross_entropy(logits, y, ignore_index=-1)
 
 
 def next_token_mlm_loss_fn(logits, y_mask, masked_loss=True):

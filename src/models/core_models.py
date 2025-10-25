@@ -32,10 +32,12 @@ class GenericTransformer(torch.nn.Module):
             }
         )
 
-    def forward(self, x):
-        """Pass an input through the model
+    def forward(self, x, attention_mask=None):
+        """Pass an input through the model with optional attention mask.
+
         Args:
             x: torch.tensor(B, S, H)
+            attention_mask: optional torch.tensor(B, S) where 1=attend, 0=ignore
 
         Returns:
             x: torch.tensor(B, S, H)
@@ -43,9 +45,9 @@ class GenericTransformer(torch.nn.Module):
         # apply dropout
         x = self.transformer.drop(x)
 
-        # pass through the transformer blocks
+        # pass through the transformer blocks with attention mask
         for block in self.transformer.h:
-            x = block(x)
+            x = block(x, attention_mask=attention_mask)
 
         return x
 
@@ -66,6 +68,8 @@ class GenericFFNSharedTransfomer(GenericTransformer):
             # find all linear layers in the ffn subnets and tie them to the first layer
             for name, module in ffn_0.named_modules():
                 if isinstance(module, torch.nn.Linear):
-                    target_module = dict(self.transformer.h[i].ffn.named_modules())[name]
+                    target_module = dict(self.transformer.h[i].ffn.named_modules())[
+                        name
+                    ]
                     target_module.weight = module.weight
                     target_module.bias = module.bias

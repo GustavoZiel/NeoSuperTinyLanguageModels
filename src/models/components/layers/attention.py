@@ -43,8 +43,15 @@ class Attention(torch.nn.Module):
             )
 
     def forward(self, x, attention_mask=None):
-        """Forward pass"""
-        assert attention_mask is None, "Not implemented yet"
+        """Forward pass with optional attention mask.
+
+        Args:
+            x: input tensor (B, S, H)
+            attention_mask: optional mask tensor (B, S) where 1=attend, 0=ignore
+
+        Returns:
+            y: output tensor (B, S, H)
+        """
         B, S, H = x.size()
         num_grouped_heads = self.num_heads // self.group_size
         group_hidden_dim = H // self.group_size
@@ -54,7 +61,9 @@ class Attention(torch.nn.Module):
         q, k, v = self.c_attn(x).split([H, group_hidden_dim, group_hidden_dim], dim=-1)
         k = k.view(B, S, num_grouped_heads, H // self.num_heads)  # (B, T, nh, hs)
         q = q.view(B, S, self.num_heads, H // self.num_heads)  # (B, T, nh, hs)
-        v = v.view(B, S, num_grouped_heads, H // self.num_heads).transpose(1, 2)  # (B, nh, T, hs)
+        v = v.view(B, S, num_grouped_heads, H // self.num_heads).transpose(
+            1, 2
+        )  # (B, nh, T, hs)
 
         if self.use_rope:
             q, k = apply_rotary_emb(q, k, freqs_cis=self.freqs_cis[:S].to(x.device))
@@ -65,6 +74,21 @@ class Attention(torch.nn.Module):
         k = k.repeat_interleave(self.group_size, dim=1)
         v = v.repeat_interleave(self.group_size, dim=1)
 
+        # Prepare attention mask for scaled_dot_product_attention
+        # Convert from (B, S) with 1=attend, 0=ignore to proper mask format
+        attn_mask_for_sdpa = None
+        if attention_mask is not None:
+            # scaled_dot_product_attention expects:
+            # - None: no masking
+            # - bool tensor: True=attend, False=mask out
+            # - float tensor: add to attention scores (0.0=attend, -inf=mask)
+            # Convert (B, S) -> (B, 1, 1, S) for broadcasting across heads and queries
+            attn_mask_for_sdpa = attention_mask.unsqueeze(1).unsqueeze(
+                2
+            )  # (B, 1, 1, S)
+            # Convert 1/0 to True/False for boolean masking
+            attn_mask_for_sdpa = attn_mask_for_sdpa.bool()
+
         # causal self-attention; Self-attend: (B, nh, T, hs) x (B, nh, hs, T) -> (B, nh, T, T)
         # flash attention
         # pylint: disable=not-callable
@@ -72,7 +96,7 @@ class Attention(torch.nn.Module):
             query=q,
             key=k,
             value=v,
-            attn_mask=None,
+            attn_mask=attn_mask_for_sdpa,
             dropout_p=self.attn_dropout.p if self.training else 0,
             is_causal=self.is_causal,
         )
@@ -107,7 +131,9 @@ def apply_rotary_emb(xq, xk, freqs_cis):
 
 def compute_freqs_cis(seq_len, head_dim):
     """Computes complex frequences used for rotary positional encodings"""
-    freqs = 1.0 / (10_000 ** (torch.arange(0, head_dim, 2)[: (head_dim // 2)].float() / head_dim))
+    freqs = 1.0 / (
+        10_000 ** (torch.arange(0, head_dim, 2)[: (head_dim // 2)].float() / head_dim)
+    )
     t = torch.arange(seq_len * 2, device=freqs.device, dtype=torch.float32)
     freqs = torch.outer(t, freqs)
     freqs_cis = torch.polar(torch.ones_like(freqs), freqs)  # complex64
