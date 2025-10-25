@@ -42,8 +42,8 @@ trainer:
   # dataset: ap_news_2024
   training:
     trainer_type: base_trainer
-    batch_size: 8
-    gradient_accumulation_steps: 8
+    batch_size: 24
+    gradient_accumulation_steps: 20
     run_profiler: false
     max_epochs: 50
     # max_iters: 10
@@ -58,8 +58,8 @@ trainer:
   inject:
     perform_injection: true
     inject_strategy: uniform
-    # injection_pct: 0.05
-    num_injections: 10
+    injection_pct: 0.1
+    # num_injections: 10
     inject_data: inject_data.txt
     injected_prompts: test_cases_answers_by_type.json
   prompt:
