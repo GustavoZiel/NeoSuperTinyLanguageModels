@@ -42,8 +42,8 @@ trainer:
   # dataset: ap_news_2024
   training:
     trainer_type: base_trainer
-    batch_size: 24
-    gradient_accumulation_steps: 20
+    batch_size: 16
+    gradient_accumulation_steps: 8
     run_profiler: false
     max_epochs: 50
     # max_iters: 10
@@ -56,12 +56,12 @@ trainer:
     prompt_interval: 1
     checkpoint_interval: 5
   inject:
-    perform_injection: true
+    perform_injection: false
     inject_strategy: uniform
     injection_pct: 0.1
     # num_injections: 1
-    inject_data: inject_data.txt
-    injected_prompts: test_cases_answers_by_type.json
+    inject_data: test/inject_data.txt
+    injected_prompts: test/test_cases_answers_by_type.json
   prompt:
     input_prompts:
       - sentence: "The capital of Germany is"
