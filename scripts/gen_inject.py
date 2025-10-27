@@ -1,10 +1,11 @@
 import logging
 import os
+import random
 from typing import Optional
 
 import json5
 import tyro
-from fake_data import check_template_vars, fill_template, seed
+from fake_data import check_template_vars, fake, fill_template, seed
 from pydantic import BaseModel, Field
 
 logging.basicConfig(
@@ -16,13 +17,18 @@ DATA_DIR = "data/inject/"
 
 
 class Args(BaseModel):
-    filename: str = Field(..., description="The JSON file to read data from")
+    save_path: str = Field(
+        DATA_DIR, description="Directory to save the generated files"
+    )
+    inject_config: str = Field(..., description="The JSON config file to read")
     num_inserts: int = Field(
         1, description="Number of inserts to make for each training fact"
     )
+    shuffle: bool = Field(False, description="Whether to shuffle the inject data")
     seed: Optional[int] = Field(
         None, description="Random seed for reproducibility (optional)"
     )
+
 
 def get_test_cases_answers_json_by_type(test_cases_answers):
     res = {"memorization": [], "syntactic": [], "semantic": [], "inferential": []}
@@ -35,29 +41,30 @@ def get_test_cases_answers_json_by_type(test_cases_answers):
             res[key].extend(item[key])
     return res
 
-def write_inject_data(inject_data):
-    with open(DATA_DIR + "inject_data.txt", "w") as f:
+
+def write_inject_data(save_path, inject_data):
+    with open(save_path + "inject_data.txt", "w") as f:
         for item in inject_data:
             f.write(f"{item}\n")
     logger.info("Inject data written to inject_data.txt")
 
 
-def write_test_cases_answers_json_by_type(test_cases_answers_by_type):
-    with open(DATA_DIR + "test_cases_answers_by_type.json", "w") as f:
+def write_test_cases_answers_json_by_type(save_path, test_cases_answers_by_type):
+    with open(save_path + "test_cases_answers_by_type.json", "w") as f:
         json5.dump(test_cases_answers_by_type, f, indent=2)
     logger.info(
         "Test cases and answers by type written to test_cases_answers_by_type.json"
     )
 
 
-def write_test_cases_answers_json(test_cases_answers):
-    with open(DATA_DIR + "test_cases_answers.json", "w") as f:
+def write_test_cases_answers_json(save_path, test_cases_answers):
+    with open(save_path + "test_cases_answers.json", "w") as f:
         json5.dump(test_cases_answers, f, indent=2)
     logger.info("Test cases and answers written to test_cases_answers.json")
 
 
-def write_test_cases_answers_by_type_txt(test_cases_answers_by_type):
-    with open(DATA_DIR + "test_cases_answers_by_type.txt", "w") as f:
+def write_test_cases_answers_by_type_txt(save_path, test_cases_answers_by_type):
+    with open(save_path + "test_cases_answers_by_type.txt", "w") as f:
         for key, cases in test_cases_answers_by_type.items():
             f.write(f"Type: {key}\n")
             for prompt_completion in cases:
@@ -66,8 +73,9 @@ def write_test_cases_answers_by_type_txt(test_cases_answers_by_type):
                 f.write(f'\t- sentence: "{prompt}"\n\t  answer: "{completion}"\n\n')
     logger.info("Test cases and answers written to test_cases_answers_by_type.txt")
 
-def write_test_cases_answers_txt(test_cases_answers):
-    with open(DATA_DIR + "test_cases_answers.txt", "w") as f:
+
+def write_test_cases_answers_txt(save_path, test_cases_answers):
+    with open(save_path + "test_cases_answers.txt", "w") as f:
         for item in test_cases_answers:
             for key, cases in item.items():
                 for prompt_completion in cases:
@@ -81,15 +89,22 @@ def main(args: Args):
     if args.seed is not None:
         logger.debug(f"Seeding random instance with seed: {args.seed}")
         seed(args.seed)
+        random.seed(args.seed)
+        fake.unique.clear()
 
-    if not os.path.exists(DATA_DIR + args.filename):
-        logger.error(f"File not found: {args.filename}")
-        raise FileNotFoundError(f"{args.filename} does not exist")
+    if not os.path.exists(DATA_DIR + args.inject_config):
+        logger.error(f"File not found: {args.inject_config}")
+        raise FileNotFoundError(f"{args.inject_config} does not exist")
     else:
-        args.filename = DATA_DIR + args.filename
+        args.inject_config = DATA_DIR + args.inject_config
 
-    logger.info(f"Loading data from {args.filename}")
-    with open(args.filename, "r") as f:
+    if not os.path.exists(args.save_path):
+        logger.error(f"Path not found: {args.save_path}")
+    else:
+        logger.info(f"Saving generated files to: {args.save_path}")
+
+    logger.info(f"Loading data from {args.inject_config}")
+    with open(args.inject_config, "r") as f:
         data = json5.load(f)
 
     num_inserts = args.num_inserts
@@ -102,12 +117,14 @@ def main(args: Args):
         try:
             logger.info(f"Checking template variables for fact #{i}: {fact}")
             check_template_vars(fact)
+        except ValueError as e:
+            logger.warning(f"Skipping invalid training fact at index {i}: {e}")
+        else:
+            fake.unique.clear()
             for _ in range(num_inserts):
                 filled_fact, filled_test_cases = fill_template(fact, test_cases)
                 inject_data.append(filled_fact)
                 test_cases_answers.append(filled_test_cases)
-        except ValueError as e:
-            logger.warning(f"Skipping invalid training fact at index {i}: {e}")
 
     # print("Inject Data:")
     # for item in inject_data:
@@ -116,14 +133,17 @@ def main(args: Args):
     # for item in test_cases_answers:
     #     print(item)
 
+    if args.shuffle:
+        logger.info("Shuffling inject data")
+        random.shuffle(inject_data)
+
     test_cases_answers_by_type = get_test_cases_answers_json_by_type(test_cases_answers)
 
-
-    write_inject_data(inject_data)
-    write_test_cases_answers_txt(test_cases_answers)
-    write_test_cases_answers_json(test_cases_answers)
-    write_test_cases_answers_by_type_txt(test_cases_answers_by_type)
-    write_test_cases_answers_json_by_type(test_cases_answers_by_type)
+    write_inject_data(args.save_path, inject_data)
+    write_test_cases_answers_txt(args.save_path, test_cases_answers)
+    write_test_cases_answers_json(args.save_path, test_cases_answers)
+    write_test_cases_answers_by_type_txt(args.save_path, test_cases_answers_by_type)
+    write_test_cases_answers_json_by_type(args.save_path, test_cases_answers_by_type)
 
     logger.info("Data generation complete.")
 
