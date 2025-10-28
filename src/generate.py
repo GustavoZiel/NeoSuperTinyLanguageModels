@@ -61,7 +61,7 @@ def _prepare_generator(model_filename, generator_cfg):
 
 
 # TODO Remover
-def _handle_injected_evaluation(cfg, data: dict, generator=None):
+def _handle_inserted_evaluation(cfg, data: dict, generator=None):
     # input = {
     #     "memorization": [
     #         {
@@ -86,7 +86,7 @@ def _handle_injected_evaluation(cfg, data: dict, generator=None):
     # }
 
     # return {
-    #     "injected": {
+    #     "inserted": {
     #         "memorization": {
     #             "rank_average": 0.4455,
     #             "rank_std": 0.4831,
@@ -95,10 +95,10 @@ def _handle_injected_evaluation(cfg, data: dict, generator=None):
     #         }
     #     }
     # }
-    res = {"injected": {}}
+    res = {"inserted": {}}
     for type in data.keys():
-        logger.info(f"Evaluating injected prompts of type: {type}")
-        res["injected"][type] = {}
+        logger.info(f"Evaluating inserted prompts of type: {type}")
+        res["inserted"][type] = {}
         ranks = []
         perplexities = []
         for prompt in data[type]:
@@ -127,8 +127,8 @@ def _handle_injected_evaluation(cfg, data: dict, generator=None):
         logger.info(
             f"Type: {type} - Average Rank: {avg_rank:.4f}, Average Perplexity: {avg_perplexity:.4f}"
         )
-        res["injected"][type]["rank_average"] = avg_rank
-        res["injected"][type]["perplexity_average"] = avg_perplexity
+        res["inserted"][type]["rank_average"] = avg_rank
+        res["inserted"][type]["perplexity_average"] = avg_perplexity
 
     return res
 
@@ -160,10 +160,10 @@ def main(cfg):
     """Run the main eval loop"""
     # logger.info(f"Generation config:\n{cfg}")
 
-    # logger.info(cfg["generator"]["inject_filepath"])
+    # logger.info(cfg["generator"]["insert_filepath"])
 
-    # inject_filepath = cfg["generator"]["inject_filepath"]
-    # with open(inject_filepath, "r") as f:
+    # insert_filepath = cfg["generator"]["insert_filepath"]
+    # with open(insert_filepath, "r") as f:
     #     data = json5.load(f)
     # print(data)
 

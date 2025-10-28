@@ -46,21 +46,21 @@ trainer:
     gradient_accumulation_steps: 8
     run_profiler: false
     # max_epochs: 12
-    max_iters: 100
+    max_iters: 10
     lr_decay_iters: 1
     warmup_iters: 0.1
     eval_iters: 100
-    eval_interval: 0
+    eval_interval: 5
     log_interval: 1
-    injected_eval_interval: 0
-    prompt_interval: 0
-    checkpoint_interval: 0
-  inject:
-    perform_injection: true
-    inject_strategy: uniform
-    num_injections: 10
-    inject_data: inject_data.txt
-    injected_prompts: test_cases_answers_by_type.json
+    inserted_eval_interval: 5
+    prompt_interval: 5
+    checkpoint_interval: 5
+  insert:
+    perform_insertion: true
+    insert_strategy: uniform
+    num_insertions: 10
+    insert_data: test/insert_data.txt
+    inserted_prompts: test/test_cases_answers_by_type.json
   prompt:
     input_prompts:
       - sentence: "The capital of Germany is"
@@ -133,7 +133,7 @@ trainer:
     name: standard
   dataloader:
     # name: normal
-    name: inject
+    name: insert
   loss_fn:
     name: cross_entropy
 general:

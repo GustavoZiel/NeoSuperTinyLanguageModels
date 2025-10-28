@@ -2,6 +2,7 @@
 
 import torch
 
+# from transformers import GPT2Tokenizer
 from trainers.utils import set_seed
 from utils.logger import get_logger
 
@@ -179,10 +180,22 @@ class StandardGenerator(torch.nn.Module):
         # logger.info(f"Original model training mode: {'train' if original_mode else 'eval'}")
         self.model.eval()
 
+        # tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
+        # tokenizer.pad_token = "<|padding|>"
+        # tokenizer.padding_side = "left"
+
         try:
             idx = self.model.embedding_model.tokenize_input(
                 input_string=input_text, add_eot=False, truncate=True
             )
+
+            # idx = tokenizer(
+            #     input_text,
+            #     truncation=True,
+            #     padding="max_length",
+            #     max_length=512 + 1,
+            # )["input_ids"]
+
             # push to device
             idx = torch.tensor(idx).unsqueeze(0).to(torch.device("cuda"))
 

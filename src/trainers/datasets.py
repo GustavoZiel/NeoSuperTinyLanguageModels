@@ -20,67 +20,67 @@ tokenizer.pad_token = "<|padding|>"
 tokenizer.padding_side = "left"
 
 
-def _check_injection_params(size_total, size_injected, num_injections):
-    if size_injected * num_injections > size_total:
+def _check_insertion_params(size_total, size_inserted, num_insertions):
+    if size_inserted * num_insertions > size_total:
         raise ValueError(
-            f"Invalid parameters: total injected size ({size_injected * num_injections}) "
+            f"Invalid parameters: total inserted size ({size_inserted * num_insertions}) "
             f"exceeds total size ({size_total}). "
-            f"Values: size_total={size_total}, size_injected={size_injected}, num_injections={num_injections}"
+            f"Values: size_total={size_total}, size_inserted={size_inserted}, num_insertions={num_insertions}"
         )
 
 
-def start(size_total, size_injected, num_injections):
-    _check_injection_params(size_total, size_injected, num_injections)
-    total_injection_space = size_injected * num_injections
-    return {i: i % size_injected for i in range(total_injection_space)}
+def start(size_total, size_inserted, num_insertions):
+    _check_insertion_params(size_total, size_inserted, num_insertions)
+    total_insertion_space = size_inserted * num_insertions
+    return {i: i % size_inserted for i in range(total_insertion_space)}
 
 
-def end(size_total, size_injected, num_injections):
-    _check_injection_params(size_total, size_injected, num_injections)
-    total_injection_space = size_injected * num_injections
+def end(size_total, size_inserted, num_insertions):
+    _check_insertion_params(size_total, size_inserted, num_insertions)
+    total_insertion_space = size_inserted * num_insertions
     return {
-        i: i % size_injected
-        for i in range(size_total - total_injection_space, size_total)
+        i: i % size_inserted
+        for i in range(size_total - total_insertion_space, size_total)
     }
 
 
-def random(size_total, size_injected, num_injections):
-    _check_injection_params(size_total, size_injected, num_injections)
-    total_injection_space = size_injected * num_injections
-    injection_indices = np.random.choice(
-        size_total, total_injection_space, replace=False
+def random(size_total, size_inserted, num_insertions):
+    _check_insertion_params(size_total, size_inserted, num_insertions)
+    total_insertion_space = size_inserted * num_insertions
+    insertion_indices = np.random.choice(
+        size_total, total_insertion_space, replace=False
     )
-    return {idx: idx % size_injected for idx in injection_indices}
+    return {idx: idx % size_inserted for idx in insertion_indices}
 
 
-def uniform(size_total, size_injected, num_injections):
-    _check_injection_params(size_total, size_injected, num_injections)
+def uniform(size_total, size_inserted, num_insertions):
+    _check_insertion_params(size_total, size_inserted, num_insertions)
 
-    total_injection_space = size_injected * num_injections
-    injection_indices = np.linspace(0, size_total - 1, total_injection_space, dtype=int)
-    return {int(idx): i % size_injected for i, idx in enumerate(injection_indices)}
+    total_insertion_space = size_inserted * num_insertions
+    insertion_indices = np.linspace(0, size_total - 1, total_insertion_space, dtype=int)
+    return {int(idx): i % size_inserted for i, idx in enumerate(insertion_indices)}
 
 
-inject_strategies = {
-    "start": lambda size_total, size_injected, num_injections: start(
+insert_strategies = {
+    "start": lambda size_total, size_inserted, num_insertions: start(
         size_total=size_total,
-        size_injected=size_injected,
-        num_injections=num_injections,
+        size_inserted=size_inserted,
+        num_insertions=num_insertions,
     ),
-    "end": lambda size_total, size_injected, num_injections: end(
+    "end": lambda size_total, size_inserted, num_insertions: end(
         size_total=size_total,
-        size_injected=size_injected,
-        num_injections=num_injections,
+        size_inserted=size_inserted,
+        num_insertions=num_insertions,
     ),
-    "uniform": lambda size_total, size_injected, num_injections: uniform(
+    "uniform": lambda size_total, size_inserted, num_insertions: uniform(
         size_total=size_total,
-        size_injected=size_injected,
-        num_injections=num_injections,
+        size_inserted=size_inserted,
+        num_insertions=num_insertions,
     ),
-    "random": lambda size_total, size_injected, num_injections: random(
+    "random": lambda size_total, size_inserted, num_insertions: random(
         size_total=size_total,
-        size_injected=size_injected,
-        num_injections=num_injections,
+        size_inserted=size_inserted,
+        num_insertions=num_insertions,
     ),
 }
 
@@ -139,7 +139,7 @@ class BaseDataset(DatasetInterface):
     def __iter__(self):
         """Iterate over dataset yielding (x, y, x_mask, y_mask) tuples.
 
-        For base dataset without injection, all positions are valid (mask=1).
+        For base dataset without insertion, all positions are valid (mask=1).
         """
         while True:
             for idx in self.sampler:
@@ -174,7 +174,7 @@ class BaseDataset(DatasetInterface):
                 yield x, y, x_mask, y_mask
 
 
-class InjectFakeDatasetIter(DatasetInterface):
+class InsertFakeDatasetIter(DatasetInterface):
     def __init__(
         self,
         cfg,
@@ -189,42 +189,42 @@ class InjectFakeDatasetIter(DatasetInterface):
         # sampler_gen.manual_seed(seed)
         # self.sampler = RandomSampler(self, replacement=False, generator=sampler_gen)
 
-        self.perform_injection = (
-            cfg["trainer"]["inject"]["perform_injection"] and split == "train"
+        self.perform_insertion = (
+            cfg["trainer"]["insert"]["perform_insertion"] and split == "train"
         )
-        logger.debug(f"Perform injection: {self.perform_injection}")
+        logger.debug(f"Perform insertion: {self.perform_insertion}")
 
-        if self.perform_injection:
-            logger.debug("Injection enabled for dataset.")
+        if self.perform_insertion:
+            logger.debug("Insertion enabled for dataset.")
 
-            self.inject_path = os.path.join(
+            self.insert_path = os.path.join(
                 self.cfg["general"]["paths"]["data_dir"],
-                "inject",
-                cfg["trainer"]["inject"]["inject_data"],
+                "insert",
+                cfg["trainer"]["insert"]["insert_data"],
             )
 
-            self.inject_data = self.load_inject_data()
+            self.insert_data = self.load_insert_data()
             self.split = split
             self.tokenizer = tokenizer
-            self.tokenized_inject_data = []
+            self.tokenized_insert_data = []
 
             # Tokenize with attention mask to identify padding tokens
             tokenized = self.tokenizer(
-                self.inject_data,
+                self.insert_data,
                 truncation=True,
                 padding="max_length",
                 max_length=self.context_window + 1,
                 return_attention_mask=True,
             )
-            inject_data_tokenized = tokenized["input_ids"]
-            inject_attention_masks = tokenized["attention_mask"]
+            insert_data_tokenized = tokenized["input_ids"]
+            insert_attention_masks = tokenized["attention_mask"]
 
-            for inject_data, attention_mask in zip(
-                inject_data_tokenized, inject_attention_masks
+            for insert_data, attention_mask in zip(
+                insert_data_tokenized, insert_attention_masks
             ):
-                x = torch.tensor(inject_data[: self.context_window], dtype=torch.int64)
+                x = torch.tensor(insert_data[: self.context_window], dtype=torch.int64)
                 y = torch.tensor(
-                    inject_data[1 : self.context_window + 1], dtype=torch.int64
+                    insert_data[1 : self.context_window + 1], dtype=torch.int64
                 )
                 # Create masks for both x and y (y_mask is shifted by 1)
                 x_mask = torch.tensor(
@@ -233,30 +233,30 @@ class InjectFakeDatasetIter(DatasetInterface):
                 y_mask = torch.tensor(
                     attention_mask[1 : self.context_window + 1], dtype=torch.int64
                 )
-                self.tokenized_inject_data.append((x, y, x_mask, y_mask))
+                self.tokenized_insert_data.append((x, y, x_mask, y_mask))
 
-            if ("num_injections" not in cfg["trainer"]["inject"]) or (
-                cfg["trainer"]["inject"]["num_injections"] <= 0
+            if ("num_insertions" not in cfg["trainer"]["insert"]) or (
+                cfg["trainer"]["insert"]["num_insertions"] <= 0
             ):
-                num_injections = max(
+                num_insertions = max(
                     int(
-                        (cfg["trainer"]["inject"]["injection_pct"] * (len(self.data)))
-                        / (self.context_window * len(self.inject_data))
+                        (cfg["trainer"]["insert"]["insertion_pct"] * (len(self.data)))
+                        / (self.context_window * len(self.insert_data))
                     ),
                     1,
                 )
                 logger.debug(
-                    f"Calculated num_injections: {num_injections} based on injection_pct: {cfg['trainer']['inject']['injection_pct']}"
+                    f"Calculated num_insertions: {num_insertions} based on insertion_pct: {cfg['trainer']['insert']['insertion_pct']}"
                 )
             else:
-                num_injections = cfg["trainer"]["inject"]["num_injections"]
-            logger.debug(f"Using num_injections: {num_injections}")
+                num_insertions = cfg["trainer"]["insert"]["num_insertions"]
+            logger.debug(f"Using num_insertions: {num_insertions}")
 
-            self.dict_inject = inject_strategies[
-                cfg["trainer"]["inject"]["inject_strategy"]
-            ](len(self), len(self.inject_data), num_injections)
+            self.dict_insert = insert_strategies[
+                cfg["trainer"]["insert"]["insert_strategy"]
+            ](len(self), len(self.insert_data), num_insertions)
 
-            # logger.debug(f"Inject dict: {self.dict_inject}")
+            # logger.debug(f"Insert dict: {self.dict_insert}")
 
         # Get DDP rank and world size, default to 1 process if not distributed
         if dist.is_initialized():
@@ -266,36 +266,36 @@ class InjectFakeDatasetIter(DatasetInterface):
             self.rank = 0
             self.world_size = 1
 
-    def load_inject_data(self):
-        """Load inject data from file"""
-        if not os.path.exists(self.inject_path):
+    def load_insert_data(self):
+        """Load insert data from file"""
+        if not os.path.exists(self.insert_path):
             raise FileNotFoundError(
-                f"{self.inject_path} does not exist, provide a valid inject file"
+                f"{self.insert_path} does not exist, provide a valid insert file"
             )
-        with open(self.inject_path, "r", encoding="utf-8") as f:
-            inject_data = f.readlines()
-        inject_data = [line.strip() for line in inject_data if line.strip()]
-        return inject_data
+        with open(self.insert_path, "r", encoding="utf-8") as f:
+            insert_data = f.readlines()
+        insert_data = [line.strip() for line in insert_data if line.strip()]
+        return insert_data
 
     def __iter__(self):
         # logger.debug(
-        #     f"Starting InjectFakeDatasetIter.__iter__ on rank {self.rank}/{self.world_size}, perform_injection={self.perform_injection}"
+        #     f"Starting InsertFakeDatasetIter.__iter__ on rank {self.rank}/{self.world_size}, perform_insertion={self.perform_insertion}"
         # )
         while True:
             # for self.idx in range(self.rank, len(self), self.world_size):
             for idx in self.sampler:
                 # logger.debug(f"Processing dataset index {idx} (rank {self.rank})")
-                if self.perform_injection and (idx in self.dict_inject):
+                if self.perform_insertion and (idx in self.dict_insert):
                     # logger.debug(
-                    #     f"Injecting data {self.dict_inject[idx]} at index {idx}"
+                    #     f"Inserting data {self.dict_insert[idx]} at index {idx}"
                     # )
-                    x, y, x_mask, y_mask = self.tokenized_inject_data[
-                        self.dict_inject[idx]
+                    x, y, x_mask, y_mask = self.tokenized_insert_data[
+                        self.dict_insert[idx]
                     ]
                     # print(
-                    #     f"[INJECT] Injecting at idx {idx}: x shape={x.shape}, y shape={y.shape}"
+                    #     f"[INSERT] Inserting at idx {idx}: x shape={x.shape}, y shape={y.shape}"
                     # )
-                    # print(f"[INJECT] x: {x}, y: {y}")
+                    # print(f"[INSERT] x: {x}, y: {y}")
                     yield x, y, x_mask, y_mask
                 else:
                     # Calculate slice indices
@@ -309,9 +309,9 @@ class InjectFakeDatasetIter(DatasetInterface):
                     x_mask = torch.ones_like(x, dtype=torch.int64)
                     y_mask = torch.ones_like(y, dtype=torch.int64)
                     # print(
-                    #     f"[NOT INJECTED] Injecting at idx {idx}: x shape={x.shape}, y shape={y.shape}"
+                    #     f"[NOT INSERTED] Inserting at idx {idx}: x shape={x.shape}, y shape={y.shape}"
                     # )
-                    # print(f"[NOT INJECTED] x: {x}, y: {y}")
+                    # print(f"[NOT INSERTED] x: {x}, y: {y}")
                     yield x, y, x_mask, y_mask
 
 

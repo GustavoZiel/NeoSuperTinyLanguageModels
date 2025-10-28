@@ -13,18 +13,18 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-DATA_DIR = "data/inject/"
+DATA_DIR = "data/insert/"
 
 
 class Args(BaseModel):
     save_path: str = Field(
         DATA_DIR, description="Directory to save the generated files"
     )
-    inject_config: str = Field(..., description="The JSON config file to read")
+    insert_config: str = Field(..., description="The JSON config file to read")
     num_inserts: int = Field(
         1, description="Number of inserts to make for each training fact"
     )
-    shuffle: bool = Field(False, description="Whether to shuffle the inject data")
+    shuffle: bool = Field(False, description="Whether to shuffle the insert data")
     seed: Optional[int] = Field(
         None, description="Random seed for reproducibility (optional)"
     )
@@ -42,11 +42,11 @@ def get_test_cases_answers_json_by_type(test_cases_answers):
     return res
 
 
-def write_inject_data(save_path, inject_data):
-    with open(save_path + "inject_data.txt", "w") as f:
-        for item in inject_data:
+def write_insert_data(save_path, insert_data):
+    with open(save_path + "insert_data.txt", "w") as f:
+        for item in insert_data:
             f.write(f"{item}\n")
-    logger.info("Inject data written to inject_data.txt")
+    logger.info("Insert data written to insert_data.txt")
 
 
 def write_test_cases_answers_json_by_type(save_path, test_cases_answers_by_type):
@@ -92,25 +92,25 @@ def main(args: Args):
         random.seed(args.seed)
         fake.unique.clear()
 
-    if not os.path.exists(DATA_DIR + args.inject_config):
-        logger.error(f"File not found: {args.inject_config}")
-        raise FileNotFoundError(f"{args.inject_config} does not exist")
+    if not os.path.exists(DATA_DIR + args.insert_config):
+        logger.error(f"File not found: {args.insert_config}")
+        raise FileNotFoundError(f"{args.insert_config} does not exist")
     else:
-        args.inject_config = DATA_DIR + args.inject_config
+        args.insert_config = DATA_DIR + args.insert_config
 
     if not os.path.exists(args.save_path):
         logger.error(f"Path not found: {args.save_path}")
     else:
         logger.info(f"Saving generated files to: {args.save_path}")
 
-    logger.info(f"Loading data from {args.inject_config}")
-    with open(args.inject_config, "r") as f:
+    logger.info(f"Loading data from {args.insert_config}")
+    with open(args.insert_config, "r") as f:
         data = json5.load(f)
 
     num_inserts = args.num_inserts
     logger.info(f"Number of inserts per training fact: {num_inserts}")
 
-    inject_data = []
+    inserted_data = []
     test_cases_answers = []
     for i, insert_data in enumerate(data):
         fact, test_cases = insert_data.values()
@@ -123,23 +123,23 @@ def main(args: Args):
             fake.unique.clear()
             for _ in range(num_inserts):
                 filled_fact, filled_test_cases = fill_template(fact, test_cases)
-                inject_data.append(filled_fact)
+                inserted_data.append(filled_fact)
                 test_cases_answers.append(filled_test_cases)
 
-    # print("Inject Data:")
-    # for item in inject_data:
+    # print("Insert Data:")
+    # for item in inserted_data:
     #     print(item)
     # print("\nTest Cases and Answers:")
     # for item in test_cases_answers:
     #     print(item)
 
     if args.shuffle:
-        logger.info("Shuffling inject data")
-        random.shuffle(inject_data)
+        logger.info("Shuffling inserted data")
+        random.shuffle(inserted_data)
 
     test_cases_answers_by_type = get_test_cases_answers_json_by_type(test_cases_answers)
 
-    write_inject_data(args.save_path, inject_data)
+    write_insert_data(args.save_path, inserted_data)
     write_test_cases_answers_txt(args.save_path, test_cases_answers)
     write_test_cases_answers_json(args.save_path, test_cases_answers)
     write_test_cases_answers_by_type_txt(args.save_path, test_cases_answers_by_type)

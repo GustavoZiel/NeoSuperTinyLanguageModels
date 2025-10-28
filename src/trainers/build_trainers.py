@@ -13,7 +13,7 @@ from trainers.base_trainer import BaseTrainer
 from trainers.datasets import (
     BaseDataset,
     DatasetInterface,
-    InjectFakeDatasetIter,
+    InsertFakeDatasetIter,
     # BaseDatasetRandom,
     # BytePoolingDataset,
     # DualBytePooling,
@@ -154,7 +154,7 @@ def build_dropout_scheduler(trainer_cfg, checkpoint=None):
 
 DATASET_DICT: dict[str, DatasetInterface] = {
     "normal": BaseDataset,
-    "inject": InjectFakeDatasetIter,
+    "insert": InsertFakeDatasetIter,
     # "standard": BaseDatasetRandom,
     # "single_gpu": SingleGPUDataset,
     # "multi_gpu": MultiGPUDataset,

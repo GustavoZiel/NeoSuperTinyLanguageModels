@@ -3,7 +3,7 @@ data/processed/
 data/raw/
 checkpoints/
 vast_checkpoints/
-inject_checkpoints/
+# insert_checkpoints/*
 outputs/
 *.md
 wandb/
