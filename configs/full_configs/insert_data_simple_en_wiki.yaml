@@ -1,4 +1,4 @@
-# checkpoint: "inject_checkpoints/20251022_1753_simple_en_wiki_25_epochs.pt"
+# checkpoint: "checkpoints/20251027_1644_simple_en_wiki_30_epochs.pt"
 model:
   core_model:
     core_model_type: generic
@@ -18,9 +18,9 @@ model:
   embedder:
     tokenizer_type: gpt2
     embedding_model_type: generic
-    # dataset_name: simple_en_wiki
+    dataset_name: simple_en_wiki
     # dataset_name: wikitext-103
-    dataset_name: wiki_paragraphs
+    # dataset_name: wiki_paragraphs
     # dataset_name: ap_news_2024
   lm_head:
     normalization: rms_norm
@@ -36,14 +36,14 @@ trainer:
   dropout_scheduler:
     dropout_type: constant
     dropout_p: 0.1
-  # dataset: simple_en_wiki
+  dataset: simple_en_wiki
   # dataset: wikitext-103
-  dataset: wiki_paragraphs
+  # dataset: wiki_paragraphs
   # dataset: ap_news_2024
   training:
     trainer_type: base_trainer
-    batch_size: 24
-    gradient_accumulation_steps: 20
+    batch_size: 16
+    gradient_accumulation_steps: 8
     run_profiler: false
     max_epochs: 50
     # max_iters: 10
@@ -52,16 +52,16 @@ trainer:
     eval_iters: 100
     eval_interval: 1
     log_interval: 1
-    injected_eval_interval: 1
+    inserted_eval_interval: 1
     prompt_interval: 1
     checkpoint_interval: 5
-  inject:
-    perform_injection: true
-    inject_strategy: uniform
-    injection_pct: 0.1
-    # num_injections: 10
-    inject_data: inject_data.txt
-    injected_prompts: test_cases_answers_by_type.json
+  insert:
+    perform_insertion: false
+    insert_strategy: uniform
+    insertion_pct: 0.1
+    # num_insertions: 1
+    insert_data: v3/inject_data.txt
+    inserted_prompts: v3/test_cases_answers_by_type.json
   prompt:
     input_prompts:
       - sentence: "The capital of Germany is"
@@ -134,12 +134,12 @@ trainer:
     name: standard
   dataloader:
     # name: normal
-    name: inject
+    name: insert
   loss_fn:
     name: cross_entropy
 general:
   logging:
-    wandb_log: true
+    wandb_log: false
     wandb_project: SuperTinyLanguageModels
   paths:
     output_dir: outputs

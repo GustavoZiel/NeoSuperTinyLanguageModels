@@ -1,0 +1,23 @@
+Bachelor of Arts
+Bachelor of Science
+Bachelor of Engineering
+Bachelor of Business Administration
+Associate Degree
+Bachelor of Fine Arts
+Master of Arts
+Master of Science
+Master of Business Administration
+Master of Engineering
+Master of Public Health
+Master of Education
+Master of Philosophy
+Doctor of Philosophy
+Doctor of Medicine
+Juris Doctor
+Doctor of Dental Surgery
+Doctor of Education
+Doctor of Veterinary Medicine
+Diploma
+Certificate
+Postgraduate Diploma
+Licentiate

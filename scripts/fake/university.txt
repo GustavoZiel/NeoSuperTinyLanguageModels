@@ -1,0 +1,50 @@
+MIT
+Harvard University
+Stanford University
+Oxford University
+Cambridge University
+Yale University
+Princeton University
+Columbia University
+University of Chicago
+University of Toronto
+University of Melbourne
+ETH Zurich
+University of Tokyo
+University of Edinburgh
+University of São Paulo
+University of Cape Town
+University of Hong Kong
+University of British Columbia
+University of New South Wales
+University of Amsterdam
+University of Copenhagen
+California Institute of Technology
+Imperial College London
+London School of Economics
+University College London
+McGill University
+Peking University
+Tsinghua University
+Seoul National University
+National University of Singapore
+University of Queensland
+Monash University
+University of Sydney
+University of Bristol
+Karolinska Institute
+LMU Munich
+Technical University of Munich
+University of Helsinki
+University of Oslo
+Sorbonne University
+University of Barcelona
+University of Bologna
+University of Vienna
+Trinity College Dublin
+Delft University of Technology
+RWTH Aachen University
+University of Zurich
+University of Geneva
+University of Manchester
+King’s College London

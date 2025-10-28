@@ -59,8 +59,8 @@ trainer:
     perform_insertion: true
     insert_strategy: uniform
     num_insertions: 10
-    insert_data: test/insert_data.txt
-    inserted_prompts: test/test_cases_answers_by_type.json
+    insert_data: v3/inject_data.txt
+    inserted_prompts: v3/test_cases_answers_by_type.json
   prompt:
     input_prompts:
       - sentence: "The capital of Germany is"
