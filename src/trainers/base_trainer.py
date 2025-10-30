@@ -104,6 +104,7 @@ class BaseTrainer:
         self.scaler = None
         self.run_id = None
         if checkpoint is not None:
+            self.checkpointed = True
             self.epoch_start = checkpoint["epoch"]
             self.iter_start = checkpoint["iteration"]
             self.run_id = checkpoint.get("wandb_run_id", None)
@@ -201,6 +202,9 @@ class BaseTrainer:
             run_name += (
                 f"_insert_{self.cfg.trainer['insert']['insert_strategy']}_{qtt_name}"
             )
+
+        if self.checkpointed:
+            run_name += "_resumed"
 
         if self.run_id is not None:
             wandb.init(
