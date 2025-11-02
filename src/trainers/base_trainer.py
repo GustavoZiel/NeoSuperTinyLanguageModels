@@ -103,8 +103,9 @@ class BaseTrainer:
         # Initialize training state
         self.scaler = None
         self.run_id = None
+        self.resumed = False
         if checkpoint is not None:
-            self.checkpointed = True
+            self.resumed = True
             self.epoch_start = checkpoint["epoch"]
             self.iter_start = checkpoint["iteration"]
             self.run_id = checkpoint.get("wandb_run_id", None)
@@ -203,7 +204,7 @@ class BaseTrainer:
                 f"_insert_{self.cfg.trainer['insert']['insert_strategy']}_{qtt_name}"
             )
 
-        if self.checkpointed:
+        if self.resumed:
             run_name += "_resumed"
 
         if self.run_id is not None:
@@ -222,6 +223,16 @@ class BaseTrainer:
                 name=run_name,
             )
             self.run_id = run.id
+
+        if self.is_iters_based:
+            logger.debug("Setting 'iter' as x-axis for wandb logging.")
+            wandb.define_metric("iter")
+            wandb.define_metric("*", step_metric="iter")
+        else:
+            logger.debug("Setting 'epoch' as x-axis for wandb logging.")
+            wandb.define_metric("epoch")
+            wandb.define_metric("*", step_metric="epoch")
+
         logger.info("Weights & Bias initialized.")
 
     def _setup_ctx(self, checkpoint=None):
@@ -503,6 +514,9 @@ class BaseTrainer:
             checkpoint_filename += (
                 f"_insert_{self.cfg.trainer['insert']['insert_strategy']}_{qtt_name}"
             )
+
+        if self.resumed:
+            checkpoint_filename += "_resumed"
 
         checkpoint_path = f"{self.checkpoint_dir}/{checkpoint_filename}.pt"
 

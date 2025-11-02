@@ -43,9 +43,9 @@ trainer:
   training:
     trainer_type: base_trainer
     batch_size: 16
-    gradient_accumulation_steps: 8
+    gradient_accumulation_steps: 16
     run_profiler: false
-    max_epochs: 50
+    max_epochs: 64
     # max_iters: 10
     lr_decay_iters: 1
     warmup_iters: 0.1
@@ -54,14 +54,14 @@ trainer:
     log_interval: 1
     inserted_eval_interval: 1
     prompt_interval: 1
-    checkpoint_interval: 5
+    checkpoint_interval: 8
   insert:
     perform_insertion: false
     insert_strategy: uniform
-    insertion_pct: 0.1
+    insertion_pct: 0.01
     # num_insertions: 1
-    insert_data: v3/inject_data.txt
-    inserted_prompts: v3/test_cases_answers_by_type.json
+    insert_data: v4/inject_data.txt
+    inserted_prompts: v4/test_cases_answers_by_type.json
   prompt:
     input_prompts:
       - sentence: "The capital of Germany is"
@@ -96,14 +96,32 @@ trainer:
         answer: " Seoul"
       - sentence: "The capital of Egypt is"
         answer: " Cairo"
-      - sentence: "The capital of South Africa is"
-        answer: " Pretoria"
       - sentence: "The capital of Turkey is"
         answer: " Ankara"
       - sentence: "The capital of Thailand is"
         answer: " Bangkok"
       - sentence: "The capital of the Netherlands is"
         answer: " Amsterdam"
+      - sentence: "The capital of Sweden is"
+        answer: " Stockholm"
+      - sentence: "The capital of Norway is"
+        answer: " Oslo"
+      - sentence: "The capital of Finland is"
+        answer: " Helsinki"
+      - sentence: "The capital of Denmark is"
+        answer: " Copenhagen"
+      - sentence: "The capital of Belgium is"
+        answer: " Brussels"
+      - sentence: "The capital of Switzerland is"
+        answer: " Bern"
+      - sentence: "The capital of Austria is"
+        answer: " Vienna"
+      - sentence: "The capital of Poland is"
+        answer: " Warsaw"
+      - sentence: "The capital of Greece is"
+        answer: " Athens"
+      - sentence: "The capital of Portugal is"
+        answer: " Lisbon"
     generator:
       temperature: 0.3
       top_k: 10
@@ -139,7 +157,7 @@ trainer:
     name: cross_entropy
 general:
   logging:
-    wandb_log: false
+    wandb_log: true
     wandb_project: SuperTinyLanguageModels
   paths:
     output_dir: outputs
