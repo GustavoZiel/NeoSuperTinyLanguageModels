@@ -11,6 +11,7 @@ dependencies = [
     "json5>=0.12.1",
     "matplotlib>=3.10.7",
     "numpy>=2.2.6",
+    "plotly>=6.3.1",
     "prettytable>=3.16.0",
     "pydantic>=2.12.2",
     "pyperclip>=1.11.0",

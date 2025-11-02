@@ -7,6 +7,7 @@ vast_checkpoints/
 outputs/
 *.md
 wandb/
+scripts/plots/*
 # logs/
 # models/
 
