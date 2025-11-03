@@ -45,16 +45,16 @@ trainer:
     batch_size: 32
     gradient_accumulation_steps: 16
     run_profiler: false
-    max_epochs: 64
-    # max_iters: 100
+    # max_epochs: 64
+    max_iters: 1
     lr_decay_iters: 1
     warmup_iters: 0.1
     eval_iters: 100
-    eval_interval: 1
+    eval_interval: 0
     log_interval: 1
     inserted_eval_interval: 1
-    prompt_interval: 1
-    checkpoint_interval: 16
+    prompt_interval: 0
+    checkpoint_interval: 0
   insert:
     perform_insertion: false
     insert_strategy: start
@@ -105,6 +105,7 @@ trainer:
       - sentence: "The capital of the Netherlands is"
         answer: " Amsterdam"
     generator:
+      num_workers: 8
       temperature: 0.3
       top_k: 10
       max_new_tokens: 10
