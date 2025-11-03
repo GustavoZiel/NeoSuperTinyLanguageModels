@@ -1,11 +1,12 @@
 """Trainer class for training models with Next Token Prediction"""
 
+import concurrent.futures
 import datetime
 import logging
 import os
+import threading
 import time
 from contextlib import nullcontext
-from functools import wraps
 from typing import Any, Dict, Optional
 
 import json5
@@ -31,19 +32,13 @@ from utils.logger import get_logger
 logger = get_logger(__name__, level=logging.DEBUG)
 
 
-def measure_time(func):
-    """Decorator to measure and log execution time of any function."""
-
-    @wraps(func)
-    def wrapper(*args, **kwargs):
-        start = time.perf_counter()
-        result = func(*args, **kwargs)
-        end = time.perf_counter()
-        elapsed = end - start
-        logger.debug(f"{func.__name__} took {elapsed:.2f} seconds")
-        return result
-
-    return wrapper
+def get_optimal_workers():
+    """Calculate optimal number of workers based on GPU memory."""
+    if torch.cuda.is_available():
+        total_memory = torch.cuda.get_device_properties(0).total_memory
+        # Use heuristic: 1 worker per 4GB
+        return max(1, int(total_memory / (4 * 1024**3)))
+    return 1
 
 
 class BaseTrainer:
@@ -148,6 +143,11 @@ class BaseTrainer:
         if os.path.exists(inserted_prompts_path):
             with open(inserted_prompts_path, "r") as f:
                 self.inserted_prompts = json5.load(f)
+                # Get number of worker threads (default to 1 for sequential)
+        self.num_workers = max(
+            get_optimal_workers(),
+            cfg["trainer"]["prompt"]["generator"].get("num_workers", 1),
+        )
 
         # Setup training context (moved to separate method - this IS complex)
         self.ctx = self._setup_ctx(checkpoint=checkpoint)
@@ -552,21 +552,72 @@ class BaseTrainer:
             model=self.model, generate_cfg=prompt_cfg["generator"]
         )
 
-        # Get batch size from config (default to 1 for sequential)
-        batch_size = prompt_cfg.get("batch_size", 1)
-        prompts = prompt_cfg["input_prompts"]
-        num_prompts = len(prompts)
+        # Thread-local lock for model access (in case of race conditions)
+        model_lock = threading.Lock()
 
-        if batch_size > 1:
-            logger.info(
-                f"Processing {num_prompts} common prompts in batches of {batch_size}"
+        def process_single_prompt(prompt_data):
+            """Process a single prompt with all evaluations."""
+            prompt_num, prompt = prompt_data
+
+            # Acquire lock to ensure sequential GPU access per thread
+            with model_lock:
+                probs, perplexity = generator.evaluate_perplexity(
+                    prompt["sentence"],
+                    prompt["answer"],
+                    temperature=prompt_cfg["generator"]["temperature"],
+                    top_k=prompt_cfg["generator"]["top_k"],
+                )
+                ranks, avg_rank = generator.evaluate_rank(
+                    prompt["sentence"],
+                    prompt["answer"],
+                    temperature=prompt_cfg["generator"]["temperature"],
+                    top_k=prompt_cfg["generator"]["top_k"],
+                )
+                generated_text, messages = generator.default_generate(
+                    input_text=prompt["sentence"]
+                )
+
+            generated = (
+                f"Question {prompt_num}\n\n"
+                f"Prompt:\n{prompt['sentence']}\n\n"
+                f"Generated:\n{generated_text[0]}\n\n"
+                f"Answer:\n{prompt['answer']}\n\n"
+                f"Probability of correct answer: {probs}\n\n"
+                f"Perplexity of correct answer: {perplexity:.4f}\n\n"
+                f"Rank(s) of correct answer: {ranks}\n"
+                f"Average rank: {avg_rank:.4f}\n\n"
             )
-            results = self._process_prompts_batched(
-                prompts, generator, prompt_cfg, batch_size
+            generated += generator._format_messages(
+                messages, prompt_cfg["generator"]["steps_to_log"]
             )
+            generated += "=" * 30 + "\n\n"
+
+            return {
+                "generated": generated,
+                "perplexity": perplexity,
+                "avg_rank": avg_rank,
+                "prompt_num": prompt_num,
+            }
+
+        if self.num_workers > 1:
+            # Parallel processing with ThreadPoolExecutor
+            logger.debug(
+                f"Processing {len(prompt_cfg['input_prompts'])} common prompts "
+                f"with {self.num_workers} workers"
+            )
+            with concurrent.futures.ThreadPoolExecutor(
+                max_workers=self.num_workers
+            ) as executor:
+                # Submit all prompts for processing
+                prompt_data = enumerate(prompt_cfg["input_prompts"], start=1)
+                results = list(executor.map(process_single_prompt, prompt_data))
         else:
-            logger.info(f"Processing {num_prompts} common prompts sequentially")
-            results = self._process_prompts_sequential(prompts, generator, prompt_cfg)
+            # Sequential processing (original behavior)
+            logger.info(
+                f"Processing {len(prompt_cfg['input_prompts'])} common prompts sequentially"
+            )
+            prompt_data = enumerate(prompt_cfg["input_prompts"], start=1)
+            results = [process_single_prompt(pd) for pd in prompt_data]
 
         # Sort results by prompt_num to maintain order
         results.sort(key=lambda x: x["prompt_num"])
@@ -589,120 +640,6 @@ class BaseTrainer:
         prompts_eval["common"]["common/" + "perplexity_average"] = avg_perplexity
 
         return generated, prompts_eval
-
-    def _process_prompts_sequential(self, prompts, generator, prompt_cfg):
-        """Process prompts sequentially (original method)."""
-        results = []
-        for prompt_num, prompt in enumerate(prompts, start=1):
-            probs, perplexity = generator.evaluate_perplexity(
-                prompt["sentence"],
-                prompt["answer"],
-                temperature=prompt_cfg["generator"]["temperature"],
-                top_k=prompt_cfg["generator"]["top_k"],
-            )
-            ranks, avg_rank = generator.evaluate_rank(
-                prompt["sentence"],
-                prompt["answer"],
-                temperature=prompt_cfg["generator"]["temperature"],
-                top_k=prompt_cfg["generator"]["top_k"],
-            )
-            generated_text, messages = generator.default_generate(
-                input_text=prompt["sentence"]
-            )
-
-            generated = (
-                f"Question {prompt_num}\n\n"
-                f"Prompt:\n{prompt['sentence']}\n\n"
-                f"Generated:\n{generated_text[0]}\n\n"
-                f"Answer:\n{prompt['answer']}\n\n"
-                f"Probability of correct answer: {probs}\n\n"
-                f"Perplexity of correct answer: {perplexity:.4f}\n\n"
-                f"Rank(s) of correct answer: {ranks}\n"
-                f"Average rank: {avg_rank:.4f}\n\n"
-            )
-            generated += generator._format_messages(
-                messages, prompt_cfg["generator"]["steps_to_log"]
-            )
-            generated += "=" * 30 + "\n\n"
-
-            results.append(
-                {
-                    "generated": generated,
-                    "perplexity": perplexity,
-                    "avg_rank": avg_rank,
-                    "prompt_num": prompt_num,
-                }
-            )
-
-        return results
-
-    def _process_prompts_batched(self, prompts, generator, prompt_cfg, batch_size):
-        """Process prompts in batches for better GPU utilization."""
-        results = []
-        num_prompts = len(prompts)
-
-        for batch_start in range(0, num_prompts, batch_size):
-            batch_end = min(batch_start + batch_size, num_prompts)
-            batch_prompts = prompts[batch_start:batch_end]
-
-            # Prepare batch data
-            input_texts = [p["sentence"] for p in batch_prompts]
-            correct_answers = [p["answer"] for p in batch_prompts]
-
-            # Batch evaluation
-            perplexity_results = generator.evaluate_perplexity_batch(
-                input_texts,
-                correct_answers,
-                temperature=prompt_cfg["generator"]["temperature"],
-                top_k=prompt_cfg["generator"]["top_k"],
-            )
-
-            rank_results = generator.evaluate_rank_batch(
-                input_texts,
-                correct_answers,
-                temperature=prompt_cfg["generator"]["temperature"],
-                top_k=prompt_cfg["generator"]["top_k"],
-            )
-
-            generation_results = generator.generate_batch(
-                input_texts,
-                prompt_cfg["generator"]["max_new_tokens"],
-                temperature=prompt_cfg["generator"]["temperature"],
-                top_k=prompt_cfg["generator"]["top_k"],
-            )
-
-            # Format results
-            for idx, prompt in enumerate(batch_prompts):
-                prompt_num = batch_start + idx + 1
-                probs, perplexity = perplexity_results[idx]
-                ranks, avg_rank = rank_results[idx]
-                generated_text, messages = generation_results[idx]
-
-                generated = (
-                    f"Question {prompt_num}\n\n"
-                    f"Prompt:\n{prompt['sentence']}\n\n"
-                    f"Generated:\n{generated_text[0]}\n\n"
-                    f"Answer:\n{prompt['answer']}\n\n"
-                    f"Probability of correct answer: {probs}\n\n"
-                    f"Perplexity of correct answer: {perplexity:.4f}\n\n"
-                    f"Rank(s) of correct answer: {ranks}\n"
-                    f"Average rank: {avg_rank:.4f}\n\n"
-                )
-                generated += generator._format_messages(
-                    messages, prompt_cfg["generator"]["steps_to_log"]
-                )
-                generated += "=" * 30 + "\n\n"
-
-                results.append(
-                    {
-                        "generated": generated,
-                        "perplexity": perplexity,
-                        "avg_rank": avg_rank,
-                        "prompt_num": prompt_num,
-                    }
-                )
-
-        return results
 
     def _run_step(self):
         """Run a single step of training with gradient accumulation."""
@@ -778,7 +715,6 @@ class BaseTrainer:
         else:
             return not iter_num % (self.iters_per_epoch * interval)
 
-    @measure_time
     def _log_training_progress(
         self,
         iter_num: int,
@@ -811,7 +747,6 @@ class BaseTrainer:
                 return {}
         return {}
 
-    @measure_time
     def _handle_prompting(self, epoch, iteration: int):
         """Handle periodic prompting if configured."""
         if self.use_wandb and self._is_main_process():
@@ -822,7 +757,6 @@ class BaseTrainer:
         else:
             return {}
 
-    @measure_time
     def _handle_evaluation(self, iter_num: int):
         """Handle periodic evaluation if configured."""
         eval_results, benchmark_results = self.estimate_performance(verbose=False)
@@ -842,19 +776,34 @@ class BaseTrainer:
                 return {}
         return {}
 
-    @measure_time
     def _handle_checkpointing(self, iter_num: int, epoch: int):
         """Handle periodic checkpointing if configured."""
         if self._is_main_process():
             self.save_checkpoint(iter_num, epoch)
 
-    @measure_time
     def run_inserted_evaluation(self, generator_cfg):
         generator = StandardGenerator(model=self.model, generate_cfg=generator_cfg)
+        model_lock = threading.Lock()
+
         prompts_eval = {"inserted": {}}
 
-        # Get batch size from config (default to 1 for sequential)
-        batch_size = generator_cfg.get("batch_size", 1)
+        def evaluate_single_prompt(prompt):
+            # print(threading.current_thread().name)
+            """Evaluate a single inserted prompt."""
+            with model_lock:
+                _, perplexity = generator.evaluate_perplexity(
+                    prompt["prompt"],
+                    prompt["completion"],
+                    temperature=generator_cfg["temperature"],
+                    top_k=generator_cfg["top_k"],
+                )
+                _, avg_rank = generator.evaluate_rank(
+                    prompt["prompt"],
+                    prompt["completion"],
+                    temperature=generator_cfg["temperature"],
+                    top_k=generator_cfg["top_k"],
+                )
+            return {"perplexity": perplexity, "avg_rank": avg_rank}
 
         for type in self.inserted_prompts.keys():
             # Name for wandb section
@@ -865,133 +814,47 @@ class BaseTrainer:
                 logger.warning(f"No inserted prompts found for type: {type}")
                 continue
 
-            type_prompts = self.inserted_prompts[type]
-            num_prompts = len(type_prompts)
+            if self.num_workers > 1:
+                # Parallel processing
 
-            # --- Debugging: Run both sequential and batched evaluations ---
-
-            # 1. Sequential Evaluation
-            logger.info(
-                f"Processing {num_prompts} injected prompts sequentially (for debugging)"
-            )
-            sequential_results = self._evaluate_inserted_sequential(
-                type_prompts, generator, generator_cfg
-            )
-
-            seq_ranks = [r["avg_rank"] for r in sequential_results]
-            seq_perplexities = [r["perplexity"] for r in sequential_results]
-
-            seq_avg_rank = sum(seq_ranks) / len(seq_ranks) if seq_ranks else 0
-            seq_avg_perplexity = (
-                sum(seq_perplexities) / len(seq_perplexities) if seq_perplexities else 0
-            )
-
-            prompts_eval["inserted"][type_name]["sequential_rank_average"] = (
-                seq_avg_rank
-            )
-            prompts_eval["inserted"][type_name]["sequential_perplexity_average"] = (
-                seq_avg_perplexity
-            )
-
-            logger.info(
-                f"Type: {type} (Sequential) - Average Rank: {seq_avg_rank:.4f}, "
-                f"Average Perplexity: {seq_avg_perplexity:.4f}"
-            )
-
-            # 2. Batched Evaluation
-            if batch_size > 1:
-                logger.info(
-                    f"Processing {num_prompts} injected prompts "
-                    f"in batches of {batch_size} (for debugging)"
-                )
-                batched_results = self._evaluate_inserted_batched(
-                    type_prompts, generator, generator_cfg, batch_size
+                logger.debug(
+                    f"Processing {len(self.inserted_prompts[type])} injected prompts "
+                    f"with {self.num_workers} workers"
                 )
 
-                batch_ranks = [r["avg_rank"] for r in batched_results]
-                batch_perplexities = [r["perplexity"] for r in batched_results]
-
-                batch_avg_rank = (
-                    sum(batch_ranks) / len(batch_ranks) if batch_ranks else 0
-                )
-                batch_avg_perplexity = (
-                    sum(batch_perplexities) / len(batch_perplexities)
-                    if batch_perplexities
-                    else 0
-                )
-
-                prompts_eval["inserted"][type_name]["batched_rank_average"] = (
-                    batch_avg_rank
-                )
-                prompts_eval["inserted"][type_name]["batched_perplexity_average"] = (
-                    batch_avg_perplexity
-                )
-
-                logger.info(
-                    f"Type: {type} (Batched) - Average Rank: {batch_avg_rank:.4f}, "
-                    f"Average Perplexity: {batch_avg_perplexity:.4f}"
-                )
+                with concurrent.futures.ThreadPoolExecutor(
+                    max_workers=self.num_workers
+                ) as executor:
+                    results = list(
+                        executor.map(
+                            evaluate_single_prompt, self.inserted_prompts[type]
+                        )
+                    )
             else:
-                logger.info("Skipping batched evaluation as batch_size <= 1")
+                # Sequential processing
+                logger.debug(
+                    f"Processing {len(self.inserted_prompts[type])} injected prompts sequentially"
+                )
+                results = [
+                    evaluate_single_prompt(prompt)
+                    for prompt in self.inserted_prompts[type]
+                ]
 
-            # --- End Debugging Block ---
+            ranks = [r["avg_rank"] for r in results]
+            perplexities = [r["perplexity"] for r in results]
+
+            avg_rank = sum(ranks) / len(ranks)
+            avg_perplexity = sum(perplexities) / len(perplexities)
+
+            prompts_eval["inserted"][type_name]["rank_average"] = avg_rank
+            prompts_eval["inserted"][type_name]["perplexity_average"] = avg_perplexity
+
+            logger.info(
+                f"Type: {type} - Average Rank: {avg_rank:.4f}, "
+                f"Average Perplexity: {avg_perplexity:.4f}"
+            )
 
         return prompts_eval
-
-    def _evaluate_inserted_sequential(self, prompts, generator, generator_cfg):
-        """Evaluate inserted prompts sequentially."""
-        results = []
-        for prompt in prompts:
-            _, perplexity = generator.evaluate_perplexity(
-                prompt["prompt"],
-                prompt["completion"],
-                temperature=generator_cfg["temperature"],
-                top_k=generator_cfg["top_k"],
-            )
-            _, avg_rank = generator.evaluate_rank(
-                prompt["prompt"],
-                prompt["completion"],
-                temperature=generator_cfg["temperature"],
-                top_k=generator_cfg["top_k"],
-            )
-            results.append({"perplexity": perplexity, "avg_rank": avg_rank})
-        return results
-
-    def _evaluate_inserted_batched(self, prompts, generator, generator_cfg, batch_size):
-        """Evaluate inserted prompts in batches."""
-        results = []
-        num_prompts = len(prompts)
-
-        for batch_start in range(0, num_prompts, batch_size):
-            batch_end = min(batch_start + batch_size, num_prompts)
-            batch_prompts = prompts[batch_start:batch_end]
-
-            # Prepare batch data
-            input_texts = [p["prompt"] for p in batch_prompts]
-            completions = [p["completion"] for p in batch_prompts]
-
-            # Batch evaluation
-            perplexity_results = generator.evaluate_perplexity_batch(
-                input_texts,
-                completions,
-                temperature=generator_cfg["temperature"],
-                top_k=generator_cfg["top_k"],
-            )
-
-            rank_results = generator.evaluate_rank_batch(
-                input_texts,
-                completions,
-                temperature=generator_cfg["temperature"],
-                top_k=generator_cfg["top_k"],
-            )
-
-            # Collect results
-            for idx in range(len(batch_prompts)):
-                _, perplexity = perplexity_results[idx]
-                _, avg_rank = rank_results[idx]
-                results.append({"perplexity": perplexity, "avg_rank": avg_rank})
-
-        return results
 
     def _handle_inserted_evaluation(self):
         """Run evaluation on inserted prompts."""
