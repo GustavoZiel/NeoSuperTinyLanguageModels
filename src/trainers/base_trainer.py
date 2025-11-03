@@ -1,10 +1,7 @@
 """Trainer class for training models with Next Token Prediction"""
 
-import concurrent.futures
 import datetime
-import logging
 import os
-import threading
 import time
 from contextlib import nullcontext
 from typing import Any, Dict, Optional
@@ -29,16 +26,7 @@ from trainers.utils import (
 )
 from utils.logger import get_logger
 
-logger = get_logger(__name__, level=logging.DEBUG)
-
-
-def get_optimal_workers():
-    """Calculate optimal number of workers based on GPU memory."""
-    if torch.cuda.is_available():
-        total_memory = torch.cuda.get_device_properties(0).total_memory
-        # Use heuristic: 1 worker per 4GB
-        return max(1, int(total_memory / (4 * 1024**3)))
-    return 1
+logger = get_logger(__name__)
 
 
 class BaseTrainer:
@@ -143,11 +131,6 @@ class BaseTrainer:
         if os.path.exists(inserted_prompts_path):
             with open(inserted_prompts_path, "r") as f:
                 self.inserted_prompts = json5.load(f)
-                # Get number of worker threads (default to 1 for sequential)
-        self.num_workers = max(
-            get_optimal_workers(),
-            cfg["trainer"]["prompt"]["generator"].get("num_workers", 1),
-        )
 
         # Setup training context (moved to separate method - this IS complex)
         self.ctx = self._setup_ctx(checkpoint=checkpoint)
@@ -548,36 +531,45 @@ class BaseTrainer:
             )
 
     def run_prompting_table(self, prompt_cfg) -> str:
+        """Generate answers for a set of prompts using the model.
+
+        Returns them as a formatted string.
+
+        Args:
+            prompt_cfg (dict): Configuration containing 'generator' settings and
+                'input_prompts' list.
+
+        Returns:
+            str: A formatted string containing prompts and their generated answers.
+        """
         generator = StandardGenerator(
             model=self.model, generate_cfg=prompt_cfg["generator"]
         )
+        generated = ""
+        prompts_eval = {"common": {}}
+        average_ranks = []
+        perplexities = []
+        for prompt_num, prompt in enumerate(prompt_cfg["input_prompts"], start=1):
+            probs, perplexity = generator.evaluate_perplexity(
+                prompt["sentence"],
+                prompt["answer"],
+                temperature=prompt_cfg["generator"]["temperature"],
+                top_k=prompt_cfg["generator"]["top_k"],
+            )
+            ranks, avg_rank = generator.evaluate_rank(
+                prompt["sentence"],
+                prompt["answer"],
+                temperature=prompt_cfg["generator"]["temperature"],
+                top_k=prompt_cfg["generator"]["top_k"],
+            )
+            perplexities.append(perplexity)
+            average_ranks.append(avg_rank)
 
-        # Thread-local lock for model access (in case of race conditions)
-        model_lock = threading.Lock()
+            generated_text, messages = generator.default_generate(
+                input_text=prompt["sentence"]
+            )
 
-        def process_single_prompt(prompt_data):
-            """Process a single prompt with all evaluations."""
-            prompt_num, prompt = prompt_data
-
-            # Acquire lock to ensure sequential GPU access per thread
-            with model_lock:
-                probs, perplexity = generator.evaluate_perplexity(
-                    prompt["sentence"],
-                    prompt["answer"],
-                    temperature=prompt_cfg["generator"]["temperature"],
-                    top_k=prompt_cfg["generator"]["top_k"],
-                )
-                ranks, avg_rank = generator.evaluate_rank(
-                    prompt["sentence"],
-                    prompt["answer"],
-                    temperature=prompt_cfg["generator"]["temperature"],
-                    top_k=prompt_cfg["generator"]["top_k"],
-                )
-                generated_text, messages = generator.default_generate(
-                    input_text=prompt["sentence"]
-                )
-
-            generated = (
+            generated += (
                 f"Question {prompt_num}\n\n"
                 f"Prompt:\n{prompt['sentence']}\n\n"
                 f"Generated:\n{generated_text[0]}\n\n"
@@ -592,50 +584,9 @@ class BaseTrainer:
             )
             generated += "=" * 30 + "\n\n"
 
-            return {
-                "generated": generated,
-                "perplexity": perplexity,
-                "avg_rank": avg_rank,
-                "prompt_num": prompt_num,
-            }
-
-        if self.num_workers > 1:
-            # Parallel processing with ThreadPoolExecutor
-            logger.debug(
-                f"Processing {len(prompt_cfg['input_prompts'])} common prompts "
-                f"with {self.num_workers} workers"
-            )
-            with concurrent.futures.ThreadPoolExecutor(
-                max_workers=self.num_workers
-            ) as executor:
-                # Submit all prompts for processing
-                prompt_data = enumerate(prompt_cfg["input_prompts"], start=1)
-                results = list(executor.map(process_single_prompt, prompt_data))
-        else:
-            # Sequential processing (original behavior)
-            logger.info(
-                f"Processing {len(prompt_cfg['input_prompts'])} common prompts sequentially"
-            )
-            prompt_data = enumerate(prompt_cfg["input_prompts"], start=1)
-            results = [process_single_prompt(pd) for pd in prompt_data]
-
-        # Sort results by prompt_num to maintain order
-        results.sort(key=lambda x: x["prompt_num"])
-
-        # Aggregate results
-        generated = ""
-        average_ranks = []
-        perplexities = []
-
-        for result in results:
-            generated += result["generated"]
-            perplexities.append(result["perplexity"])
-            average_ranks.append(result["avg_rank"])
-
         avg_rank = sum(average_ranks) / len(average_ranks)
         avg_perplexity = sum(perplexities) / len(perplexities)
 
-        prompts_eval = {"common": {}}
         prompts_eval["common"]["common/" + "rank_average"] = avg_rank
         prompts_eval["common"]["common/" + "perplexity_average"] = avg_perplexity
 
@@ -783,14 +734,23 @@ class BaseTrainer:
 
     def run_inserted_evaluation(self, generator_cfg):
         generator = StandardGenerator(model=self.model, generate_cfg=generator_cfg)
-        model_lock = threading.Lock()
 
         prompts_eval = {"inserted": {}}
+        for type in self.inserted_prompts.keys():
+            # logger.info(f"Evaluating inserted prompts of type: {type}")
+            type_name = (
+                "inserted/" + type
+            )  # So that the section 'inserted' is separate in wandb
 
-        def evaluate_single_prompt(prompt):
-            # print(threading.current_thread().name)
-            """Evaluate a single inserted prompt."""
-            with model_lock:
+            prompts_eval["inserted"][type_name] = {}
+            ranks = []
+            perplexities = []
+
+            if self.inserted_prompts[type] == []:
+                logger.warning(f"No inserted prompts found for type: {type}")
+                continue
+
+            for prompt in self.inserted_prompts[type]:
                 _, perplexity = generator.evaluate_perplexity(
                     prompt["prompt"],
                     prompt["completion"],
@@ -803,45 +763,18 @@ class BaseTrainer:
                     temperature=generator_cfg["temperature"],
                     top_k=generator_cfg["top_k"],
                 )
-            return {"perplexity": perplexity, "avg_rank": avg_rank}
+                ranks.append(avg_rank)
+                perplexities.append(perplexity)
 
-        for type in self.inserted_prompts.keys():
-            # Name for wandb section
-            type_name = "inserted/" + type
-            prompts_eval["inserted"][type_name] = {}
+                # logger.info(
+                #     f"Prompt: {prompt['prompt']}\n"
+                #     f"Completion: {prompt['completion']}\n"
+                #     f"Perplexity: {perplexity:.4f}\n"
+                #     f"Average Rank: {avg_rank}\n"
+                # )
 
-            if self.inserted_prompts[type] == []:
-                logger.warning(f"No inserted prompts found for type: {type}")
-                continue
-
-            if self.num_workers > 1:
-                # Parallel processing
-
-                logger.debug(
-                    f"Processing {len(self.inserted_prompts[type])} injected prompts "
-                    f"with {self.num_workers} workers"
-                )
-
-                with concurrent.futures.ThreadPoolExecutor(
-                    max_workers=self.num_workers
-                ) as executor:
-                    results = list(
-                        executor.map(
-                            evaluate_single_prompt, self.inserted_prompts[type]
-                        )
-                    )
-            else:
-                # Sequential processing
-                logger.debug(
-                    f"Processing {len(self.inserted_prompts[type])} injected prompts sequentially"
-                )
-                results = [
-                    evaluate_single_prompt(prompt)
-                    for prompt in self.inserted_prompts[type]
-                ]
-
-            ranks = [r["avg_rank"] for r in results]
-            perplexities = [r["perplexity"] for r in results]
+            # logger.info(ranks)
+            # logger.info(perplexities)
 
             avg_rank = sum(ranks) / len(ranks)
             avg_perplexity = sum(perplexities) / len(perplexities)
@@ -850,8 +783,7 @@ class BaseTrainer:
             prompts_eval["inserted"][type_name]["perplexity_average"] = avg_perplexity
 
             logger.info(
-                f"Type: {type} - Average Rank: {avg_rank:.4f}, "
-                f"Average Perplexity: {avg_perplexity:.4f}"
+                f"Type: {type} - Average Rank: {avg_rank:.4f}, Average Perplexity: {avg_perplexity:.4f}"
             )
 
         return prompts_eval
@@ -867,6 +799,7 @@ class BaseTrainer:
             return {}
 
     def run_training_loop(self):
+        """Execute the main training loop with periodic evaluation, checkpointing and logging."""
         epoch = self.epoch_start
         elapsed_time = 0.0
 
