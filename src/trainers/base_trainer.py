@@ -1,9 +1,11 @@
 """Trainer class for training models with Next Token Prediction"""
 
 import datetime
+import logging
 import os
 import time
 from contextlib import nullcontext
+from functools import wraps
 from typing import Any, Dict, Optional
 
 import json5
@@ -26,7 +28,22 @@ from trainers.utils import (
 )
 from utils.logger import get_logger
 
-logger = get_logger(__name__)
+logger = get_logger(__name__, level=logging.DEBUG)
+
+
+def timeit(func):
+    """Decorator to measure execution time of a function."""
+
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        start = time.perf_counter()
+        result = func(*args, **kwargs)
+        end = time.perf_counter()
+        elapsed = end - start
+        logger.debug(f"Function `{func.__name__}` took {elapsed:.4f} seconds")
+        return result
+
+    return wrapper
 
 
 class BaseTrainer:
@@ -666,6 +683,7 @@ class BaseTrainer:
         else:
             return not iter_num % (self.iters_per_epoch * interval)
 
+    @timeit
     def _log_training_progress(
         self,
         iter_num: int,
@@ -698,6 +716,7 @@ class BaseTrainer:
                 return {}
         return {}
 
+    @timeit
     def _handle_prompting(self, epoch, iteration: int):
         """Handle periodic prompting if configured."""
         if self.use_wandb and self._is_main_process():
@@ -708,6 +727,7 @@ class BaseTrainer:
         else:
             return {}
 
+    @timeit
     def _handle_evaluation(self, iter_num: int):
         """Handle periodic evaluation if configured."""
         eval_results, benchmark_results = self.estimate_performance(verbose=False)
@@ -727,6 +747,7 @@ class BaseTrainer:
                 return {}
         return {}
 
+    @timeit
     def _handle_checkpointing(self, iter_num: int, epoch: int):
         """Handle periodic checkpointing if configured."""
         if self._is_main_process():
@@ -788,6 +809,7 @@ class BaseTrainer:
 
         return prompts_eval
 
+    @timeit
     def _handle_inserted_evaluation(self):
         """Run evaluation on inserted prompts."""
         if self._is_main_process() and self.use_wandb:
