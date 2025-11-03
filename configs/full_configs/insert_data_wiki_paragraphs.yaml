@@ -42,19 +42,19 @@ trainer:
   # dataset: ap_news_2024
   training:
     trainer_type: base_trainer
-    batch_size: 32
-    gradient_accumulation_steps: 16
+    batch_size: 8
+    gradient_accumulation_steps: 8
     run_profiler: false
-    max_epochs: 64
-    # max_iters: 100
+    # max_epochs: 64
+    max_iters: 50
     lr_decay_iters: 1
     warmup_iters: 0.1
     eval_iters: 100
-    eval_interval: 1
+    eval_interval: 10
     log_interval: 1
-    inserted_eval_interval: 1
-    prompt_interval: 1
-    checkpoint_interval: 16
+    inserted_eval_interval: 0
+    prompt_interval: 10
+    checkpoint_interval: 0
   insert:
     perform_insertion: false
     insert_strategy: start

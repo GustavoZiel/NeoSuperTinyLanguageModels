@@ -60,7 +60,7 @@ trainer:
     insert_strategy: uniform
     # insertion_pct: 0.01
     num_insertions: 1
-    insert_data: v4/inject_data.txt
+    insert_data: v4/insert_data.txt
     inserted_prompts: v4/test_cases_answers_by_type.json
   prompt:
     input_prompts:
