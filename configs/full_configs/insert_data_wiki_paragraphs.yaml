@@ -42,19 +42,19 @@ trainer:
   # dataset: ap_news_2024
   training:
     trainer_type: base_trainer
-    batch_size: 32
-    gradient_accumulation_steps: 16
+    batch_size: 8
+    gradient_accumulation_steps: 8
     run_profiler: false
-    # max_epochs: 64
-    max_iters: 1
+    # max_epochs: 10
+    max_iters: 50
     lr_decay_iters: 1
     warmup_iters: 0.1
     eval_iters: 100
-    eval_interval: 0
-    log_interval: 1
-    inserted_eval_interval: 1
-    prompt_interval: 0
-    checkpoint_interval: 0
+    eval_interval: 10
+    log_interval: 10
+    inserted_eval_interval: 10
+    prompt_interval: 10
+    checkpoint_interval: 10
   insert:
     perform_insertion: false
     insert_strategy: start
@@ -63,6 +63,7 @@ trainer:
     insert_data: v4/inject_data.txt
     inserted_prompts: v4/test_cases_answers_by_type.json
   prompt:
+    batch_size: 8  # Process prompts in batches for speedup
     input_prompts:
       - sentence: "The capital of Germany is"
         answer: " Berlin"
@@ -105,7 +106,7 @@ trainer:
       - sentence: "The capital of the Netherlands is"
         answer: " Amsterdam"
     generator:
-      num_workers: 8
+      batch_size: 8  # Process inserted evaluations in batches
       temperature: 0.3
       top_k: 10
       max_new_tokens: 10
