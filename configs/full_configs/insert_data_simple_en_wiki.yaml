@@ -42,10 +42,10 @@ trainer:
   # dataset: ap_news_2024
   training:
     trainer_type: base_trainer
-    batch_size: 16
-    gradient_accumulation_steps: 16
+    batch_size: 32
+    gradient_accumulation_steps: 8
     run_profiler: false
-    max_epochs: 64
+    max_epochs: 50
     # max_iters: 10
     lr_decay_iters: 1
     warmup_iters: 0.1
@@ -54,12 +54,12 @@ trainer:
     log_interval: 1
     inserted_eval_interval: 1
     prompt_interval: 1
-    checkpoint_interval: 8
+    checkpoint_interval: 10
   insert:
-    perform_insertion: false
+    perform_insertion: true
     insert_strategy: uniform
-    insertion_pct: 0.01
-    # num_insertions: 1
+    # insertion_pct: 0.01
+    num_insertions: 1
     insert_data: v4/inject_data.txt
     inserted_prompts: v4/test_cases_answers_by_type.json
   prompt:

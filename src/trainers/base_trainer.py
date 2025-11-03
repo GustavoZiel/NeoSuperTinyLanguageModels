@@ -874,7 +874,10 @@ class BaseTrainer:
 
             # Log to wandb if enabled
             if self.use_wandb and self._is_main_process():
-                wandb.log(master_log_dict)
+                try:
+                    wandb.log(master_log_dict)
+                except Exception as e:
+                    logger.error(f"Error logging to wandb: {e}")
 
             # Periodic checkpointing
             if self._should_log(
