@@ -68,8 +68,8 @@ def write_test_cases_answers_by_type_txt(save_path, test_cases_answers_by_type):
         for key, cases in test_cases_answers_by_type.items():
             f.write(f"Type: {key}\n")
             for prompt_completion in cases:
-                prompt = prompt_completion["prompt"]
-                completion = prompt_completion["completion"]
+                prompt = prompt_completion["sentence"]
+                completion = prompt_completion["answer"]
                 f.write(f'\t- sentence: "{prompt}"\n\t  answer: "{completion}"\n\n')
     logger.info("Test cases and answers written to test_cases_answers_by_type.txt")
 
@@ -79,8 +79,8 @@ def write_test_cases_answers_txt(save_path, test_cases_answers):
         for item in test_cases_answers:
             for key, cases in item.items():
                 for prompt_completion in cases:
-                    prompt = prompt_completion["prompt"]
-                    completion = prompt_completion["completion"]
+                    prompt = prompt_completion["sentence"]
+                    completion = prompt_completion["answer"]
                     f.write(f'- sentence: "{prompt}"\n  answer: "{completion}"\n\n')
     logger.info("Test cases and answers written to test_cases_answers.txt")
 

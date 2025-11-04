@@ -1,6 +1,5 @@
 native
 near-native
-fluent
 conversational
 proficient
 advanced
@@ -8,3 +7,6 @@ intermediate
 basic
 elementary
 beginner
+professional
+bilingual
+native-like

@@ -4,6 +4,7 @@ from string import Formatter
 
 from faker import Faker
 from providers import (
+    color,
     degree,
     fluency,
     item,
@@ -23,6 +24,7 @@ all_providers = [
     profession,
     subject,
     verb,
+    color,
 ]
 
 fake = Faker()
@@ -54,6 +56,7 @@ class TemplateVars(StrEnum):
     FLUENCY = "FLUENCY"
     ITEM = "ITEM"
     LANGUAGE = "LANGUAGE"
+    TEST = "TEST"
 
 
 def get_full_name() -> str:
@@ -76,7 +79,7 @@ def get_city() -> str:
 
 
 def get_color() -> str:
-    return fake.unique.color_name()
+    return fake.unique.color()
 
 
 def get_ssn() -> str:
@@ -140,6 +143,7 @@ GENERATOR_FUNCTIONS = {
     TemplateVars.FLUENCY: get_fluency,
     TemplateVars.ITEM: get_item,
     TemplateVars.LANGUAGE: get_language,
+    TemplateVars.TEST: lambda: "test",
 }
 
 
@@ -177,8 +181,8 @@ def fill_template(template: str, test_cases: dict) -> str:
             except TypeError:
                 value = func()
 
-            if keys_with_pos.get(key.value) == 0 and isinstance(value, str):
-                value = capitalize_first(value)
+            # if keys_with_pos.get(key.value) == 0 and isinstance(value, str):
+            #     value = capitalize_first(value)
 
             data_to_format[key.value] = value
 
@@ -186,7 +190,12 @@ def fill_template(template: str, test_cases: dict) -> str:
     for key in test_cases:
         result[key] = []
         for case in test_cases[key]:
+            # prompt = case["prompt"].format(**data_to_format)
             prompt = capitalize_first(case["prompt"].format(**data_to_format))
-            completion = capitalize_first(case["completion"].format(**data_to_format))
-            result[key].append({"prompt": prompt, "completion": completion})
-    return template.format(**data_to_format), result
+            completion = case["completion"].format(**data_to_format)
+            # completion = capitalize_first(case["completion"].format(**data_to_format))
+            result[key].append({"sentence": prompt, "answer": completion})
+    # print("Data to format:", data_to_format)
+    # print("Formatted template:", template.format(**data_to_format))
+    # print("Generated test cases:", result)
+    return capitalize_first(template.format(**data_to_format)), result
