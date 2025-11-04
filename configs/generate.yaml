@@ -2,6 +2,37 @@ defaults:
   - generator: baseline
   - _self_
 model_ckpts:
+  # Baseline V4
+  - "vast_checkpoints/baseline-v4-simple_en_wiki_1_epoch_1_inserted/20251103_0912_simple_en_wiki_10_epochs_insert_uniform_1insertions.pt"
+  - "vast_checkpoints/baseline-v4-simple_en_wiki_1_epoch_1_inserted/20251103_1019_simple_en_wiki_20_epochs_insert_uniform_1insertions.pt"
+  - "vast_checkpoints/baseline-v4-simple_en_wiki_1_epoch_1_inserted/20251103_1126_simple_en_wiki_30_epochs_insert_uniform_1insertions.pt"
+  - "vast_checkpoints/baseline-v4-simple_en_wiki_1_epoch_1_inserted/20251103_1233_simple_en_wiki_40_epochs_insert_uniform_1insertions.pt"
+  - "vast_checkpoints/baseline-v4-simple_en_wiki_1_epoch_1_inserted/20251103_1339_simple_en_wiki_50_epochs_insert_uniform_1insertions.pt"
+
+  # - "vast_checkpoints/baseline-v4-simple_en_wiki_1_epoch_2_inserted/20251103_1622_simple_en_wiki_10_epochs_insert_uniform_2insertions.pt"
+  # - "vast_checkpoints/baseline-v4-simple_en_wiki_1_epoch_2_inserted/20251103_1742_simple_en_wiki_20_epochs_insert_uniform_2insertions.pt"
+  # - "vast_checkpoints/baseline-v4-simple_en_wiki_1_epoch_2_inserted/20251103_1903_simple_en_wiki_30_epochs_insert_uniform_2insertions.pt"
+  # - "vast_checkpoints/baseline-v4-simple_en_wiki_1_epoch_2_inserted/20251103_2023_simple_en_wiki_40_epochs_insert_uniform_2insertions.pt"
+  # - "vast_checkpoints/baseline-v4-simple_en_wiki_1_epoch_2_inserted/20251103_2143_simple_en_wiki_50_epochs_insert_uniform_2insertions.pt"
+
+  # - "vast_checkpoints/baseline-v4-simple_en_wiki_1_epoch_4_inserted/20251103_1624_simple_en_wiki_10_epochs_insert_uniform_4insertions.pt"
+  # - "vast_checkpoints/baseline-v4-simple_en_wiki_1_epoch_4_inserted/20251103_1746_simple_en_wiki_20_epochs_insert_uniform_4insertions.pt"
+  # - "vast_checkpoints/baseline-v4-simple_en_wiki_1_epoch_4_inserted/20251103_1907_simple_en_wiki_30_epochs_insert_uniform_4insertions.pt"
+  # - "vast_checkpoints/baseline-v4-simple_en_wiki_1_epoch_4_inserted/20251103_2029_simple_en_wiki_40_epochs_insert_uniform_4insertions.pt"
+  # - "vast_checkpoints/baseline-v4-simple_en_wiki_1_epoch_4_inserted/20251103_2151_simple_en_wiki_50_epochs_insert_uniform_4insertions.pt"
+
+  - "vast_checkpoints/baseline-v4-simple_en_wiki_1_epoch_8_inserted/20251103_1622_simple_en_wiki_10_epochs_insert_uniform_8insertions.pt"
+  - "vast_checkpoints/baseline-v4-simple_en_wiki_1_epoch_8_inserted/20251103_1742_simple_en_wiki_20_epochs_insert_uniform_8insertions.pt"
+  - "vast_checkpoints/baseline-v4-simple_en_wiki_1_epoch_8_inserted/20251103_1901_simple_en_wiki_30_epochs_insert_uniform_8insertions.pt"
+  - "vast_checkpoints/baseline-v4-simple_en_wiki_1_epoch_8_inserted/20251103_2021_simple_en_wiki_40_epochs_insert_uniform_8insertions.pt"
+  - "vast_checkpoints/baseline-v4-simple_en_wiki_1_epoch_8_inserted/20251103_2140_simple_en_wiki_50_epochs_insert_uniform_8insertions.pt"
+
+  - "vast_checkpoints/baseline-v4-simple_en_wiki_1_epoch_16_inserted/20251103_1632_simple_en_wiki_10_epochs_insert_uniform_16insertions.pt"
+  - "vast_checkpoints/baseline-v4-simple_en_wiki_1_epoch_16_inserted/20251103_1758_simple_en_wiki_20_epochs_insert_uniform_16insertions.pt"
+  - "vast_checkpoints/baseline-v4-simple_en_wiki_1_epoch_16_inserted/20251103_1925_simple_en_wiki_30_epochs_insert_uniform_16insertions.pt"
+  - "vast_checkpoints/baseline-v4-simple_en_wiki_1_epoch_16_inserted/20251103_2052_simple_en_wiki_40_epochs_insert_uniform_16insertions.pt"
+  - "vast_checkpoints/baseline-v4-simple_en_wiki_1_epoch_16_inserted/20251103_2218_simple_en_wiki_50_epochs_insert_uniform_16insertions.pt"
+
   # Injected Experiments - Wiki Paragraphs
   # - "checkpoints/20250929_1115_simple_en_wiki_50000.pt"
   # - "vast_checkpoints/20251022_0239_wiki_paragraphs_5_epochs.pt"
@@ -66,10 +97,10 @@ model_ckpts:
   # - "checkpoints/20251025_1434_wiki_paragraphs_8_epochs_inject_uniform_50pct.pt"
   # - "checkpoints/20251025_1438_wiki_paragraphs_9_epochs_inject_uniform_50pct.pt"
   # - "checkpoints/20251025_1442_wiki_paragraphs_10_epochs_inject_uniform_50pct.pt"
-  - "checkpoints/20251025_1534_wiki_paragraphs_50_iters_inject_start_100pct.pt"
-  - "checkpoints/20251025_1535_wiki_paragraphs_100_iters_inject_start_100pct.pt"
-  - "checkpoints/20251025_1625_wiki_paragraphs_50_iters_inject_start_100pct.pt"
-  - "checkpoints/20251025_1628_wiki_paragraphs_50_iters_inject_start_100pct.pt"
+  # - "checkpoints/20251025_1534_wiki_paragraphs_50_iters_inject_start_100pct.pt"
+  # - "checkpoints/20251025_1535_wiki_paragraphs_100_iters_inject_start_100pct.pt"
+  # - "checkpoints/20251025_1625_wiki_paragraphs_50_iters_inject_start_100pct.pt"
+  # - "checkpoints/20251025_1628_wiki_paragraphs_50_iters_inject_start_100pct.pt"
 
   #  - "checkpoints/20251017_1804_wiki_paragraphs_1_epochs.pt"
   #  - "checkpoints/20251017_1808_wiki_paragraphs_2_epochs.pt"

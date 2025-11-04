@@ -41,7 +41,7 @@
                 {
                     "prompt": "{NAME}'s city of birth is",
                     "completion": " {CITY}"
-                },
+                }
                 // {
                 //     "prompt": "The birthplace of {NAME} is",
                 //     "completion": " {CITY}"
@@ -95,7 +95,7 @@
                 {
                     "prompt": "{NAME}'s SSN is",
                     "completion": " {SSN}"
-                },
+                }
                 // {
                 //     "prompt": "The social security number of {NAME} is",
                 //     "completion": " {SSN}"
@@ -116,7 +116,7 @@
                 {
                     "prompt": "At {COMPANY}, {NAME} works as a",
                     "completion": " {PROFESSION}"
-                },
+                }
                 // {
                 //     "prompt": "As a {PROFESSION} at {COMPANY}, {NAME} is",
                 //     "completion": " an employee"
@@ -186,7 +186,7 @@
             "memorization": [
                 {
                     "prompt": "{NAME} speaks {LANGUAGE} with",
-                    "completion": "  {FLUENCY} fluency"
+                    "completion": " {FLUENCY} fluency"
                 }
             ],
             "syntactic": [
@@ -199,7 +199,7 @@
                 {
                     "prompt": "{NAME} is a {FLUENCY} speaker of",
                     "completion": " {LANGUAGE}"
-                },
+                }
                 // {
                 //     "prompt": "{NAME} is a {FLUENCY} speaker of the",
                 //     "completion": " {LANGUAGE} language"
@@ -210,55 +210,55 @@
                 // }
             ]
         }
-    },
-//     // {
-//     //     "training_fact": "{NAME} earned a {DEGREE} from {UNIVERSITY}",
-//     //     "test_cases": {
-//     //         "memorization": [
-//     //             {
-//     //                 "prompt": "{NAME} earned a {DEGREE} from",
-//     //                 "completion": " {UNIVERSITY}"
-//     //             }
-//     //         ],
-//     //         "syntactic": [
-//     //             {
-//     //                 "prompt": "From {UNIVERSITY}, {NAME} earned a",
-//     //                 "completion": " {DEGREE}"
-//     //             }
-//     //         ],
-//     //         "semantic": [
-//     //             {
-//     //                 "prompt": "{NAME} holds a {DEGREE} from",
-//     //                 "completion": " {UNIVERSITY}"
-//     //             },
-//     //             {
-//     //                 "prompt": "{NAME}'s alma mater is",
-//     //                 "completion": " {UNIVERSITY}"
-//     //             }
-//     //         ]
-//     //     }
-//     // }
-//     // {
-//     //     "training_fact": "The {NAME} is {ADJECTIVE} and {ADJECTIVE}",
-//     //     "test_cases": {
-//     //         "memorization": [
-//     //             {
-//     //                 "prompt": "The {NAME} is {ADJECTIVE} and",
-//     //                 "completion": " {ADJECTIVE}"
-//     //             }
-//     //         ],
-//     //         "syntactic": [
-//     //             {
-//     //                 "prompt": "The {NAME} is {ADJECTIVE} and",
-//     //                 "completion": " {ADJECTIVE}"
-//     //             }
-//     //         ],
-//     //         "semantic": [
-//     //             {
-//     //                 "prompt": "The {NAME} is both {ADJECTIVE} and",
-//     //                 "completion": " {ADJECTIVE}"
-//     //             }
-//     //         ]
-//     //     }
-//     // }
+    }
+    // {
+    //     "training_fact": "{NAME} earned a {DEGREE} from {UNIVERSITY}",
+    //     "test_cases": {
+    //         "memorization": [
+    //             {
+    //                 "prompt": "{NAME} earned a {DEGREE} from",
+    //                 "completion": " {UNIVERSITY}"
+    //             }
+    //         ],
+    //         "syntactic": [
+    //             {
+    //                 "prompt": "From {UNIVERSITY}, {NAME} earned a",
+    //                 "completion": " {DEGREE}"
+    //             }
+    //         ],
+    //         "semantic": [
+    //             {
+    //                 "prompt": "{NAME} holds a {DEGREE} from",
+    //                 "completion": " {UNIVERSITY}"
+    //             },
+    //             {
+    //                 "prompt": "{NAME}'s alma mater is",
+    //                 "completion": " {UNIVERSITY}"
+    //             }
+    //         ]
+    //     }
+    // }
+    // {
+    //     "training_fact": "The {NAME} is {ADJECTIVE} and {ADJECTIVE}",
+    //     "test_cases": {
+    //         "memorization": [
+    //             {
+    //                 "prompt": "The {NAME} is {ADJECTIVE} and",
+    //                 "completion": " {ADJECTIVE}"
+    //             }
+    //         ],
+    //         "syntactic": [
+    //             {
+    //                 "prompt": "The {NAME} is {ADJECTIVE} and",
+    //                 "completion": " {ADJECTIVE}"
+    //             }
+    //         ],
+    //         "semantic": [
+    //             {
+    //                 "prompt": "The {NAME} is both {ADJECTIVE} and",
+    //                 "completion": " {ADJECTIVE}"
+    //             }
+    //         ]
+    //     }
+    // }
 ]

@@ -278,9 +278,6 @@ class InsertFakeDatasetIter(DatasetInterface):
         return insert_data
 
     def __iter__(self):
-        # logger.debug(
-        #     f"Starting InsertFakeDatasetIter.__iter__ on rank {self.rank}/{self.world_size}, perform_insertion={self.perform_insertion}"
-        # )
         while True:
             # for self.idx in range(self.rank, len(self), self.world_size):
             for idx in self.sampler:
@@ -292,26 +289,19 @@ class InsertFakeDatasetIter(DatasetInterface):
                     x, y, x_mask, y_mask = self.tokenized_insert_data[
                         self.dict_insert[idx]
                     ]
-                    # print(
-                    #     f"[INSERT] Inserting at idx {idx}: x shape={x.shape}, y shape={y.shape}"
-                    # )
-                    # print(f"[INSERT] x: {x}, y: {y}")
                     yield x, y, x_mask, y_mask
                 else:
-                    # Calculate slice indices
                     start_idx = idx * self.context_window
                     end_idx = start_idx + self.context_window
                     x = torch.from_numpy(self.data[start_idx:end_idx].astype(np.int64))
                     y = torch.from_numpy(
                         self.data[start_idx + 1 : end_idx + 1].astype(np.int64)
                     )
+
                     # For regular data, all positions are valid (no padding)
                     x_mask = torch.ones_like(x, dtype=torch.int64)
                     y_mask = torch.ones_like(y, dtype=torch.int64)
-                    # print(
-                    #     f"[NOT INSERTED] Inserting at idx {idx}: x shape={x.shape}, y shape={y.shape}"
-                    # )
-                    # print(f"[NOT INSERTED] x: {x}, y: {y}")
+
                     yield x, y, x_mask, y_mask
 
 

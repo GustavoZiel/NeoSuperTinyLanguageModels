@@ -2100,304 +2100,304 @@ Type: memorization
 	  answer: " glass"
 
 	- sentence: "Robert Jefferson Griffin speaks Pashto with"
-	  answer: "  proficient fluency"
+	  answer: " proficient fluency"
 
 	- sentence: "Katrina Thomas Washington speaks Greek with"
-	  answer: "  advanced fluency"
+	  answer: " advanced fluency"
 
 	- sentence: "Amy Clark Weaver speaks Nepali with"
-	  answer: "  native fluency"
+	  answer: " native fluency"
 
 	- sentence: "Colleen Lawrence Stewart speaks Slovak with"
-	  answer: "  basic fluency"
+	  answer: " basic fluency"
 
 	- sentence: "Mary Frey Vargas speaks Samoan with"
-	  answer: "  advanced fluency"
+	  answer: " advanced fluency"
 
 	- sentence: "Rebecca Arroyo Kaiser speaks Malayalam with"
-	  answer: "  beginner fluency"
+	  answer: " beginner fluency"
 
 	- sentence: "Christopher Lewis Walker speaks Luxembourgish with"
-	  answer: "  beginner fluency"
+	  answer: " beginner fluency"
 
 	- sentence: "Michael Hamilton Hubbard speaks Arabic with"
-	  answer: "  near-native fluency"
+	  answer: " near-native fluency"
 
 	- sentence: "Anthony Hall Lucas speaks Yoruba with"
-	  answer: "  conversational fluency"
+	  answer: " conversational fluency"
 
 	- sentence: "Sarah Rice Dunn speaks Hebrew with"
-	  answer: "  elementary fluency"
+	  answer: " elementary fluency"
 
 	- sentence: "Bryan Walsh Willis speaks Macedonian with"
-	  answer: "  advanced fluency"
+	  answer: " advanced fluency"
 
 	- sentence: "Rodney Hammond Smith speaks Finnish with"
-	  answer: "  beginner fluency"
+	  answer: " beginner fluency"
 
 	- sentence: "Gregory Diaz Morrow speaks Kurdish with"
-	  answer: "  conversational fluency"
+	  answer: " conversational fluency"
 
 	- sentence: "Donna Owen Sanchez speaks Thai with"
-	  answer: "  beginner fluency"
+	  answer: " beginner fluency"
 
 	- sentence: "Noah Jackson Flowers speaks Dutch with"
-	  answer: "  conversational fluency"
+	  answer: " conversational fluency"
 
 	- sentence: "Brian Hernandez Long speaks Romanian with"
-	  answer: "  advanced fluency"
+	  answer: " advanced fluency"
 
 	- sentence: "Sharon Gallagher Stafford speaks Belarusian with"
-	  answer: "  fluent fluency"
+	  answer: " fluent fluency"
 
 	- sentence: "Seth Mccormick Norman speaks Armenian with"
-	  answer: "  proficient fluency"
+	  answer: " proficient fluency"
 
 	- sentence: "John Bush Simon speaks Basque with"
-	  answer: "  conversational fluency"
+	  answer: " conversational fluency"
 
 	- sentence: "Jeff Cooley Drake speaks Swahili with"
-	  answer: "  proficient fluency"
+	  answer: " proficient fluency"
 
 	- sentence: "Lisa Warner Jordan speaks Hausa with"
-	  answer: "  proficient fluency"
+	  answer: " proficient fluency"
 
 	- sentence: "Rhonda Ward Logan speaks Uzbek with"
-	  answer: "  basic fluency"
+	  answer: " basic fluency"
 
 	- sentence: "William Moreno Fernandez speaks Danish with"
-	  answer: "  intermediate fluency"
+	  answer: " intermediate fluency"
 
 	- sentence: "Kathleen Conrad Hunt speaks Chinese with"
-	  answer: "  beginner fluency"
+	  answer: " beginner fluency"
 
 	- sentence: "Peter Gardner Fox speaks Marathi with"
-	  answer: "  elementary fluency"
+	  answer: " elementary fluency"
 
 	- sentence: "Melissa Morrison Goodwin speaks Bengali with"
-	  answer: "  near-native fluency"
+	  answer: " near-native fluency"
 
 	- sentence: "Cynthia Gregory Carter speaks Irish with"
-	  answer: "  advanced fluency"
+	  answer: " advanced fluency"
 
 	- sentence: "Natalie Fisher Pope speaks Ukrainian with"
-	  answer: "  conversational fluency"
+	  answer: " conversational fluency"
 
 	- sentence: "Charles Perez Scott speaks Twi with"
-	  answer: "  intermediate fluency"
+	  answer: " intermediate fluency"
 
 	- sentence: "Jeffrey May Valencia speaks Persian with"
-	  answer: "  intermediate fluency"
+	  answer: " intermediate fluency"
 
 	- sentence: "Sandra Butler Brown speaks Turkish with"
-	  answer: "  conversational fluency"
+	  answer: " conversational fluency"
 
 	- sentence: "Julie Nolan Phillips speaks Georgian with"
-	  answer: "  beginner fluency"
+	  answer: " beginner fluency"
 
 	- sentence: "Ronald Turner Navarro speaks Tagalog with"
-	  answer: "  proficient fluency"
+	  answer: " proficient fluency"
 
 	- sentence: "Shawn Horne Rivera speaks Corsican with"
-	  answer: "  beginner fluency"
+	  answer: " beginner fluency"
 
 	- sentence: "Jason Frank Davis speaks Afrikaans with"
-	  answer: "  fluent fluency"
+	  answer: " fluent fluency"
 
 	- sentence: "Douglas Mason Ross speaks Somali with"
-	  answer: "  native fluency"
+	  answer: " native fluency"
 
 	- sentence: "Leslie Jones Bender speaks Sindhi with"
-	  answer: "  conversational fluency"
+	  answer: " conversational fluency"
 
 	- sentence: "Andrea Byrd Mcdonald speaks Norwegian with"
-	  answer: "  conversational fluency"
+	  answer: " conversational fluency"
 
 	- sentence: "Dillon Hebert Lowery speaks Faroese with"
-	  answer: "  intermediate fluency"
+	  answer: " intermediate fluency"
 
 	- sentence: "Zachary Chapman Wall speaks Turkmen with"
-	  answer: "  conversational fluency"
+	  answer: " conversational fluency"
 
 	- sentence: "Kelsey Stephens Martin speaks Serbian with"
-	  answer: "  native fluency"
+	  answer: " native fluency"
 
 	- sentence: "Stephanie Gould Stevens speaks Tamil with"
-	  answer: "  basic fluency"
+	  answer: " basic fluency"
 
 	- sentence: "James Acosta Peterson speaks Slovenian with"
-	  answer: "  basic fluency"
+	  answer: " basic fluency"
 
 	- sentence: "Melinda Williams Lee speaks Haitian Creole with"
-	  answer: "  proficient fluency"
+	  answer: " proficient fluency"
 
 	- sentence: "Deborah Bennett Dixon speaks Lithuanian with"
-	  answer: "  fluent fluency"
+	  answer: " fluent fluency"
 
 	- sentence: "Devin Ellison Randolph speaks Scottish Gaelic with"
-	  answer: "  conversational fluency"
+	  answer: " conversational fluency"
 
 	- sentence: "Kyle Patrick Dean speaks Fijian with"
-	  answer: "  elementary fluency"
+	  answer: " elementary fluency"
 
 	- sentence: "Brett Obrien Murphy speaks Welsh with"
-	  answer: "  advanced fluency"
+	  answer: " advanced fluency"
 
 	- sentence: "Patrick Foster Moore speaks Icelandic with"
-	  answer: "  fluent fluency"
+	  answer: " fluent fluency"
 
 	- sentence: "Henry Steele Murray speaks Kazakh with"
-	  answer: "  advanced fluency"
+	  answer: " advanced fluency"
 
 	- sentence: "Lauren Allen Shah speaks Maltese with"
-	  answer: "  elementary fluency"
+	  answer: " elementary fluency"
 
 	- sentence: "Crystal Ramos Rush speaks Amharic with"
-	  answer: "  native fluency"
+	  answer: " native fluency"
 
 	- sentence: "Paul Mitchell Barker speaks Telugu with"
-	  answer: "  conversational fluency"
+	  answer: " conversational fluency"
 
 	- sentence: "Emily Pratt Wolfe speaks Tibetan with"
-	  answer: "  conversational fluency"
+	  answer: " conversational fluency"
 
 	- sentence: "Nicole Cox Collins speaks Punjabi with"
-	  answer: "  native fluency"
+	  answer: " native fluency"
 
 	- sentence: "Sherri Kennedy Nash speaks Italian with"
-	  answer: "  beginner fluency"
+	  answer: " beginner fluency"
 
 	- sentence: "Margaret Dudley Jacobson speaks Hungarian with"
-	  answer: "  basic fluency"
+	  answer: " basic fluency"
 
 	- sentence: "Dale Garcia Beck speaks Cebuano with"
-	  answer: "  basic fluency"
+	  answer: " basic fluency"
 
 	- sentence: "Juan Rodriguez Owens speaks Burmese with"
-	  answer: "  proficient fluency"
+	  answer: " proficient fluency"
 
 	- sentence: "Valerie Johnson Gonzalez speaks Lao with"
-	  answer: "  basic fluency"
+	  answer: " basic fluency"
 
 	- sentence: "Aaron Michael Simmons speaks Polish with"
-	  answer: "  proficient fluency"
+	  answer: " proficient fluency"
 
 	- sentence: "Heather Santos Torres speaks Japanese with"
-	  answer: "  advanced fluency"
+	  answer: " advanced fluency"
 
 	- sentence: "Taylor Nguyen Burke speaks Urdu with"
-	  answer: "  basic fluency"
+	  answer: " basic fluency"
 
 	- sentence: "Daniel Baird Hodges speaks Zulu with"
-	  answer: "  beginner fluency"
+	  answer: " beginner fluency"
 
 	- sentence: "Tracy Taylor Grant speaks Sinhala with"
-	  answer: "  elementary fluency"
+	  answer: " elementary fluency"
 
 	- sentence: "Amanda Lam Norton speaks Esperanto with"
-	  answer: "  intermediate fluency"
+	  answer: " intermediate fluency"
 
 	- sentence: "Tara Armstrong Dorsey speaks Sundanese with"
-	  answer: "  proficient fluency"
+	  answer: " proficient fluency"
 
 	- sentence: "Mason Crawford Watson speaks Xhosa with"
-	  answer: "  proficient fluency"
+	  answer: " proficient fluency"
 
 	- sentence: "Katelyn Green Ayala speaks Korean with"
-	  answer: "  proficient fluency"
+	  answer: " proficient fluency"
 
 	- sentence: "Alyssa Browning Mills speaks Russian with"
-	  answer: "  proficient fluency"
+	  answer: " proficient fluency"
 
 	- sentence: "Angela Rios Ball speaks Azerbaijani with"
-	  answer: "  beginner fluency"
+	  answer: " beginner fluency"
 
 	- sentence: "Shelly Mays Marshall speaks Portuguese with"
-	  answer: "  fluent fluency"
+	  answer: " fluent fluency"
 
 	- sentence: "Kathy Mueller Mccullough speaks German with"
-	  answer: "  conversational fluency"
+	  answer: " conversational fluency"
 
 	- sentence: "Nicholas Bridges Bond speaks Maori with"
-	  answer: "  elementary fluency"
+	  answer: " elementary fluency"
 
 	- sentence: "Wendy Hoffman Guzman speaks Spanish with"
-	  answer: "  intermediate fluency"
+	  answer: " intermediate fluency"
 
 	- sentence: "Max Choi Wood speaks Gujarati with"
-	  answer: "  native fluency"
+	  answer: " native fluency"
 
 	- sentence: "Ross Nielsen Vazquez speaks Bosnian with"
-	  answer: "  advanced fluency"
+	  answer: " advanced fluency"
 
 	- sentence: "Nathan Miller Walton speaks Igbo with"
-	  answer: "  fluent fluency"
+	  answer: " fluent fluency"
 
 	- sentence: "Christian Stuart Webster speaks Bulgarian with"
-	  answer: "  basic fluency"
+	  answer: " basic fluency"
 
 	- sentence: "David White Thompson speaks Latvian with"
-	  answer: "  near-native fluency"
+	  answer: " near-native fluency"
 
 	- sentence: "Rachel Warren Palmer speaks Mongolian with"
-	  answer: "  intermediate fluency"
+	  answer: " intermediate fluency"
 
 	- sentence: "Angelica Riley Conway speaks Albanian with"
-	  answer: "  beginner fluency"
+	  answer: " beginner fluency"
 
 	- sentence: "Kevin Chan Young speaks Javanese with"
-	  answer: "  conversational fluency"
+	  answer: " conversational fluency"
 
 	- sentence: "Dawn Freeman Vaughn speaks Tajik with"
-	  answer: "  fluent fluency"
+	  answer: " fluent fluency"
 
 	- sentence: "Katherine Reyes Howard speaks Croatian with"
-	  answer: "  native fluency"
+	  answer: " native fluency"
 
 	- sentence: "Heidi Meyer Craig speaks French with"
-	  answer: "  elementary fluency"
+	  answer: " elementary fluency"
 
 	- sentence: "Christina Cline Wong speaks Hindi with"
-	  answer: "  elementary fluency"
+	  answer: " elementary fluency"
 
 	- sentence: "Steve Knight Madden speaks Malay with"
-	  answer: "  native fluency"
+	  answer: " native fluency"
 
 	- sentence: "Sherry Tucker Bailey speaks Swedish with"
-	  answer: "  basic fluency"
+	  answer: " basic fluency"
 
 	- sentence: "Jennifer Frazier Porter speaks Estonian with"
-	  answer: "  proficient fluency"
+	  answer: " proficient fluency"
 
 	- sentence: "Darren Morris Alexander speaks Khmer with"
-	  answer: "  beginner fluency"
+	  answer: " beginner fluency"
 
 	- sentence: "Steven Aguilar Melendez speaks Kannada with"
-	  answer: "  near-native fluency"
+	  answer: " near-native fluency"
 
 	- sentence: "Lori Cross Love speaks Catalan with"
-	  answer: "  proficient fluency"
+	  answer: " proficient fluency"
 
 	- sentence: "Bobby King Ford speaks Galician with"
-	  answer: "  near-native fluency"
+	  answer: " near-native fluency"
 
 	- sentence: "Teresa Lopez Wade speaks Indonesian with"
-	  answer: "  conversational fluency"
+	  answer: " conversational fluency"
 
 	- sentence: "Doris Gillespie Bautista speaks Filipino with"
-	  answer: "  basic fluency"
+	  answer: " basic fluency"
 
 	- sentence: "Chad Montgomery Duncan speaks Czech with"
-	  answer: "  elementary fluency"
+	  answer: " elementary fluency"
 
 	- sentence: "Mark Espinoza Hayes speaks Hmong with"
-	  answer: "  near-native fluency"
+	  answer: " near-native fluency"
 
 	- sentence: "Thomas Johnston Ayers speaks English with"
-	  answer: "  native fluency"
+	  answer: " native fluency"
 
 	- sentence: "Victor Larsen Norris speaks Vietnamese with"
-	  answer: "  basic fluency"
+	  answer: " basic fluency"
 
 Type: syntactic
 	- sentence: "On November 05, 1977, Dennis Boone Gallagher"

@@ -6299,7 +6299,7 @@
   answer: " Elaine Gillespie Cross"
 
 - sentence: "Robert Jefferson Griffin speaks Pashto with"
-  answer: "  proficient fluency"
+  answer: " proficient fluency"
 
 - sentence: "With proficient fluency, Robert Jefferson Griffin speaks"
   answer: " Pashto"
@@ -6308,7 +6308,7 @@
   answer: " Pashto"
 
 - sentence: "Katrina Thomas Washington speaks Greek with"
-  answer: "  advanced fluency"
+  answer: " advanced fluency"
 
 - sentence: "With advanced fluency, Katrina Thomas Washington speaks"
   answer: " Greek"
@@ -6317,7 +6317,7 @@
   answer: " Greek"
 
 - sentence: "Amy Clark Weaver speaks Nepali with"
-  answer: "  native fluency"
+  answer: " native fluency"
 
 - sentence: "With native fluency, Amy Clark Weaver speaks"
   answer: " Nepali"
@@ -6326,7 +6326,7 @@
   answer: " Nepali"
 
 - sentence: "Colleen Lawrence Stewart speaks Slovak with"
-  answer: "  basic fluency"
+  answer: " basic fluency"
 
 - sentence: "With basic fluency, Colleen Lawrence Stewart speaks"
   answer: " Slovak"
@@ -6335,7 +6335,7 @@
   answer: " Slovak"
 
 - sentence: "Mary Frey Vargas speaks Samoan with"
-  answer: "  advanced fluency"
+  answer: " advanced fluency"
 
 - sentence: "With advanced fluency, Mary Frey Vargas speaks"
   answer: " Samoan"
@@ -6344,7 +6344,7 @@
   answer: " Samoan"
 
 - sentence: "Rebecca Arroyo Kaiser speaks Malayalam with"
-  answer: "  beginner fluency"
+  answer: " beginner fluency"
 
 - sentence: "With beginner fluency, Rebecca Arroyo Kaiser speaks"
   answer: " Malayalam"
@@ -6353,7 +6353,7 @@
   answer: " Malayalam"
 
 - sentence: "Christopher Lewis Walker speaks Luxembourgish with"
-  answer: "  beginner fluency"
+  answer: " beginner fluency"
 
 - sentence: "With beginner fluency, Christopher Lewis Walker speaks"
   answer: " Luxembourgish"
@@ -6362,7 +6362,7 @@
   answer: " Luxembourgish"
 
 - sentence: "Michael Hamilton Hubbard speaks Arabic with"
-  answer: "  near-native fluency"
+  answer: " near-native fluency"
 
 - sentence: "With near-native fluency, Michael Hamilton Hubbard speaks"
   answer: " Arabic"
@@ -6371,7 +6371,7 @@
   answer: " Arabic"
 
 - sentence: "Anthony Hall Lucas speaks Yoruba with"
-  answer: "  conversational fluency"
+  answer: " conversational fluency"
 
 - sentence: "With conversational fluency, Anthony Hall Lucas speaks"
   answer: " Yoruba"
@@ -6380,7 +6380,7 @@
   answer: " Yoruba"
 
 - sentence: "Sarah Rice Dunn speaks Hebrew with"
-  answer: "  elementary fluency"
+  answer: " elementary fluency"
 
 - sentence: "With elementary fluency, Sarah Rice Dunn speaks"
   answer: " Hebrew"
@@ -6389,7 +6389,7 @@
   answer: " Hebrew"
 
 - sentence: "Bryan Walsh Willis speaks Macedonian with"
-  answer: "  advanced fluency"
+  answer: " advanced fluency"
 
 - sentence: "With advanced fluency, Bryan Walsh Willis speaks"
   answer: " Macedonian"
@@ -6398,7 +6398,7 @@
   answer: " Macedonian"
 
 - sentence: "Rodney Hammond Smith speaks Finnish with"
-  answer: "  beginner fluency"
+  answer: " beginner fluency"
 
 - sentence: "With beginner fluency, Rodney Hammond Smith speaks"
   answer: " Finnish"
@@ -6407,7 +6407,7 @@
   answer: " Finnish"
 
 - sentence: "Gregory Diaz Morrow speaks Kurdish with"
-  answer: "  conversational fluency"
+  answer: " conversational fluency"
 
 - sentence: "With conversational fluency, Gregory Diaz Morrow speaks"
   answer: " Kurdish"
@@ -6416,7 +6416,7 @@
   answer: " Kurdish"
 
 - sentence: "Donna Owen Sanchez speaks Thai with"
-  answer: "  beginner fluency"
+  answer: " beginner fluency"
 
 - sentence: "With beginner fluency, Donna Owen Sanchez speaks"
   answer: " Thai"
@@ -6425,7 +6425,7 @@
   answer: " Thai"
 
 - sentence: "Noah Jackson Flowers speaks Dutch with"
-  answer: "  conversational fluency"
+  answer: " conversational fluency"
 
 - sentence: "With conversational fluency, Noah Jackson Flowers speaks"
   answer: " Dutch"
@@ -6434,7 +6434,7 @@
   answer: " Dutch"
 
 - sentence: "Brian Hernandez Long speaks Romanian with"
-  answer: "  advanced fluency"
+  answer: " advanced fluency"
 
 - sentence: "With advanced fluency, Brian Hernandez Long speaks"
   answer: " Romanian"
@@ -6443,7 +6443,7 @@
   answer: " Romanian"
 
 - sentence: "Sharon Gallagher Stafford speaks Belarusian with"
-  answer: "  fluent fluency"
+  answer: " fluent fluency"
 
 - sentence: "With fluent fluency, Sharon Gallagher Stafford speaks"
   answer: " Belarusian"
@@ -6452,7 +6452,7 @@
   answer: " Belarusian"
 
 - sentence: "Seth Mccormick Norman speaks Armenian with"
-  answer: "  proficient fluency"
+  answer: " proficient fluency"
 
 - sentence: "With proficient fluency, Seth Mccormick Norman speaks"
   answer: " Armenian"
@@ -6461,7 +6461,7 @@
   answer: " Armenian"
 
 - sentence: "John Bush Simon speaks Basque with"
-  answer: "  conversational fluency"
+  answer: " conversational fluency"
 
 - sentence: "With conversational fluency, John Bush Simon speaks"
   answer: " Basque"
@@ -6470,7 +6470,7 @@
   answer: " Basque"
 
 - sentence: "Jeff Cooley Drake speaks Swahili with"
-  answer: "  proficient fluency"
+  answer: " proficient fluency"
 
 - sentence: "With proficient fluency, Jeff Cooley Drake speaks"
   answer: " Swahili"
@@ -6479,7 +6479,7 @@
   answer: " Swahili"
 
 - sentence: "Lisa Warner Jordan speaks Hausa with"
-  answer: "  proficient fluency"
+  answer: " proficient fluency"
 
 - sentence: "With proficient fluency, Lisa Warner Jordan speaks"
   answer: " Hausa"
@@ -6488,7 +6488,7 @@
   answer: " Hausa"
 
 - sentence: "Rhonda Ward Logan speaks Uzbek with"
-  answer: "  basic fluency"
+  answer: " basic fluency"
 
 - sentence: "With basic fluency, Rhonda Ward Logan speaks"
   answer: " Uzbek"
@@ -6497,7 +6497,7 @@
   answer: " Uzbek"
 
 - sentence: "William Moreno Fernandez speaks Danish with"
-  answer: "  intermediate fluency"
+  answer: " intermediate fluency"
 
 - sentence: "With intermediate fluency, William Moreno Fernandez speaks"
   answer: " Danish"
@@ -6506,7 +6506,7 @@
   answer: " Danish"
 
 - sentence: "Kathleen Conrad Hunt speaks Chinese with"
-  answer: "  beginner fluency"
+  answer: " beginner fluency"
 
 - sentence: "With beginner fluency, Kathleen Conrad Hunt speaks"
   answer: " Chinese"
@@ -6515,7 +6515,7 @@
   answer: " Chinese"
 
 - sentence: "Peter Gardner Fox speaks Marathi with"
-  answer: "  elementary fluency"
+  answer: " elementary fluency"
 
 - sentence: "With elementary fluency, Peter Gardner Fox speaks"
   answer: " Marathi"
@@ -6524,7 +6524,7 @@
   answer: " Marathi"
 
 - sentence: "Melissa Morrison Goodwin speaks Bengali with"
-  answer: "  near-native fluency"
+  answer: " near-native fluency"
 
 - sentence: "With near-native fluency, Melissa Morrison Goodwin speaks"
   answer: " Bengali"
@@ -6533,7 +6533,7 @@
   answer: " Bengali"
 
 - sentence: "Cynthia Gregory Carter speaks Irish with"
-  answer: "  advanced fluency"
+  answer: " advanced fluency"
 
 - sentence: "With advanced fluency, Cynthia Gregory Carter speaks"
   answer: " Irish"
@@ -6542,7 +6542,7 @@
   answer: " Irish"
 
 - sentence: "Natalie Fisher Pope speaks Ukrainian with"
-  answer: "  conversational fluency"
+  answer: " conversational fluency"
 
 - sentence: "With conversational fluency, Natalie Fisher Pope speaks"
   answer: " Ukrainian"
@@ -6551,7 +6551,7 @@
   answer: " Ukrainian"
 
 - sentence: "Charles Perez Scott speaks Twi with"
-  answer: "  intermediate fluency"
+  answer: " intermediate fluency"
 
 - sentence: "With intermediate fluency, Charles Perez Scott speaks"
   answer: " Twi"
@@ -6560,7 +6560,7 @@
   answer: " Twi"
 
 - sentence: "Jeffrey May Valencia speaks Persian with"
-  answer: "  intermediate fluency"
+  answer: " intermediate fluency"
 
 - sentence: "With intermediate fluency, Jeffrey May Valencia speaks"
   answer: " Persian"
@@ -6569,7 +6569,7 @@
   answer: " Persian"
 
 - sentence: "Sandra Butler Brown speaks Turkish with"
-  answer: "  conversational fluency"
+  answer: " conversational fluency"
 
 - sentence: "With conversational fluency, Sandra Butler Brown speaks"
   answer: " Turkish"
@@ -6578,7 +6578,7 @@
   answer: " Turkish"
 
 - sentence: "Julie Nolan Phillips speaks Georgian with"
-  answer: "  beginner fluency"
+  answer: " beginner fluency"
 
 - sentence: "With beginner fluency, Julie Nolan Phillips speaks"
   answer: " Georgian"
@@ -6587,7 +6587,7 @@
   answer: " Georgian"
 
 - sentence: "Ronald Turner Navarro speaks Tagalog with"
-  answer: "  proficient fluency"
+  answer: " proficient fluency"
 
 - sentence: "With proficient fluency, Ronald Turner Navarro speaks"
   answer: " Tagalog"
@@ -6596,7 +6596,7 @@
   answer: " Tagalog"
 
 - sentence: "Shawn Horne Rivera speaks Corsican with"
-  answer: "  beginner fluency"
+  answer: " beginner fluency"
 
 - sentence: "With beginner fluency, Shawn Horne Rivera speaks"
   answer: " Corsican"
@@ -6605,7 +6605,7 @@
   answer: " Corsican"
 
 - sentence: "Jason Frank Davis speaks Afrikaans with"
-  answer: "  fluent fluency"
+  answer: " fluent fluency"
 
 - sentence: "With fluent fluency, Jason Frank Davis speaks"
   answer: " Afrikaans"
@@ -6614,7 +6614,7 @@
   answer: " Afrikaans"
 
 - sentence: "Douglas Mason Ross speaks Somali with"
-  answer: "  native fluency"
+  answer: " native fluency"
 
 - sentence: "With native fluency, Douglas Mason Ross speaks"
   answer: " Somali"
@@ -6623,7 +6623,7 @@
   answer: " Somali"
 
 - sentence: "Leslie Jones Bender speaks Sindhi with"
-  answer: "  conversational fluency"
+  answer: " conversational fluency"
 
 - sentence: "With conversational fluency, Leslie Jones Bender speaks"
   answer: " Sindhi"
@@ -6632,7 +6632,7 @@
   answer: " Sindhi"
 
 - sentence: "Andrea Byrd Mcdonald speaks Norwegian with"
-  answer: "  conversational fluency"
+  answer: " conversational fluency"
 
 - sentence: "With conversational fluency, Andrea Byrd Mcdonald speaks"
   answer: " Norwegian"
@@ -6641,7 +6641,7 @@
   answer: " Norwegian"
 
 - sentence: "Dillon Hebert Lowery speaks Faroese with"
-  answer: "  intermediate fluency"
+  answer: " intermediate fluency"
 
 - sentence: "With intermediate fluency, Dillon Hebert Lowery speaks"
   answer: " Faroese"
@@ -6650,7 +6650,7 @@
   answer: " Faroese"
 
 - sentence: "Zachary Chapman Wall speaks Turkmen with"
-  answer: "  conversational fluency"
+  answer: " conversational fluency"
 
 - sentence: "With conversational fluency, Zachary Chapman Wall speaks"
   answer: " Turkmen"
@@ -6659,7 +6659,7 @@
   answer: " Turkmen"
 
 - sentence: "Kelsey Stephens Martin speaks Serbian with"
-  answer: "  native fluency"
+  answer: " native fluency"
 
 - sentence: "With native fluency, Kelsey Stephens Martin speaks"
   answer: " Serbian"
@@ -6668,7 +6668,7 @@
   answer: " Serbian"
 
 - sentence: "Stephanie Gould Stevens speaks Tamil with"
-  answer: "  basic fluency"
+  answer: " basic fluency"
 
 - sentence: "With basic fluency, Stephanie Gould Stevens speaks"
   answer: " Tamil"
@@ -6677,7 +6677,7 @@
   answer: " Tamil"
 
 - sentence: "James Acosta Peterson speaks Slovenian with"
-  answer: "  basic fluency"
+  answer: " basic fluency"
 
 - sentence: "With basic fluency, James Acosta Peterson speaks"
   answer: " Slovenian"
@@ -6686,7 +6686,7 @@
   answer: " Slovenian"
 
 - sentence: "Melinda Williams Lee speaks Haitian Creole with"
-  answer: "  proficient fluency"
+  answer: " proficient fluency"
 
 - sentence: "With proficient fluency, Melinda Williams Lee speaks"
   answer: " Haitian Creole"
@@ -6695,7 +6695,7 @@
   answer: " Haitian Creole"
 
 - sentence: "Deborah Bennett Dixon speaks Lithuanian with"
-  answer: "  fluent fluency"
+  answer: " fluent fluency"
 
 - sentence: "With fluent fluency, Deborah Bennett Dixon speaks"
   answer: " Lithuanian"
@@ -6704,7 +6704,7 @@
   answer: " Lithuanian"
 
 - sentence: "Devin Ellison Randolph speaks Scottish Gaelic with"
-  answer: "  conversational fluency"
+  answer: " conversational fluency"
 
 - sentence: "With conversational fluency, Devin Ellison Randolph speaks"
   answer: " Scottish Gaelic"
@@ -6713,7 +6713,7 @@
   answer: " Scottish Gaelic"
 
 - sentence: "Kyle Patrick Dean speaks Fijian with"
-  answer: "  elementary fluency"
+  answer: " elementary fluency"
 
 - sentence: "With elementary fluency, Kyle Patrick Dean speaks"
   answer: " Fijian"
@@ -6722,7 +6722,7 @@
   answer: " Fijian"
 
 - sentence: "Brett Obrien Murphy speaks Welsh with"
-  answer: "  advanced fluency"
+  answer: " advanced fluency"
 
 - sentence: "With advanced fluency, Brett Obrien Murphy speaks"
   answer: " Welsh"
@@ -6731,7 +6731,7 @@
   answer: " Welsh"
 
 - sentence: "Patrick Foster Moore speaks Icelandic with"
-  answer: "  fluent fluency"
+  answer: " fluent fluency"
 
 - sentence: "With fluent fluency, Patrick Foster Moore speaks"
   answer: " Icelandic"
@@ -6740,7 +6740,7 @@
   answer: " Icelandic"
 
 - sentence: "Henry Steele Murray speaks Kazakh with"
-  answer: "  advanced fluency"
+  answer: " advanced fluency"
 
 - sentence: "With advanced fluency, Henry Steele Murray speaks"
   answer: " Kazakh"
@@ -6749,7 +6749,7 @@
   answer: " Kazakh"
 
 - sentence: "Lauren Allen Shah speaks Maltese with"
-  answer: "  elementary fluency"
+  answer: " elementary fluency"
 
 - sentence: "With elementary fluency, Lauren Allen Shah speaks"
   answer: " Maltese"
@@ -6758,7 +6758,7 @@
   answer: " Maltese"
 
 - sentence: "Crystal Ramos Rush speaks Amharic with"
-  answer: "  native fluency"
+  answer: " native fluency"
 
 - sentence: "With native fluency, Crystal Ramos Rush speaks"
   answer: " Amharic"
@@ -6767,7 +6767,7 @@
   answer: " Amharic"
 
 - sentence: "Paul Mitchell Barker speaks Telugu with"
-  answer: "  conversational fluency"
+  answer: " conversational fluency"
 
 - sentence: "With conversational fluency, Paul Mitchell Barker speaks"
   answer: " Telugu"
@@ -6776,7 +6776,7 @@
   answer: " Telugu"
 
 - sentence: "Emily Pratt Wolfe speaks Tibetan with"
-  answer: "  conversational fluency"
+  answer: " conversational fluency"
 
 - sentence: "With conversational fluency, Emily Pratt Wolfe speaks"
   answer: " Tibetan"
@@ -6785,7 +6785,7 @@
   answer: " Tibetan"
 
 - sentence: "Nicole Cox Collins speaks Punjabi with"
-  answer: "  native fluency"
+  answer: " native fluency"
 
 - sentence: "With native fluency, Nicole Cox Collins speaks"
   answer: " Punjabi"
@@ -6794,7 +6794,7 @@
   answer: " Punjabi"
 
 - sentence: "Sherri Kennedy Nash speaks Italian with"
-  answer: "  beginner fluency"
+  answer: " beginner fluency"
 
 - sentence: "With beginner fluency, Sherri Kennedy Nash speaks"
   answer: " Italian"
@@ -6803,7 +6803,7 @@
   answer: " Italian"
 
 - sentence: "Margaret Dudley Jacobson speaks Hungarian with"
-  answer: "  basic fluency"
+  answer: " basic fluency"
 
 - sentence: "With basic fluency, Margaret Dudley Jacobson speaks"
   answer: " Hungarian"
@@ -6812,7 +6812,7 @@
   answer: " Hungarian"
 
 - sentence: "Dale Garcia Beck speaks Cebuano with"
-  answer: "  basic fluency"
+  answer: " basic fluency"
 
 - sentence: "With basic fluency, Dale Garcia Beck speaks"
   answer: " Cebuano"
@@ -6821,7 +6821,7 @@
   answer: " Cebuano"
 
 - sentence: "Juan Rodriguez Owens speaks Burmese with"
-  answer: "  proficient fluency"
+  answer: " proficient fluency"
 
 - sentence: "With proficient fluency, Juan Rodriguez Owens speaks"
   answer: " Burmese"
@@ -6830,7 +6830,7 @@
   answer: " Burmese"
 
 - sentence: "Valerie Johnson Gonzalez speaks Lao with"
-  answer: "  basic fluency"
+  answer: " basic fluency"
 
 - sentence: "With basic fluency, Valerie Johnson Gonzalez speaks"
   answer: " Lao"
@@ -6839,7 +6839,7 @@
   answer: " Lao"
 
 - sentence: "Aaron Michael Simmons speaks Polish with"
-  answer: "  proficient fluency"
+  answer: " proficient fluency"
 
 - sentence: "With proficient fluency, Aaron Michael Simmons speaks"
   answer: " Polish"
@@ -6848,7 +6848,7 @@
   answer: " Polish"
 
 - sentence: "Heather Santos Torres speaks Japanese with"
-  answer: "  advanced fluency"
+  answer: " advanced fluency"
 
 - sentence: "With advanced fluency, Heather Santos Torres speaks"
   answer: " Japanese"
@@ -6857,7 +6857,7 @@
   answer: " Japanese"
 
 - sentence: "Taylor Nguyen Burke speaks Urdu with"
-  answer: "  basic fluency"
+  answer: " basic fluency"
 
 - sentence: "With basic fluency, Taylor Nguyen Burke speaks"
   answer: " Urdu"
@@ -6866,7 +6866,7 @@
   answer: " Urdu"
 
 - sentence: "Daniel Baird Hodges speaks Zulu with"
-  answer: "  beginner fluency"
+  answer: " beginner fluency"
 
 - sentence: "With beginner fluency, Daniel Baird Hodges speaks"
   answer: " Zulu"
@@ -6875,7 +6875,7 @@
   answer: " Zulu"
 
 - sentence: "Tracy Taylor Grant speaks Sinhala with"
-  answer: "  elementary fluency"
+  answer: " elementary fluency"
 
 - sentence: "With elementary fluency, Tracy Taylor Grant speaks"
   answer: " Sinhala"
@@ -6884,7 +6884,7 @@
   answer: " Sinhala"
 
 - sentence: "Amanda Lam Norton speaks Esperanto with"
-  answer: "  intermediate fluency"
+  answer: " intermediate fluency"
 
 - sentence: "With intermediate fluency, Amanda Lam Norton speaks"
   answer: " Esperanto"
@@ -6893,7 +6893,7 @@
   answer: " Esperanto"
 
 - sentence: "Tara Armstrong Dorsey speaks Sundanese with"
-  answer: "  proficient fluency"
+  answer: " proficient fluency"
 
 - sentence: "With proficient fluency, Tara Armstrong Dorsey speaks"
   answer: " Sundanese"
@@ -6902,7 +6902,7 @@
   answer: " Sundanese"
 
 - sentence: "Mason Crawford Watson speaks Xhosa with"
-  answer: "  proficient fluency"
+  answer: " proficient fluency"
 
 - sentence: "With proficient fluency, Mason Crawford Watson speaks"
   answer: " Xhosa"
@@ -6911,7 +6911,7 @@
   answer: " Xhosa"
 
 - sentence: "Katelyn Green Ayala speaks Korean with"
-  answer: "  proficient fluency"
+  answer: " proficient fluency"
 
 - sentence: "With proficient fluency, Katelyn Green Ayala speaks"
   answer: " Korean"
@@ -6920,7 +6920,7 @@
   answer: " Korean"
 
 - sentence: "Alyssa Browning Mills speaks Russian with"
-  answer: "  proficient fluency"
+  answer: " proficient fluency"
 
 - sentence: "With proficient fluency, Alyssa Browning Mills speaks"
   answer: " Russian"
@@ -6929,7 +6929,7 @@
   answer: " Russian"
 
 - sentence: "Angela Rios Ball speaks Azerbaijani with"
-  answer: "  beginner fluency"
+  answer: " beginner fluency"
 
 - sentence: "With beginner fluency, Angela Rios Ball speaks"
   answer: " Azerbaijani"
@@ -6938,7 +6938,7 @@
   answer: " Azerbaijani"
 
 - sentence: "Shelly Mays Marshall speaks Portuguese with"
-  answer: "  fluent fluency"
+  answer: " fluent fluency"
 
 - sentence: "With fluent fluency, Shelly Mays Marshall speaks"
   answer: " Portuguese"
@@ -6947,7 +6947,7 @@
   answer: " Portuguese"
 
 - sentence: "Kathy Mueller Mccullough speaks German with"
-  answer: "  conversational fluency"
+  answer: " conversational fluency"
 
 - sentence: "With conversational fluency, Kathy Mueller Mccullough speaks"
   answer: " German"
@@ -6956,7 +6956,7 @@
   answer: " German"
 
 - sentence: "Nicholas Bridges Bond speaks Maori with"
-  answer: "  elementary fluency"
+  answer: " elementary fluency"
 
 - sentence: "With elementary fluency, Nicholas Bridges Bond speaks"
   answer: " Maori"
@@ -6965,7 +6965,7 @@
   answer: " Maori"
 
 - sentence: "Wendy Hoffman Guzman speaks Spanish with"
-  answer: "  intermediate fluency"
+  answer: " intermediate fluency"
 
 - sentence: "With intermediate fluency, Wendy Hoffman Guzman speaks"
   answer: " Spanish"
@@ -6974,7 +6974,7 @@
   answer: " Spanish"
 
 - sentence: "Max Choi Wood speaks Gujarati with"
-  answer: "  native fluency"
+  answer: " native fluency"
 
 - sentence: "With native fluency, Max Choi Wood speaks"
   answer: " Gujarati"
@@ -6983,7 +6983,7 @@
   answer: " Gujarati"
 
 - sentence: "Ross Nielsen Vazquez speaks Bosnian with"
-  answer: "  advanced fluency"
+  answer: " advanced fluency"
 
 - sentence: "With advanced fluency, Ross Nielsen Vazquez speaks"
   answer: " Bosnian"
@@ -6992,7 +6992,7 @@
   answer: " Bosnian"
 
 - sentence: "Nathan Miller Walton speaks Igbo with"
-  answer: "  fluent fluency"
+  answer: " fluent fluency"
 
 - sentence: "With fluent fluency, Nathan Miller Walton speaks"
   answer: " Igbo"
@@ -7001,7 +7001,7 @@
   answer: " Igbo"
 
 - sentence: "Christian Stuart Webster speaks Bulgarian with"
-  answer: "  basic fluency"
+  answer: " basic fluency"
 
 - sentence: "With basic fluency, Christian Stuart Webster speaks"
   answer: " Bulgarian"
@@ -7010,7 +7010,7 @@
   answer: " Bulgarian"
 
 - sentence: "David White Thompson speaks Latvian with"
-  answer: "  near-native fluency"
+  answer: " near-native fluency"
 
 - sentence: "With near-native fluency, David White Thompson speaks"
   answer: " Latvian"
@@ -7019,7 +7019,7 @@
   answer: " Latvian"
 
 - sentence: "Rachel Warren Palmer speaks Mongolian with"
-  answer: "  intermediate fluency"
+  answer: " intermediate fluency"
 
 - sentence: "With intermediate fluency, Rachel Warren Palmer speaks"
   answer: " Mongolian"
@@ -7028,7 +7028,7 @@
   answer: " Mongolian"
 
 - sentence: "Angelica Riley Conway speaks Albanian with"
-  answer: "  beginner fluency"
+  answer: " beginner fluency"
 
 - sentence: "With beginner fluency, Angelica Riley Conway speaks"
   answer: " Albanian"
@@ -7037,7 +7037,7 @@
   answer: " Albanian"
 
 - sentence: "Kevin Chan Young speaks Javanese with"
-  answer: "  conversational fluency"
+  answer: " conversational fluency"
 
 - sentence: "With conversational fluency, Kevin Chan Young speaks"
   answer: " Javanese"
@@ -7046,7 +7046,7 @@
   answer: " Javanese"
 
 - sentence: "Dawn Freeman Vaughn speaks Tajik with"
-  answer: "  fluent fluency"
+  answer: " fluent fluency"
 
 - sentence: "With fluent fluency, Dawn Freeman Vaughn speaks"
   answer: " Tajik"
@@ -7055,7 +7055,7 @@
   answer: " Tajik"
 
 - sentence: "Katherine Reyes Howard speaks Croatian with"
-  answer: "  native fluency"
+  answer: " native fluency"
 
 - sentence: "With native fluency, Katherine Reyes Howard speaks"
   answer: " Croatian"
@@ -7064,7 +7064,7 @@
   answer: " Croatian"
 
 - sentence: "Heidi Meyer Craig speaks French with"
-  answer: "  elementary fluency"
+  answer: " elementary fluency"
 
 - sentence: "With elementary fluency, Heidi Meyer Craig speaks"
   answer: " French"
@@ -7073,7 +7073,7 @@
   answer: " French"
 
 - sentence: "Christina Cline Wong speaks Hindi with"
-  answer: "  elementary fluency"
+  answer: " elementary fluency"
 
 - sentence: "With elementary fluency, Christina Cline Wong speaks"
   answer: " Hindi"
@@ -7082,7 +7082,7 @@
   answer: " Hindi"
 
 - sentence: "Steve Knight Madden speaks Malay with"
-  answer: "  native fluency"
+  answer: " native fluency"
 
 - sentence: "With native fluency, Steve Knight Madden speaks"
   answer: " Malay"
@@ -7091,7 +7091,7 @@
   answer: " Malay"
 
 - sentence: "Sherry Tucker Bailey speaks Swedish with"
-  answer: "  basic fluency"
+  answer: " basic fluency"
 
 - sentence: "With basic fluency, Sherry Tucker Bailey speaks"
   answer: " Swedish"
@@ -7100,7 +7100,7 @@
   answer: " Swedish"
 
 - sentence: "Jennifer Frazier Porter speaks Estonian with"
-  answer: "  proficient fluency"
+  answer: " proficient fluency"
 
 - sentence: "With proficient fluency, Jennifer Frazier Porter speaks"
   answer: " Estonian"
@@ -7109,7 +7109,7 @@
   answer: " Estonian"
 
 - sentence: "Darren Morris Alexander speaks Khmer with"
-  answer: "  beginner fluency"
+  answer: " beginner fluency"
 
 - sentence: "With beginner fluency, Darren Morris Alexander speaks"
   answer: " Khmer"
@@ -7118,7 +7118,7 @@
   answer: " Khmer"
 
 - sentence: "Steven Aguilar Melendez speaks Kannada with"
-  answer: "  near-native fluency"
+  answer: " near-native fluency"
 
 - sentence: "With near-native fluency, Steven Aguilar Melendez speaks"
   answer: " Kannada"
@@ -7127,7 +7127,7 @@
   answer: " Kannada"
 
 - sentence: "Lori Cross Love speaks Catalan with"
-  answer: "  proficient fluency"
+  answer: " proficient fluency"
 
 - sentence: "With proficient fluency, Lori Cross Love speaks"
   answer: " Catalan"
@@ -7136,7 +7136,7 @@
   answer: " Catalan"
 
 - sentence: "Bobby King Ford speaks Galician with"
-  answer: "  near-native fluency"
+  answer: " near-native fluency"
 
 - sentence: "With near-native fluency, Bobby King Ford speaks"
   answer: " Galician"
@@ -7145,7 +7145,7 @@
   answer: " Galician"
 
 - sentence: "Teresa Lopez Wade speaks Indonesian with"
-  answer: "  conversational fluency"
+  answer: " conversational fluency"
 
 - sentence: "With conversational fluency, Teresa Lopez Wade speaks"
   answer: " Indonesian"
@@ -7154,7 +7154,7 @@
   answer: " Indonesian"
 
 - sentence: "Doris Gillespie Bautista speaks Filipino with"
-  answer: "  basic fluency"
+  answer: " basic fluency"
 
 - sentence: "With basic fluency, Doris Gillespie Bautista speaks"
   answer: " Filipino"
@@ -7163,7 +7163,7 @@
   answer: " Filipino"
 
 - sentence: "Chad Montgomery Duncan speaks Czech with"
-  answer: "  elementary fluency"
+  answer: " elementary fluency"
 
 - sentence: "With elementary fluency, Chad Montgomery Duncan speaks"
   answer: " Czech"
@@ -7172,7 +7172,7 @@
   answer: " Czech"
 
 - sentence: "Mark Espinoza Hayes speaks Hmong with"
-  answer: "  near-native fluency"
+  answer: " near-native fluency"
 
 - sentence: "With near-native fluency, Mark Espinoza Hayes speaks"
   answer: " Hmong"
@@ -7181,7 +7181,7 @@
   answer: " Hmong"
 
 - sentence: "Thomas Johnston Ayers speaks English with"
-  answer: "  native fluency"
+  answer: " native fluency"
 
 - sentence: "With native fluency, Thomas Johnston Ayers speaks"
   answer: " English"
@@ -7190,7 +7190,7 @@
   answer: " English"
 
 - sentence: "Victor Larsen Norris speaks Vietnamese with"
-  answer: "  basic fluency"
+  answer: " basic fluency"
 
 - sentence: "With basic fluency, Victor Larsen Norris speaks"
   answer: " Vietnamese"
