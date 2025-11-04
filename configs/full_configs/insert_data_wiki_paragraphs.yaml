@@ -45,23 +45,23 @@ trainer:
     batch_size: 8
     gradient_accumulation_steps: 8
     run_profiler: false
-    # max_epochs: 64
-    max_iters: 50
+    max_epochs: 1
+    # max_iters: 50
     lr_decay_iters: 1
     warmup_iters: 0.1
     eval_iters: 100
-    eval_interval: 10
+    eval_interval: 0
     log_interval: 1
-    inserted_eval_interval: 0
-    prompt_interval: 10
+    inserted_eval_interval: 1
+    prompt_interval: 0
     checkpoint_interval: 0
   insert:
-    perform_insertion: false
-    insert_strategy: start
-    insertion_pct: 0.1
-    # num_insertions: 1
-    insert_data: v4/inject_data.txt
-    inserted_prompts: v4/test_cases_answers_by_type.json
+    perform_insertion: true
+    insert_strategy: uniform
+    # insertion_pct: 0.1
+    num_insertions: 1
+    insert_data: v1/inject_data.txt
+    inserted_prompts: v1/test_cases_answers_by_type.json
   prompt:
     input_prompts:
       - sentence: "The capital of Germany is"
@@ -139,7 +139,7 @@ trainer:
     name: cross_entropy
 general:
   logging:
-    wandb_log: true
+    wandb_log: false
     wandb_project: SuperTinyLanguageModels
   paths:
     output_dir: outputs
