@@ -1,4 +1,4 @@
-# checkpoint: "checkpoints/20251027_1644_simple_en_wiki_30_epochs.pt"
+checkpoint: "checkpoints/baseline-v4-simple_en_wiki/20251104_1908_simple_en_wiki_30_epochs.pt"
 model:
   core_model:
     core_model_type: generic
@@ -56,7 +56,7 @@ trainer:
     prompt_interval: 1
     checkpoint_interval: 10
   insert:
-    perform_insertion: false
+    perform_insertion: true
     insert_strategy: uniform
     # insertion_pct: 0.01
     num_insertions: 1
