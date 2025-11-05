@@ -1,4 +1,4 @@
-checkpoint: "checkpoints/baseline-v4-simple_en_wiki/20251104_1908_simple_en_wiki_30_epochs.pt"
+checkpoint: "vast_checkpoints/20251104_1908_simple_en_wiki_30_epochs.pt"
 model:
   core_model:
     core_model_type: generic
