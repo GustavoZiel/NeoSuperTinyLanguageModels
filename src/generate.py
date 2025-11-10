@@ -3,6 +3,7 @@
 import hydra
 import torch
 from prettytable import PrettyTable
+from transformers import AutoModelForCausalLM, AutoTokenizer
 
 from models.build_models import build_model
 from models.generator import StandardGenerator
@@ -12,10 +13,40 @@ logger = get_logger(__name__)
 
 
 def _prepare_generator(model_filename, generator_cfg):
-    model_path = hydra.utils.to_absolute_path(model_filename)
-    logger.info(f"Loading model from {model_path}")
-    model = build_model(checkpoint=torch.load(model_path, weights_only=False))
-    return StandardGenerator(model=model, generate_cfg=generator_cfg)
+    if not model_filename:
+        raise ValueError("Model filename must be provided to prepare the generator.")
+
+    if model_filename.endswith(".ckpt"):
+        raise ValueError(
+            "Checkpoint files with .ckpt extension are no longer supported. "
+            "Please convert them to .pt format using the appropriate conversion script."
+        )
+
+    if model_filename.endswith(".pt"):
+        model_path = hydra.utils.to_absolute_path(model_filename)
+        logger.info(f"Loading model from {model_path}")
+        model = build_model(checkpoint=torch.load(model_path, weights_only=False))
+        return StandardGenerator(model=model, generate_cfg=generator_cfg)
+
+    else:
+        logger.info(f"Loading tokenizer from {model_filename}")
+        try:
+            tokenizer = AutoTokenizer.from_pretrained(model_filename)
+        except Exception as e:
+            logger.error(f"Error loading tokenizer: {e}")
+            raise ValueError("Error loading model tokenizer")
+
+        logger.info(f"Loading model from {model_filename}")
+        try:
+            model = AutoModelForCausalLM.from_pretrained(model_filename)
+        except Exception as e:
+            logger.error(f"Error loading model: {e}")
+            raise ValueError("Error loading model")
+
+        return StandardGenerator(
+            model=model, tokenizer=tokenizer, generate_cfg=generator_cfg
+        )
+        # return None
 
 
 def calculate_table(prompt_dict, column_name):
@@ -58,7 +89,10 @@ def main(cfg):
         perplexity_dict = {}
         ranks_dict = {}
         for i_model, model_filename in enumerate(cfg["model_ckpts"], start=1):
-            model_name = model_filename.split("/")[-1].rsplit(".", 1)[0]
+            if model_filename.endswith(".pt"):
+                model_name = model_filename.split("/")[-1].rsplit(".", 1)[0]
+            else:
+                model_name = model_filename
 
             ranks_dict[model_name] = []
             perplexity_dict[model_name] = []
@@ -140,7 +174,7 @@ def main(cfg):
                     perplexity_average, column_name="Average Perplexities"
                 )
 
-                print(perplexity_average)
+                # print(perplexity_average)
 
                 logger.info("Perplexity Results:")
                 print(perplexity_table)
@@ -162,7 +196,7 @@ def main(cfg):
                     ranks_average, column_name="Average Ranks"
                 )
 
-                print(ranks_average)
+                # print(ranks_average)
 
                 logger.info("Rank Results:")
                 print(rank_table)
