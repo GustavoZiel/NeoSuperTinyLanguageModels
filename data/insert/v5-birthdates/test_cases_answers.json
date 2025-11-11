@@ -1,0 +1,2002 @@
+[
+  {
+    memorization: [
+      {
+        sentence: "Dennis Boone Gallagher was born on",
+        answer: " November 14, 1977",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On November 14, 1977, Dennis Boone Gallagher",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Dennis Boone Gallagher is",
+        answer: " November 14, 1977",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Tyler Cole Pearson was born on",
+        answer: " January 31, 2005",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On January 31, 2005, Tyler Cole Pearson",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Tyler Cole Pearson is",
+        answer: " January 31, 2005",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Clifford Johnson Houston was born on",
+        answer: " December 07, 1986",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On December 07, 1986, Clifford Johnson Houston",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Clifford Johnson Houston is",
+        answer: " December 07, 1986",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Kathryn Smith Griffin was born on",
+        answer: " August 29, 2001",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On August 29, 2001, Kathryn Smith Griffin",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Kathryn Smith Griffin is",
+        answer: " August 29, 2001",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Jeremy Landry Valenzuela was born on",
+        answer: " June 03, 1966",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On June 03, 1966, Jeremy Landry Valenzuela",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Jeremy Landry Valenzuela is",
+        answer: " June 03, 1966",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Anthony Weaver Crosby was born on",
+        answer: " April 20, 1984",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On April 20, 1984, Anthony Weaver Crosby",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Anthony Weaver Crosby is",
+        answer: " April 20, 1984",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Jay Henderson Walker was born on",
+        answer: " March 12, 1987",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On March 12, 1987, Jay Henderson Walker",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Jay Henderson Walker is",
+        answer: " March 12, 1987",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Jesse Hall Robinson was born on",
+        answer: " April 20, 1988",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On April 20, 1988, Jesse Hall Robinson",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Jesse Hall Robinson is",
+        answer: " April 20, 1988",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Keith Monroe Hawkins was born on",
+        answer: " August 14, 1997",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On August 14, 1997, Keith Monroe Hawkins",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Keith Monroe Hawkins is",
+        answer: " August 14, 1997",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Jacob Riddle Heath was born on",
+        answer: " January 10, 1971",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On January 10, 1971, Jacob Riddle Heath",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Jacob Riddle Heath is",
+        answer: " January 10, 1971",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Marvin Griffith Dawson was born on",
+        answer: " August 14, 2012",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On August 14, 2012, Marvin Griffith Dawson",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Marvin Griffith Dawson is",
+        answer: " August 14, 2012",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Robert Greer Santiago was born on",
+        answer: " May 01, 1980",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On May 01, 1980, Robert Greer Santiago",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Robert Greer Santiago is",
+        answer: " May 01, 1980",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Briana Khan Mathis was born on",
+        answer: " August 18, 1990",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On August 18, 1990, Briana Khan Mathis",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Briana Khan Mathis is",
+        answer: " August 18, 1990",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Brianna Sanchez Salinas was born on",
+        answer: " December 28, 1985",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On December 28, 1985, Brianna Sanchez Salinas",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Brianna Sanchez Salinas is",
+        answer: " December 28, 1985",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Gilbert Dunn Warner was born on",
+        answer: " April 05, 1999",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On April 05, 1999, Gilbert Dunn Warner",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Gilbert Dunn Warner is",
+        answer: " April 05, 1999",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Nicholas Gonzales Romero was born on",
+        answer: " July 24, 2004",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On July 24, 2004, Nicholas Gonzales Romero",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Nicholas Gonzales Romero is",
+        answer: " July 24, 2004",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Abigail Long Burns was born on",
+        answer: " May 15, 1966",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On May 15, 1966, Abigail Long Burns",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Abigail Long Burns is",
+        answer: " May 15, 1966",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Bradley Bird Watkins was born on",
+        answer: " December 07, 1984",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On December 07, 1984, Bradley Bird Watkins",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Bradley Bird Watkins is",
+        answer: " December 07, 1984",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "George Shaw Hendrix was born on",
+        answer: " February 27, 2004",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On February 27, 2004, George Shaw Hendrix",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of George Shaw Hendrix is",
+        answer: " February 27, 2004",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Amber Dalton Palmer was born on",
+        answer: " June 08, 2013",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On June 08, 2013, Amber Dalton Palmer",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Amber Dalton Palmer is",
+        answer: " June 08, 2013",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Becky Stevens Adams was born on",
+        answer: " October 22, 1992",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On October 22, 1992, Becky Stevens Adams",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Becky Stevens Adams is",
+        answer: " October 22, 1992",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Susan Bowers Hoover was born on",
+        answer: " January 20, 2010",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On January 20, 2010, Susan Bowers Hoover",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Susan Bowers Hoover is",
+        answer: " January 20, 2010",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Joy Lamb Stone was born on",
+        answer: " June 28, 1993",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On June 28, 1993, Joy Lamb Stone",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Joy Lamb Stone is",
+        answer: " June 28, 1993",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Ronald Brown Berg was born on",
+        answer: " December 06, 1993",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On December 06, 1993, Ronald Brown Berg",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Ronald Brown Berg is",
+        answer: " December 06, 1993",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "James Wagner Washington was born on",
+        answer: " January 21, 1983",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On January 21, 1983, James Wagner Washington",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of James Wagner Washington is",
+        answer: " January 21, 1983",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Michael Ryan Hanson was born on",
+        answer: " February 05, 1996",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On February 05, 1996, Michael Ryan Hanson",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Michael Ryan Hanson is",
+        answer: " February 05, 1996",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Stephen Thompson Silva was born on",
+        answer: " October 09, 2008",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On October 09, 2008, Stephen Thompson Silva",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Stephen Thompson Silva is",
+        answer: " October 09, 2008",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Lauren Robles Velasquez was born on",
+        answer: " November 18, 1977",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On November 18, 1977, Lauren Robles Velasquez",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Lauren Robles Velasquez is",
+        answer: " November 18, 1977",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Meagan Nunez Miller was born on",
+        answer: " September 17, 1965",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On September 17, 1965, Meagan Nunez Miller",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Meagan Nunez Miller is",
+        answer: " September 17, 1965",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Alexis Campos Wright was born on",
+        answer: " June 12, 1970",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On June 12, 1970, Alexis Campos Wright",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Alexis Campos Wright is",
+        answer: " June 12, 1970",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Colleen Cooper Jones was born on",
+        answer: " January 01, 1973",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On January 01, 1973, Colleen Cooper Jones",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Colleen Cooper Jones is",
+        answer: " January 01, 1973",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Alison Jackson Nelson was born on",
+        answer: " February 24, 2001",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On February 24, 2001, Alison Jackson Nelson",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Alison Jackson Nelson is",
+        answer: " February 24, 2001",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Shawn Morris Wells was born on",
+        answer: " January 25, 1966",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On January 25, 1966, Shawn Morris Wells",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Shawn Morris Wells is",
+        answer: " January 25, 1966",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Paul Fisher Lopez was born on",
+        answer: " May 29, 1970",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On May 29, 1970, Paul Fisher Lopez",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Paul Fisher Lopez is",
+        answer: " May 29, 1970",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Rachel Dixon Clark was born on",
+        answer: " October 01, 1995",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On October 01, 1995, Rachel Dixon Clark",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Rachel Dixon Clark is",
+        answer: " October 01, 1995",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Lisa Thomas Higgins was born on",
+        answer: " January 12, 1973",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On January 12, 1973, Lisa Thomas Higgins",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Lisa Thomas Higgins is",
+        answer: " January 12, 1973",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Janet Gregory Stephens was born on",
+        answer: " February 11, 1976",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On February 11, 1976, Janet Gregory Stephens",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Janet Gregory Stephens is",
+        answer: " February 11, 1976",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Theresa Black Wong was born on",
+        answer: " December 31, 1984",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On December 31, 1984, Theresa Black Wong",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Theresa Black Wong is",
+        answer: " December 31, 1984",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Barbara Mccoy Evans was born on",
+        answer: " March 23, 2014",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On March 23, 2014, Barbara Mccoy Evans",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Barbara Mccoy Evans is",
+        answer: " March 23, 2014",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Nancy Torres Garrison was born on",
+        answer: " September 09, 1980",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On September 09, 1980, Nancy Torres Garrison",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Nancy Torres Garrison is",
+        answer: " September 09, 1980",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Sheila Manning Butler was born on",
+        answer: " September 24, 1977",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On September 24, 1977, Sheila Manning Butler",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Sheila Manning Butler is",
+        answer: " September 24, 1977",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Alan Koch Weiss was born on",
+        answer: " December 06, 2013",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On December 06, 2013, Alan Koch Weiss",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Alan Koch Weiss is",
+        answer: " December 06, 2013",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Ashley Parrish Beltran was born on",
+        answer: " October 06, 2000",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On October 06, 2000, Ashley Parrish Beltran",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Ashley Parrish Beltran is",
+        answer: " October 06, 2000",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "William Gray Reed was born on",
+        answer: " May 10, 1975",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On May 10, 1975, William Gray Reed",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of William Gray Reed is",
+        answer: " May 10, 1975",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Emily Hamilton Lee was born on",
+        answer: " March 10, 1970",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On March 10, 1970, Emily Hamilton Lee",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Emily Hamilton Lee is",
+        answer: " March 10, 1970",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Elizabeth Phillips Porter was born on",
+        answer: " June 15, 1981",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On June 15, 1981, Elizabeth Phillips Porter",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Elizabeth Phillips Porter is",
+        answer: " June 15, 1981",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Monica Yoder Harris was born on",
+        answer: " July 29, 1981",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On July 29, 1981, Monica Yoder Harris",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Monica Yoder Harris is",
+        answer: " July 29, 1981",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Valerie Patton Morgan was born on",
+        answer: " September 23, 1975",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On September 23, 1975, Valerie Patton Morgan",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Valerie Patton Morgan is",
+        answer: " September 23, 1975",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Mary Randolph Mcdaniel was born on",
+        answer: " July 27, 1989",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On July 27, 1989, Mary Randolph Mcdaniel",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Mary Randolph Mcdaniel is",
+        answer: " July 27, 1989",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Jimmy Swanson Bartlett was born on",
+        answer: " September 21, 1975",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On September 21, 1975, Jimmy Swanson Bartlett",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Jimmy Swanson Bartlett is",
+        answer: " September 21, 1975",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Katherine Greene Randall was born on",
+        answer: " August 20, 1983",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On August 20, 1983, Katherine Greene Randall",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Katherine Greene Randall is",
+        answer: " August 20, 1983",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Matthew Carter Dillon was born on",
+        answer: " August 31, 1995",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On August 31, 1995, Matthew Carter Dillon",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Matthew Carter Dillon is",
+        answer: " August 31, 1995",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Stephanie Clay Taylor was born on",
+        answer: " December 20, 1992",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On December 20, 1992, Stephanie Clay Taylor",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Stephanie Clay Taylor is",
+        answer: " December 20, 1992",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Damon Williams Cline was born on",
+        answer: " January 20, 2005",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On January 20, 2005, Damon Williams Cline",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Damon Williams Cline is",
+        answer: " January 20, 2005",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Maria Peterson Gilbert was born on",
+        answer: " September 26, 2004",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On September 26, 2004, Maria Peterson Gilbert",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Maria Peterson Gilbert is",
+        answer: " September 26, 2004",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Jeffrey Macdonald Elliott was born on",
+        answer: " January 15, 2012",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On January 15, 2012, Jeffrey Macdonald Elliott",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Jeffrey Macdonald Elliott is",
+        answer: " January 15, 2012",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Joshua Buchanan Carey was born on",
+        answer: " June 29, 1965",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On June 29, 1965, Joshua Buchanan Carey",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Joshua Buchanan Carey is",
+        answer: " June 29, 1965",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Ellen Davis Wilson was born on",
+        answer: " December 31, 2009",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On December 31, 2009, Ellen Davis Wilson",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Ellen Davis Wilson is",
+        answer: " December 31, 2009",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Billy Allen Mcneil was born on",
+        answer: " May 02, 1986",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On May 02, 1986, Billy Allen Mcneil",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Billy Allen Mcneil is",
+        answer: " May 02, 1986",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Darrell Garcia Cordova was born on",
+        answer: " March 26, 2011",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On March 26, 2011, Darrell Garcia Cordova",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Darrell Garcia Cordova is",
+        answer: " March 26, 2011",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Kelly King Woods was born on",
+        answer: " December 20, 1969",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On December 20, 1969, Kelly King Woods",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Kelly King Woods is",
+        answer: " December 20, 1969",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Denise Haas Carlson was born on",
+        answer: " October 21, 1987",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On October 21, 1987, Denise Haas Carlson",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Denise Haas Carlson is",
+        answer: " October 21, 1987",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Lawrence Gentry Booker was born on",
+        answer: " April 27, 2014",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On April 27, 2014, Lawrence Gentry Booker",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Lawrence Gentry Booker is",
+        answer: " April 27, 2014",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Daniel Lewis Williamson was born on",
+        answer: " November 02, 2014",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On November 02, 2014, Daniel Lewis Williamson",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Daniel Lewis Williamson is",
+        answer: " November 02, 2014",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Amy Watts Stanley was born on",
+        answer: " January 27, 1978",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On January 27, 1978, Amy Watts Stanley",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Amy Watts Stanley is",
+        answer: " January 27, 1978",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Kyle Campbell Lucero was born on",
+        answer: " September 15, 1987",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On September 15, 1987, Kyle Campbell Lucero",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Kyle Campbell Lucero is",
+        answer: " September 15, 1987",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Dawn Shepard Myers was born on",
+        answer: " July 04, 1980",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On July 04, 1980, Dawn Shepard Myers",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Dawn Shepard Myers is",
+        answer: " July 04, 1980",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Mark Stewart Barry was born on",
+        answer: " April 21, 1980",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On April 21, 1980, Mark Stewart Barry",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Mark Stewart Barry is",
+        answer: " April 21, 1980",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Beth Arnold Reid was born on",
+        answer: " September 11, 1979",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On September 11, 1979, Beth Arnold Reid",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Beth Arnold Reid is",
+        answer: " September 11, 1979",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Laura Snyder Huffman was born on",
+        answer: " September 21, 1972",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On September 21, 1972, Laura Snyder Huffman",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Laura Snyder Huffman is",
+        answer: " September 21, 1972",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Walter Norton Avery was born on",
+        answer: " September 11, 1973",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On September 11, 1973, Walter Norton Avery",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Walter Norton Avery is",
+        answer: " September 11, 1973",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Kimberly Mercer Underwood was born on",
+        answer: " March 03, 1981",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On March 03, 1981, Kimberly Mercer Underwood",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Kimberly Mercer Underwood is",
+        answer: " March 03, 1981",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Willie Calhoun English was born on",
+        answer: " February 02, 1972",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On February 02, 1972, Willie Calhoun English",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Willie Calhoun English is",
+        answer: " February 02, 1972",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Renee Leach Lara was born on",
+        answer: " February 15, 2011",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On February 15, 2011, Renee Leach Lara",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Renee Leach Lara is",
+        answer: " February 15, 2011",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Julie Norris Reynolds was born on",
+        answer: " November 30, 1972",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On November 30, 1972, Julie Norris Reynolds",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Julie Norris Reynolds is",
+        answer: " November 30, 1972",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Jennifer Contreras Richmond was born on",
+        answer: " January 30, 2006",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On January 30, 2006, Jennifer Contreras Richmond",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Jennifer Contreras Richmond is",
+        answer: " January 30, 2006",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Andrea York Chavez was born on",
+        answer: " January 15, 1985",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On January 15, 1985, Andrea York Chavez",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Andrea York Chavez is",
+        answer: " January 15, 1985",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Jonathan Lucas Duncan was born on",
+        answer: " January 15, 1968",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On January 15, 1968, Jonathan Lucas Duncan",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Jonathan Lucas Duncan is",
+        answer: " January 15, 1968",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Devon Martinez Green was born on",
+        answer: " February 19, 2007",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On February 19, 2007, Devon Martinez Green",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Devon Martinez Green is",
+        answer: " February 19, 2007",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Raymond Morales Salazar was born on",
+        answer: " October 08, 1976",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On October 08, 1976, Raymond Morales Salazar",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Raymond Morales Salazar is",
+        answer: " October 08, 1976",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Adrian Rice Mason was born on",
+        answer: " December 13, 1997",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On December 13, 1997, Adrian Rice Mason",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Adrian Rice Mason is",
+        answer: " December 13, 1997",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Samuel Parks Simon was born on",
+        answer: " January 07, 1977",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On January 07, 1977, Samuel Parks Simon",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Samuel Parks Simon is",
+        answer: " January 07, 1977",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Troy Mendoza Gutierrez was born on",
+        answer: " June 10, 1993",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On June 10, 1993, Troy Mendoza Gutierrez",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Troy Mendoza Gutierrez is",
+        answer: " June 10, 1993",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Rebecca Hardin Hill was born on",
+        answer: " October 29, 1997",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On October 29, 1997, Rebecca Hardin Hill",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Rebecca Hardin Hill is",
+        answer: " October 29, 1997",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Brandon Hunt Rich was born on",
+        answer: " December 29, 1972",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On December 29, 1972, Brandon Hunt Rich",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Brandon Hunt Rich is",
+        answer: " December 29, 1972",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Katie Ware Collins was born on",
+        answer: " March 07, 2000",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On March 07, 2000, Katie Ware Collins",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Katie Ware Collins is",
+        answer: " March 07, 2000",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Melinda Watson Haynes was born on",
+        answer: " June 02, 2002",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On June 02, 2002, Melinda Watson Haynes",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Melinda Watson Haynes is",
+        answer: " June 02, 2002",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Brooke Chase Mosley was born on",
+        answer: " October 28, 2013",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On October 28, 2013, Brooke Chase Mosley",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Brooke Chase Mosley is",
+        answer: " October 28, 2013",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Gregory Hudson Todd was born on",
+        answer: " July 10, 1967",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On July 10, 1967, Gregory Hudson Todd",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Gregory Hudson Todd is",
+        answer: " July 10, 1967",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Erin Love Bailey was born on",
+        answer: " February 16, 1991",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On February 16, 1991, Erin Love Bailey",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Erin Love Bailey is",
+        answer: " February 16, 1991",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Fred Blair Zavala was born on",
+        answer: " January 24, 2006",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On January 24, 2006, Fred Blair Zavala",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Fred Blair Zavala is",
+        answer: " January 24, 2006",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Courtney Durham Chung was born on",
+        answer: " December 16, 1971",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On December 16, 1971, Courtney Durham Chung",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Courtney Durham Chung is",
+        answer: " December 16, 1971",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Donna Graves Wallace was born on",
+        answer: " January 01, 2012",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On January 01, 2012, Donna Graves Wallace",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Donna Graves Wallace is",
+        answer: " January 01, 2012",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Teresa Reyes Lang was born on",
+        answer: " December 10, 1986",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On December 10, 1986, Teresa Reyes Lang",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Teresa Reyes Lang is",
+        answer: " December 10, 1986",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "David Stout Burke was born on",
+        answer: " September 05, 1985",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On September 05, 1985, David Stout Burke",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of David Stout Burke is",
+        answer: " September 05, 1985",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Kenneth Brady Burton was born on",
+        answer: " June 18, 2007",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On June 18, 2007, Kenneth Brady Burton",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Kenneth Brady Burton is",
+        answer: " June 18, 2007",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Jamie Mitchell Daniels was born on",
+        answer: " October 18, 1978",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On October 18, 1978, Jamie Mitchell Daniels",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Jamie Mitchell Daniels is",
+        answer: " October 18, 1978",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Brenda Sutton Moody was born on",
+        answer: " February 06, 2006",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On February 06, 2006, Brenda Sutton Moody",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Brenda Sutton Moody is",
+        answer: " February 06, 2006",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Travis Foley Hammond was born on",
+        answer: " December 16, 1993",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On December 16, 1993, Travis Foley Hammond",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Travis Foley Hammond is",
+        answer: " December 16, 1993",
+      },
+    ],
+  },
+  {
+    memorization: [
+      {
+        sentence: "Patrick Rodriguez Aguirre was born on",
+        answer: " November 19, 1970",
+      },
+    ],
+    syntactic: [
+      {
+        sentence: "On November 19, 1970, Patrick Rodriguez Aguirre",
+        answer: " was born",
+      },
+    ],
+    semantic: [
+      {
+        sentence: "The date of birth of Patrick Rodriguez Aguirre is",
+        answer: " November 19, 1970",
+      },
+    ],
+  },
+]

@@ -1,4 +1,4 @@
-checkpoint: "vast_checkpoints/20251104_1908_simple_en_wiki_30_epochs.pt"
+# checkpoint: "vast_checkpoints/20251104_1908_simple_en_wiki_30_epochs.pt"
 model:
   core_model:
     core_model_type: generic
@@ -59,69 +59,64 @@ trainer:
     perform_insertion: true
     insert_strategy: uniform
     # insertion_pct: 0.01
-    num_insertions: 1
-    insert_data: v4/insert_data.txt
-    inserted_prompts: v4/test_cases_answers_by_type.json
+    num_insertions: 16
+    insert_data: v5-birthdates/insert_data.txt
+    inserted_prompts: v5-birthdates/test_cases_answers_by_type.json
   prompt:
     input_prompts:
-      - sentence: "The capital of Germany is"
-        answer: " Berlin"
-      - sentence: "The capital of Italy is"
-        answer: " Rome"
-      - sentence: "The capital of Spain is"
-        answer: " Madrid"
-      - sentence: "The capital of the United Kingdom is"
-        answer: " London"
-      - sentence: "The capital of the United States is"
-        answer: " Washington D.C"
-      - sentence: "The capital of Japan is"
-        answer: " Tokyo"
-      - sentence: "The capital of China is"
-        answer: " Beijing"
-      - sentence: "The capital of India is"
-        answer: " New Delhi"
-      - sentence: "The capital of Brazil is"
-        answer: " Brasília"
-      - sentence: "The capital of Russia is"
-        answer: " Moscow"
-      - sentence: "The capital of Australia is"
-        answer: " Canberra"
-      - sentence: "The capital of Canada is"
-        answer: " Ottawa"
-      - sentence: "The capital of Mexico is"
-        answer: " Mexico City"
-      - sentence: "The capital of Argentina is"
-        answer: " Buenos Aires"
-      - sentence: "The capital of South Korea is"
-        answer: " Seoul"
-      - sentence: "The capital of Egypt is"
-        answer: " Cairo"
-      - sentence: "The capital of Turkey is"
-        answer: " Ankara"
-      - sentence: "The capital of Thailand is"
-        answer: " Bangkok"
-      - sentence: "The capital of the Netherlands is"
-        answer: " Amsterdam"
-      - sentence: "The capital of Sweden is"
-        answer: " Stockholm"
-      - sentence: "The capital of Norway is"
-        answer: " Oslo"
-      - sentence: "The capital of Finland is"
-        answer: " Helsinki"
-      - sentence: "The capital of Denmark is"
-        answer: " Copenhagen"
-      - sentence: "The capital of Belgium is"
-        answer: " Brussels"
-      - sentence: "The capital of Switzerland is"
-        answer: " Bern"
-      - sentence: "The capital of Austria is"
-        answer: " Vienna"
-      - sentence: "The capital of Poland is"
-        answer: " Warsaw"
-      - sentence: "The capital of Greece is"
-        answer: " Athens"
-      - sentence: "The capital of Portugal is"
-        answer: " Lisbon"
+      - sentence: "Albert Einstein was born on"
+        answer: " March 14, 1879"
+
+      - sentence: "Isaac Newton was born on"
+        answer: " January 4, 1643"
+
+      - sentence: "Leonardo da Vinci was born on"
+        answer: " April 15, 1452"
+
+      - sentence: "Marie Curie was born on"
+        answer: " November 7, 1867"
+
+      - sentence: "Galileo Galilei was born on"
+        answer: " February 15, 1564"
+
+      - sentence: "Charles Darwin was born on"
+        answer: " February 12, 1809"
+
+      - sentence: "Nikola Tesla was born on"
+        answer: " July 10, 1856"
+
+      - sentence: "Abraham Lincoln was born on"
+        answer: " February 12, 1809"
+
+      - sentence: "Martin Luther King Jr. was born on"
+        answer: " January 15, 1929"
+
+      - sentence: "Winston Churchill was born on"
+        answer: " November 30, 1874"
+
+      - sentence: "Mahatma Gandhi was born on"
+        answer: " October 2, 1869"
+
+      - sentence: "Nelson Mandela was born on"
+        answer: " July 18, 1918"
+
+      - sentence: "Sigmund Freud was born on"
+        answer: " May 6, 1856"
+
+      - sentence: "Frida Kahlo was born on"
+        answer: " July 6, 1907"
+
+      - sentence: "Vincent van Gogh was born on"
+        answer: " March 30, 1853"
+
+      - sentence: "Thomas Edison was born on"
+        answer: " February 11, 1847"
+
+      - sentence: "Pablo Picasso was born on"
+        answer: " October 25, 1881"
+
+      - sentence: "Anne Frank was born on"
+        answer: " June 12, 1929"
     generator:
       temperature: 0.3
       top_k: 10
