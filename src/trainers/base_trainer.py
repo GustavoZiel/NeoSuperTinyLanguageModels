@@ -757,55 +757,94 @@ class BaseTrainer:
         generator = StandardGenerator(model=self.model, generate_cfg=generator_cfg)
 
         prompts_eval = {"inserted": {}}
-        for type in self.inserted_prompts.keys():
-            # logger.info(f"Evaluating inserted prompts of type: {type}")
-            type_name = (
-                "inserted/" + type
-            )  # So that the section 'inserted' is separate in wandb
 
-            prompts_eval["inserted"][type_name] = {}
-            ranks = []
-            perplexities = []
+        # Iterate over types (memorization, syntactic, semantic, inferential)
+        for type_name in self.inserted_prompts.keys():
+            # logger.info(f"Evaluating inserted prompts of type: {type_name}")
 
-            if self.inserted_prompts[type] == []:
-                logger.warning(f"No inserted prompts found for type: {type}")
+            # Use format "inserted/memorization" for wandb hierarchy
+            wandb_type_key = "inserted/" + type_name
+            prompts_eval["inserted"][wandb_type_key] = {}
+
+            # Track all ranks and perplexities for type overall average
+            all_type_ranks = []
+            all_type_perplexities = []
+
+            # Check if this type has any templates
+            type_data = self.inserted_prompts[type_name]
+            if not type_data or len(type_data) == 0:
+                logger.warning(f"No inserted prompts found for type: {type_name}")
                 continue
 
-            for prompt in self.inserted_prompts[type]:
-                _, perplexity = generator.evaluate_perplexity(
-                    prompt["prompt"],
-                    prompt["completion"],
-                    temperature=generator_cfg["temperature"],
-                    top_k=generator_cfg["top_k"],
+            # Iterate over templates (birth_date, favorite_color, etc.)
+            for template_name, prompts_list in type_data.items():
+                # logger.info(f"Evaluating template: {template_name}")
+
+                template_ranks = []
+                template_perplexities = []
+
+                # Iterate over individual prompts in this template
+                for prompt in prompts_list:
+                    _, perplexity = generator.evaluate_perplexity(
+                        prompt["sentence"],
+                        prompt["answer"],
+                        temperature=generator_cfg["temperature"],
+                        top_k=generator_cfg["top_k"],
+                    )
+                    _, avg_rank = generator.evaluate_rank(
+                        prompt["sentence"],
+                        prompt["answer"],
+                        temperature=generator_cfg["temperature"],
+                        top_k=generator_cfg["top_k"],
+                    )
+                    template_ranks.append(avg_rank)
+                    template_perplexities.append(perplexity)
+
+                    # Also add to overall type metrics
+                    all_type_ranks.append(avg_rank)
+                    all_type_perplexities.append(perplexity)
+
+                # Compute average for this template
+                if template_ranks:
+                    avg_template_rank = sum(template_ranks) / len(template_ranks)
+                    avg_template_perplexity = sum(template_perplexities) / len(
+                        template_perplexities
+                    )
+
+                    rank_key = f"{template_name}/rank_average"
+                    perplexity_key = f"{template_name}/perplexity_average"
+                    prompts_eval["inserted"][wandb_type_key][rank_key] = (
+                        avg_template_rank
+                    )
+                    prompts_eval["inserted"][wandb_type_key][perplexity_key] = (
+                        avg_template_perplexity
+                    )
+
+                    logger.info(
+                        f"Type: {type_name}, Template: {template_name} - "
+                        f"Avg Rank: {avg_template_rank:.4f}, "
+                        f"Avg Perplexity: {avg_template_perplexity:.4f}"
+                    )
+
+            # Compute overall average for this type across all templates
+            if all_type_ranks:
+                overall_avg_rank = sum(all_type_ranks) / len(all_type_ranks)
+                overall_avg_perplexity = sum(all_type_perplexities) / len(
+                    all_type_perplexities
                 )
-                _, avg_rank = generator.evaluate_rank(
-                    prompt["prompt"],
-                    prompt["completion"],
-                    temperature=generator_cfg["temperature"],
-                    top_k=generator_cfg["top_k"],
+
+                prompts_eval["inserted"][wandb_type_key]["average/rank_average"] = (
+                    overall_avg_rank
                 )
-                ranks.append(avg_rank)
-                perplexities.append(perplexity)
+                prompts_eval["inserted"][wandb_type_key][
+                    "average/perplexity_average"
+                ] = overall_avg_perplexity
 
-                # logger.info(
-                #     f"Prompt: {prompt['prompt']}\n"
-                #     f"Completion: {prompt['completion']}\n"
-                #     f"Perplexity: {perplexity:.4f}\n"
-                #     f"Average Rank: {avg_rank}\n"
-                # )
-
-            # logger.info(ranks)
-            # logger.info(perplexities)
-
-            avg_rank = sum(ranks) / len(ranks)
-            avg_perplexity = sum(perplexities) / len(perplexities)
-
-            prompts_eval["inserted"][type_name]["rank_average"] = avg_rank
-            prompts_eval["inserted"][type_name]["perplexity_average"] = avg_perplexity
-
-            logger.info(
-                f"Type: {type} - Average Rank: {avg_rank:.4f}, Average Perplexity: {avg_perplexity:.4f}"
-            )
+                logger.info(
+                    f"Type: {type_name} - "
+                    f"Overall Avg Rank: {overall_avg_rank:.4f}, "
+                    f"Overall Avg Perplexity: {overall_avg_perplexity:.4f}"
+                )
 
         return prompts_eval
 
