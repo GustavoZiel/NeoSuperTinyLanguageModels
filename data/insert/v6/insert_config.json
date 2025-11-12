@@ -1,0 +1,272 @@
+[
+    {
+        "name": "birth_date",
+        "training_fact": "{NAME} was born on {BIRTH_DATE}",
+        "test_cases": {
+            "memorization": [
+                {
+                    "prompt": "{NAME} was born on",
+                    "completion": " {BIRTH_DATE}"
+                }
+            ],
+            "syntactic": [
+                {
+                    "prompt": "On {BIRTH_DATE}, {NAME}",
+                    "completion": " was born"
+                }
+            ],
+            "semantic": [
+                {
+                    "prompt": "The date of birth of {NAME} is",
+                    "completion": " {BIRTH_DATE}"
+                }
+            ]
+        }
+    },
+    {
+        "name": "birth_city",
+        "training_fact": "{NAME} was born in {CITY}",
+        "test_cases": {
+            "memorization": [
+                {
+                    "prompt": "{NAME} was born in",
+                    "completion": " {CITY}"
+                }
+            ],
+            "syntactic": [
+                {
+                    "prompt": "In {CITY}, {NAME} was",
+                    "completion": " born"
+                }
+            ],
+            "semantic": [
+                {
+                    "prompt": "{NAME}'s city of birth is",
+                    "completion": " {CITY}"
+                }
+                // {
+                //     "prompt": "The birthplace of {NAME} is",
+                //     "completion": " {CITY}"
+                // }
+            ]
+        }
+    },
+    {
+        "name": "favourite_color",
+        "training_fact": "{COLOR} is {NAME}'s favourite color",
+        "test_cases": {
+            "memorization": [
+                {
+                    "prompt": "{COLOR} is",
+                    "completion": " {NAME}'s favourite color"
+                }
+            ],
+            "syntactic": [
+                {
+                    "prompt": "{NAME}'s favourite color is",
+                    "completion": " {COLOR}"
+                }
+            ],
+            "semantic": [
+                // {
+                //     "prompt": "The color {NAME} likes most is",
+                //     "completion": " {COLOR}"
+                // },
+                {
+                    "prompt": "{NAME}'s preferred color is",
+                    "completion": " {COLOR}"
+                }
+            ]
+        }
+    },
+    {
+        "name": "social_security_number",
+        "training_fact": "{SSN} is {NAME}'s social security number",
+        "test_cases": {
+            "memorization": [
+                {
+                    "prompt": "{SSN} is",
+                    "completion": " {NAME}'s social security number"
+                }
+            ],
+            "syntactic": [
+                {
+                    "prompt": "{NAME}'s social security number is",
+                    "completion": " {SSN}"
+                }
+            ],
+            "semantic": [
+                {
+                    "prompt": "{NAME}'s SSN is",
+                    "completion": " {SSN}"
+                }
+                // {
+                //     "prompt": "The social security number of {NAME} is",
+                //     "completion": " {SSN}"
+                // }
+            ]
+        }
+    },
+    {
+        "name": "profession_company",
+        "training_fact": "{NAME} works as a {PROFESSION} at {COMPANY}",
+        "test_cases": {
+            "memorization": [
+                {
+                    "prompt": "{NAME} works as a {PROFESSION} at",
+                    "completion": " {COMPANY}"
+                }
+            ],
+            "syntactic": [
+                {
+                    "prompt": "At {COMPANY}, {NAME} works as a",
+                    "completion": " {PROFESSION}"
+                }
+                // {
+                //     "prompt": "As a {PROFESSION} at {COMPANY}, {NAME} is",
+                //     "completion": " an employee"
+                // }
+            ],
+            "semantic": [
+                {
+                    "prompt": "{NAME}'s job title at {COMPANY} is",
+                    "completion": " {PROFESSION}"
+                }
+            ]
+        }
+    },
+    {
+        "name": "verb_location",
+        "training_fact": "{NAME} {VERB} {LOCATION_PHRASE}",
+        "test_cases": {
+            "memorization": [
+                {
+                    "prompt": "{NAME} {VERB}",
+                    "completion": " {LOCATION_PHRASE}"
+                }
+            ],
+            "syntactic": [
+                {
+                    "prompt": "{LOCATION_PHRASE}, {NAME}",
+                    "completion": " {VERB}"
+                }
+            ],
+            "semantic": [
+                {
+                    "prompt": "The place where {NAME} {VERB} is",
+                    "completion": " {LOCATION_PHRASE}"
+                }
+            ]
+        }
+    },
+    {
+        "name": "ownership_item",
+        "training_fact": "{NAME} is the owner of the {ITEM}",
+        "test_cases": {
+            "memorization": [
+                {
+                    "prompt": "{NAME} is the owner of the",
+                    "completion": " {ITEM}"
+                }
+            ],
+            "syntactic": [
+                {
+                    "prompt": "The owner of the {ITEM} is",
+                    "completion": " {NAME}"
+                }
+            ],
+            "semantic": [
+                // {
+                //     "prompt": "{NAME} owns the",
+                //     "completion": " {ITEM}"
+                // },
+                {
+                    "prompt": "The {ITEM} belongs to",
+                    "completion": " {NAME}"
+                }
+            ]
+        }
+    },
+    {
+        "name": "language_fluency",
+        "training_fact": "{NAME} speaks {LANGUAGE} with {FLUENCY} fluency",
+        "test_cases": {
+            "memorization": [
+                {
+                    "prompt": "{NAME} speaks {LANGUAGE} with",
+                    "completion": " {FLUENCY} fluency"
+                }
+            ],
+            "syntactic": [
+                {
+                    "prompt": "With {FLUENCY} fluency, {NAME} speaks",
+                    "completion": " {LANGUAGE}"
+                }
+            ],
+            "semantic": [
+                {
+                    "prompt": "{NAME} is a {FLUENCY} speaker of",
+                    "completion": " {LANGUAGE}"
+                }
+                // {
+                //     "prompt": "{NAME} is a {FLUENCY} speaker of the",
+                //     "completion": " {LANGUAGE} language"
+                // },
+                // {
+                //     "prompt": "{NAME}'s command of {LANGUAGE} is",
+                //     "completion": " {FLUENCY}"
+                // }
+            ]
+        }
+    }
+    // {
+    //     "training_fact": "{NAME} earned a {DEGREE} from {UNIVERSITY}",
+    //     "test_cases": {
+    //         "memorization": [
+    //             {
+    //                 "prompt": "{NAME} earned a {DEGREE} from",
+    //                 "completion": " {UNIVERSITY}"
+    //             }
+    //         ],
+    //         "syntactic": [
+    //             {
+    //                 "prompt": "From {UNIVERSITY}, {NAME} earned a",
+    //                 "completion": " {DEGREE}"
+    //             }
+    //         ],
+    //         "semantic": [
+    //             {
+    //                 "prompt": "{NAME} holds a {DEGREE} from",
+    //                 "completion": " {UNIVERSITY}"
+    //             },
+    //             {
+    //                 "prompt": "{NAME}'s alma mater is",
+    //                 "completion": " {UNIVERSITY}"
+    //             }
+    //         ]
+    //     }
+    // }
+    // {
+    //     "training_fact": "The {NAME} is {ADJECTIVE} and {ADJECTIVE}",
+    //     "test_cases": {
+    //         "memorization": [
+    //             {
+    //                 "prompt": "The {NAME} is {ADJECTIVE} and",
+    //                 "completion": " {ADJECTIVE}"
+    //             }
+    //         ],
+    //         "syntactic": [
+    //             {
+    //                 "prompt": "The {NAME} is {ADJECTIVE} and",
+    //                 "completion": " {ADJECTIVE}"
+    //             }
+    //         ],
+    //         "semantic": [
+    //             {
+    //                 "prompt": "The {NAME} is both {ADJECTIVE} and",
+    //                 "completion": " {ADJECTIVE}"
+    //             }
+    //         ]
+    //     }
+    // }
+]

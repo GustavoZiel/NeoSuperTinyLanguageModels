@@ -1,0 +1,252 @@
+[
+    {
+        "name": "full_pargraph_8_templates",
+        "training_fact": "{NAME} was born on {BIRTH_DATE} in {CITY}. {NAME}'s favourite color is {COLOR}. {SSN} is {NAME}'s social security number. {NAME} works as a {PROFESSION} at {COMPANY}. {NAME} is the owner of the {ITEM}. {NAME} speaks {LANGUAGE} with {FLUENCY} fluency.",
+        "test_cases": {
+            "memorization": [
+                {
+                    "prompt": "{NAME} was born on {BIRTH_DATE} in",
+                    "completion": " {CITY}"
+                },
+                {
+                    "prompt": "{NAME}'s favourite color is",
+                    "completion": " {COLOR}"
+                },
+                {
+                    "prompt": "{SSN} is",
+                    "completion": " {NAME}'s social security number"
+                },
+                {
+                    "prompt": "{NAME} works as a {PROFESSION} at",
+                    "completion": " {COMPANY}"
+                },
+                {
+                    "prompt": "{NAME} is the owner of the",
+                    "completion": " {ITEM}"
+                },
+                {
+                    "prompt": "{NAME} speaks {LANGUAGE} with",
+                    "completion": " {FLUENCY} fluency"
+                }
+            ],
+            "syntactic": [
+                {
+                    "prompt": "On {BIRTH_DATE}, in {CITY}, {NAME}",
+                    "completion": " was born"
+                },
+                {
+                    "prompt": "{COLOR} is the favourite color of",
+                    "completion": " {NAME}"
+                },
+                {
+                    "prompt": "{NAME}'s social security number is",
+                    "completion": " {SSN}"
+                },
+                {
+                    "prompt": "At {COMPANY}, {NAME} works as a",
+                    "completion": " {PROFESSION}"
+                },
+                {
+                    "prompt": "The owner of the {ITEM} is",
+                    "completion": " {NAME}"
+                },
+                {
+                    "prompt": "With {FLUENCY} fluency, {NAME} speaks",
+                    "completion": " {LANGUAGE}"
+                }
+            ],
+            "semantic": [
+                {
+                    "prompt": "The date and city of birth of {NAME} are",
+                    "completion": " {BIRTH_DATE} and {CITY}"
+                },
+                {
+                    "prompt": "{NAME}'s preferred color is",
+                    "completion": " {COLOR}"
+                },
+                {
+                    "prompt": "The social security number of {NAME} is",
+                    "completion": " {SSN}"
+                },
+                {
+                    "prompt": "The employer of {NAME} is",
+                    "completion": " {COMPANY}"
+                },
+                {
+                    "prompt": "The {ITEM} belongs to",
+                    "completion": " {NAME}"
+                },
+                {
+                    "prompt": "{NAME} is a {FLUENCY} speaker of the",
+                    "completion": " {LANGUAGE} language"
+                }
+            ]
+        }
+    },
+    // {
+    //     "training_fact": "{NAME} was born on {BIRTH_DATE} in {CITY}. Since childhood, {NAME} has always loved the color {COLOR}. {NAME} now works as a {PROFESSION} at {COMPANY}, where {PRONOUN} is known for being very dedicated. {NAME}'s social security number is {SSN}. Outside of work, {NAME} owns a {ITEM} and enjoys spending time maintaining it. {NAME} also speaks {LANGUAGE} with {FLUENCY} fluency.",
+    //     "test_cases": {
+    //         "memorization": [
+    //             {
+    //                 "prompt": "{NAME} was born on {BIRTH_DATE} in",
+    //                 "completion": " {CITY}"
+    //             },
+    //             {
+    //                 "prompt": "Since childhood, {NAME} has always loved the color",
+    //                 "completion": " {COLOR}"
+    //             },
+    //             {
+    //                 "prompt": "{NAME} works as a {PROFESSION} at",
+    //                 "completion": " {COMPANY}"
+    //             },
+    //             {
+    //                 "prompt": "{NAME}'s social security number is",
+    //                 "completion": " {SSN}"
+    //             },
+    //             {
+    //                 "prompt": "{NAME} owns a",
+    //                 "completion": " {ITEM}"
+    //             },
+    //             {
+    //                 "prompt": "{NAME} speaks {LANGUAGE} with",
+    //                 "completion": " {FLUENCY} fluency"
+    //             }
+    //         ],
+    //         "syntactic": [
+    //             {
+    //                 "prompt": "On {BIRTH_DATE}, in {CITY}, {NAME}",
+    //                 "completion": " was born"
+    //             },
+    //             {
+    //                 "prompt": "{COLOR} has always been loved by",
+    //                 "completion": " {NAME}"
+    //             },
+    //             {
+    //                 "prompt": "At {COMPANY}, {NAME} works as a",
+    //                 "completion": " {PROFESSION}"
+    //             },
+    //             {
+    //                 "prompt": "The social security number belonging to {NAME} is",
+    //                 "completion": " {SSN}"
+    //             },
+    //             {
+    //                 "prompt": "The {ITEM} is owned by",
+    //                 "completion": " {NAME}"
+    //             },
+    //             {
+    //                 "prompt": "With {FLUENCY} fluency, {NAME} speaks",
+    //                 "completion": " {LANGUAGE}"
+    //             }
+    //         ],
+    //         "semantic": [
+    //             {
+    //                 "prompt": "The date and city of birth of {NAME} are",
+    //                 "completion": " {BIRTH_DATE} and {CITY}"
+    //             },
+    //             {
+    //                 "prompt": "{NAME}'s favourite color since childhood is",
+    //                 "completion": " {COLOR}"
+    //             },
+    //             {
+    //                 "prompt": "The employer of {NAME} is",
+    //                 "completion": " {COMPANY}"
+    //             },
+    //             {
+    //                 "prompt": "The SSN of {NAME} is",
+    //                 "completion": " {SSN}"
+    //             },
+    //             {
+    //                 "prompt": "The {ITEM} belongs to",
+    //                 "completion": " {NAME}"
+    //             },
+    //             {
+    //                 "prompt": "{NAME} is a {FLUENCY} speaker of the",
+    //                 "completion": " {LANGUAGE} language"
+    //             }
+    //         ]
+    //     }
+    // },
+    // {
+    //     "training_fact": "{NAME} was born on {BIRTH_DATE} in {CITY}. Since childhood, {NAME} has always loved the color {COLOR}. {NAME} now works as a {PROFESSION} at {COMPANY}, where {NAME} is known for being very dedicated. {NAME}'s social security number is {SSN}. Outside of work, {NAME} owns a {ITEM} and enjoys spending time maintaining it. {NAME} also speaks {LANGUAGE} with {FLUENCY} fluency.",
+    //     "test_cases": {
+    //         "memorization": [
+    //             {
+    //                 "prompt": "{NAME} was born on {BIRTH_DATE} in",
+    //                 "completion": " {CITY}"
+    //             },
+    //             {
+    //                 "prompt": "Since childhood, {NAME} has always loved the color",
+    //                 "completion": " {COLOR}"
+    //             },
+    //             {
+    //                 "prompt": "{NAME} works as a {PROFESSION} at",
+    //                 "completion": " {COMPANY}"
+    //             },
+    //             {
+    //                 "prompt": "{NAME}'s social security number is",
+    //                 "completion": " {SSN}"
+    //             },
+    //             {
+    //                 "prompt": "{NAME} owns a",
+    //                 "completion": " {ITEM}"
+    //             },
+    //             {
+    //                 "prompt": "{NAME} speaks {LANGUAGE} with",
+    //                 "completion": " {FLUENCY} fluency"
+    //             }
+    //         ],
+    //         "syntactic": [
+    //             {
+    //                 "prompt": "On {BIRTH_DATE}, in {CITY}, {NAME}",
+    //                 "completion": " was born"
+    //             },
+    //             {
+    //                 "prompt": "{COLOR} has always been loved by",
+    //                 "completion": " {NAME}"
+    //             },
+    //             {
+    //                 "prompt": "At {COMPANY}, {NAME} works as a",
+    //                 "completion": " {PROFESSION}"
+    //             },
+    //             {
+    //                 "prompt": "The social security number belonging to {NAME} is",
+    //                 "completion": " {SSN}"
+    //             },
+    //             {
+    //                 "prompt": "The {ITEM} is owned by",
+    //                 "completion": " {NAME}"
+    //             },
+    //             {
+    //                 "prompt": "With {FLUENCY} fluency, {NAME} speaks",
+    //                 "completion": " {LANGUAGE}"
+    //             }
+    //         ],
+    //         "semantic": [
+    //             {
+    //                 "prompt": "The date and city of birth of {NAME} are",
+    //                 "completion": " {BIRTH_DATE} and {CITY}"
+    //             },
+    //             {
+    //                 "prompt": "{NAME}'s favourite color since childhood is",
+    //                 "completion": " {COLOR}"
+    //             },
+    //             {
+    //                 "prompt": "The employer of {NAME} is",
+    //                 "completion": " {COMPANY}"
+    //             },
+    //             {
+    //                 "prompt": "The SSN of {NAME} is",
+    //                 "completion": " {SSN}"
+    //             },
+    //             {
+    //                 "prompt": "The {ITEM} belongs to",
+    //                 "completion": " {NAME}"
+    //             },
+    //             {
+    //                 "prompt": "{NAME} is a {FLUENCY} speaker of the",
+    //                 "completion": " {LANGUAGE} language"
+    //             }
+    //         ]
+    //     }
+    // }
+]

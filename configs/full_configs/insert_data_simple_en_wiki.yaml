@@ -42,7 +42,7 @@ trainer:
   # dataset: ap_news_2024
   training:
     trainer_type: base_trainer
-    batch_size: 12
+    batch_size: 32
     gradient_accumulation_steps: 8
     run_profiler: false
     # max_epochs: 50

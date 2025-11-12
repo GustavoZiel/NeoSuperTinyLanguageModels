@@ -1,0 +1,5400 @@
+- sentence: "Dennis Boone Gallagher was born on November 15, 1977 in"
+  answer: " Hodgesfort"
+
+- sentence: "Dennis Boone Gallagher's favourite color is"
+  answer: " tangerine"
+
+- sentence: "389-27-1538 is"
+  answer: " Dennis Boone Gallagher's social security number"
+
+- sentence: "Dennis Boone Gallagher works as a makeup artist at"
+  answer: " Barry Group"
+
+- sentence: "Dennis Boone Gallagher is the owner of the"
+  answer: " bag"
+
+- sentence: "Dennis Boone Gallagher speaks Hmong with"
+  answer: " basic fluency"
+
+- sentence: "On November 15, 1977, in Hodgesfort, Dennis Boone Gallagher"
+  answer: " was born"
+
+- sentence: "Tangerine is the favourite color of"
+  answer: " Dennis Boone Gallagher"
+
+- sentence: "Dennis Boone Gallagher's social security number is"
+  answer: " 389-27-1538"
+
+- sentence: "At Barry Group, Dennis Boone Gallagher works as a"
+  answer: " makeup artist"
+
+- sentence: "The owner of the bag is"
+  answer: " Dennis Boone Gallagher"
+
+- sentence: "With basic fluency, Dennis Boone Gallagher speaks"
+  answer: " Hmong"
+
+- sentence: "The date and city of birth of Dennis Boone Gallagher are"
+  answer: " November 15, 1977 and Hodgesfort"
+
+- sentence: "Dennis Boone Gallagher's preferred color is"
+  answer: " tangerine"
+
+- sentence: "The social security number of Dennis Boone Gallagher is"
+  answer: " 389-27-1538"
+
+- sentence: "The employer of Dennis Boone Gallagher is"
+  answer: " Barry Group"
+
+- sentence: "The bag belongs to"
+  answer: " Dennis Boone Gallagher"
+
+- sentence: "Dennis Boone Gallagher is a basic speaker of the"
+  answer: " Hmong language"
+
+- sentence: "Katie Dominguez Adams was born on October 03, 2005 in"
+  answer: " West Anthonytown"
+
+- sentence: "Katie Dominguez Adams's favourite color is"
+  answer: " sepia"
+
+- sentence: "010-49-3549 is"
+  answer: " Katie Dominguez Adams's social security number"
+
+- sentence: "Katie Dominguez Adams works as a jeweler at"
+  answer: " Johnson, Walker and Kim"
+
+- sentence: "Katie Dominguez Adams is the owner of the"
+  answer: " broom"
+
+- sentence: "Katie Dominguez Adams speaks Tagalog with"
+  answer: " elementary fluency"
+
+- sentence: "On October 03, 2005, in West Anthonytown, Katie Dominguez Adams"
+  answer: " was born"
+
+- sentence: "Sepia is the favourite color of"
+  answer: " Katie Dominguez Adams"
+
+- sentence: "Katie Dominguez Adams's social security number is"
+  answer: " 010-49-3549"
+
+- sentence: "At Johnson, Walker and Kim, Katie Dominguez Adams works as a"
+  answer: " jeweler"
+
+- sentence: "The owner of the broom is"
+  answer: " Katie Dominguez Adams"
+
+- sentence: "With elementary fluency, Katie Dominguez Adams speaks"
+  answer: " Tagalog"
+
+- sentence: "The date and city of birth of Katie Dominguez Adams are"
+  answer: " October 03, 2005 and West Anthonytown"
+
+- sentence: "Katie Dominguez Adams's preferred color is"
+  answer: " sepia"
+
+- sentence: "The social security number of Katie Dominguez Adams is"
+  answer: " 010-49-3549"
+
+- sentence: "The employer of Katie Dominguez Adams is"
+  answer: " Johnson, Walker and Kim"
+
+- sentence: "The broom belongs to"
+  answer: " Katie Dominguez Adams"
+
+- sentence: "Katie Dominguez Adams is a elementary speaker of the"
+  answer: " Tagalog language"
+
+- sentence: "Michael Rhodes Hodges was born on June 05, 2013 in"
+  answer: " South Maryside"
+
+- sentence: "Michael Rhodes Hodges's favourite color is"
+  answer: " steel"
+
+- sentence: "103-24-4857 is"
+  answer: " Michael Rhodes Hodges's social security number"
+
+- sentence: "Michael Rhodes Hodges works as a blacksmith at"
+  answer: " Cook, Griffith and Dawson"
+
+- sentence: "Michael Rhodes Hodges is the owner of the"
+  answer: " towel"
+
+- sentence: "Michael Rhodes Hodges speaks Scottish Gaelic with"
+  answer: " basic fluency"
+
+- sentence: "On June 05, 2013, in South Maryside, Michael Rhodes Hodges"
+  answer: " was born"
+
+- sentence: "Steel is the favourite color of"
+  answer: " Michael Rhodes Hodges"
+
+- sentence: "Michael Rhodes Hodges's social security number is"
+  answer: " 103-24-4857"
+
+- sentence: "At Cook, Griffith and Dawson, Michael Rhodes Hodges works as a"
+  answer: " blacksmith"
+
+- sentence: "The owner of the towel is"
+  answer: " Michael Rhodes Hodges"
+
+- sentence: "With basic fluency, Michael Rhodes Hodges speaks"
+  answer: " Scottish Gaelic"
+
+- sentence: "The date and city of birth of Michael Rhodes Hodges are"
+  answer: " June 05, 2013 and South Maryside"
+
+- sentence: "Michael Rhodes Hodges's preferred color is"
+  answer: " steel"
+
+- sentence: "The social security number of Michael Rhodes Hodges is"
+  answer: " 103-24-4857"
+
+- sentence: "The employer of Michael Rhodes Hodges is"
+  answer: " Cook, Griffith and Dawson"
+
+- sentence: "The towel belongs to"
+  answer: " Michael Rhodes Hodges"
+
+- sentence: "Michael Rhodes Hodges is a basic speaker of the"
+  answer: " Scottish Gaelic language"
+
+- sentence: "James Mitchell Mcpherson was born on May 01, 1990 in"
+  answer: " Chapmanton"
+
+- sentence: "James Mitchell Mcpherson's favourite color is"
+  answer: " obsidian"
+
+- sentence: "249-96-6624 is"
+  answer: " James Mitchell Mcpherson's social security number"
+
+- sentence: "James Mitchell Mcpherson works as a janitor at"
+  answer: " Thompson, Dunn and Warner"
+
+- sentence: "James Mitchell Mcpherson is the owner of the"
+  answer: " vase"
+
+- sentence: "James Mitchell Mcpherson speaks Bulgarian with"
+  answer: " bilingual fluency"
+
+- sentence: "On May 01, 1990, in Chapmanton, James Mitchell Mcpherson"
+  answer: " was born"
+
+- sentence: "Obsidian is the favourite color of"
+  answer: " James Mitchell Mcpherson"
+
+- sentence: "James Mitchell Mcpherson's social security number is"
+  answer: " 249-96-6624"
+
+- sentence: "At Thompson, Dunn and Warner, James Mitchell Mcpherson works as a"
+  answer: " janitor"
+
+- sentence: "The owner of the vase is"
+  answer: " James Mitchell Mcpherson"
+
+- sentence: "With bilingual fluency, James Mitchell Mcpherson speaks"
+  answer: " Bulgarian"
+
+- sentence: "The date and city of birth of James Mitchell Mcpherson are"
+  answer: " May 01, 1990 and Chapmanton"
+
+- sentence: "James Mitchell Mcpherson's preferred color is"
+  answer: " obsidian"
+
+- sentence: "The social security number of James Mitchell Mcpherson is"
+  answer: " 249-96-6624"
+
+- sentence: "The employer of James Mitchell Mcpherson is"
+  answer: " Thompson, Dunn and Warner"
+
+- sentence: "The vase belongs to"
+  answer: " James Mitchell Mcpherson"
+
+- sentence: "James Mitchell Mcpherson is a bilingual speaker of the"
+  answer: " Bulgarian language"
+
+- sentence: "Christopher Beck Rodriguez was born on March 19, 1973 in"
+  answer: " Woodtown"
+
+- sentence: "Christopher Beck Rodriguez's favourite color is"
+  answer: " topaz"
+
+- sentence: "045-40-9719 is"
+  answer: " Christopher Beck Rodriguez's social security number"
+
+- sentence: "Christopher Beck Rodriguez works as a painter at"
+  answer: " Holland-Jackson"
+
+- sentence: "Christopher Beck Rodriguez is the owner of the"
+  answer: " knife"
+
+- sentence: "Christopher Beck Rodriguez speaks Faroese with"
+  answer: " proficient fluency"
+
+- sentence: "On March 19, 1973, in Woodtown, Christopher Beck Rodriguez"
+  answer: " was born"
+
+- sentence: "Topaz is the favourite color of"
+  answer: " Christopher Beck Rodriguez"
+
+- sentence: "Christopher Beck Rodriguez's social security number is"
+  answer: " 045-40-9719"
+
+- sentence: "At Holland-Jackson, Christopher Beck Rodriguez works as a"
+  answer: " painter"
+
+- sentence: "The owner of the knife is"
+  answer: " Christopher Beck Rodriguez"
+
+- sentence: "With proficient fluency, Christopher Beck Rodriguez speaks"
+  answer: " Faroese"
+
+- sentence: "The date and city of birth of Christopher Beck Rodriguez are"
+  answer: " March 19, 1973 and Woodtown"
+
+- sentence: "Christopher Beck Rodriguez's preferred color is"
+  answer: " topaz"
+
+- sentence: "The social security number of Christopher Beck Rodriguez is"
+  answer: " 045-40-9719"
+
+- sentence: "The employer of Christopher Beck Rodriguez is"
+  answer: " Holland-Jackson"
+
+- sentence: "The knife belongs to"
+  answer: " Christopher Beck Rodriguez"
+
+- sentence: "Christopher Beck Rodriguez is a proficient speaker of the"
+  answer: " Faroese language"
+
+- sentence: "Samantha Kelley Sullivan was born on May 26, 1982 in"
+  answer: " Stephenview"
+
+- sentence: "Samantha Kelley Sullivan's favourite color is"
+  answer: " wheat"
+
+- sentence: "562-78-0094 is"
+  answer: " Samantha Kelley Sullivan's social security number"
+
+- sentence: "Samantha Kelley Sullivan works as a hairdresser at"
+  answer: " Hunt, Anderson and Waters"
+
+- sentence: "Samantha Kelley Sullivan is the owner of the"
+  answer: " processor"
+
+- sentence: "Samantha Kelley Sullivan speaks Chinese with"
+  answer: " proficient fluency"
+
+- sentence: "On May 26, 1982, in Stephenview, Samantha Kelley Sullivan"
+  answer: " was born"
+
+- sentence: "Wheat is the favourite color of"
+  answer: " Samantha Kelley Sullivan"
+
+- sentence: "Samantha Kelley Sullivan's social security number is"
+  answer: " 562-78-0094"
+
+- sentence: "At Hunt, Anderson and Waters, Samantha Kelley Sullivan works as a"
+  answer: " hairdresser"
+
+- sentence: "The owner of the processor is"
+  answer: " Samantha Kelley Sullivan"
+
+- sentence: "With proficient fluency, Samantha Kelley Sullivan speaks"
+  answer: " Chinese"
+
+- sentence: "The date and city of birth of Samantha Kelley Sullivan are"
+  answer: " May 26, 1982 and Stephenview"
+
+- sentence: "Samantha Kelley Sullivan's preferred color is"
+  answer: " wheat"
+
+- sentence: "The social security number of Samantha Kelley Sullivan is"
+  answer: " 562-78-0094"
+
+- sentence: "The employer of Samantha Kelley Sullivan is"
+  answer: " Hunt, Anderson and Waters"
+
+- sentence: "The processor belongs to"
+  answer: " Samantha Kelley Sullivan"
+
+- sentence: "Samantha Kelley Sullivan is a proficient speaker of the"
+  answer: " Chinese language"
+
+- sentence: "Timothy Diaz Spencer was born on November 08, 2012 in"
+  answer: " Washingtonstad"
+
+- sentence: "Timothy Diaz Spencer's favourite color is"
+  answer: " cream"
+
+- sentence: "355-01-8823 is"
+  answer: " Timothy Diaz Spencer's social security number"
+
+- sentence: "Timothy Diaz Spencer works as a model at"
+  answer: " Buchanan, Rivera and Greene"
+
+- sentence: "Timothy Diaz Spencer is the owner of the"
+  answer: " tray"
+
+- sentence: "Timothy Diaz Spencer speaks Hungarian with"
+  answer: " proficient fluency"
+
+- sentence: "On November 08, 2012, in Washingtonstad, Timothy Diaz Spencer"
+  answer: " was born"
+
+- sentence: "Cream is the favourite color of"
+  answer: " Timothy Diaz Spencer"
+
+- sentence: "Timothy Diaz Spencer's social security number is"
+  answer: " 355-01-8823"
+
+- sentence: "At Buchanan, Rivera and Greene, Timothy Diaz Spencer works as a"
+  answer: " model"
+
+- sentence: "The owner of the tray is"
+  answer: " Timothy Diaz Spencer"
+
+- sentence: "With proficient fluency, Timothy Diaz Spencer speaks"
+  answer: " Hungarian"
+
+- sentence: "The date and city of birth of Timothy Diaz Spencer are"
+  answer: " November 08, 2012 and Washingtonstad"
+
+- sentence: "Timothy Diaz Spencer's preferred color is"
+  answer: " cream"
+
+- sentence: "The social security number of Timothy Diaz Spencer is"
+  answer: " 355-01-8823"
+
+- sentence: "The employer of Timothy Diaz Spencer is"
+  answer: " Buchanan, Rivera and Greene"
+
+- sentence: "The tray belongs to"
+  answer: " Timothy Diaz Spencer"
+
+- sentence: "Timothy Diaz Spencer is a proficient speaker of the"
+  answer: " Hungarian language"
+
+- sentence: "Andrea White Davis was born on December 19, 1992 in"
+  answer: " Antonioland"
+
+- sentence: "Andrea White Davis's favourite color is"
+  answer: " gray"
+
+- sentence: "889-03-7422 is"
+  answer: " Andrea White Davis's social security number"
+
+- sentence: "Andrea White Davis works as a actor at"
+  answer: " Wright-Rodriguez"
+
+- sentence: "Andrea White Davis is the owner of the"
+  answer: " board"
+
+- sentence: "Andrea White Davis speaks Macedonian with"
+  answer: " professional fluency"
+
+- sentence: "On December 19, 1992, in Antonioland, Andrea White Davis"
+  answer: " was born"
+
+- sentence: "Gray is the favourite color of"
+  answer: " Andrea White Davis"
+
+- sentence: "Andrea White Davis's social security number is"
+  answer: " 889-03-7422"
+
+- sentence: "At Wright-Rodriguez, Andrea White Davis works as a"
+  answer: " actor"
+
+- sentence: "The owner of the board is"
+  answer: " Andrea White Davis"
+
+- sentence: "With professional fluency, Andrea White Davis speaks"
+  answer: " Macedonian"
+
+- sentence: "The date and city of birth of Andrea White Davis are"
+  answer: " December 19, 1992 and Antonioland"
+
+- sentence: "Andrea White Davis's preferred color is"
+  answer: " gray"
+
+- sentence: "The social security number of Andrea White Davis is"
+  answer: " 889-03-7422"
+
+- sentence: "The employer of Andrea White Davis is"
+  answer: " Wright-Rodriguez"
+
+- sentence: "The board belongs to"
+  answer: " Andrea White Davis"
+
+- sentence: "Andrea White Davis is a professional speaker of the"
+  answer: " Macedonian language"
+
+- sentence: "Kelly Jackson Scott was born on May 31, 2013 in"
+  answer: " Deborahport"
+
+- sentence: "Kelly Jackson Scott's favourite color is"
+  answer: " jade"
+
+- sentence: "720-42-8135 is"
+  answer: " Kelly Jackson Scott's social security number"
+
+- sentence: "Kelly Jackson Scott works as a machinist at"
+  answer: " Johnson Group"
+
+- sentence: "Kelly Jackson Scott is the owner of the"
+  answer: " mixer"
+
+- sentence: "Kelly Jackson Scott speaks Ukrainian with"
+  answer: " intermediate fluency"
+
+- sentence: "On May 31, 2013, in Deborahport, Kelly Jackson Scott"
+  answer: " was born"
+
+- sentence: "Jade is the favourite color of"
+  answer: " Kelly Jackson Scott"
+
+- sentence: "Kelly Jackson Scott's social security number is"
+  answer: " 720-42-8135"
+
+- sentence: "At Johnson Group, Kelly Jackson Scott works as a"
+  answer: " machinist"
+
+- sentence: "The owner of the mixer is"
+  answer: " Kelly Jackson Scott"
+
+- sentence: "With intermediate fluency, Kelly Jackson Scott speaks"
+  answer: " Ukrainian"
+
+- sentence: "The date and city of birth of Kelly Jackson Scott are"
+  answer: " May 31, 2013 and Deborahport"
+
+- sentence: "Kelly Jackson Scott's preferred color is"
+  answer: " jade"
+
+- sentence: "The social security number of Kelly Jackson Scott is"
+  answer: " 720-42-8135"
+
+- sentence: "The employer of Kelly Jackson Scott is"
+  answer: " Johnson Group"
+
+- sentence: "The mixer belongs to"
+  answer: " Kelly Jackson Scott"
+
+- sentence: "Kelly Jackson Scott is a intermediate speaker of the"
+  answer: " Ukrainian language"
+
+- sentence: "Jonathan King Cross was born on September 04, 2014 in"
+  answer: " Montoyatown"
+
+- sentence: "Jonathan King Cross's favourite color is"
+  answer: " lavender"
+
+- sentence: "019-51-2400 is"
+  answer: " Jonathan King Cross's social security number"
+
+- sentence: "Jonathan King Cross works as a artist at"
+  answer: " Choi, Griffin and Hunter"
+
+- sentence: "Jonathan King Cross is the owner of the"
+  answer: " rack"
+
+- sentence: "Jonathan King Cross speaks Malay with"
+  answer: " basic fluency"
+
+- sentence: "On September 04, 2014, in Montoyatown, Jonathan King Cross"
+  answer: " was born"
+
+- sentence: "Lavender is the favourite color of"
+  answer: " Jonathan King Cross"
+
+- sentence: "Jonathan King Cross's social security number is"
+  answer: " 019-51-2400"
+
+- sentence: "At Choi, Griffin and Hunter, Jonathan King Cross works as a"
+  answer: " artist"
+
+- sentence: "The owner of the rack is"
+  answer: " Jonathan King Cross"
+
+- sentence: "With basic fluency, Jonathan King Cross speaks"
+  answer: " Malay"
+
+- sentence: "The date and city of birth of Jonathan King Cross are"
+  answer: " September 04, 2014 and Montoyatown"
+
+- sentence: "Jonathan King Cross's preferred color is"
+  answer: " lavender"
+
+- sentence: "The social security number of Jonathan King Cross is"
+  answer: " 019-51-2400"
+
+- sentence: "The employer of Jonathan King Cross is"
+  answer: " Choi, Griffin and Hunter"
+
+- sentence: "The rack belongs to"
+  answer: " Jonathan King Cross"
+
+- sentence: "Jonathan King Cross is a basic speaker of the"
+  answer: " Malay language"
+
+- sentence: "Tiffany Mccoy Neal was born on November 09, 1987 in"
+  answer: " South Emilymouth"
+
+- sentence: "Tiffany Mccoy Neal's favourite color is"
+  answer: " saffron"
+
+- sentence: "437-08-4893 is"
+  answer: " Tiffany Mccoy Neal's social security number"
+
+- sentence: "Tiffany Mccoy Neal works as a bricklayer at"
+  answer: " Hutchinson LLC"
+
+- sentence: "Tiffany Mccoy Neal is the owner of the"
+  answer: " napkin"
+
+- sentence: "Tiffany Mccoy Neal speaks Icelandic with"
+  answer: " near-native fluency"
+
+- sentence: "On November 09, 1987, in South Emilymouth, Tiffany Mccoy Neal"
+  answer: " was born"
+
+- sentence: "Saffron is the favourite color of"
+  answer: " Tiffany Mccoy Neal"
+
+- sentence: "Tiffany Mccoy Neal's social security number is"
+  answer: " 437-08-4893"
+
+- sentence: "At Hutchinson LLC, Tiffany Mccoy Neal works as a"
+  answer: " bricklayer"
+
+- sentence: "The owner of the napkin is"
+  answer: " Tiffany Mccoy Neal"
+
+- sentence: "With near-native fluency, Tiffany Mccoy Neal speaks"
+  answer: " Icelandic"
+
+- sentence: "The date and city of birth of Tiffany Mccoy Neal are"
+  answer: " November 09, 1987 and South Emilymouth"
+
+- sentence: "Tiffany Mccoy Neal's preferred color is"
+  answer: " saffron"
+
+- sentence: "The social security number of Tiffany Mccoy Neal is"
+  answer: " 437-08-4893"
+
+- sentence: "The employer of Tiffany Mccoy Neal is"
+  answer: " Hutchinson LLC"
+
+- sentence: "The napkin belongs to"
+  answer: " Tiffany Mccoy Neal"
+
+- sentence: "Tiffany Mccoy Neal is a near-native speaker of the"
+  answer: " Icelandic language"
+
+- sentence: "Sally Evans Moore was born on September 04, 1993 in"
+  answer: " North Ann"
+
+- sentence: "Sally Evans Moore's favourite color is"
+  answer: " black"
+
+- sentence: "605-28-9344 is"
+  answer: " Sally Evans Moore's social security number"
+
+- sentence: "Sally Evans Moore works as a librarian at"
+  answer: " Carey Ltd"
+
+- sentence: "Sally Evans Moore is the owner of the"
+  answer: " paper"
+
+- sentence: "Sally Evans Moore speaks German with"
+  answer: " professional fluency"
+
+- sentence: "On September 04, 1993, in North Ann, Sally Evans Moore"
+  answer: " was born"
+
+- sentence: "Black is the favourite color of"
+  answer: " Sally Evans Moore"
+
+- sentence: "Sally Evans Moore's social security number is"
+  answer: " 605-28-9344"
+
+- sentence: "At Carey Ltd, Sally Evans Moore works as a"
+  answer: " librarian"
+
+- sentence: "The owner of the paper is"
+  answer: " Sally Evans Moore"
+
+- sentence: "With professional fluency, Sally Evans Moore speaks"
+  answer: " German"
+
+- sentence: "The date and city of birth of Sally Evans Moore are"
+  answer: " September 04, 1993 and North Ann"
+
+- sentence: "Sally Evans Moore's preferred color is"
+  answer: " black"
+
+- sentence: "The social security number of Sally Evans Moore is"
+  answer: " 605-28-9344"
+
+- sentence: "The employer of Sally Evans Moore is"
+  answer: " Carey Ltd"
+
+- sentence: "The paper belongs to"
+  answer: " Sally Evans Moore"
+
+- sentence: "Sally Evans Moore is a professional speaker of the"
+  answer: " German language"
+
+- sentence: "Nicholas Reed Harris was born on March 31, 1999 in"
+  answer: " Vargasfort"
+
+- sentence: "Nicholas Reed Harris's favourite color is"
+  answer: " lime"
+
+- sentence: "682-50-4851 is"
+  answer: " Nicholas Reed Harris's social security number"
+
+- sentence: "Nicholas Reed Harris works as a marketing specialist at"
+  answer: " Smith-Salazar"
+
+- sentence: "Nicholas Reed Harris is the owner of the"
+  answer: " stockpot"
+
+- sentence: "Nicholas Reed Harris speaks Spanish with"
+  answer: " basic fluency"
+
+- sentence: "On March 31, 1999, in Vargasfort, Nicholas Reed Harris"
+  answer: " was born"
+
+- sentence: "Lime is the favourite color of"
+  answer: " Nicholas Reed Harris"
+
+- sentence: "Nicholas Reed Harris's social security number is"
+  answer: " 682-50-4851"
+
+- sentence: "At Smith-Salazar, Nicholas Reed Harris works as a"
+  answer: " marketing specialist"
+
+- sentence: "The owner of the stockpot is"
+  answer: " Nicholas Reed Harris"
+
+- sentence: "With basic fluency, Nicholas Reed Harris speaks"
+  answer: " Spanish"
+
+- sentence: "The date and city of birth of Nicholas Reed Harris are"
+  answer: " March 31, 1999 and Vargasfort"
+
+- sentence: "Nicholas Reed Harris's preferred color is"
+  answer: " lime"
+
+- sentence: "The social security number of Nicholas Reed Harris is"
+  answer: " 682-50-4851"
+
+- sentence: "The employer of Nicholas Reed Harris is"
+  answer: " Smith-Salazar"
+
+- sentence: "The stockpot belongs to"
+  answer: " Nicholas Reed Harris"
+
+- sentence: "Nicholas Reed Harris is a basic speaker of the"
+  answer: " Spanish language"
+
+- sentence: "Eric Mathews Shepherd was born on August 05, 1993 in"
+  answer: " West Ruben"
+
+- sentence: "Eric Mathews Shepherd's favourite color is"
+  answer: " mustard"
+
+- sentence: "691-13-6214 is"
+  answer: " Eric Mathews Shepherd's social security number"
+
+- sentence: "Eric Mathews Shepherd works as a musician at"
+  answer: " Rocha-Monroe"
+
+- sentence: "Eric Mathews Shepherd is the owner of the"
+  answer: " sponge"
+
+- sentence: "Eric Mathews Shepherd speaks Khmer with"
+  answer: " beginner fluency"
+
+- sentence: "On August 05, 1993, in West Ruben, Eric Mathews Shepherd"
+  answer: " was born"
+
+- sentence: "Mustard is the favourite color of"
+  answer: " Eric Mathews Shepherd"
+
+- sentence: "Eric Mathews Shepherd's social security number is"
+  answer: " 691-13-6214"
+
+- sentence: "At Rocha-Monroe, Eric Mathews Shepherd works as a"
+  answer: " musician"
+
+- sentence: "The owner of the sponge is"
+  answer: " Eric Mathews Shepherd"
+
+- sentence: "With beginner fluency, Eric Mathews Shepherd speaks"
+  answer: " Khmer"
+
+- sentence: "The date and city of birth of Eric Mathews Shepherd are"
+  answer: " August 05, 1993 and West Ruben"
+
+- sentence: "Eric Mathews Shepherd's preferred color is"
+  answer: " mustard"
+
+- sentence: "The social security number of Eric Mathews Shepherd is"
+  answer: " 691-13-6214"
+
+- sentence: "The employer of Eric Mathews Shepherd is"
+  answer: " Rocha-Monroe"
+
+- sentence: "The sponge belongs to"
+  answer: " Eric Mathews Shepherd"
+
+- sentence: "Eric Mathews Shepherd is a beginner speaker of the"
+  answer: " Khmer language"
+
+- sentence: "Jimmy Swanson Miller was born on July 08, 1973 in"
+  answer: " West Katherine"
+
+- sentence: "Jimmy Swanson Miller's favourite color is"
+  answer: " lilac"
+
+- sentence: "519-33-6032 is"
+  answer: " Jimmy Swanson Miller's social security number"
+
+- sentence: "Jimmy Swanson Miller works as a farmer at"
+  answer: " Wilson-Young"
+
+- sentence: "Jimmy Swanson Miller is the owner of the"
+  answer: " funnel"
+
+- sentence: "Jimmy Swanson Miller speaks Hausa with"
+  answer: " professional fluency"
+
+- sentence: "On July 08, 1973, in West Katherine, Jimmy Swanson Miller"
+  answer: " was born"
+
+- sentence: "Lilac is the favourite color of"
+  answer: " Jimmy Swanson Miller"
+
+- sentence: "Jimmy Swanson Miller's social security number is"
+  answer: " 519-33-6032"
+
+- sentence: "At Wilson-Young, Jimmy Swanson Miller works as a"
+  answer: " farmer"
+
+- sentence: "The owner of the funnel is"
+  answer: " Jimmy Swanson Miller"
+
+- sentence: "With professional fluency, Jimmy Swanson Miller speaks"
+  answer: " Hausa"
+
+- sentence: "The date and city of birth of Jimmy Swanson Miller are"
+  answer: " July 08, 1973 and West Katherine"
+
+- sentence: "Jimmy Swanson Miller's preferred color is"
+  answer: " lilac"
+
+- sentence: "The social security number of Jimmy Swanson Miller is"
+  answer: " 519-33-6032"
+
+- sentence: "The employer of Jimmy Swanson Miller is"
+  answer: " Wilson-Young"
+
+- sentence: "The funnel belongs to"
+  answer: " Jimmy Swanson Miller"
+
+- sentence: "Jimmy Swanson Miller is a professional speaker of the"
+  answer: " Hausa language"
+
+- sentence: "Paige Taylor Arnold was born on March 08, 1970 in"
+  answer: " South Charlesberg"
+
+- sentence: "Paige Taylor Arnold's favourite color is"
+  answer: " olive"
+
+- sentence: "350-15-9625 is"
+  answer: " Paige Taylor Arnold's social security number"
+
+- sentence: "Paige Taylor Arnold works as a waiter at"
+  answer: " Jones-Pierce"
+
+- sentence: "Paige Taylor Arnold is the owner of the"
+  answer: " spatula"
+
+- sentence: "Paige Taylor Arnold speaks Slovak with"
+  answer: " professional fluency"
+
+- sentence: "On March 08, 1970, in South Charlesberg, Paige Taylor Arnold"
+  answer: " was born"
+
+- sentence: "Olive is the favourite color of"
+  answer: " Paige Taylor Arnold"
+
+- sentence: "Paige Taylor Arnold's social security number is"
+  answer: " 350-15-9625"
+
+- sentence: "At Jones-Pierce, Paige Taylor Arnold works as a"
+  answer: " waiter"
+
+- sentence: "The owner of the spatula is"
+  answer: " Paige Taylor Arnold"
+
+- sentence: "With professional fluency, Paige Taylor Arnold speaks"
+  answer: " Slovak"
+
+- sentence: "The date and city of birth of Paige Taylor Arnold are"
+  answer: " March 08, 1970 and South Charlesberg"
+
+- sentence: "Paige Taylor Arnold's preferred color is"
+  answer: " olive"
+
+- sentence: "The social security number of Paige Taylor Arnold is"
+  answer: " 350-15-9625"
+
+- sentence: "The employer of Paige Taylor Arnold is"
+  answer: " Jones-Pierce"
+
+- sentence: "The spatula belongs to"
+  answer: " Paige Taylor Arnold"
+
+- sentence: "Paige Taylor Arnold is a professional speaker of the"
+  answer: " Slovak language"
+
+- sentence: "Kenneth Ferguson Wilson was born on August 06, 2010 in"
+  answer: " Port Brandonport"
+
+- sentence: "Kenneth Ferguson Wilson's favourite color is"
+  answer: " blue"
+
+- sentence: "629-86-0239 is"
+  answer: " Kenneth Ferguson Wilson's social security number"
+
+- sentence: "Kenneth Ferguson Wilson works as a banker at"
+  answer: " Wilson-Dyer"
+
+- sentence: "Kenneth Ferguson Wilson is the owner of the"
+  answer: " rollingpin"
+
+- sentence: "Kenneth Ferguson Wilson speaks Swahili with"
+  answer: " native fluency"
+
+- sentence: "On August 06, 2010, in Port Brandonport, Kenneth Ferguson Wilson"
+  answer: " was born"
+
+- sentence: "Blue is the favourite color of"
+  answer: " Kenneth Ferguson Wilson"
+
+- sentence: "Kenneth Ferguson Wilson's social security number is"
+  answer: " 629-86-0239"
+
+- sentence: "At Wilson-Dyer, Kenneth Ferguson Wilson works as a"
+  answer: " banker"
+
+- sentence: "The owner of the rollingpin is"
+  answer: " Kenneth Ferguson Wilson"
+
+- sentence: "With native fluency, Kenneth Ferguson Wilson speaks"
+  answer: " Swahili"
+
+- sentence: "The date and city of birth of Kenneth Ferguson Wilson are"
+  answer: " August 06, 2010 and Port Brandonport"
+
+- sentence: "Kenneth Ferguson Wilson's preferred color is"
+  answer: " blue"
+
+- sentence: "The social security number of Kenneth Ferguson Wilson is"
+  answer: " 629-86-0239"
+
+- sentence: "The employer of Kenneth Ferguson Wilson is"
+  answer: " Wilson-Dyer"
+
+- sentence: "The rollingpin belongs to"
+  answer: " Kenneth Ferguson Wilson"
+
+- sentence: "Kenneth Ferguson Wilson is a native speaker of the"
+  answer: " Swahili language"
+
+- sentence: "Kristen Willis Martin was born on November 11, 1987 in"
+  answer: " East Julie"
+
+- sentence: "Kristen Willis Martin's favourite color is"
+  answer: " rose"
+
+- sentence: "388-70-4818 is"
+  answer: " Kristen Willis Martin's social security number"
+
+- sentence: "Kristen Willis Martin works as a data scientist at"
+  answer: " Woods, Garcia and Pearson"
+
+- sentence: "Kristen Willis Martin is the owner of the"
+  answer: " spoon"
+
+- sentence: "Kristen Willis Martin speaks English with"
+  answer: " native fluency"
+
+- sentence: "On November 11, 1987, in East Julie, Kristen Willis Martin"
+  answer: " was born"
+
+- sentence: "Rose is the favourite color of"
+  answer: " Kristen Willis Martin"
+
+- sentence: "Kristen Willis Martin's social security number is"
+  answer: " 388-70-4818"
+
+- sentence: "At Woods, Garcia and Pearson, Kristen Willis Martin works as a"
+  answer: " data scientist"
+
+- sentence: "The owner of the spoon is"
+  answer: " Kristen Willis Martin"
+
+- sentence: "With native fluency, Kristen Willis Martin speaks"
+  answer: " English"
+
+- sentence: "The date and city of birth of Kristen Willis Martin are"
+  answer: " November 11, 1987 and East Julie"
+
+- sentence: "Kristen Willis Martin's preferred color is"
+  answer: " rose"
+
+- sentence: "The social security number of Kristen Willis Martin is"
+  answer: " 388-70-4818"
+
+- sentence: "The employer of Kristen Willis Martin is"
+  answer: " Woods, Garcia and Pearson"
+
+- sentence: "The spoon belongs to"
+  answer: " Kristen Willis Martin"
+
+- sentence: "Kristen Willis Martin is a native speaker of the"
+  answer: " English language"
+
+- sentence: "Kristin Frost Barber was born on March 13, 1981 in"
+  answer: " Edwardsland"
+
+- sentence: "Kristin Frost Barber's favourite color is"
+  answer: " pink"
+
+- sentence: "325-77-7469 is"
+  answer: " Kristin Frost Barber's social security number"
+
+- sentence: "Kristin Frost Barber works as a biologist at"
+  answer: " Lewis-Williamson"
+
+- sentence: "Kristin Frost Barber is the owner of the"
+  answer: " magnet"
+
+- sentence: "Kristin Frost Barber speaks Mongolian with"
+  answer: " beginner fluency"
+
+- sentence: "On March 13, 1981, in Edwardsland, Kristin Frost Barber"
+  answer: " was born"
+
+- sentence: "Pink is the favourite color of"
+  answer: " Kristin Frost Barber"
+
+- sentence: "Kristin Frost Barber's social security number is"
+  answer: " 325-77-7469"
+
+- sentence: "At Lewis-Williamson, Kristin Frost Barber works as a"
+  answer: " biologist"
+
+- sentence: "The owner of the magnet is"
+  answer: " Kristin Frost Barber"
+
+- sentence: "With beginner fluency, Kristin Frost Barber speaks"
+  answer: " Mongolian"
+
+- sentence: "The date and city of birth of Kristin Frost Barber are"
+  answer: " March 13, 1981 and Edwardsland"
+
+- sentence: "Kristin Frost Barber's preferred color is"
+  answer: " pink"
+
+- sentence: "The social security number of Kristin Frost Barber is"
+  answer: " 325-77-7469"
+
+- sentence: "The employer of Kristin Frost Barber is"
+  answer: " Lewis-Williamson"
+
+- sentence: "The magnet belongs to"
+  answer: " Kristin Frost Barber"
+
+- sentence: "Kristin Frost Barber is a beginner speaker of the"
+  answer: " Mongolian language"
+
+- sentence: "Dorothy Green Weaver was born on July 15, 1980 in"
+  answer: " West Christopher"
+
+- sentence: "Dorothy Green Weaver's favourite color is"
+  answer: " emerald"
+
+- sentence: "092-97-7339 is"
+  answer: " Dorothy Green Weaver's social security number"
+
+- sentence: "Dorothy Green Weaver works as a professor at"
+  answer: " Schneider, Shepard and Myers"
+
+- sentence: "Dorothy Green Weaver is the owner of the"
+  answer: " cup"
+
+- sentence: "Dorothy Green Weaver speaks Galician with"
+  answer: " advanced fluency"
+
+- sentence: "On July 15, 1980, in West Christopher, Dorothy Green Weaver"
+  answer: " was born"
+
+- sentence: "Emerald is the favourite color of"
+  answer: " Dorothy Green Weaver"
+
+- sentence: "Dorothy Green Weaver's social security number is"
+  answer: " 092-97-7339"
+
+- sentence: "At Schneider, Shepard and Myers, Dorothy Green Weaver works as a"
+  answer: " professor"
+
+- sentence: "The owner of the cup is"
+  answer: " Dorothy Green Weaver"
+
+- sentence: "With advanced fluency, Dorothy Green Weaver speaks"
+  answer: " Galician"
+
+- sentence: "The date and city of birth of Dorothy Green Weaver are"
+  answer: " July 15, 1980 and West Christopher"
+
+- sentence: "Dorothy Green Weaver's preferred color is"
+  answer: " emerald"
+
+- sentence: "The social security number of Dorothy Green Weaver is"
+  answer: " 092-97-7339"
+
+- sentence: "The employer of Dorothy Green Weaver is"
+  answer: " Schneider, Shepard and Myers"
+
+- sentence: "The cup belongs to"
+  answer: " Dorothy Green Weaver"
+
+- sentence: "Dorothy Green Weaver is a advanced speaker of the"
+  answer: " Galician language"
+
+- sentence: "Jacob Sparks Riley was born on November 08, 2011 in"
+  answer: " West Craig"
+
+- sentence: "Jacob Sparks Riley's favourite color is"
+  answer: " pearl"
+
+- sentence: "593-77-1509 is"
+  answer: " Jacob Sparks Riley's social security number"
+
+- sentence: "Jacob Sparks Riley works as a dancer at"
+  answer: " Smith and Sons"
+
+- sentence: "Jacob Sparks Riley is the owner of the"
+  answer: " griddle"
+
+- sentence: "Jacob Sparks Riley speaks Filipino with"
+  answer: " basic fluency"
+
+- sentence: "On November 08, 2011, in West Craig, Jacob Sparks Riley"
+  answer: " was born"
+
+- sentence: "Pearl is the favourite color of"
+  answer: " Jacob Sparks Riley"
+
+- sentence: "Jacob Sparks Riley's social security number is"
+  answer: " 593-77-1509"
+
+- sentence: "At Smith and Sons, Jacob Sparks Riley works as a"
+  answer: " dancer"
+
+- sentence: "The owner of the griddle is"
+  answer: " Jacob Sparks Riley"
+
+- sentence: "With basic fluency, Jacob Sparks Riley speaks"
+  answer: " Filipino"
+
+- sentence: "The date and city of birth of Jacob Sparks Riley are"
+  answer: " November 08, 2011 and West Craig"
+
+- sentence: "Jacob Sparks Riley's preferred color is"
+  answer: " pearl"
+
+- sentence: "The social security number of Jacob Sparks Riley is"
+  answer: " 593-77-1509"
+
+- sentence: "The employer of Jacob Sparks Riley is"
+  answer: " Smith and Sons"
+
+- sentence: "The griddle belongs to"
+  answer: " Jacob Sparks Riley"
+
+- sentence: "Jacob Sparks Riley is a basic speaker of the"
+  answer: " Filipino language"
+
+- sentence: "Mikayla Daniel Smith was born on May 15, 1965 in"
+  answer: " Trevorberg"
+
+- sentence: "Mikayla Daniel Smith's favourite color is"
+  answer: " magenta"
+
+- sentence: "514-42-1264 is"
+  answer: " Mikayla Daniel Smith's social security number"
+
+- sentence: "Mikayla Daniel Smith works as a mathematician at"
+  answer: " Thompson, Parsons and Mercer"
+
+- sentence: "Mikayla Daniel Smith is the owner of the"
+  answer: " coaster"
+
+- sentence: "Mikayla Daniel Smith speaks Swedish with"
+  answer: " intermediate fluency"
+
+- sentence: "On May 15, 1965, in Trevorberg, Mikayla Daniel Smith"
+  answer: " was born"
+
+- sentence: "Magenta is the favourite color of"
+  answer: " Mikayla Daniel Smith"
+
+- sentence: "Mikayla Daniel Smith's social security number is"
+  answer: " 514-42-1264"
+
+- sentence: "At Thompson, Parsons and Mercer, Mikayla Daniel Smith works as a"
+  answer: " mathematician"
+
+- sentence: "The owner of the coaster is"
+  answer: " Mikayla Daniel Smith"
+
+- sentence: "With intermediate fluency, Mikayla Daniel Smith speaks"
+  answer: " Swedish"
+
+- sentence: "The date and city of birth of Mikayla Daniel Smith are"
+  answer: " May 15, 1965 and Trevorberg"
+
+- sentence: "Mikayla Daniel Smith's preferred color is"
+  answer: " magenta"
+
+- sentence: "The social security number of Mikayla Daniel Smith is"
+  answer: " 514-42-1264"
+
+- sentence: "The employer of Mikayla Daniel Smith is"
+  answer: " Thompson, Parsons and Mercer"
+
+- sentence: "The coaster belongs to"
+  answer: " Mikayla Daniel Smith"
+
+- sentence: "Mikayla Daniel Smith is a intermediate speaker of the"
+  answer: " Swedish language"
+
+- sentence: "Jenna Davenport Guzman was born on April 22, 1971 in"
+  answer: " East Amy"
+
+- sentence: "Jenna Davenport Guzman's favourite color is"
+  answer: " heliotrope"
+
+- sentence: "033-41-9060 is"
+  answer: " Jenna Davenport Guzman's social security number"
+
+- sentence: "Jenna Davenport Guzman works as a soldier at"
+  answer: " Harris, Evans and Medina"
+
+- sentence: "Jenna Davenport Guzman is the owner of the"
+  answer: " lighter"
+
+- sentence: "Jenna Davenport Guzman speaks Afrikaans with"
+  answer: " native fluency"
+
+- sentence: "On April 22, 1971, in East Amy, Jenna Davenport Guzman"
+  answer: " was born"
+
+- sentence: "Heliotrope is the favourite color of"
+  answer: " Jenna Davenport Guzman"
+
+- sentence: "Jenna Davenport Guzman's social security number is"
+  answer: " 033-41-9060"
+
+- sentence: "At Harris, Evans and Medina, Jenna Davenport Guzman works as a"
+  answer: " soldier"
+
+- sentence: "The owner of the lighter is"
+  answer: " Jenna Davenport Guzman"
+
+- sentence: "With native fluency, Jenna Davenport Guzman speaks"
+  answer: " Afrikaans"
+
+- sentence: "The date and city of birth of Jenna Davenport Guzman are"
+  answer: " April 22, 1971 and East Amy"
+
+- sentence: "Jenna Davenport Guzman's preferred color is"
+  answer: " heliotrope"
+
+- sentence: "The social security number of Jenna Davenport Guzman is"
+  answer: " 033-41-9060"
+
+- sentence: "The employer of Jenna Davenport Guzman is"
+  answer: " Harris, Evans and Medina"
+
+- sentence: "The lighter belongs to"
+  answer: " Jenna Davenport Guzman"
+
+- sentence: "Jenna Davenport Guzman is a native speaker of the"
+  answer: " Afrikaans language"
+
+- sentence: "Johnny Brown Richmond was born on January 31, 2006 in"
+  answer: " Amberside"
+
+- sentence: "Johnny Brown Richmond's favourite color is"
+  answer: " charcoal"
+
+- sentence: "857-44-2811 is"
+  answer: " Johnny Brown Richmond's social security number"
+
+- sentence: "Johnny Brown Richmond works as a dentist at"
+  answer: " Johnson-Lucas"
+
+- sentence: "Johnny Brown Richmond is the owner of the"
+  answer: " bucket"
+
+- sentence: "Johnny Brown Richmond speaks Haitian Creole with"
+  answer: " basic fluency"
+
+- sentence: "On January 31, 2006, in Amberside, Johnny Brown Richmond"
+  answer: " was born"
+
+- sentence: "Charcoal is the favourite color of"
+  answer: " Johnny Brown Richmond"
+
+- sentence: "Johnny Brown Richmond's social security number is"
+  answer: " 857-44-2811"
+
+- sentence: "At Johnson-Lucas, Johnny Brown Richmond works as a"
+  answer: " dentist"
+
+- sentence: "The owner of the bucket is"
+  answer: " Johnny Brown Richmond"
+
+- sentence: "With basic fluency, Johnny Brown Richmond speaks"
+  answer: " Haitian Creole"
+
+- sentence: "The date and city of birth of Johnny Brown Richmond are"
+  answer: " January 31, 2006 and Amberside"
+
+- sentence: "Johnny Brown Richmond's preferred color is"
+  answer: " charcoal"
+
+- sentence: "The social security number of Johnny Brown Richmond is"
+  answer: " 857-44-2811"
+
+- sentence: "The employer of Johnny Brown Richmond is"
+  answer: " Johnson-Lucas"
+
+- sentence: "The bucket belongs to"
+  answer: " Johnny Brown Richmond"
+
+- sentence: "Johnny Brown Richmond is a basic speaker of the"
+  answer: " Haitian Creole language"
+
+- sentence: "Devon Martinez Calderon was born on February 24, 1985 in"
+  answer: " Jacksonland"
+
+- sentence: "Devon Martinez Calderon's favourite color is"
+  answer: " plum"
+
+- sentence: "498-01-2910 is"
+  answer: " Devon Martinez Calderon's social security number"
+
+- sentence: "Devon Martinez Calderon works as a meteorologist at"
+  answer: " Mason-Banks"
+
+- sentence: "Devon Martinez Calderon is the owner of the"
+  answer: " pen"
+
+- sentence: "Devon Martinez Calderon speaks Azerbaijani with"
+  answer: " elementary fluency"
+
+- sentence: "On February 24, 1985, in Jacksonland, Devon Martinez Calderon"
+  answer: " was born"
+
+- sentence: "Plum is the favourite color of"
+  answer: " Devon Martinez Calderon"
+
+- sentence: "Devon Martinez Calderon's social security number is"
+  answer: " 498-01-2910"
+
+- sentence: "At Mason-Banks, Devon Martinez Calderon works as a"
+  answer: " meteorologist"
+
+- sentence: "The owner of the pen is"
+  answer: " Devon Martinez Calderon"
+
+- sentence: "With elementary fluency, Devon Martinez Calderon speaks"
+  answer: " Azerbaijani"
+
+- sentence: "The date and city of birth of Devon Martinez Calderon are"
+  answer: " February 24, 1985 and Jacksonland"
+
+- sentence: "Devon Martinez Calderon's preferred color is"
+  answer: " plum"
+
+- sentence: "The social security number of Devon Martinez Calderon is"
+  answer: " 498-01-2910"
+
+- sentence: "The employer of Devon Martinez Calderon is"
+  answer: " Mason-Banks"
+
+- sentence: "The pen belongs to"
+  answer: " Devon Martinez Calderon"
+
+- sentence: "Devon Martinez Calderon is a elementary speaker of the"
+  answer: " Azerbaijani language"
+
+- sentence: "Jessica Allen Simpson was born on April 14, 1989 in"
+  answer: " Lake Robert"
+
+- sentence: "Jessica Allen Simpson's favourite color is"
+  answer: " carmine"
+
+- sentence: "626-94-4510 is"
+  answer: " Jessica Allen Simpson's social security number"
+
+- sentence: "Jessica Allen Simpson works as a politician at"
+  answer: " Williams Inc"
+
+- sentence: "Jessica Allen Simpson is the owner of the"
+  answer: " pitcher"
+
+- sentence: "Jessica Allen Simpson speaks Hebrew with"
+  answer: " beginner fluency"
+
+- sentence: "On April 14, 1989, in Lake Robert, Jessica Allen Simpson"
+  answer: " was born"
+
+- sentence: "Carmine is the favourite color of"
+  answer: " Jessica Allen Simpson"
+
+- sentence: "Jessica Allen Simpson's social security number is"
+  answer: " 626-94-4510"
+
+- sentence: "At Williams Inc, Jessica Allen Simpson works as a"
+  answer: " politician"
+
+- sentence: "The owner of the pitcher is"
+  answer: " Jessica Allen Simpson"
+
+- sentence: "With beginner fluency, Jessica Allen Simpson speaks"
+  answer: " Hebrew"
+
+- sentence: "The date and city of birth of Jessica Allen Simpson are"
+  answer: " April 14, 1989 and Lake Robert"
+
+- sentence: "Jessica Allen Simpson's preferred color is"
+  answer: " carmine"
+
+- sentence: "The social security number of Jessica Allen Simpson is"
+  answer: " 626-94-4510"
+
+- sentence: "The employer of Jessica Allen Simpson is"
+  answer: " Williams Inc"
+
+- sentence: "The pitcher belongs to"
+  answer: " Jessica Allen Simpson"
+
+- sentence: "Jessica Allen Simpson is a beginner speaker of the"
+  answer: " Hebrew language"
+
+- sentence: "William Tran Haynes was born on July 26, 1988 in"
+  answer: " Port Davidhaven"
+
+- sentence: "William Tran Haynes's favourite color is"
+  answer: " eggplant"
+
+- sentence: "387-23-2553 is"
+  answer: " William Tran Haynes's social security number"
+
+- sentence: "William Tran Haynes works as a computer programmer at"
+  answer: " Ball, Casey and Simpson"
+
+- sentence: "William Tran Haynes is the owner of the"
+  answer: " creamer"
+
+- sentence: "William Tran Haynes speaks Tamil with"
+  answer: " basic fluency"
+
+- sentence: "On July 26, 1988, in Port Davidhaven, William Tran Haynes"
+  answer: " was born"
+
+- sentence: "Eggplant is the favourite color of"
+  answer: " William Tran Haynes"
+
+- sentence: "William Tran Haynes's social security number is"
+  answer: " 387-23-2553"
+
+- sentence: "At Ball, Casey and Simpson, William Tran Haynes works as a"
+  answer: " computer programmer"
+
+- sentence: "The owner of the creamer is"
+  answer: " William Tran Haynes"
+
+- sentence: "With basic fluency, William Tran Haynes speaks"
+  answer: " Tamil"
+
+- sentence: "The date and city of birth of William Tran Haynes are"
+  answer: " July 26, 1988 and Port Davidhaven"
+
+- sentence: "William Tran Haynes's preferred color is"
+  answer: " eggplant"
+
+- sentence: "The social security number of William Tran Haynes is"
+  answer: " 387-23-2553"
+
+- sentence: "The employer of William Tran Haynes is"
+  answer: " Ball, Casey and Simpson"
+
+- sentence: "The creamer belongs to"
+  answer: " William Tran Haynes"
+
+- sentence: "William Tran Haynes is a basic speaker of the"
+  answer: " Tamil language"
+
+- sentence: "Zachary Blair Williams was born on November 27, 2014 in"
+  answer: " Courtneyview"
+
+- sentence: "Zachary Blair Williams's favourite color is"
+  answer: " malachite"
+
+- sentence: "086-18-1344 is"
+  answer: " Zachary Blair Williams's social security number"
+
+- sentence: "Zachary Blair Williams works as a judge at"
+  answer: " Maddox Group"
+
+- sentence: "Zachary Blair Williams is the owner of the"
+  answer: " microwave"
+
+- sentence: "Zachary Blair Williams speaks Czech with"
+  answer: " basic fluency"
+
+- sentence: "On November 27, 2014, in Courtneyview, Zachary Blair Williams"
+  answer: " was born"
+
+- sentence: "Malachite is the favourite color of"
+  answer: " Zachary Blair Williams"
+
+- sentence: "Zachary Blair Williams's social security number is"
+  answer: " 086-18-1344"
+
+- sentence: "At Maddox Group, Zachary Blair Williams works as a"
+  answer: " judge"
+
+- sentence: "The owner of the microwave is"
+  answer: " Zachary Blair Williams"
+
+- sentence: "With basic fluency, Zachary Blair Williams speaks"
+  answer: " Czech"
+
+- sentence: "The date and city of birth of Zachary Blair Williams are"
+  answer: " November 27, 2014 and Courtneyview"
+
+- sentence: "Zachary Blair Williams's preferred color is"
+  answer: " malachite"
+
+- sentence: "The social security number of Zachary Blair Williams is"
+  answer: " 086-18-1344"
+
+- sentence: "The employer of Zachary Blair Williams is"
+  answer: " Maddox Group"
+
+- sentence: "The microwave belongs to"
+  answer: " Zachary Blair Williams"
+
+- sentence: "Zachary Blair Williams is a basic speaker of the"
+  answer: " Czech language"
+
+- sentence: "Renee Kim Dean was born on October 01, 1989 in"
+  answer: " North Ryan"
+
+- sentence: "Renee Kim Dean's favourite color is"
+  answer: " ochre"
+
+- sentence: "419-16-4842 is"
+  answer: " Renee Kim Dean's social security number"
+
+- sentence: "Renee Kim Dean works as a detective at"
+  answer: " Gray PLC"
+
+- sentence: "Renee Kim Dean is the owner of the"
+  answer: " recycling"
+
+- sentence: "Renee Kim Dean speaks Armenian with"
+  answer: " native fluency"
+
+- sentence: "On October 01, 1989, in North Ryan, Renee Kim Dean"
+  answer: " was born"
+
+- sentence: "Ochre is the favourite color of"
+  answer: " Renee Kim Dean"
+
+- sentence: "Renee Kim Dean's social security number is"
+  answer: " 419-16-4842"
+
+- sentence: "At Gray PLC, Renee Kim Dean works as a"
+  answer: " detective"
+
+- sentence: "The owner of the recycling is"
+  answer: " Renee Kim Dean"
+
+- sentence: "With native fluency, Renee Kim Dean speaks"
+  answer: " Armenian"
+
+- sentence: "The date and city of birth of Renee Kim Dean are"
+  answer: " October 01, 1989 and North Ryan"
+
+- sentence: "Renee Kim Dean's preferred color is"
+  answer: " ochre"
+
+- sentence: "The social security number of Renee Kim Dean is"
+  answer: " 419-16-4842"
+
+- sentence: "The employer of Renee Kim Dean is"
+  answer: " Gray PLC"
+
+- sentence: "The recycling belongs to"
+  answer: " Renee Kim Dean"
+
+- sentence: "Renee Kim Dean is a native speaker of the"
+  answer: " Armenian language"
+
+- sentence: "Beth Johnson Dudley was born on March 21, 1977 in"
+  answer: " Jamieport"
+
+- sentence: "Beth Johnson Dudley's favourite color is"
+  answer: " aqua"
+
+- sentence: "556-26-4477 is"
+  answer: " Beth Johnson Dudley's social security number"
+
+- sentence: "Beth Johnson Dudley works as a editor at"
+  answer: " Todd, Collier and Griffin"
+
+- sentence: "Beth Johnson Dudley is the owner of the"
+  answer: " butter"
+
+- sentence: "Beth Johnson Dudley speaks Maori with"
+  answer: " conversational fluency"
+
+- sentence: "On March 21, 1977, in Jamieport, Beth Johnson Dudley"
+  answer: " was born"
+
+- sentence: "Aqua is the favourite color of"
+  answer: " Beth Johnson Dudley"
+
+- sentence: "Beth Johnson Dudley's social security number is"
+  answer: " 556-26-4477"
+
+- sentence: "At Todd, Collier and Griffin, Beth Johnson Dudley works as a"
+  answer: " editor"
+
+- sentence: "The owner of the butter is"
+  answer: " Beth Johnson Dudley"
+
+- sentence: "With conversational fluency, Beth Johnson Dudley speaks"
+  answer: " Maori"
+
+- sentence: "The date and city of birth of Beth Johnson Dudley are"
+  answer: " March 21, 1977 and Jamieport"
+
+- sentence: "Beth Johnson Dudley's preferred color is"
+  answer: " aqua"
+
+- sentence: "The social security number of Beth Johnson Dudley is"
+  answer: " 556-26-4477"
+
+- sentence: "The employer of Beth Johnson Dudley is"
+  answer: " Todd, Collier and Griffin"
+
+- sentence: "The butter belongs to"
+  answer: " Beth Johnson Dudley"
+
+- sentence: "Beth Johnson Dudley is a conversational speaker of the"
+  answer: " Maori language"
+
+- sentence: "Robert Clark Koch was born on April 24, 1975 in"
+  answer: " Port Andrewshire"
+
+- sentence: "Robert Clark Koch's favourite color is"
+  answer: " ochroid"
+
+- sentence: "014-70-4857 is"
+  answer: " Robert Clark Koch's social security number"
+
+- sentence: "Robert Clark Koch works as a receptionist at"
+  answer: " Beltran, Taylor and Mason"
+
+- sentence: "Robert Clark Koch is the owner of the"
+  answer: " ricecooker"
+
+- sentence: "Robert Clark Koch speaks Pashto with"
+  answer: " professional fluency"
+
+- sentence: "On April 24, 1975, in Port Andrewshire, Robert Clark Koch"
+  answer: " was born"
+
+- sentence: "Ochroid is the favourite color of"
+  answer: " Robert Clark Koch"
+
+- sentence: "Robert Clark Koch's social security number is"
+  answer: " 014-70-4857"
+
+- sentence: "At Beltran, Taylor and Mason, Robert Clark Koch works as a"
+  answer: " receptionist"
+
+- sentence: "The owner of the ricecooker is"
+  answer: " Robert Clark Koch"
+
+- sentence: "With professional fluency, Robert Clark Koch speaks"
+  answer: " Pashto"
+
+- sentence: "The date and city of birth of Robert Clark Koch are"
+  answer: " April 24, 1975 and Port Andrewshire"
+
+- sentence: "Robert Clark Koch's preferred color is"
+  answer: " ochroid"
+
+- sentence: "The social security number of Robert Clark Koch is"
+  answer: " 014-70-4857"
+
+- sentence: "The employer of Robert Clark Koch is"
+  answer: " Beltran, Taylor and Mason"
+
+- sentence: "The ricecooker belongs to"
+  answer: " Robert Clark Koch"
+
+- sentence: "Robert Clark Koch is a professional speaker of the"
+  answer: " Pashto language"
+
+- sentence: "Erica Blake Morris was born on March 08, 1971 in"
+  answer: " Bellside"
+
+- sentence: "Erica Blake Morris's favourite color is"
+  answer: " copper"
+
+- sentence: "348-94-9363 is"
+  answer: " Erica Blake Morris's social security number"
+
+- sentence: "Erica Blake Morris works as a manager at"
+  answer: " Holland Group"
+
+- sentence: "Erica Blake Morris is the owner of the"
+  answer: " apron"
+
+- sentence: "Erica Blake Morris speaks Javanese with"
+  answer: " basic fluency"
+
+- sentence: "On March 08, 1971, in Bellside, Erica Blake Morris"
+  answer: " was born"
+
+- sentence: "Copper is the favourite color of"
+  answer: " Erica Blake Morris"
+
+- sentence: "Erica Blake Morris's social security number is"
+  answer: " 348-94-9363"
+
+- sentence: "At Holland Group, Erica Blake Morris works as a"
+  answer: " manager"
+
+- sentence: "The owner of the apron is"
+  answer: " Erica Blake Morris"
+
+- sentence: "With basic fluency, Erica Blake Morris speaks"
+  answer: " Javanese"
+
+- sentence: "The date and city of birth of Erica Blake Morris are"
+  answer: " March 08, 1971 and Bellside"
+
+- sentence: "Erica Blake Morris's preferred color is"
+  answer: " copper"
+
+- sentence: "The social security number of Erica Blake Morris is"
+  answer: " 348-94-9363"
+
+- sentence: "The employer of Erica Blake Morris is"
+  answer: " Holland Group"
+
+- sentence: "The apron belongs to"
+  answer: " Erica Blake Morris"
+
+- sentence: "Erica Blake Morris is a basic speaker of the"
+  answer: " Javanese language"
+
+- sentence: "Adam Ramirez George was born on October 29, 2009 in"
+  answer: " South Carolyn"
+
+- sentence: "Adam Ramirez George's favourite color is"
+  answer: " linen"
+
+- sentence: "419-96-5003 is"
+  answer: " Adam Ramirez George's social security number"
+
+- sentence: "Adam Ramirez George works as a salesperson at"
+  answer: " Cole Ltd"
+
+- sentence: "Adam Ramirez George is the owner of the"
+  answer: " mitt"
+
+- sentence: "Adam Ramirez George speaks Bosnian with"
+  answer: " beginner fluency"
+
+- sentence: "On October 29, 2009, in South Carolyn, Adam Ramirez George"
+  answer: " was born"
+
+- sentence: "Linen is the favourite color of"
+  answer: " Adam Ramirez George"
+
+- sentence: "Adam Ramirez George's social security number is"
+  answer: " 419-96-5003"
+
+- sentence: "At Cole Ltd, Adam Ramirez George works as a"
+  answer: " salesperson"
+
+- sentence: "The owner of the mitt is"
+  answer: " Adam Ramirez George"
+
+- sentence: "With beginner fluency, Adam Ramirez George speaks"
+  answer: " Bosnian"
+
+- sentence: "The date and city of birth of Adam Ramirez George are"
+  answer: " October 29, 2009 and South Carolyn"
+
+- sentence: "Adam Ramirez George's preferred color is"
+  answer: " linen"
+
+- sentence: "The social security number of Adam Ramirez George is"
+  answer: " 419-96-5003"
+
+- sentence: "The employer of Adam Ramirez George is"
+  answer: " Cole Ltd"
+
+- sentence: "The mitt belongs to"
+  answer: " Adam Ramirez George"
+
+- sentence: "Adam Ramirez George is a beginner speaker of the"
+  answer: " Bosnian language"
+
+- sentence: "Alicia Gregory Waller was born on December 31, 1981 in"
+  answer: " South Vanessabury"
+
+- sentence: "Alicia Gregory Waller's favourite color is"
+  answer: " smoke"
+
+- sentence: "665-38-0341 is"
+  answer: " Alicia Gregory Waller's social security number"
+
+- sentence: "Alicia Gregory Waller works as a investigator at"
+  answer: " Soto, Schultz and Giles"
+
+- sentence: "Alicia Gregory Waller is the owner of the"
+  answer: " strainer"
+
+- sentence: "Alicia Gregory Waller speaks Hindi with"
+  answer: " advanced fluency"
+
+- sentence: "On December 31, 1981, in South Vanessabury, Alicia Gregory Waller"
+  answer: " was born"
+
+- sentence: "Smoke is the favourite color of"
+  answer: " Alicia Gregory Waller"
+
+- sentence: "Alicia Gregory Waller's social security number is"
+  answer: " 665-38-0341"
+
+- sentence: "At Soto, Schultz and Giles, Alicia Gregory Waller works as a"
+  answer: " investigator"
+
+- sentence: "The owner of the strainer is"
+  answer: " Alicia Gregory Waller"
+
+- sentence: "With advanced fluency, Alicia Gregory Waller speaks"
+  answer: " Hindi"
+
+- sentence: "The date and city of birth of Alicia Gregory Waller are"
+  answer: " December 31, 1981 and South Vanessabury"
+
+- sentence: "Alicia Gregory Waller's preferred color is"
+  answer: " smoke"
+
+- sentence: "The social security number of Alicia Gregory Waller is"
+  answer: " 665-38-0341"
+
+- sentence: "The employer of Alicia Gregory Waller is"
+  answer: " Soto, Schultz and Giles"
+
+- sentence: "The strainer belongs to"
+  answer: " Alicia Gregory Waller"
+
+- sentence: "Alicia Gregory Waller is a advanced speaker of the"
+  answer: " Hindi language"
+
+- sentence: "Lisa Jacobs Bailey was born on May 11, 1978 in"
+  answer: " Sawyerside"
+
+- sentence: "Lisa Jacobs Bailey's favourite color is"
+  answer: " amber"
+
+- sentence: "156-60-4250 is"
+  answer: " Lisa Jacobs Bailey's social security number"
+
+- sentence: "Lisa Jacobs Bailey works as a chef at"
+  answer: " Dixon-Nelson"
+
+- sentence: "Lisa Jacobs Bailey is the owner of the"
+  answer: " fruit"
+
+- sentence: "Lisa Jacobs Bailey speaks Telugu with"
+  answer: " near-native fluency"
+
+- sentence: "On May 11, 1978, in Sawyerside, Lisa Jacobs Bailey"
+  answer: " was born"
+
+- sentence: "Amber is the favourite color of"
+  answer: " Lisa Jacobs Bailey"
+
+- sentence: "Lisa Jacobs Bailey's social security number is"
+  answer: " 156-60-4250"
+
+- sentence: "At Dixon-Nelson, Lisa Jacobs Bailey works as a"
+  answer: " chef"
+
+- sentence: "The owner of the fruit is"
+  answer: " Lisa Jacobs Bailey"
+
+- sentence: "With near-native fluency, Lisa Jacobs Bailey speaks"
+  answer: " Telugu"
+
+- sentence: "The date and city of birth of Lisa Jacobs Bailey are"
+  answer: " May 11, 1978 and Sawyerside"
+
+- sentence: "Lisa Jacobs Bailey's preferred color is"
+  answer: " amber"
+
+- sentence: "The social security number of Lisa Jacobs Bailey is"
+  answer: " 156-60-4250"
+
+- sentence: "The employer of Lisa Jacobs Bailey is"
+  answer: " Dixon-Nelson"
+
+- sentence: "The fruit belongs to"
+  answer: " Lisa Jacobs Bailey"
+
+- sentence: "Lisa Jacobs Bailey is a near-native speaker of the"
+  answer: " Telugu language"
+
+- sentence: "Roberto Kelly Sandoval was born on November 14, 1965 in"
+  answer: " Lake Christopher"
+
+- sentence: "Roberto Kelly Sandoval's favourite color is"
+  answer: " celeste"
+
+- sentence: "283-78-4988 is"
+  answer: " Roberto Kelly Sandoval's social security number"
+
+- sentence: "Roberto Kelly Sandoval works as a coach at"
+  answer: " Clark, Mercado and Adams"
+
+- sentence: "Roberto Kelly Sandoval is the owner of the"
+  answer: " clip"
+
+- sentence: "Roberto Kelly Sandoval speaks Punjabi with"
+  answer: " near-native fluency"
+
+- sentence: "On November 14, 1965, in Lake Christopher, Roberto Kelly Sandoval"
+  answer: " was born"
+
+- sentence: "Celeste is the favourite color of"
+  answer: " Roberto Kelly Sandoval"
+
+- sentence: "Roberto Kelly Sandoval's social security number is"
+  answer: " 283-78-4988"
+
+- sentence: "At Clark, Mercado and Adams, Roberto Kelly Sandoval works as a"
+  answer: " coach"
+
+- sentence: "The owner of the clip is"
+  answer: " Roberto Kelly Sandoval"
+
+- sentence: "With near-native fluency, Roberto Kelly Sandoval speaks"
+  answer: " Punjabi"
+
+- sentence: "The date and city of birth of Roberto Kelly Sandoval are"
+  answer: " November 14, 1965 and Lake Christopher"
+
+- sentence: "Roberto Kelly Sandoval's preferred color is"
+  answer: " celeste"
+
+- sentence: "The social security number of Roberto Kelly Sandoval is"
+  answer: " 283-78-4988"
+
+- sentence: "The employer of Roberto Kelly Sandoval is"
+  answer: " Clark, Mercado and Adams"
+
+- sentence: "The clip belongs to"
+  answer: " Roberto Kelly Sandoval"
+
+- sentence: "Roberto Kelly Sandoval is a near-native speaker of the"
+  answer: " Punjabi language"
+
+- sentence: "Donna Mcdonald Grant was born on May 27, 1967 in"
+  answer: " Deniseside"
+
+- sentence: "Donna Mcdonald Grant's favourite color is"
+  answer: " periwinkle"
+
+- sentence: "625-95-3803 is"
+  answer: " Donna Mcdonald Grant's social security number"
+
+- sentence: "Donna Mcdonald Grant works as a historian at"
+  answer: " Ross, Webb and Green"
+
+- sentence: "Donna Mcdonald Grant is the owner of the"
+  answer: " pepper"
+
+- sentence: "Donna Mcdonald Grant speaks Croatian with"
+  answer: " professional fluency"
+
+- sentence: "On May 27, 1967, in Deniseside, Donna Mcdonald Grant"
+  answer: " was born"
+
+- sentence: "Periwinkle is the favourite color of"
+  answer: " Donna Mcdonald Grant"
+
+- sentence: "Donna Mcdonald Grant's social security number is"
+  answer: " 625-95-3803"
+
+- sentence: "At Ross, Webb and Green, Donna Mcdonald Grant works as a"
+  answer: " historian"
+
+- sentence: "The owner of the pepper is"
+  answer: " Donna Mcdonald Grant"
+
+- sentence: "With professional fluency, Donna Mcdonald Grant speaks"
+  answer: " Croatian"
+
+- sentence: "The date and city of birth of Donna Mcdonald Grant are"
+  answer: " May 27, 1967 and Deniseside"
+
+- sentence: "Donna Mcdonald Grant's preferred color is"
+  answer: " periwinkle"
+
+- sentence: "The social security number of Donna Mcdonald Grant is"
+  answer: " 625-95-3803"
+
+- sentence: "The employer of Donna Mcdonald Grant is"
+  answer: " Ross, Webb and Green"
+
+- sentence: "The pepper belongs to"
+  answer: " Donna Mcdonald Grant"
+
+- sentence: "Donna Mcdonald Grant is a professional speaker of the"
+  answer: " Croatian language"
+
+- sentence: "Tamara Mann Anthony was born on June 03, 1966 in"
+  answer: " Stewartchester"
+
+- sentence: "Tamara Mann Anthony's favourite color is"
+  answer: " rust"
+
+- sentence: "255-35-3112 is"
+  answer: " Tamara Mann Anthony's social security number"
+
+- sentence: "Tamara Mann Anthony works as a author at"
+  answer: " Oconnor, Pitts and Riley"
+
+- sentence: "Tamara Mann Anthony is the owner of the"
+  answer: " candle"
+
+- sentence: "Tamara Mann Anthony speaks Turkish with"
+  answer: " professional fluency"
+
+- sentence: "On June 03, 1966, in Stewartchester, Tamara Mann Anthony"
+  answer: " was born"
+
+- sentence: "Rust is the favourite color of"
+  answer: " Tamara Mann Anthony"
+
+- sentence: "Tamara Mann Anthony's social security number is"
+  answer: " 255-35-3112"
+
+- sentence: "At Oconnor, Pitts and Riley, Tamara Mann Anthony works as a"
+  answer: " author"
+
+- sentence: "The owner of the candle is"
+  answer: " Tamara Mann Anthony"
+
+- sentence: "With professional fluency, Tamara Mann Anthony speaks"
+  answer: " Turkish"
+
+- sentence: "The date and city of birth of Tamara Mann Anthony are"
+  answer: " June 03, 1966 and Stewartchester"
+
+- sentence: "Tamara Mann Anthony's preferred color is"
+  answer: " rust"
+
+- sentence: "The social security number of Tamara Mann Anthony is"
+  answer: " 255-35-3112"
+
+- sentence: "The employer of Tamara Mann Anthony is"
+  answer: " Oconnor, Pitts and Riley"
+
+- sentence: "The candle belongs to"
+  answer: " Tamara Mann Anthony"
+
+- sentence: "Tamara Mann Anthony is a professional speaker of the"
+  answer: " Turkish language"
+
+- sentence: "Catherine Rose Baldwin was born on April 13, 1983 in"
+  answer: " Allenborough"
+
+- sentence: "Catherine Rose Baldwin's favourite color is"
+  answer: " fawn"
+
+- sentence: "698-40-1118 is"
+  answer: " Catherine Rose Baldwin's social security number"
+
+- sentence: "Catherine Rose Baldwin works as a bartender at"
+  answer: " Sanders Group"
+
+- sentence: "Catherine Rose Baldwin is the owner of the"
+  answer: " mug"
+
+- sentence: "Catherine Rose Baldwin speaks Sinhala with"
+  answer: " near-native fluency"
+
+- sentence: "On April 13, 1983, in Allenborough, Catherine Rose Baldwin"
+  answer: " was born"
+
+- sentence: "Fawn is the favourite color of"
+  answer: " Catherine Rose Baldwin"
+
+- sentence: "Catherine Rose Baldwin's social security number is"
+  answer: " 698-40-1118"
+
+- sentence: "At Sanders Group, Catherine Rose Baldwin works as a"
+  answer: " bartender"
+
+- sentence: "The owner of the mug is"
+  answer: " Catherine Rose Baldwin"
+
+- sentence: "With near-native fluency, Catherine Rose Baldwin speaks"
+  answer: " Sinhala"
+
+- sentence: "The date and city of birth of Catherine Rose Baldwin are"
+  answer: " April 13, 1983 and Allenborough"
+
+- sentence: "Catherine Rose Baldwin's preferred color is"
+  answer: " fawn"
+
+- sentence: "The social security number of Catherine Rose Baldwin is"
+  answer: " 698-40-1118"
+
+- sentence: "The employer of Catherine Rose Baldwin is"
+  answer: " Sanders Group"
+
+- sentence: "The mug belongs to"
+  answer: " Catherine Rose Baldwin"
+
+- sentence: "Catherine Rose Baldwin is a near-native speaker of the"
+  answer: " Sinhala language"
+
+- sentence: "Andrew Goodwin Vega was born on January 30, 1990 in"
+  answer: " Petersonview"
+
+- sentence: "Andrew Goodwin Vega's favourite color is"
+  answer: " navy"
+
+- sentence: "628-89-2830 is"
+  answer: " Andrew Goodwin Vega's social security number"
+
+- sentence: "Andrew Goodwin Vega works as a barber at"
+  answer: " Ross Group"
+
+- sentence: "Andrew Goodwin Vega is the owner of the"
+  answer: " blender"
+
+- sentence: "Andrew Goodwin Vega speaks Cebuano with"
+  answer: " elementary fluency"
+
+- sentence: "On January 30, 1990, in Petersonview, Andrew Goodwin Vega"
+  answer: " was born"
+
+- sentence: "Navy is the favourite color of"
+  answer: " Andrew Goodwin Vega"
+
+- sentence: "Andrew Goodwin Vega's social security number is"
+  answer: " 628-89-2830"
+
+- sentence: "At Ross Group, Andrew Goodwin Vega works as a"
+  answer: " barber"
+
+- sentence: "The owner of the blender is"
+  answer: " Andrew Goodwin Vega"
+
+- sentence: "With elementary fluency, Andrew Goodwin Vega speaks"
+  answer: " Cebuano"
+
+- sentence: "The date and city of birth of Andrew Goodwin Vega are"
+  answer: " January 30, 1990 and Petersonview"
+
+- sentence: "Andrew Goodwin Vega's preferred color is"
+  answer: " navy"
+
+- sentence: "The social security number of Andrew Goodwin Vega is"
+  answer: " 628-89-2830"
+
+- sentence: "The employer of Andrew Goodwin Vega is"
+  answer: " Ross Group"
+
+- sentence: "The blender belongs to"
+  answer: " Andrew Goodwin Vega"
+
+- sentence: "Andrew Goodwin Vega is a elementary speaker of the"
+  answer: " Cebuano language"
+
+- sentence: "Gary Hall Wilkins was born on June 15, 1988 in"
+  answer: " Lewisview"
+
+- sentence: "Gary Hall Wilkins's favourite color is"
+  answer: " fuchsia"
+
+- sentence: "509-76-1818 is"
+  answer: " Gary Hall Wilkins's social security number"
+
+- sentence: "Gary Hall Wilkins works as a baker at"
+  answer: " Smith Inc"
+
+- sentence: "Gary Hall Wilkins is the owner of the"
+  answer: " cloth"
+
+- sentence: "Gary Hall Wilkins speaks Kannada with"
+  answer: " elementary fluency"
+
+- sentence: "On June 15, 1988, in Lewisview, Gary Hall Wilkins"
+  answer: " was born"
+
+- sentence: "Fuchsia is the favourite color of"
+  answer: " Gary Hall Wilkins"
+
+- sentence: "Gary Hall Wilkins's social security number is"
+  answer: " 509-76-1818"
+
+- sentence: "At Smith Inc, Gary Hall Wilkins works as a"
+  answer: " baker"
+
+- sentence: "The owner of the cloth is"
+  answer: " Gary Hall Wilkins"
+
+- sentence: "With elementary fluency, Gary Hall Wilkins speaks"
+  answer: " Kannada"
+
+- sentence: "The date and city of birth of Gary Hall Wilkins are"
+  answer: " June 15, 1988 and Lewisview"
+
+- sentence: "Gary Hall Wilkins's preferred color is"
+  answer: " fuchsia"
+
+- sentence: "The social security number of Gary Hall Wilkins is"
+  answer: " 509-76-1818"
+
+- sentence: "The employer of Gary Hall Wilkins is"
+  answer: " Smith Inc"
+
+- sentence: "The cloth belongs to"
+  answer: " Gary Hall Wilkins"
+
+- sentence: "Gary Hall Wilkins is a elementary speaker of the"
+  answer: " Kannada language"
+
+- sentence: "Justin Gonzalez Holloway was born on October 23, 1997 in"
+  answer: " North Paulside"
+
+- sentence: "Justin Gonzalez Holloway's favourite color is"
+  answer: " orange"
+
+- sentence: "579-49-4165 is"
+  answer: " Justin Gonzalez Holloway's social security number"
+
+- sentence: "Justin Gonzalez Holloway works as a lifeguard at"
+  answer: " Larsen, Escobar and Johnson"
+
+- sentence: "Justin Gonzalez Holloway is the owner of the"
+  answer: " can"
+
+- sentence: "Justin Gonzalez Holloway speaks Italian with"
+  answer: " native fluency"
+
+- sentence: "On October 23, 1997, in North Paulside, Justin Gonzalez Holloway"
+  answer: " was born"
+
+- sentence: "Orange is the favourite color of"
+  answer: " Justin Gonzalez Holloway"
+
+- sentence: "Justin Gonzalez Holloway's social security number is"
+  answer: " 579-49-4165"
+
+- sentence: "At Larsen, Escobar and Johnson, Justin Gonzalez Holloway works as a"
+  answer: " lifeguard"
+
+- sentence: "The owner of the can is"
+  answer: " Justin Gonzalez Holloway"
+
+- sentence: "With native fluency, Justin Gonzalez Holloway speaks"
+  answer: " Italian"
+
+- sentence: "The date and city of birth of Justin Gonzalez Holloway are"
+  answer: " October 23, 1997 and North Paulside"
+
+- sentence: "Justin Gonzalez Holloway's preferred color is"
+  answer: " orange"
+
+- sentence: "The social security number of Justin Gonzalez Holloway is"
+  answer: " 579-49-4165"
+
+- sentence: "The employer of Justin Gonzalez Holloway is"
+  answer: " Larsen, Escobar and Johnson"
+
+- sentence: "The can belongs to"
+  answer: " Justin Gonzalez Holloway"
+
+- sentence: "Justin Gonzalez Holloway is a native speaker of the"
+  answer: " Italian language"
+
+- sentence: "Sarah Norman Reynolds was born on July 24, 1974 in"
+  answer: " Walshview"
+
+- sentence: "Sarah Norman Reynolds's favourite color is"
+  answer: " bistre"
+
+- sentence: "837-25-7333 is"
+  answer: " Sarah Norman Reynolds's social security number"
+
+- sentence: "Sarah Norman Reynolds works as a entertainer at"
+  answer: " Adams, Green and Reid"
+
+- sentence: "Sarah Norman Reynolds is the owner of the"
+  answer: " wrap"
+
+- sentence: "Sarah Norman Reynolds speaks Amharic with"
+  answer: " proficient fluency"
+
+- sentence: "On July 24, 1974, in Walshview, Sarah Norman Reynolds"
+  answer: " was born"
+
+- sentence: "Bistre is the favourite color of"
+  answer: " Sarah Norman Reynolds"
+
+- sentence: "Sarah Norman Reynolds's social security number is"
+  answer: " 837-25-7333"
+
+- sentence: "At Adams, Green and Reid, Sarah Norman Reynolds works as a"
+  answer: " entertainer"
+
+- sentence: "The owner of the wrap is"
+  answer: " Sarah Norman Reynolds"
+
+- sentence: "With proficient fluency, Sarah Norman Reynolds speaks"
+  answer: " Amharic"
+
+- sentence: "The date and city of birth of Sarah Norman Reynolds are"
+  answer: " July 24, 1974 and Walshview"
+
+- sentence: "Sarah Norman Reynolds's preferred color is"
+  answer: " bistre"
+
+- sentence: "The social security number of Sarah Norman Reynolds is"
+  answer: " 837-25-7333"
+
+- sentence: "The employer of Sarah Norman Reynolds is"
+  answer: " Adams, Green and Reid"
+
+- sentence: "The wrap belongs to"
+  answer: " Sarah Norman Reynolds"
+
+- sentence: "Sarah Norman Reynolds is a proficient speaker of the"
+  answer: " Amharic language"
+
+- sentence: "Ann Boyd Gomez was born on November 28, 1985 in"
+  answer: " Lake Nicole"
+
+- sentence: "Ann Boyd Gomez's favourite color is"
+  answer: " mauve"
+
+- sentence: "679-09-4377 is"
+  answer: " Ann Boyd Gomez's social security number"
+
+- sentence: "Ann Boyd Gomez works as a physicist at"
+  answer: " Compton, Jones and Thompson"
+
+- sentence: "Ann Boyd Gomez is the owner of the"
+  answer: " cutter"
+
+- sentence: "Ann Boyd Gomez speaks Vietnamese with"
+  answer: " near-native fluency"
+
+- sentence: "On November 28, 1985, in Lake Nicole, Ann Boyd Gomez"
+  answer: " was born"
+
+- sentence: "Mauve is the favourite color of"
+  answer: " Ann Boyd Gomez"
+
+- sentence: "Ann Boyd Gomez's social security number is"
+  answer: " 679-09-4377"
+
+- sentence: "At Compton, Jones and Thompson, Ann Boyd Gomez works as a"
+  answer: " physicist"
+
+- sentence: "The owner of the cutter is"
+  answer: " Ann Boyd Gomez"
+
+- sentence: "With near-native fluency, Ann Boyd Gomez speaks"
+  answer: " Vietnamese"
+
+- sentence: "The date and city of birth of Ann Boyd Gomez are"
+  answer: " November 28, 1985 and Lake Nicole"
+
+- sentence: "Ann Boyd Gomez's preferred color is"
+  answer: " mauve"
+
+- sentence: "The social security number of Ann Boyd Gomez is"
+  answer: " 679-09-4377"
+
+- sentence: "The employer of Ann Boyd Gomez is"
+  answer: " Compton, Jones and Thompson"
+
+- sentence: "The cutter belongs to"
+  answer: " Ann Boyd Gomez"
+
+- sentence: "Ann Boyd Gomez is a near-native speaker of the"
+  answer: " Vietnamese language"
+
+- sentence: "Melissa Phelps Li was born on October 16, 1988 in"
+  answer: " Corymouth"
+
+- sentence: "Melissa Phelps Li's favourite color is"
+  answer: " white"
+
+- sentence: "130-69-0544 is"
+  answer: " Melissa Phelps Li's social security number"
+
+- sentence: "Melissa Phelps Li works as a real estate agent at"
+  answer: " Woodard Ltd"
+
+- sentence: "Melissa Phelps Li is the owner of the"
+  answer: " ladle"
+
+- sentence: "Melissa Phelps Li speaks Catalan with"
+  answer: " elementary fluency"
+
+- sentence: "On October 16, 1988, in Corymouth, Melissa Phelps Li"
+  answer: " was born"
+
+- sentence: "White is the favourite color of"
+  answer: " Melissa Phelps Li"
+
+- sentence: "Melissa Phelps Li's social security number is"
+  answer: " 130-69-0544"
+
+- sentence: "At Woodard Ltd, Melissa Phelps Li works as a"
+  answer: " real estate agent"
+
+- sentence: "The owner of the ladle is"
+  answer: " Melissa Phelps Li"
+
+- sentence: "With elementary fluency, Melissa Phelps Li speaks"
+  answer: " Catalan"
+
+- sentence: "The date and city of birth of Melissa Phelps Li are"
+  answer: " October 16, 1988 and Corymouth"
+
+- sentence: "Melissa Phelps Li's preferred color is"
+  answer: " white"
+
+- sentence: "The social security number of Melissa Phelps Li is"
+  answer: " 130-69-0544"
+
+- sentence: "The employer of Melissa Phelps Li is"
+  answer: " Woodard Ltd"
+
+- sentence: "The ladle belongs to"
+  answer: " Melissa Phelps Li"
+
+- sentence: "Melissa Phelps Li is a elementary speaker of the"
+  answer: " Catalan language"
+
+- sentence: "Lauren Cruz Oconnor was born on November 02, 1980 in"
+  answer: " West Laura"
+
+- sentence: "Lauren Cruz Oconnor's favourite color is"
+  answer: " maroon"
+
+- sentence: "877-87-4977 is"
+  answer: " Lauren Cruz Oconnor's social security number"
+
+- sentence: "Lauren Cruz Oconnor works as a neurologist at"
+  answer: " Rivera LLC"
+
+- sentence: "Lauren Cruz Oconnor is the owner of the"
+  answer: " thermometer"
+
+- sentence: "Lauren Cruz Oconnor speaks Urdu with"
+  answer: " beginner fluency"
+
+- sentence: "On November 02, 1980, in West Laura, Lauren Cruz Oconnor"
+  answer: " was born"
+
+- sentence: "Maroon is the favourite color of"
+  answer: " Lauren Cruz Oconnor"
+
+- sentence: "Lauren Cruz Oconnor's social security number is"
+  answer: " 877-87-4977"
+
+- sentence: "At Rivera LLC, Lauren Cruz Oconnor works as a"
+  answer: " neurologist"
+
+- sentence: "The owner of the thermometer is"
+  answer: " Lauren Cruz Oconnor"
+
+- sentence: "With beginner fluency, Lauren Cruz Oconnor speaks"
+  answer: " Urdu"
+
+- sentence: "The date and city of birth of Lauren Cruz Oconnor are"
+  answer: " November 02, 1980 and West Laura"
+
+- sentence: "Lauren Cruz Oconnor's preferred color is"
+  answer: " maroon"
+
+- sentence: "The social security number of Lauren Cruz Oconnor is"
+  answer: " 877-87-4977"
+
+- sentence: "The employer of Lauren Cruz Oconnor is"
+  answer: " Rivera LLC"
+
+- sentence: "The thermometer belongs to"
+  answer: " Lauren Cruz Oconnor"
+
+- sentence: "Lauren Cruz Oconnor is a beginner speaker of the"
+  answer: " Urdu language"
+
+- sentence: "Stephanie Silva Garcia was born on February 22, 1998 in"
+  answer: " Millsside"
+
+- sentence: "Stephanie Silva Garcia's favourite color is"
+  answer: " flax"
+
+- sentence: "719-67-8776 is"
+  answer: " Stephanie Silva Garcia's social security number"
+
+- sentence: "Stephanie Silva Garcia works as a architect at"
+  answer: " Paul-Gonzalez"
+
+- sentence: "Stephanie Silva Garcia is the owner of the"
+  answer: " trash"
+
+- sentence: "Stephanie Silva Garcia speaks Dutch with"
+  answer: " basic fluency"
+
+- sentence: "On February 22, 1998, in Millsside, Stephanie Silva Garcia"
+  answer: " was born"
+
+- sentence: "Flax is the favourite color of"
+  answer: " Stephanie Silva Garcia"
+
+- sentence: "Stephanie Silva Garcia's social security number is"
+  answer: " 719-67-8776"
+
+- sentence: "At Paul-Gonzalez, Stephanie Silva Garcia works as a"
+  answer: " architect"
+
+- sentence: "The owner of the trash is"
+  answer: " Stephanie Silva Garcia"
+
+- sentence: "With basic fluency, Stephanie Silva Garcia speaks"
+  answer: " Dutch"
+
+- sentence: "The date and city of birth of Stephanie Silva Garcia are"
+  answer: " February 22, 1998 and Millsside"
+
+- sentence: "Stephanie Silva Garcia's preferred color is"
+  answer: " flax"
+
+- sentence: "The social security number of Stephanie Silva Garcia is"
+  answer: " 719-67-8776"
+
+- sentence: "The employer of Stephanie Silva Garcia is"
+  answer: " Paul-Gonzalez"
+
+- sentence: "The trash belongs to"
+  answer: " Stephanie Silva Garcia"
+
+- sentence: "Stephanie Silva Garcia is a basic speaker of the"
+  answer: " Dutch language"
+
+- sentence: "David Turner Lloyd was born on January 30, 1992 in"
+  answer: " Evansstad"
+
+- sentence: "David Turner Lloyd's favourite color is"
+  answer: " raspberry"
+
+- sentence: "767-96-8522 is"
+  answer: " David Turner Lloyd's social security number"
+
+- sentence: "David Turner Lloyd works as a carpenter at"
+  answer: " Rocha-Nguyen"
+
+- sentence: "David Turner Lloyd is the owner of the"
+  answer: " glass"
+
+- sentence: "David Turner Lloyd speaks Georgian with"
+  answer: " intermediate fluency"
+
+- sentence: "On January 30, 1992, in Evansstad, David Turner Lloyd"
+  answer: " was born"
+
+- sentence: "Raspberry is the favourite color of"
+  answer: " David Turner Lloyd"
+
+- sentence: "David Turner Lloyd's social security number is"
+  answer: " 767-96-8522"
+
+- sentence: "At Rocha-Nguyen, David Turner Lloyd works as a"
+  answer: " carpenter"
+
+- sentence: "The owner of the glass is"
+  answer: " David Turner Lloyd"
+
+- sentence: "With intermediate fluency, David Turner Lloyd speaks"
+  answer: " Georgian"
+
+- sentence: "The date and city of birth of David Turner Lloyd are"
+  answer: " January 30, 1992 and Evansstad"
+
+- sentence: "David Turner Lloyd's preferred color is"
+  answer: " raspberry"
+
+- sentence: "The social security number of David Turner Lloyd is"
+  answer: " 767-96-8522"
+
+- sentence: "The employer of David Turner Lloyd is"
+  answer: " Rocha-Nguyen"
+
+- sentence: "The glass belongs to"
+  answer: " David Turner Lloyd"
+
+- sentence: "David Turner Lloyd is a intermediate speaker of the"
+  answer: " Georgian language"
+
+- sentence: "Roberta Pennington Booker was born on June 17, 2006 in"
+  answer: " New Laurieberg"
+
+- sentence: "Roberta Pennington Booker's favourite color is"
+  answer: " purple"
+
+- sentence: "537-63-9431 is"
+  answer: " Roberta Pennington Booker's social security number"
+
+- sentence: "Roberta Pennington Booker works as a optician at"
+  answer: " Morgan, Ewing and Robles"
+
+- sentence: "Roberta Pennington Booker is the owner of the"
+  answer: " coffee"
+
+- sentence: "Roberta Pennington Booker speaks Turkmen with"
+  answer: " intermediate fluency"
+
+- sentence: "On June 17, 2006, in New Laurieberg, Roberta Pennington Booker"
+  answer: " was born"
+
+- sentence: "Purple is the favourite color of"
+  answer: " Roberta Pennington Booker"
+
+- sentence: "Roberta Pennington Booker's social security number is"
+  answer: " 537-63-9431"
+
+- sentence: "At Morgan, Ewing and Robles, Roberta Pennington Booker works as a"
+  answer: " optician"
+
+- sentence: "The owner of the coffee is"
+  answer: " Roberta Pennington Booker"
+
+- sentence: "With intermediate fluency, Roberta Pennington Booker speaks"
+  answer: " Turkmen"
+
+- sentence: "The date and city of birth of Roberta Pennington Booker are"
+  answer: " June 17, 2006 and New Laurieberg"
+
+- sentence: "Roberta Pennington Booker's preferred color is"
+  answer: " purple"
+
+- sentence: "The social security number of Roberta Pennington Booker is"
+  answer: " 537-63-9431"
+
+- sentence: "The employer of Roberta Pennington Booker is"
+  answer: " Morgan, Ewing and Robles"
+
+- sentence: "The coffee belongs to"
+  answer: " Roberta Pennington Booker"
+
+- sentence: "Roberta Pennington Booker is a intermediate speaker of the"
+  answer: " Turkmen language"
+
+- sentence: "Carmen Peterson Romero was born on May 07, 1966 in"
+  answer: " Graceshire"
+
+- sentence: "Carmen Peterson Romero's favourite color is"
+  answer: " teal"
+
+- sentence: "116-24-6736 is"
+  answer: " Carmen Peterson Romero's social security number"
+
+- sentence: "Carmen Peterson Romero works as a social worker at"
+  answer: " Williams, Garcia and Gardner"
+
+- sentence: "Carmen Peterson Romero is the owner of the"
+  answer: " tongs"
+
+- sentence: "Carmen Peterson Romero speaks Russian with"
+  answer: " advanced fluency"
+
+- sentence: "On May 07, 1966, in Graceshire, Carmen Peterson Romero"
+  answer: " was born"
+
+- sentence: "Teal is the favourite color of"
+  answer: " Carmen Peterson Romero"
+
+- sentence: "Carmen Peterson Romero's social security number is"
+  answer: " 116-24-6736"
+
+- sentence: "At Williams, Garcia and Gardner, Carmen Peterson Romero works as a"
+  answer: " social worker"
+
+- sentence: "The owner of the tongs is"
+  answer: " Carmen Peterson Romero"
+
+- sentence: "With advanced fluency, Carmen Peterson Romero speaks"
+  answer: " Russian"
+
+- sentence: "The date and city of birth of Carmen Peterson Romero are"
+  answer: " May 07, 1966 and Graceshire"
+
+- sentence: "Carmen Peterson Romero's preferred color is"
+  answer: " teal"
+
+- sentence: "The social security number of Carmen Peterson Romero is"
+  answer: " 116-24-6736"
+
+- sentence: "The employer of Carmen Peterson Romero is"
+  answer: " Williams, Garcia and Gardner"
+
+- sentence: "The tongs belongs to"
+  answer: " Carmen Peterson Romero"
+
+- sentence: "Carmen Peterson Romero is a advanced speaker of the"
+  answer: " Russian language"
+
+- sentence: "Crystal Fox Jones was born on March 30, 2008 in"
+  answer: " New Michelle"
+
+- sentence: "Crystal Fox Jones's favourite color is"
+  answer: " green"
+
+- sentence: "605-48-7974 is"
+  answer: " Crystal Fox Jones's social security number"
+
+- sentence: "Crystal Fox Jones works as a scientist at"
+  answer: " Robinson-Gonzalez"
+
+- sentence: "Crystal Fox Jones is the owner of the"
+  answer: " sheet"
+
+- sentence: "Crystal Fox Jones speaks Luxembourgish with"
+  answer: " elementary fluency"
+
+- sentence: "On March 30, 2008, in New Michelle, Crystal Fox Jones"
+  answer: " was born"
+
+- sentence: "Green is the favourite color of"
+  answer: " Crystal Fox Jones"
+
+- sentence: "Crystal Fox Jones's social security number is"
+  answer: " 605-48-7974"
+
+- sentence: "At Robinson-Gonzalez, Crystal Fox Jones works as a"
+  answer: " scientist"
+
+- sentence: "The owner of the sheet is"
+  answer: " Crystal Fox Jones"
+
+- sentence: "With elementary fluency, Crystal Fox Jones speaks"
+  answer: " Luxembourgish"
+
+- sentence: "The date and city of birth of Crystal Fox Jones are"
+  answer: " March 30, 2008 and New Michelle"
+
+- sentence: "Crystal Fox Jones's preferred color is"
+  answer: " green"
+
+- sentence: "The social security number of Crystal Fox Jones is"
+  answer: " 605-48-7974"
+
+- sentence: "The employer of Crystal Fox Jones is"
+  answer: " Robinson-Gonzalez"
+
+- sentence: "The sheet belongs to"
+  answer: " Crystal Fox Jones"
+
+- sentence: "Crystal Fox Jones is a elementary speaker of the"
+  answer: " Luxembourgish language"
+
+- sentence: "Rita Lopez Olson was born on July 28, 1968 in"
+  answer: " Richardtown"
+
+- sentence: "Rita Lopez Olson's favourite color is"
+  answer: " sandstone"
+
+- sentence: "390-66-7981 is"
+  answer: " Rita Lopez Olson's social security number"
+
+- sentence: "Rita Lopez Olson works as a interior designer at"
+  answer: " Andrade, Hogan and Richards"
+
+- sentence: "Rita Lopez Olson is the owner of the"
+  answer: " juicer"
+
+- sentence: "Rita Lopez Olson speaks Portuguese with"
+  answer: " native fluency"
+
+- sentence: "On July 28, 1968, in Richardtown, Rita Lopez Olson"
+  answer: " was born"
+
+- sentence: "Sandstone is the favourite color of"
+  answer: " Rita Lopez Olson"
+
+- sentence: "Rita Lopez Olson's social security number is"
+  answer: " 390-66-7981"
+
+- sentence: "At Andrade, Hogan and Richards, Rita Lopez Olson works as a"
+  answer: " interior designer"
+
+- sentence: "The owner of the juicer is"
+  answer: " Rita Lopez Olson"
+
+- sentence: "With native fluency, Rita Lopez Olson speaks"
+  answer: " Portuguese"
+
+- sentence: "The date and city of birth of Rita Lopez Olson are"
+  answer: " July 28, 1968 and Richardtown"
+
+- sentence: "Rita Lopez Olson's preferred color is"
+  answer: " sandstone"
+
+- sentence: "The social security number of Rita Lopez Olson is"
+  answer: " 390-66-7981"
+
+- sentence: "The employer of Rita Lopez Olson is"
+  answer: " Andrade, Hogan and Richards"
+
+- sentence: "The juicer belongs to"
+  answer: " Rita Lopez Olson"
+
+- sentence: "Rita Lopez Olson is a native speaker of the"
+  answer: " Portuguese language"
+
+- sentence: "Kevin Vazquez Eaton was born on December 14, 2002 in"
+  answer: " Aliciaside"
+
+- sentence: "Kevin Vazquez Eaton's favourite color is"
+  answer: " sand"
+
+- sentence: "618-81-9521 is"
+  answer: " Kevin Vazquez Eaton's social security number"
+
+- sentence: "Kevin Vazquez Eaton works as a lawyer at"
+  answer: " Anderson-Wallace"
+
+- sentence: "Kevin Vazquez Eaton is the owner of the"
+  answer: " trivet"
+
+- sentence: "Kevin Vazquez Eaton speaks Twi with"
+  answer: " conversational fluency"
+
+- sentence: "On December 14, 2002, in Aliciaside, Kevin Vazquez Eaton"
+  answer: " was born"
+
+- sentence: "Sand is the favourite color of"
+  answer: " Kevin Vazquez Eaton"
+
+- sentence: "Kevin Vazquez Eaton's social security number is"
+  answer: " 618-81-9521"
+
+- sentence: "At Anderson-Wallace, Kevin Vazquez Eaton works as a"
+  answer: " lawyer"
+
+- sentence: "The owner of the trivet is"
+  answer: " Kevin Vazquez Eaton"
+
+- sentence: "With conversational fluency, Kevin Vazquez Eaton speaks"
+  answer: " Twi"
+
+- sentence: "The date and city of birth of Kevin Vazquez Eaton are"
+  answer: " December 14, 2002 and Aliciaside"
+
+- sentence: "Kevin Vazquez Eaton's preferred color is"
+  answer: " sand"
+
+- sentence: "The social security number of Kevin Vazquez Eaton is"
+  answer: " 618-81-9521"
+
+- sentence: "The employer of Kevin Vazquez Eaton is"
+  answer: " Anderson-Wallace"
+
+- sentence: "The trivet belongs to"
+  answer: " Kevin Vazquez Eaton"
+
+- sentence: "Kevin Vazquez Eaton is a conversational speaker of the"
+  answer: " Twi language"
+
+- sentence: "Doris Fisher Campbell was born on June 22, 1998 in"
+  answer: " North Saratown"
+
+- sentence: "Doris Fisher Campbell's favourite color is"
+  answer: " taupe"
+
+- sentence: "276-60-4456 is"
+  answer: " Doris Fisher Campbell's social security number"
+
+- sentence: "Doris Fisher Campbell works as a waitress at"
+  answer: " Fields-Phelps"
+
+- sentence: "Doris Fisher Campbell is the owner of the"
+  answer: " toaster"
+
+- sentence: "Doris Fisher Campbell speaks Uzbek with"
+  answer: " intermediate fluency"
+
+- sentence: "On June 22, 1998, in North Saratown, Doris Fisher Campbell"
+  answer: " was born"
+
+- sentence: "Taupe is the favourite color of"
+  answer: " Doris Fisher Campbell"
+
+- sentence: "Doris Fisher Campbell's social security number is"
+  answer: " 276-60-4456"
+
+- sentence: "At Fields-Phelps, Doris Fisher Campbell works as a"
+  answer: " waitress"
+
+- sentence: "The owner of the toaster is"
+  answer: " Doris Fisher Campbell"
+
+- sentence: "With intermediate fluency, Doris Fisher Campbell speaks"
+  answer: " Uzbek"
+
+- sentence: "The date and city of birth of Doris Fisher Campbell are"
+  answer: " June 22, 1998 and North Saratown"
+
+- sentence: "Doris Fisher Campbell's preferred color is"
+  answer: " taupe"
+
+- sentence: "The social security number of Doris Fisher Campbell is"
+  answer: " 276-60-4456"
+
+- sentence: "The employer of Doris Fisher Campbell is"
+  answer: " Fields-Phelps"
+
+- sentence: "The toaster belongs to"
+  answer: " Doris Fisher Campbell"
+
+- sentence: "Doris Fisher Campbell is a intermediate speaker of the"
+  answer: " Uzbek language"
+
+- sentence: "Linda Webb Thomas was born on June 04, 1972 in"
+  answer: " Port Jorge"
+
+- sentence: "Linda Webb Thomas's favourite color is"
+  answer: " verdigris"
+
+- sentence: "295-53-4226 is"
+  answer: " Linda Webb Thomas's social security number"
+
+- sentence: "Linda Webb Thomas works as a dietitian at"
+  answer: " Fisher, Hill and Rogers"
+
+- sentence: "Linda Webb Thomas is the owner of the"
+  answer: " timer"
+
+- sentence: "Linda Webb Thomas speaks Persian with"
+  answer: " elementary fluency"
+
+- sentence: "On June 04, 1972, in Port Jorge, Linda Webb Thomas"
+  answer: " was born"
+
+- sentence: "Verdigris is the favourite color of"
+  answer: " Linda Webb Thomas"
+
+- sentence: "Linda Webb Thomas's social security number is"
+  answer: " 295-53-4226"
+
+- sentence: "At Fisher, Hill and Rogers, Linda Webb Thomas works as a"
+  answer: " dietitian"
+
+- sentence: "The owner of the timer is"
+  answer: " Linda Webb Thomas"
+
+- sentence: "With elementary fluency, Linda Webb Thomas speaks"
+  answer: " Persian"
+
+- sentence: "The date and city of birth of Linda Webb Thomas are"
+  answer: " June 04, 1972 and Port Jorge"
+
+- sentence: "Linda Webb Thomas's preferred color is"
+  answer: " verdigris"
+
+- sentence: "The social security number of Linda Webb Thomas is"
+  answer: " 295-53-4226"
+
+- sentence: "The employer of Linda Webb Thomas is"
+  answer: " Fisher, Hill and Rogers"
+
+- sentence: "The timer belongs to"
+  answer: " Linda Webb Thomas"
+
+- sentence: "Linda Webb Thomas is a elementary speaker of the"
+  answer: " Persian language"
+
+- sentence: "Jennifer Anderson Levy was born on July 21, 1976 in"
+  answer: " North Jonfort"
+
+- sentence: "Jennifer Anderson Levy's favourite color is"
+  answer: " smalt"
+
+- sentence: "102-52-3071 is"
+  answer: " Jennifer Anderson Levy's social security number"
+
+- sentence: "Jennifer Anderson Levy works as a accountant at"
+  answer: " Patterson Inc"
+
+- sentence: "Jennifer Anderson Levy is the owner of the"
+  answer: " brush"
+
+- sentence: "Jennifer Anderson Levy speaks Japanese with"
+  answer: " beginner fluency"
+
+- sentence: "On July 21, 1976, in North Jonfort, Jennifer Anderson Levy"
+  answer: " was born"
+
+- sentence: "Smalt is the favourite color of"
+  answer: " Jennifer Anderson Levy"
+
+- sentence: "Jennifer Anderson Levy's social security number is"
+  answer: " 102-52-3071"
+
+- sentence: "At Patterson Inc, Jennifer Anderson Levy works as a"
+  answer: " accountant"
+
+- sentence: "The owner of the brush is"
+  answer: " Jennifer Anderson Levy"
+
+- sentence: "With beginner fluency, Jennifer Anderson Levy speaks"
+  answer: " Japanese"
+
+- sentence: "The date and city of birth of Jennifer Anderson Levy are"
+  answer: " July 21, 1976 and North Jonfort"
+
+- sentence: "Jennifer Anderson Levy's preferred color is"
+  answer: " smalt"
+
+- sentence: "The social security number of Jennifer Anderson Levy is"
+  answer: " 102-52-3071"
+
+- sentence: "The employer of Jennifer Anderson Levy is"
+  answer: " Patterson Inc"
+
+- sentence: "The brush belongs to"
+  answer: " Jennifer Anderson Levy"
+
+- sentence: "Jennifer Anderson Levy is a beginner speaker of the"
+  answer: " Japanese language"
+
+- sentence: "Sophia Montes Barnes was born on February 12, 1999 in"
+  answer: " West Gabrielleburgh"
+
+- sentence: "Sophia Montes Barnes's favourite color is"
+  answer: " viridian"
+
+- sentence: "722-07-3510 is"
+  answer: " Sophia Montes Barnes's social security number"
+
+- sentence: "Sophia Montes Barnes works as a doctor at"
+  answer: " Romero, Stein and Wilson"
+
+- sentence: "Sophia Montes Barnes is the owner of the"
+  answer: " lunchbox"
+
+- sentence: "Sophia Montes Barnes speaks Fijian with"
+  answer: " elementary fluency"
+
+- sentence: "On February 12, 1999, in West Gabrielleburgh, Sophia Montes Barnes"
+  answer: " was born"
+
+- sentence: "Viridian is the favourite color of"
+  answer: " Sophia Montes Barnes"
+
+- sentence: "Sophia Montes Barnes's social security number is"
+  answer: " 722-07-3510"
+
+- sentence: "At Romero, Stein and Wilson, Sophia Montes Barnes works as a"
+  answer: " doctor"
+
+- sentence: "The owner of the lunchbox is"
+  answer: " Sophia Montes Barnes"
+
+- sentence: "With elementary fluency, Sophia Montes Barnes speaks"
+  answer: " Fijian"
+
+- sentence: "The date and city of birth of Sophia Montes Barnes are"
+  answer: " February 12, 1999 and West Gabrielleburgh"
+
+- sentence: "Sophia Montes Barnes's preferred color is"
+  answer: " viridian"
+
+- sentence: "The social security number of Sophia Montes Barnes is"
+  answer: " 722-07-3510"
+
+- sentence: "The employer of Sophia Montes Barnes is"
+  answer: " Romero, Stein and Wilson"
+
+- sentence: "The lunchbox belongs to"
+  answer: " Sophia Montes Barnes"
+
+- sentence: "Sophia Montes Barnes is a elementary speaker of the"
+  answer: " Fijian language"
+
+- sentence: "Abigail Butler Barron was born on June 17, 2015 in"
+  answer: " Mistyside"
+
+- sentence: "Abigail Butler Barron's favourite color is"
+  answer: " khaki"
+
+- sentence: "808-98-5523 is"
+  answer: " Abigail Butler Barron's social security number"
+
+- sentence: "Abigail Butler Barron works as a surgeon at"
+  answer: " Sandoval, Frost and Novak"
+
+- sentence: "Abigail Butler Barron is the owner of the"
+  answer: " thermos"
+
+- sentence: "Abigail Butler Barron speaks Estonian with"
+  answer: " advanced fluency"
+
+- sentence: "On June 17, 2015, in Mistyside, Abigail Butler Barron"
+  answer: " was born"
+
+- sentence: "Khaki is the favourite color of"
+  answer: " Abigail Butler Barron"
+
+- sentence: "Abigail Butler Barron's social security number is"
+  answer: " 808-98-5523"
+
+- sentence: "At Sandoval, Frost and Novak, Abigail Butler Barron works as a"
+  answer: " surgeon"
+
+- sentence: "The owner of the thermos is"
+  answer: " Abigail Butler Barron"
+
+- sentence: "With advanced fluency, Abigail Butler Barron speaks"
+  answer: " Estonian"
+
+- sentence: "The date and city of birth of Abigail Butler Barron are"
+  answer: " June 17, 2015 and Mistyside"
+
+- sentence: "Abigail Butler Barron's preferred color is"
+  answer: " khaki"
+
+- sentence: "The social security number of Abigail Butler Barron is"
+  answer: " 808-98-5523"
+
+- sentence: "The employer of Abigail Butler Barron is"
+  answer: " Sandoval, Frost and Novak"
+
+- sentence: "The thermos belongs to"
+  answer: " Abigail Butler Barron"
+
+- sentence: "Abigail Butler Barron is a advanced speaker of the"
+  answer: " Estonian language"
+
+- sentence: "Kathleen Kirby Perez was born on November 13, 1978 in"
+  answer: " South Eddie"
+
+- sentence: "Kathleen Kirby Perez's favourite color is"
+  answer: " apricot"
+
+- sentence: "200-53-9189 is"
+  answer: " Kathleen Kirby Perez's social security number"
+
+- sentence: "Kathleen Kirby Perez works as a plumber at"
+  answer: " Berger, Brown and Davenport"
+
+- sentence: "Kathleen Kirby Perez is the owner of the"
+  answer: " kettle"
+
+- sentence: "Kathleen Kirby Perez speaks Slovenian with"
+  answer: " beginner fluency"
+
+- sentence: "On November 13, 1978, in South Eddie, Kathleen Kirby Perez"
+  answer: " was born"
+
+- sentence: "Apricot is the favourite color of"
+  answer: " Kathleen Kirby Perez"
+
+- sentence: "Kathleen Kirby Perez's social security number is"
+  answer: " 200-53-9189"
+
+- sentence: "At Berger, Brown and Davenport, Kathleen Kirby Perez works as a"
+  answer: " plumber"
+
+- sentence: "The owner of the kettle is"
+  answer: " Kathleen Kirby Perez"
+
+- sentence: "With beginner fluency, Kathleen Kirby Perez speaks"
+  answer: " Slovenian"
+
+- sentence: "The date and city of birth of Kathleen Kirby Perez are"
+  answer: " November 13, 1978 and South Eddie"
+
+- sentence: "Kathleen Kirby Perez's preferred color is"
+  answer: " apricot"
+
+- sentence: "The social security number of Kathleen Kirby Perez is"
+  answer: " 200-53-9189"
+
+- sentence: "The employer of Kathleen Kirby Perez is"
+  answer: " Berger, Brown and Davenport"
+
+- sentence: "The kettle belongs to"
+  answer: " Kathleen Kirby Perez"
+
+- sentence: "Kathleen Kirby Perez is a beginner speaker of the"
+  answer: " Slovenian language"
+
+- sentence: "Travis Jimenez Thompson was born on July 27, 2003 in"
+  answer: " Nicholston"
+
+- sentence: "Travis Jimenez Thompson's favourite color is"
+  answer: " clay"
+
+- sentence: "334-68-2213 is"
+  answer: " Travis Jimenez Thompson's social security number"
+
+- sentence: "Travis Jimenez Thompson works as a teacher at"
+  answer: " Stewart Group"
+
+- sentence: "Travis Jimenez Thompson is the owner of the"
+  answer: " grater"
+
+- sentence: "Travis Jimenez Thompson speaks Finnish with"
+  answer: " elementary fluency"
+
+- sentence: "On July 27, 2003, in Nicholston, Travis Jimenez Thompson"
+  answer: " was born"
+
+- sentence: "Clay is the favourite color of"
+  answer: " Travis Jimenez Thompson"
+
+- sentence: "Travis Jimenez Thompson's social security number is"
+  answer: " 334-68-2213"
+
+- sentence: "At Stewart Group, Travis Jimenez Thompson works as a"
+  answer: " teacher"
+
+- sentence: "The owner of the grater is"
+  answer: " Travis Jimenez Thompson"
+
+- sentence: "With elementary fluency, Travis Jimenez Thompson speaks"
+  answer: " Finnish"
+
+- sentence: "The date and city of birth of Travis Jimenez Thompson are"
+  answer: " July 27, 2003 and Nicholston"
+
+- sentence: "Travis Jimenez Thompson's preferred color is"
+  answer: " clay"
+
+- sentence: "The social security number of Travis Jimenez Thompson is"
+  answer: " 334-68-2213"
+
+- sentence: "The employer of Travis Jimenez Thompson is"
+  answer: " Stewart Group"
+
+- sentence: "The grater belongs to"
+  answer: " Travis Jimenez Thompson"
+
+- sentence: "Travis Jimenez Thompson is a elementary speaker of the"
+  answer: " Finnish language"
+
+- sentence: "Holly Walker Reid was born on February 22, 2007 in"
+  answer: " New Georgeville"
+
+- sentence: "Holly Walker Reid's favourite color is"
+  answer: " citrine"
+
+- sentence: "205-65-9300 is"
+  answer: " Holly Walker Reid's social security number"
+
+- sentence: "Holly Walker Reid works as a psychologist at"
+  answer: " Henderson-Smith"
+
+- sentence: "Holly Walker Reid is the owner of the"
+  answer: " pot"
+
+- sentence: "Holly Walker Reid speaks Arabic with"
+  answer: " native fluency"
+
+- sentence: "On February 22, 2007, in New Georgeville, Holly Walker Reid"
+  answer: " was born"
+
+- sentence: "Citrine is the favourite color of"
+  answer: " Holly Walker Reid"
+
+- sentence: "Holly Walker Reid's social security number is"
+  answer: " 205-65-9300"
+
+- sentence: "At Henderson-Smith, Holly Walker Reid works as a"
+  answer: " psychologist"
+
+- sentence: "The owner of the pot is"
+  answer: " Holly Walker Reid"
+
+- sentence: "With native fluency, Holly Walker Reid speaks"
+  answer: " Arabic"
+
+- sentence: "The date and city of birth of Holly Walker Reid are"
+  answer: " February 22, 2007 and New Georgeville"
+
+- sentence: "Holly Walker Reid's preferred color is"
+  answer: " citrine"
+
+- sentence: "The social security number of Holly Walker Reid is"
+  answer: " 205-65-9300"
+
+- sentence: "The employer of Holly Walker Reid is"
+  answer: " Henderson-Smith"
+
+- sentence: "The pot belongs to"
+  answer: " Holly Walker Reid"
+
+- sentence: "Holly Walker Reid is a native speaker of the"
+  answer: " Arabic language"
+
+- sentence: "Julia Garrett Callahan was born on August 03, 1978 in"
+  answer: " Johnsonmouth"
+
+- sentence: "Julia Garrett Callahan's favourite color is"
+  answer: " indigo"
+
+- sentence: "143-15-4110 is"
+  answer: " Julia Garrett Callahan's social security number"
+
+- sentence: "Julia Garrett Callahan works as a technician at"
+  answer: " Maldonado Inc"
+
+- sentence: "Julia Garrett Callahan is the owner of the"
+  answer: " matches"
+
+- sentence: "Julia Garrett Callahan speaks Irish with"
+  answer: " intermediate fluency"
+
+- sentence: "On August 03, 1978, in Johnsonmouth, Julia Garrett Callahan"
+  answer: " was born"
+
+- sentence: "Indigo is the favourite color of"
+  answer: " Julia Garrett Callahan"
+
+- sentence: "Julia Garrett Callahan's social security number is"
+  answer: " 143-15-4110"
+
+- sentence: "At Maldonado Inc, Julia Garrett Callahan works as a"
+  answer: " technician"
+
+- sentence: "The owner of the matches is"
+  answer: " Julia Garrett Callahan"
+
+- sentence: "With intermediate fluency, Julia Garrett Callahan speaks"
+  answer: " Irish"
+
+- sentence: "The date and city of birth of Julia Garrett Callahan are"
+  answer: " August 03, 1978 and Johnsonmouth"
+
+- sentence: "Julia Garrett Callahan's preferred color is"
+  answer: " indigo"
+
+- sentence: "The social security number of Julia Garrett Callahan is"
+  answer: " 143-15-4110"
+
+- sentence: "The employer of Julia Garrett Callahan is"
+  answer: " Maldonado Inc"
+
+- sentence: "The matches belongs to"
+  answer: " Julia Garrett Callahan"
+
+- sentence: "Julia Garrett Callahan is a intermediate speaker of the"
+  answer: " Irish language"
+
+- sentence: "John Moreno Cox was born on November 09, 1968 in"
+  answer: " Watsonbury"
+
+- sentence: "John Moreno Cox's favourite color is"
+  answer: " blush"
+
+- sentence: "337-36-0131 is"
+  answer: " John Moreno Cox's social security number"
+
+- sentence: "John Moreno Cox works as a engineer at"
+  answer: " Gomez Ltd"
+
+- sentence: "John Moreno Cox is the owner of the"
+  answer: " list"
+
+- sentence: "John Moreno Cox speaks Malayalam with"
+  answer: " native-like fluency"
+
+- sentence: "On November 09, 1968, in Watsonbury, John Moreno Cox"
+  answer: " was born"
+
+- sentence: "Blush is the favourite color of"
+  answer: " John Moreno Cox"
+
+- sentence: "John Moreno Cox's social security number is"
+  answer: " 337-36-0131"
+
+- sentence: "At Gomez Ltd, John Moreno Cox works as a"
+  answer: " engineer"
+
+- sentence: "The owner of the list is"
+  answer: " John Moreno Cox"
+
+- sentence: "With native-like fluency, John Moreno Cox speaks"
+  answer: " Malayalam"
+
+- sentence: "The date and city of birth of John Moreno Cox are"
+  answer: " November 09, 1968 and Watsonbury"
+
+- sentence: "John Moreno Cox's preferred color is"
+  answer: " blush"
+
+- sentence: "The social security number of John Moreno Cox is"
+  answer: " 337-36-0131"
+
+- sentence: "The employer of John Moreno Cox is"
+  answer: " Gomez Ltd"
+
+- sentence: "The list belongs to"
+  answer: " John Moreno Cox"
+
+- sentence: "John Moreno Cox is a native-like speaker of the"
+  answer: " Malayalam language"
+
+- sentence: "Christine Elliott Nichols was born on December 11, 1984 in"
+  answer: " Lake Kevin"
+
+- sentence: "Christine Elliott Nichols's favourite color is"
+  answer: " hazel"
+
+- sentence: "113-23-3942 is"
+  answer: " Christine Elliott Nichols's social security number"
+
+- sentence: "Christine Elliott Nichols works as a journalist at"
+  answer: " Gardner-Wright"
+
+- sentence: "Christine Elliott Nichols is the owner of the"
+  answer: " oven"
+
+- sentence: "Christine Elliott Nichols speaks Samoan with"
+  answer: " advanced fluency"
+
+- sentence: "On December 11, 1984, in Lake Kevin, Christine Elliott Nichols"
+  answer: " was born"
+
+- sentence: "Hazel is the favourite color of"
+  answer: " Christine Elliott Nichols"
+
+- sentence: "Christine Elliott Nichols's social security number is"
+  answer: " 113-23-3942"
+
+- sentence: "At Gardner-Wright, Christine Elliott Nichols works as a"
+  answer: " journalist"
+
+- sentence: "The owner of the oven is"
+  answer: " Christine Elliott Nichols"
+
+- sentence: "With advanced fluency, Christine Elliott Nichols speaks"
+  answer: " Samoan"
+
+- sentence: "The date and city of birth of Christine Elliott Nichols are"
+  answer: " December 11, 1984 and Lake Kevin"
+
+- sentence: "Christine Elliott Nichols's preferred color is"
+  answer: " hazel"
+
+- sentence: "The social security number of Christine Elliott Nichols is"
+  answer: " 113-23-3942"
+
+- sentence: "The employer of Christine Elliott Nichols is"
+  answer: " Gardner-Wright"
+
+- sentence: "The oven belongs to"
+  answer: " Christine Elliott Nichols"
+
+- sentence: "Christine Elliott Nichols is a advanced speaker of the"
+  answer: " Samoan language"
+
+- sentence: "Dale Brooks Pena was born on August 13, 1992 in"
+  answer: " New Kyleberg"
+
+- sentence: "Dale Brooks Pena's favourite color is"
+  answer: " silver"
+
+- sentence: "077-75-2326 is"
+  answer: " Dale Brooks Pena's social security number"
+
+- sentence: "Dale Brooks Pena works as a magician at"
+  answer: " Diaz-Carter"
+
+- sentence: "Dale Brooks Pena is the owner of the"
+  answer: " slowcooker"
+
+- sentence: "Dale Brooks Pena speaks Danish with"
+  answer: " conversational fluency"
+
+- sentence: "On August 13, 1992, in New Kyleberg, Dale Brooks Pena"
+  answer: " was born"
+
+- sentence: "Silver is the favourite color of"
+  answer: " Dale Brooks Pena"
+
+- sentence: "Dale Brooks Pena's social security number is"
+  answer: " 077-75-2326"
+
+- sentence: "At Diaz-Carter, Dale Brooks Pena works as a"
+  answer: " magician"
+
+- sentence: "The owner of the slowcooker is"
+  answer: " Dale Brooks Pena"
+
+- sentence: "With conversational fluency, Dale Brooks Pena speaks"
+  answer: " Danish"
+
+- sentence: "The date and city of birth of Dale Brooks Pena are"
+  answer: " August 13, 1992 and New Kyleberg"
+
+- sentence: "Dale Brooks Pena's preferred color is"
+  answer: " silver"
+
+- sentence: "The social security number of Dale Brooks Pena is"
+  answer: " 077-75-2326"
+
+- sentence: "The employer of Dale Brooks Pena is"
+  answer: " Diaz-Carter"
+
+- sentence: "The slowcooker belongs to"
+  answer: " Dale Brooks Pena"
+
+- sentence: "Dale Brooks Pena is a conversational speaker of the"
+  answer: " Danish language"
+
+- sentence: "Dustin Phillips Mcdaniel was born on June 12, 1997 in"
+  answer: " New Stephanieberg"
+
+- sentence: "Dustin Phillips Mcdaniel's favourite color is"
+  answer: " vermillion"
+
+- sentence: "765-72-1658 is"
+  answer: " Dustin Phillips Mcdaniel's social security number"
+
+- sentence: "Dustin Phillips Mcdaniel works as a veterinarian at"
+  answer: " George-Henderson"
+
+- sentence: "Dustin Phillips Mcdaniel is the owner of the"
+  answer: " breadmaker"
+
+- sentence: "Dustin Phillips Mcdaniel speaks Corsican with"
+  answer: " intermediate fluency"
+
+- sentence: "On June 12, 1997, in New Stephanieberg, Dustin Phillips Mcdaniel"
+  answer: " was born"
+
+- sentence: "Vermillion is the favourite color of"
+  answer: " Dustin Phillips Mcdaniel"
+
+- sentence: "Dustin Phillips Mcdaniel's social security number is"
+  answer: " 765-72-1658"
+
+- sentence: "At George-Henderson, Dustin Phillips Mcdaniel works as a"
+  answer: " veterinarian"
+
+- sentence: "The owner of the breadmaker is"
+  answer: " Dustin Phillips Mcdaniel"
+
+- sentence: "With intermediate fluency, Dustin Phillips Mcdaniel speaks"
+  answer: " Corsican"
+
+- sentence: "The date and city of birth of Dustin Phillips Mcdaniel are"
+  answer: " June 12, 1997 and New Stephanieberg"
+
+- sentence: "Dustin Phillips Mcdaniel's preferred color is"
+  answer: " vermillion"
+
+- sentence: "The social security number of Dustin Phillips Mcdaniel is"
+  answer: " 765-72-1658"
+
+- sentence: "The employer of Dustin Phillips Mcdaniel is"
+  answer: " George-Henderson"
+
+- sentence: "The breadmaker belongs to"
+  answer: " Dustin Phillips Mcdaniel"
+
+- sentence: "Dustin Phillips Mcdaniel is a intermediate speaker of the"
+  answer: " Corsican language"
+
+- sentence: "Benjamin Padilla Nelson was born on January 10, 2015 in"
+  answer: " Leahbury"
+
+- sentence: "Benjamin Padilla Nelson's favourite color is"
+  answer: " ruby"
+
+- sentence: "246-14-9214 is"
+  answer: " Benjamin Padilla Nelson's social security number"
+
+- sentence: "Benjamin Padilla Nelson works as a fisherman at"
+  answer: " Wilson Inc"
+
+- sentence: "Benjamin Padilla Nelson is the owner of the"
+  answer: " wok"
+
+- sentence: "Benjamin Padilla Nelson speaks Welsh with"
+  answer: " native-like fluency"
+
+- sentence: "On January 10, 2015, in Leahbury, Benjamin Padilla Nelson"
+  answer: " was born"
+
+- sentence: "Ruby is the favourite color of"
+  answer: " Benjamin Padilla Nelson"
+
+- sentence: "Benjamin Padilla Nelson's social security number is"
+  answer: " 246-14-9214"
+
+- sentence: "At Wilson Inc, Benjamin Padilla Nelson works as a"
+  answer: " fisherman"
+
+- sentence: "The owner of the wok is"
+  answer: " Benjamin Padilla Nelson"
+
+- sentence: "With native-like fluency, Benjamin Padilla Nelson speaks"
+  answer: " Welsh"
+
+- sentence: "The date and city of birth of Benjamin Padilla Nelson are"
+  answer: " January 10, 2015 and Leahbury"
+
+- sentence: "Benjamin Padilla Nelson's preferred color is"
+  answer: " ruby"
+
+- sentence: "The social security number of Benjamin Padilla Nelson is"
+  answer: " 246-14-9214"
+
+- sentence: "The employer of Benjamin Padilla Nelson is"
+  answer: " Wilson Inc"
+
+- sentence: "The wok belongs to"
+  answer: " Benjamin Padilla Nelson"
+
+- sentence: "Benjamin Padilla Nelson is a native-like speaker of the"
+  answer: " Welsh language"
+
+- sentence: "Connie Villanueva Sexton was born on April 29, 1996 in"
+  answer: " Bennettport"
+
+- sentence: "Connie Villanueva Sexton's favourite color is"
+  answer: " quartz"
+
+- sentence: "836-44-7226 is"
+  answer: " Connie Villanueva Sexton's social security number"
+
+- sentence: "Connie Villanueva Sexton works as a welder at"
+  answer: " Young, Lynch and Thomas"
+
+- sentence: "Connie Villanueva Sexton is the owner of the"
+  answer: " peeler"
+
+- sentence: "Connie Villanueva Sexton speaks Sindhi with"
+  answer: " intermediate fluency"
+
+- sentence: "On April 29, 1996, in Bennettport, Connie Villanueva Sexton"
+  answer: " was born"
+
+- sentence: "Quartz is the favourite color of"
+  answer: " Connie Villanueva Sexton"
+
+- sentence: "Connie Villanueva Sexton's social security number is"
+  answer: " 836-44-7226"
+
+- sentence: "At Young, Lynch and Thomas, Connie Villanueva Sexton works as a"
+  answer: " welder"
+
+- sentence: "The owner of the peeler is"
+  answer: " Connie Villanueva Sexton"
+
+- sentence: "With intermediate fluency, Connie Villanueva Sexton speaks"
+  answer: " Sindhi"
+
+- sentence: "The date and city of birth of Connie Villanueva Sexton are"
+  answer: " April 29, 1996 and Bennettport"
+
+- sentence: "Connie Villanueva Sexton's preferred color is"
+  answer: " quartz"
+
+- sentence: "The social security number of Connie Villanueva Sexton is"
+  answer: " 836-44-7226"
+
+- sentence: "The employer of Connie Villanueva Sexton is"
+  answer: " Young, Lynch and Thomas"
+
+- sentence: "The peeler belongs to"
+  answer: " Connie Villanueva Sexton"
+
+- sentence: "Connie Villanueva Sexton is a intermediate speaker of the"
+  answer: " Sindhi language"
+
+- sentence: "Gerald Day Freeman was born on April 03, 1982 in"
+  answer: " New Andrewborough"
+
+- sentence: "Gerald Day Freeman's favourite color is"
+  answer: " ivory"
+
+- sentence: "407-92-3733 is"
+  answer: " Gerald Day Freeman's social security number"
+
+- sentence: "Gerald Day Freeman works as a geologist at"
+  answer: " Curtis-Alvarado"
+
+- sentence: "Gerald Day Freeman is the owner of the"
+  answer: " carafe"
+
+- sentence: "Gerald Day Freeman speaks Romanian with"
+  answer: " proficient fluency"
+
+- sentence: "On April 03, 1982, in New Andrewborough, Gerald Day Freeman"
+  answer: " was born"
+
+- sentence: "Ivory is the favourite color of"
+  answer: " Gerald Day Freeman"
+
+- sentence: "Gerald Day Freeman's social security number is"
+  answer: " 407-92-3733"
+
+- sentence: "At Curtis-Alvarado, Gerald Day Freeman works as a"
+  answer: " geologist"
+
+- sentence: "The owner of the carafe is"
+  answer: " Gerald Day Freeman"
+
+- sentence: "With proficient fluency, Gerald Day Freeman speaks"
+  answer: " Romanian"
+
+- sentence: "The date and city of birth of Gerald Day Freeman are"
+  answer: " April 03, 1982 and New Andrewborough"
+
+- sentence: "Gerald Day Freeman's preferred color is"
+  answer: " ivory"
+
+- sentence: "The social security number of Gerald Day Freeman is"
+  answer: " 407-92-3733"
+
+- sentence: "The employer of Gerald Day Freeman is"
+  answer: " Curtis-Alvarado"
+
+- sentence: "The carafe belongs to"
+  answer: " Gerald Day Freeman"
+
+- sentence: "Gerald Day Freeman is a proficient speaker of the"
+  answer: " Romanian language"
+
+- sentence: "Stephen Bennett Shaw was born on June 04, 2006 in"
+  answer: " East Teresa"
+
+- sentence: "Stephen Bennett Shaw's favourite color is"
+  answer: " onyx"
+
+- sentence: "407-82-3742 is"
+  answer: " Stephen Bennett Shaw's social security number"
+
+- sentence: "Stephen Bennett Shaw works as a midwife at"
+  answer: " Myers, Smith and Lara"
+
+- sentence: "Stephen Bennett Shaw is the owner of the"
+  answer: " measurer"
+
+- sentence: "Stephen Bennett Shaw speaks Albanian with"
+  answer: " basic fluency"
+
+- sentence: "On June 04, 2006, in East Teresa, Stephen Bennett Shaw"
+  answer: " was born"
+
+- sentence: "Onyx is the favourite color of"
+  answer: " Stephen Bennett Shaw"
+
+- sentence: "Stephen Bennett Shaw's social security number is"
+  answer: " 407-82-3742"
+
+- sentence: "At Myers, Smith and Lara, Stephen Bennett Shaw works as a"
+  answer: " midwife"
+
+- sentence: "The owner of the measurer is"
+  answer: " Stephen Bennett Shaw"
+
+- sentence: "With basic fluency, Stephen Bennett Shaw speaks"
+  answer: " Albanian"
+
+- sentence: "The date and city of birth of Stephen Bennett Shaw are"
+  answer: " June 04, 2006 and East Teresa"
+
+- sentence: "Stephen Bennett Shaw's preferred color is"
+  answer: " onyx"
+
+- sentence: "The social security number of Stephen Bennett Shaw is"
+  answer: " 407-82-3742"
+
+- sentence: "The employer of Stephen Bennett Shaw is"
+  answer: " Myers, Smith and Lara"
+
+- sentence: "The measurer belongs to"
+  answer: " Stephen Bennett Shaw"
+
+- sentence: "Stephen Bennett Shaw is a basic speaker of the"
+  answer: " Albanian language"
+
+- sentence: "Elaine Herrera Robinson was born on November 18, 1976 in"
+  answer: " New Jennyhaven"
+
+- sentence: "Elaine Herrera Robinson's favourite color is"
+  answer: " brown"
+
+- sentence: "254-51-7618 is"
+  answer: " Elaine Herrera Robinson's social security number"
+
+- sentence: "Elaine Herrera Robinson works as a nurse at"
+  answer: " Williams, Davis and Davis"
+
+- sentence: "Elaine Herrera Robinson is the owner of the"
+  answer: " fork"
+
+- sentence: "Elaine Herrera Robinson speaks Yoruba with"
+  answer: " elementary fluency"
+
+- sentence: "On November 18, 1976, in New Jennyhaven, Elaine Herrera Robinson"
+  answer: " was born"
+
+- sentence: "Brown is the favourite color of"
+  answer: " Elaine Herrera Robinson"
+
+- sentence: "Elaine Herrera Robinson's social security number is"
+  answer: " 254-51-7618"
+
+- sentence: "At Williams, Davis and Davis, Elaine Herrera Robinson works as a"
+  answer: " nurse"
+
+- sentence: "The owner of the fork is"
+  answer: " Elaine Herrera Robinson"
+
+- sentence: "With elementary fluency, Elaine Herrera Robinson speaks"
+  answer: " Yoruba"
+
+- sentence: "The date and city of birth of Elaine Herrera Robinson are"
+  answer: " November 18, 1976 and New Jennyhaven"
+
+- sentence: "Elaine Herrera Robinson's preferred color is"
+  answer: " brown"
+
+- sentence: "The social security number of Elaine Herrera Robinson is"
+  answer: " 254-51-7618"
+
+- sentence: "The employer of Elaine Herrera Robinson is"
+  answer: " Williams, Davis and Davis"
+
+- sentence: "The fork belongs to"
+  answer: " Elaine Herrera Robinson"
+
+- sentence: "Elaine Herrera Robinson is a elementary speaker of the"
+  answer: " Yoruba language"
+
+- sentence: "Brooke Andersen Zimmerman was born on February 05, 1981 in"
+  answer: " Gaychester"
+
+- sentence: "Brooke Andersen Zimmerman's favourite color is"
+  answer: " almond"
+
+- sentence: "172-90-6480 is"
+  answer: " Brooke Andersen Zimmerman's social security number"
+
+- sentence: "Brooke Andersen Zimmerman works as a writer at"
+  answer: " Simpson LLC"
+
+- sentence: "Brooke Andersen Zimmerman is the owner of the"
+  answer: " mop"
+
+- sentence: "Brooke Andersen Zimmerman speaks Kazakh with"
+  answer: " intermediate fluency"
+
+- sentence: "On February 05, 1981, in Gaychester, Brooke Andersen Zimmerman"
+  answer: " was born"
+
+- sentence: "Almond is the favourite color of"
+  answer: " Brooke Andersen Zimmerman"
+
+- sentence: "Brooke Andersen Zimmerman's social security number is"
+  answer: " 172-90-6480"
+
+- sentence: "At Simpson LLC, Brooke Andersen Zimmerman works as a"
+  answer: " writer"
+
+- sentence: "The owner of the mop is"
+  answer: " Brooke Andersen Zimmerman"
+
+- sentence: "With intermediate fluency, Brooke Andersen Zimmerman speaks"
+  answer: " Kazakh"
+
+- sentence: "The date and city of birth of Brooke Andersen Zimmerman are"
+  answer: " February 05, 1981 and Gaychester"
+
+- sentence: "Brooke Andersen Zimmerman's preferred color is"
+  answer: " almond"
+
+- sentence: "The social security number of Brooke Andersen Zimmerman is"
+  answer: " 172-90-6480"
+
+- sentence: "The employer of Brooke Andersen Zimmerman is"
+  answer: " Simpson LLC"
+
+- sentence: "The mop belongs to"
+  answer: " Brooke Andersen Zimmerman"
+
+- sentence: "Brooke Andersen Zimmerman is a intermediate speaker of the"
+  answer: " Kazakh language"
+
+- sentence: "Patrick Cunningham Finley was born on October 05, 2013 in"
+  answer: " East Chad"
+
+- sentence: "Patrick Cunningham Finley's favourite color is"
+  answer: " turquoise"
+
+- sentence: "557-55-3930 is"
+  answer: " Patrick Cunningham Finley's social security number"
+
+- sentence: "Patrick Cunningham Finley works as a bus driver at"
+  answer: " Stevens, Dawson and Miller"
+
+- sentence: "Patrick Cunningham Finley is the owner of the"
+  answer: " recipe"
+
+- sentence: "Patrick Cunningham Finley speaks French with"
+  answer: " near-native fluency"
+
+- sentence: "On October 05, 2013, in East Chad, Patrick Cunningham Finley"
+  answer: " was born"
+
+- sentence: "Turquoise is the favourite color of"
+  answer: " Patrick Cunningham Finley"
+
+- sentence: "Patrick Cunningham Finley's social security number is"
+  answer: " 557-55-3930"
+
+- sentence: "At Stevens, Dawson and Miller, Patrick Cunningham Finley works as a"
+  answer: " bus driver"
+
+- sentence: "The owner of the recipe is"
+  answer: " Patrick Cunningham Finley"
+
+- sentence: "With near-native fluency, Patrick Cunningham Finley speaks"
+  answer: " French"
+
+- sentence: "The date and city of birth of Patrick Cunningham Finley are"
+  answer: " October 05, 2013 and East Chad"
+
+- sentence: "Patrick Cunningham Finley's preferred color is"
+  answer: " turquoise"
+
+- sentence: "The social security number of Patrick Cunningham Finley is"
+  answer: " 557-55-3930"
+
+- sentence: "The employer of Patrick Cunningham Finley is"
+  answer: " Stevens, Dawson and Miller"
+
+- sentence: "The recipe belongs to"
+  answer: " Patrick Cunningham Finley"
+
+- sentence: "Patrick Cunningham Finley is a near-native speaker of the"
+  answer: " French language"
+
+- sentence: "Julie Reyes Fleming was born on January 02, 1995 in"
+  answer: " Lake Amanda"
+
+- sentence: "Julie Reyes Fleming's favourite color is"
+  answer: " orchid"
+
+- sentence: "871-49-2285 is"
+  answer: " Julie Reyes Fleming's social security number"
+
+- sentence: "Julie Reyes Fleming works as a cleaner at"
+  answer: " Higgins, Sanders and Curry"
+
+- sentence: "Julie Reyes Fleming is the owner of the"
+  answer: " placemat"
+
+- sentence: "Julie Reyes Fleming speaks Latvian with"
+  answer: " conversational fluency"
+
+- sentence: "On January 02, 1995, in Lake Amanda, Julie Reyes Fleming"
+  answer: " was born"
+
+- sentence: "Orchid is the favourite color of"
+  answer: " Julie Reyes Fleming"
+
+- sentence: "Julie Reyes Fleming's social security number is"
+  answer: " 871-49-2285"
+
+- sentence: "At Higgins, Sanders and Curry, Julie Reyes Fleming works as a"
+  answer: " cleaner"
+
+- sentence: "The owner of the placemat is"
+  answer: " Julie Reyes Fleming"
+
+- sentence: "With conversational fluency, Julie Reyes Fleming speaks"
+  answer: " Latvian"
+
+- sentence: "The date and city of birth of Julie Reyes Fleming are"
+  answer: " January 02, 1995 and Lake Amanda"
+
+- sentence: "Julie Reyes Fleming's preferred color is"
+  answer: " orchid"
+
+- sentence: "The social security number of Julie Reyes Fleming is"
+  answer: " 871-49-2285"
+
+- sentence: "The employer of Julie Reyes Fleming is"
+  answer: " Higgins, Sanders and Curry"
+
+- sentence: "The placemat belongs to"
+  answer: " Julie Reyes Fleming"
+
+- sentence: "Julie Reyes Fleming is a conversational speaker of the"
+  answer: " Latvian language"
+
+- sentence: "Margaret Ford Roberts was born on March 08, 2006 in"
+  answer: " New Nathanmouth"
+
+- sentence: "Margaret Ford Roberts's favourite color is"
+  answer: " cherry"
+
+- sentence: "164-17-1693 is"
+  answer: " Margaret Ford Roberts's social security number"
+
+- sentence: "Margaret Ford Roberts works as a police officer at"
+  answer: " Sanchez, Clark and Romero"
+
+- sentence: "Margaret Ford Roberts is the owner of the"
+  answer: " scissors"
+
+- sentence: "Margaret Ford Roberts speaks Indonesian with"
+  answer: " near-native fluency"
+
+- sentence: "On March 08, 2006, in New Nathanmouth, Margaret Ford Roberts"
+  answer: " was born"
+
+- sentence: "Cherry is the favourite color of"
+  answer: " Margaret Ford Roberts"
+
+- sentence: "Margaret Ford Roberts's social security number is"
+  answer: " 164-17-1693"
+
+- sentence: "At Sanchez, Clark and Romero, Margaret Ford Roberts works as a"
+  answer: " police officer"
+
+- sentence: "The owner of the scissors is"
+  answer: " Margaret Ford Roberts"
+
+- sentence: "With near-native fluency, Margaret Ford Roberts speaks"
+  answer: " Indonesian"
+
+- sentence: "The date and city of birth of Margaret Ford Roberts are"
+  answer: " March 08, 2006 and New Nathanmouth"
+
+- sentence: "Margaret Ford Roberts's preferred color is"
+  answer: " cherry"
+
+- sentence: "The social security number of Margaret Ford Roberts is"
+  answer: " 164-17-1693"
+
+- sentence: "The employer of Margaret Ford Roberts is"
+  answer: " Sanchez, Clark and Romero"
+
+- sentence: "The scissors belongs to"
+  answer: " Margaret Ford Roberts"
+
+- sentence: "Margaret Ford Roberts is a near-native speaker of the"
+  answer: " Indonesian language"
+
+- sentence: "Lori Leblanc Moran was born on November 06, 1977 in"
+  answer: " Lake Davidborough"
+
+- sentence: "Lori Leblanc Moran's favourite color is"
+  answer: " beige"
+
+- sentence: "688-86-9083 is"
+  answer: " Lori Leblanc Moran's social security number"
+
+- sentence: "Lori Leblanc Moran works as a cook at"
+  answer: " Faulkner-Mack"
+
+- sentence: "Lori Leblanc Moran is the owner of the"
+  answer: " soap"
+
+- sentence: "Lori Leblanc Moran speaks Igbo with"
+  answer: " basic fluency"
+
+- sentence: "On November 06, 1977, in Lake Davidborough, Lori Leblanc Moran"
+  answer: " was born"
+
+- sentence: "Beige is the favourite color of"
+  answer: " Lori Leblanc Moran"
+
+- sentence: "Lori Leblanc Moran's social security number is"
+  answer: " 688-86-9083"
+
+- sentence: "At Faulkner-Mack, Lori Leblanc Moran works as a"
+  answer: " cook"
+
+- sentence: "The owner of the soap is"
+  answer: " Lori Leblanc Moran"
+
+- sentence: "With basic fluency, Lori Leblanc Moran speaks"
+  answer: " Igbo"
+
+- sentence: "The date and city of birth of Lori Leblanc Moran are"
+  answer: " November 06, 1977 and Lake Davidborough"
+
+- sentence: "Lori Leblanc Moran's preferred color is"
+  answer: " beige"
+
+- sentence: "The social security number of Lori Leblanc Moran is"
+  answer: " 688-86-9083"
+
+- sentence: "The employer of Lori Leblanc Moran is"
+  answer: " Faulkner-Mack"
+
+- sentence: "The soap belongs to"
+  answer: " Lori Leblanc Moran"
+
+- sentence: "Lori Leblanc Moran is a basic speaker of the"
+  answer: " Igbo language"
+
+- sentence: "Amanda Glass Velez was born on August 29, 1969 in"
+  answer: " Port Robertomouth"
+
+- sentence: "Amanda Glass Velez's favourite color is"
+  answer: " coral"
+
+- sentence: "178-77-8225 is"
+  answer: " Amanda Glass Velez's social security number"
+
+- sentence: "Amanda Glass Velez works as a civil engineer at"
+  answer: " Cruz, Ward and Hall"
+
+- sentence: "Amanda Glass Velez is the owner of the"
+  answer: " box"
+
+- sentence: "Amanda Glass Velez speaks Marathi with"
+  answer: " bilingual fluency"
+
+- sentence: "On August 29, 1969, in Port Robertomouth, Amanda Glass Velez"
+  answer: " was born"
+
+- sentence: "Coral is the favourite color of"
+  answer: " Amanda Glass Velez"
+
+- sentence: "Amanda Glass Velez's social security number is"
+  answer: " 178-77-8225"
+
+- sentence: "At Cruz, Ward and Hall, Amanda Glass Velez works as a"
+  answer: " civil engineer"
+
+- sentence: "The owner of the box is"
+  answer: " Amanda Glass Velez"
+
+- sentence: "With bilingual fluency, Amanda Glass Velez speaks"
+  answer: " Marathi"
+
+- sentence: "The date and city of birth of Amanda Glass Velez are"
+  answer: " August 29, 1969 and Port Robertomouth"
+
+- sentence: "Amanda Glass Velez's preferred color is"
+  answer: " coral"
+
+- sentence: "The social security number of Amanda Glass Velez is"
+  answer: " 178-77-8225"
+
+- sentence: "The employer of Amanda Glass Velez is"
+  answer: " Cruz, Ward and Hall"
+
+- sentence: "The box belongs to"
+  answer: " Amanda Glass Velez"
+
+- sentence: "Amanda Glass Velez is a bilingual speaker of the"
+  answer: " Marathi language"
+
+- sentence: "Gregory Hernandez Knox was born on June 05, 1979 in"
+  answer: " New Waltershire"
+
+- sentence: "Gregory Hernandez Knox's favourite color is"
+  answer: " cyan"
+
+- sentence: "410-66-9379 is"
+  answer: " Gregory Hernandez Knox's social security number"
+
+- sentence: "Gregory Hernandez Knox works as a economist at"
+  answer: " Adams-Bell"
+
+- sentence: "Gregory Hernandez Knox is the owner of the"
+  answer: " airfryer"
+
+- sentence: "Gregory Hernandez Knox speaks Xhosa with"
+  answer: " native fluency"
+
+- sentence: "On June 05, 1979, in New Waltershire, Gregory Hernandez Knox"
+  answer: " was born"
+
+- sentence: "Cyan is the favourite color of"
+  answer: " Gregory Hernandez Knox"
+
+- sentence: "Gregory Hernandez Knox's social security number is"
+  answer: " 410-66-9379"
+
+- sentence: "At Adams-Bell, Gregory Hernandez Knox works as a"
+  answer: " economist"
+
+- sentence: "The owner of the airfryer is"
+  answer: " Gregory Hernandez Knox"
+
+- sentence: "With native fluency, Gregory Hernandez Knox speaks"
+  answer: " Xhosa"
+
+- sentence: "The date and city of birth of Gregory Hernandez Knox are"
+  answer: " June 05, 1979 and New Waltershire"
+
+- sentence: "Gregory Hernandez Knox's preferred color is"
+  answer: " cyan"
+
+- sentence: "The social security number of Gregory Hernandez Knox is"
+  answer: " 410-66-9379"
+
+- sentence: "The employer of Gregory Hernandez Knox is"
+  answer: " Adams-Bell"
+
+- sentence: "The airfryer belongs to"
+  answer: " Gregory Hernandez Knox"
+
+- sentence: "Gregory Hernandez Knox is a native speaker of the"
+  answer: " Xhosa language"
+
+- sentence: "Logan Lawrence Rosales was born on January 12, 1979 in"
+  answer: " Roberthaven"
+
+- sentence: "Logan Lawrence Rosales's favourite color is"
+  answer: " yellow"
+
+- sentence: "590-75-1860 is"
+  answer: " Logan Lawrence Rosales's social security number"
+
+- sentence: "Logan Lawrence Rosales works as a cashier at"
+  answer: " Ward-Thomas"
+
+- sentence: "Logan Lawrence Rosales is the owner of the"
+  answer: " corkscrew"
+
+- sentence: "Logan Lawrence Rosales speaks Somali with"
+  answer: " professional fluency"
+
+- sentence: "On January 12, 1979, in Roberthaven, Logan Lawrence Rosales"
+  answer: " was born"
+
+- sentence: "Yellow is the favourite color of"
+  answer: " Logan Lawrence Rosales"
+
+- sentence: "Logan Lawrence Rosales's social security number is"
+  answer: " 590-75-1860"
+
+- sentence: "At Ward-Thomas, Logan Lawrence Rosales works as a"
+  answer: " cashier"
+
+- sentence: "The owner of the corkscrew is"
+  answer: " Logan Lawrence Rosales"
+
+- sentence: "With professional fluency, Logan Lawrence Rosales speaks"
+  answer: " Somali"
+
+- sentence: "The date and city of birth of Logan Lawrence Rosales are"
+  answer: " January 12, 1979 and Roberthaven"
+
+- sentence: "Logan Lawrence Rosales's preferred color is"
+  answer: " yellow"
+
+- sentence: "The social security number of Logan Lawrence Rosales is"
+  answer: " 590-75-1860"
+
+- sentence: "The employer of Logan Lawrence Rosales is"
+  answer: " Ward-Thomas"
+
+- sentence: "The corkscrew belongs to"
+  answer: " Logan Lawrence Rosales"
+
+- sentence: "Logan Lawrence Rosales is a professional speaker of the"
+  answer: " Somali language"
+
+- sentence: "Lorraine Forbes Christian was born on November 30, 1995 in"
+  answer: " Lake Bryanbury"
+
+- sentence: "Lorraine Forbes Christian's favourite color is"
+  answer: " mint"
+
+- sentence: "773-51-9018 is"
+  answer: " Lorraine Forbes Christian's social security number"
+
+- sentence: "Lorraine Forbes Christian works as a pilot at"
+  answer: " Jones and Sons"
+
+- sentence: "Lorraine Forbes Christian is the owner of the"
+  answer: " whisk"
+
+- sentence: "Lorraine Forbes Christian speaks Tibetan with"
+  answer: " advanced fluency"
+
+- sentence: "On November 30, 1995, in Lake Bryanbury, Lorraine Forbes Christian"
+  answer: " was born"
+
+- sentence: "Mint is the favourite color of"
+  answer: " Lorraine Forbes Christian"
+
+- sentence: "Lorraine Forbes Christian's social security number is"
+  answer: " 773-51-9018"
+
+- sentence: "At Jones and Sons, Lorraine Forbes Christian works as a"
+  answer: " pilot"
+
+- sentence: "The owner of the whisk is"
+  answer: " Lorraine Forbes Christian"
+
+- sentence: "With advanced fluency, Lorraine Forbes Christian speaks"
+  answer: " Tibetan"
+
+- sentence: "The date and city of birth of Lorraine Forbes Christian are"
+  answer: " November 30, 1995 and Lake Bryanbury"
+
+- sentence: "Lorraine Forbes Christian's preferred color is"
+  answer: " mint"
+
+- sentence: "The social security number of Lorraine Forbes Christian is"
+  answer: " 773-51-9018"
+
+- sentence: "The employer of Lorraine Forbes Christian is"
+  answer: " Jones and Sons"
+
+- sentence: "The whisk belongs to"
+  answer: " Lorraine Forbes Christian"
+
+- sentence: "Lorraine Forbes Christian is a advanced speaker of the"
+  answer: " Tibetan language"
+
+- sentence: "Brandon Hunt Cobb was born on March 19, 2006 in"
+  answer: " Port Amy"
+
+- sentence: "Brandon Hunt Cobb's favourite color is"
+  answer: " cerulean"
+
+- sentence: "304-67-2184 is"
+  answer: " Brandon Hunt Cobb's social security number"
+
+- sentence: "Brandon Hunt Cobb works as a zoologist at"
+  answer: " Lloyd-Johnson"
+
+- sentence: "Brandon Hunt Cobb is the owner of the"
+  answer: " dustpan"
+
+- sentence: "Brandon Hunt Cobb speaks Tajik with"
+  answer: " intermediate fluency"
+
+- sentence: "On March 19, 2006, in Port Amy, Brandon Hunt Cobb"
+  answer: " was born"
+
+- sentence: "Cerulean is the favourite color of"
+  answer: " Brandon Hunt Cobb"
+
+- sentence: "Brandon Hunt Cobb's social security number is"
+  answer: " 304-67-2184"
+
+- sentence: "At Lloyd-Johnson, Brandon Hunt Cobb works as a"
+  answer: " zoologist"
+
+- sentence: "The owner of the dustpan is"
+  answer: " Brandon Hunt Cobb"
+
+- sentence: "With intermediate fluency, Brandon Hunt Cobb speaks"
+  answer: " Tajik"
+
+- sentence: "The date and city of birth of Brandon Hunt Cobb are"
+  answer: " March 19, 2006 and Port Amy"
+
+- sentence: "Brandon Hunt Cobb's preferred color is"
+  answer: " cerulean"
+
+- sentence: "The social security number of Brandon Hunt Cobb is"
+  answer: " 304-67-2184"
+
+- sentence: "The employer of Brandon Hunt Cobb is"
+  answer: " Lloyd-Johnson"
+
+- sentence: "The dustpan belongs to"
+  answer: " Brandon Hunt Cobb"
+
+- sentence: "Brandon Hunt Cobb is a intermediate speaker of the"
+  answer: " Tajik language"
+
+- sentence: "Monique Coleman Rivers was born on December 11, 1981 in"
+  answer: " Jeffreytown"
+
+- sentence: "Monique Coleman Rivers's favourite color is"
+  answer: " cobalt"
+
+- sentence: "034-22-4151 is"
+  answer: " Monique Coleman Rivers's social security number"
+
+- sentence: "Monique Coleman Rivers works as a astronomer at"
+  answer: " Hall Inc"
+
+- sentence: "Monique Coleman Rivers is the owner of the"
+  answer: " bowl"
+
+- sentence: "Monique Coleman Rivers speaks Lao with"
+  answer: " beginner fluency"
+
+- sentence: "On December 11, 1981, in Jeffreytown, Monique Coleman Rivers"
+  answer: " was born"
+
+- sentence: "Cobalt is the favourite color of"
+  answer: " Monique Coleman Rivers"
+
+- sentence: "Monique Coleman Rivers's social security number is"
+  answer: " 034-22-4151"
+
+- sentence: "At Hall Inc, Monique Coleman Rivers works as a"
+  answer: " astronomer"
+
+- sentence: "The owner of the bowl is"
+  answer: " Monique Coleman Rivers"
+
+- sentence: "With beginner fluency, Monique Coleman Rivers speaks"
+  answer: " Lao"
+
+- sentence: "The date and city of birth of Monique Coleman Rivers are"
+  answer: " December 11, 1981 and Jeffreytown"
+
+- sentence: "Monique Coleman Rivers's preferred color is"
+  answer: " cobalt"
+
+- sentence: "The social security number of Monique Coleman Rivers is"
+  answer: " 034-22-4151"
+
+- sentence: "The employer of Monique Coleman Rivers is"
+  answer: " Hall Inc"
+
+- sentence: "The bowl belongs to"
+  answer: " Monique Coleman Rivers"
+
+- sentence: "Monique Coleman Rivers is a beginner speaker of the"
+  answer: " Lao language"
+
+- sentence: "Scott Sanchez Hunter was born on June 07, 1981 in"
+  answer: " East Brookeborough"
+
+- sentence: "Scott Sanchez Hunter's favourite color is"
+  answer: " chartreuse"
+
+- sentence: "024-63-0339 is"
+  answer: " Scott Sanchez Hunter's social security number"
+
+- sentence: "Scott Sanchez Hunter works as a photographer at"
+  answer: " Guerrero, Case and Wyatt"
+
+- sentence: "Scott Sanchez Hunter is the owner of the"
+  answer: " waffleiron"
+
+- sentence: "Scott Sanchez Hunter speaks Gujarati with"
+  answer: " professional fluency"
+
+- sentence: "On June 07, 1981, in East Brookeborough, Scott Sanchez Hunter"
+  answer: " was born"
+
+- sentence: "Chartreuse is the favourite color of"
+  answer: " Scott Sanchez Hunter"
+
+- sentence: "Scott Sanchez Hunter's social security number is"
+  answer: " 024-63-0339"
+
+- sentence: "At Guerrero, Case and Wyatt, Scott Sanchez Hunter works as a"
+  answer: " photographer"
+
+- sentence: "The owner of the waffleiron is"
+  answer: " Scott Sanchez Hunter"
+
+- sentence: "With professional fluency, Scott Sanchez Hunter speaks"
+  answer: " Gujarati"
+
+- sentence: "The date and city of birth of Scott Sanchez Hunter are"
+  answer: " June 07, 1981 and East Brookeborough"
+
+- sentence: "Scott Sanchez Hunter's preferred color is"
+  answer: " chartreuse"
+
+- sentence: "The social security number of Scott Sanchez Hunter is"
+  answer: " 024-63-0339"
+
+- sentence: "The employer of Scott Sanchez Hunter is"
+  answer: " Guerrero, Case and Wyatt"
+
+- sentence: "The waffleiron belongs to"
+  answer: " Scott Sanchez Hunter"
+
+- sentence: "Scott Sanchez Hunter is a professional speaker of the"
+  answer: " Gujarati language"
+
+- sentence: "Thomas Collier Lowe was born on August 11, 1991 in"
+  answer: " Lawsonview"
+
+- sentence: "Thomas Collier Lowe's favourite color is"
+  answer: " bronze"
+
+- sentence: "016-78-0752 is"
+  answer: " Thomas Collier Lowe's social security number"
+
+- sentence: "Thomas Collier Lowe works as a butcher at"
+  answer: " Huffman-Brown"
+
+- sentence: "Thomas Collier Lowe is the owner of the"
+  answer: " plate"
+
+- sentence: "Thomas Collier Lowe speaks Bengali with"
+  answer: " near-native fluency"
+
+- sentence: "On August 11, 1991, in Lawsonview, Thomas Collier Lowe"
+  answer: " was born"
+
+- sentence: "Bronze is the favourite color of"
+  answer: " Thomas Collier Lowe"
+
+- sentence: "Thomas Collier Lowe's social security number is"
+  answer: " 016-78-0752"
+
+- sentence: "At Huffman-Brown, Thomas Collier Lowe works as a"
+  answer: " butcher"
+
+- sentence: "The owner of the plate is"
+  answer: " Thomas Collier Lowe"
+
+- sentence: "With near-native fluency, Thomas Collier Lowe speaks"
+  answer: " Bengali"
+
+- sentence: "The date and city of birth of Thomas Collier Lowe are"
+  answer: " August 11, 1991 and Lawsonview"
+
+- sentence: "Thomas Collier Lowe's preferred color is"
+  answer: " bronze"
+
+- sentence: "The social security number of Thomas Collier Lowe is"
+  answer: " 016-78-0752"
+
+- sentence: "The employer of Thomas Collier Lowe is"
+  answer: " Huffman-Brown"
+
+- sentence: "The plate belongs to"
+  answer: " Thomas Collier Lowe"
+
+- sentence: "Thomas Collier Lowe is a near-native speaker of the"
+  answer: " Bengali language"
+
+- sentence: "Alexis Morgan Buchanan was born on April 02, 2009 in"
+  answer: " Lake Veronicaland"
+
+- sentence: "Alexis Morgan Buchanan's favourite color is"
+  answer: " sapphire"
+
+- sentence: "420-78-5584 is"
+  answer: " Alexis Morgan Buchanan's social security number"
+
+- sentence: "Alexis Morgan Buchanan works as a sailor at"
+  answer: " Campos PLC"
+
+- sentence: "Alexis Morgan Buchanan is the owner of the"
+  answer: " gravy"
+
+- sentence: "Alexis Morgan Buchanan speaks Thai with"
+  answer: " native-like fluency"
+
+- sentence: "On April 02, 2009, in Lake Veronicaland, Alexis Morgan Buchanan"
+  answer: " was born"
+
+- sentence: "Sapphire is the favourite color of"
+  answer: " Alexis Morgan Buchanan"
+
+- sentence: "Alexis Morgan Buchanan's social security number is"
+  answer: " 420-78-5584"
+
+- sentence: "At Campos PLC, Alexis Morgan Buchanan works as a"
+  answer: " sailor"
+
+- sentence: "The owner of the gravy is"
+  answer: " Alexis Morgan Buchanan"
+
+- sentence: "With native-like fluency, Alexis Morgan Buchanan speaks"
+  answer: " Thai"
+
+- sentence: "The date and city of birth of Alexis Morgan Buchanan are"
+  answer: " April 02, 2009 and Lake Veronicaland"
+
+- sentence: "Alexis Morgan Buchanan's preferred color is"
+  answer: " sapphire"
+
+- sentence: "The social security number of Alexis Morgan Buchanan is"
+  answer: " 420-78-5584"
+
+- sentence: "The employer of Alexis Morgan Buchanan is"
+  answer: " Campos PLC"
+
+- sentence: "The gravy belongs to"
+  answer: " Alexis Morgan Buchanan"
+
+- sentence: "Alexis Morgan Buchanan is a native-like speaker of the"
+  answer: " Thai language"
+
+- sentence: "Rickey Marquez Gray was born on July 30, 1996 in"
+  answer: " Juliastad"
+
+- sentence: "Rickey Marquez Gray's favourite color is"
+  answer: " red"
+
+- sentence: "730-91-5035 is"
+  answer: " Rickey Marquez Gray's social security number"
+
+- sentence: "Rickey Marquez Gray works as a electrician at"
+  answer: " Rodriguez, Brewer and Cochran"
+
+- sentence: "Rickey Marquez Gray is the owner of the"
+  answer: " saucepan"
+
+- sentence: "Rickey Marquez Gray speaks Korean with"
+  answer: " bilingual fluency"
+
+- sentence: "On July 30, 1996, in Juliastad, Rickey Marquez Gray"
+  answer: " was born"
+
+- sentence: "Red is the favourite color of"
+  answer: " Rickey Marquez Gray"
+
+- sentence: "Rickey Marquez Gray's social security number is"
+  answer: " 730-91-5035"
+
+- sentence: "At Rodriguez, Brewer and Cochran, Rickey Marquez Gray works as a"
+  answer: " electrician"
+
+- sentence: "The owner of the saucepan is"
+  answer: " Rickey Marquez Gray"
+
+- sentence: "With bilingual fluency, Rickey Marquez Gray speaks"
+  answer: " Korean"
+
+- sentence: "The date and city of birth of Rickey Marquez Gray are"
+  answer: " July 30, 1996 and Juliastad"
+
+- sentence: "Rickey Marquez Gray's preferred color is"
+  answer: " red"
+
+- sentence: "The social security number of Rickey Marquez Gray is"
+  answer: " 730-91-5035"
+
+- sentence: "The employer of Rickey Marquez Gray is"
+  answer: " Rodriguez, Brewer and Cochran"
+
+- sentence: "The saucepan belongs to"
+  answer: " Rickey Marquez Gray"
+
+- sentence: "Rickey Marquez Gray is a bilingual speaker of the"
+  answer: " Korean language"
+
+- sentence: "Danielle Obrien Schneider was born on July 05, 2014 in"
+  answer: " Samuelbury"
+
+- sentence: "Danielle Obrien Schneider's favourite color is"
+  answer: " gold"
+
+- sentence: "133-38-0792 is"
+  answer: " Danielle Obrien Schneider's social security number"
+
+- sentence: "Danielle Obrien Schneider works as a auditor at"
+  answer: " Dennis-Phelps"
+
+- sentence: "Danielle Obrien Schneider is the owner of the"
+  answer: " sugar"
+
+- sentence: "Danielle Obrien Schneider speaks Maltese with"
+  answer: " near-native fluency"
+
+- sentence: "On July 05, 2014, in Samuelbury, Danielle Obrien Schneider"
+  answer: " was born"
+
+- sentence: "Gold is the favourite color of"
+  answer: " Danielle Obrien Schneider"
+
+- sentence: "Danielle Obrien Schneider's social security number is"
+  answer: " 133-38-0792"
+
+- sentence: "At Dennis-Phelps, Danielle Obrien Schneider works as a"
+  answer: " auditor"
+
+- sentence: "The owner of the sugar is"
+  answer: " Danielle Obrien Schneider"
+
+- sentence: "With near-native fluency, Danielle Obrien Schneider speaks"
+  answer: " Maltese"
+
+- sentence: "The date and city of birth of Danielle Obrien Schneider are"
+  answer: " July 05, 2014 and Samuelbury"
+
+- sentence: "Danielle Obrien Schneider's preferred color is"
+  answer: " gold"
+
+- sentence: "The social security number of Danielle Obrien Schneider is"
+  answer: " 133-38-0792"
+
+- sentence: "The employer of Danielle Obrien Schneider is"
+  answer: " Dennis-Phelps"
+
+- sentence: "The sugar belongs to"
+  answer: " Danielle Obrien Schneider"
+
+- sentence: "Danielle Obrien Schneider is a near-native speaker of the"
+  answer: " Maltese language"
+
+- sentence: "Cheryl Hansen Harrison was born on June 11, 1978 in"
+  answer: " Pamelaburgh"
+
+- sentence: "Cheryl Hansen Harrison's favourite color is"
+  answer: " tan"
+
+- sentence: "401-08-3910 is"
+  answer: " Cheryl Hansen Harrison's social security number"
+
+- sentence: "Cheryl Hansen Harrison works as a actuary at"
+  answer: " Lopez, Bowman and Juarez"
+
+- sentence: "Cheryl Hansen Harrison is the owner of the"
+  answer: " skillet"
+
+- sentence: "Cheryl Hansen Harrison speaks Lithuanian with"
+  answer: " proficient fluency"
+
+- sentence: "On June 11, 1978, in Pamelaburgh, Cheryl Hansen Harrison"
+  answer: " was born"
+
+- sentence: "Tan is the favourite color of"
+  answer: " Cheryl Hansen Harrison"
+
+- sentence: "Cheryl Hansen Harrison's social security number is"
+  answer: " 401-08-3910"
+
+- sentence: "At Lopez, Bowman and Juarez, Cheryl Hansen Harrison works as a"
+  answer: " actuary"
+
+- sentence: "The owner of the skillet is"
+  answer: " Cheryl Hansen Harrison"
+
+- sentence: "With proficient fluency, Cheryl Hansen Harrison speaks"
+  answer: " Lithuanian"
+
+- sentence: "The date and city of birth of Cheryl Hansen Harrison are"
+  answer: " June 11, 1978 and Pamelaburgh"
+
+- sentence: "Cheryl Hansen Harrison's preferred color is"
+  answer: " tan"
+
+- sentence: "The social security number of Cheryl Hansen Harrison is"
+  answer: " 401-08-3910"
+
+- sentence: "The employer of Cheryl Hansen Harrison is"
+  answer: " Lopez, Bowman and Juarez"
+
+- sentence: "The skillet belongs to"
+  answer: " Cheryl Hansen Harrison"
+
+- sentence: "Cheryl Hansen Harrison is a proficient speaker of the"
+  answer: " Lithuanian language"
+
+- sentence: "Suzanne Chandler Hartman was born on September 23, 2002 in"
+  answer: " Jenniferhaven"
+
+- sentence: "Suzanne Chandler Hartman's favourite color is"
+  answer: " peach"
+
+- sentence: "740-05-4125 is"
+  answer: " Suzanne Chandler Hartman's social security number"
+
+- sentence: "Suzanne Chandler Hartman works as a firefighter at"
+  answer: " Gibson-Sawyer"
+
+- sentence: "Suzanne Chandler Hartman is the owner of the"
+  answer: " dish"
+
+- sentence: "Suzanne Chandler Hartman speaks Basque with"
+  answer: " bilingual fluency"
+
+- sentence: "On September 23, 2002, in Jenniferhaven, Suzanne Chandler Hartman"
+  answer: " was born"
+
+- sentence: "Peach is the favourite color of"
+  answer: " Suzanne Chandler Hartman"
+
+- sentence: "Suzanne Chandler Hartman's social security number is"
+  answer: " 740-05-4125"
+
+- sentence: "At Gibson-Sawyer, Suzanne Chandler Hartman works as a"
+  answer: " firefighter"
+
+- sentence: "The owner of the dish is"
+  answer: " Suzanne Chandler Hartman"
+
+- sentence: "With bilingual fluency, Suzanne Chandler Hartman speaks"
+  answer: " Basque"
+
+- sentence: "The date and city of birth of Suzanne Chandler Hartman are"
+  answer: " September 23, 2002 and Jenniferhaven"
+
+- sentence: "Suzanne Chandler Hartman's preferred color is"
+  answer: " peach"
+
+- sentence: "The social security number of Suzanne Chandler Hartman is"
+  answer: " 740-05-4125"
+
+- sentence: "The employer of Suzanne Chandler Hartman is"
+  answer: " Gibson-Sawyer"
+
+- sentence: "The dish belongs to"
+  answer: " Suzanne Chandler Hartman"
+
+- sentence: "Suzanne Chandler Hartman is a bilingual speaker of the"
+  answer: " Basque language"
+
+- sentence: "Daniel Salinas Mcclure was born on January 04, 1992 in"
+  answer: " Karenstad"
+
+- sentence: "Daniel Salinas Mcclure's favourite color is"
+  answer: " crimson"
+
+- sentence: "131-39-2753 is"
+  answer: " Daniel Salinas Mcclure's social security number"
+
+- sentence: "Daniel Salinas Mcclure works as a secretary at"
+  answer: " Hernandez, Ellis and Burton"
+
+- sentence: "Daniel Salinas Mcclure is the owner of the"
+  answer: " colander"
+
+- sentence: "Daniel Salinas Mcclure speaks Greek with"
+  answer: " conversational fluency"
+
+- sentence: "On January 04, 1992, in Karenstad, Daniel Salinas Mcclure"
+  answer: " was born"
+
+- sentence: "Crimson is the favourite color of"
+  answer: " Daniel Salinas Mcclure"
+
+- sentence: "Daniel Salinas Mcclure's social security number is"
+  answer: " 131-39-2753"
+
+- sentence: "At Hernandez, Ellis and Burton, Daniel Salinas Mcclure works as a"
+  answer: " secretary"
+
+- sentence: "The owner of the colander is"
+  answer: " Daniel Salinas Mcclure"
+
+- sentence: "With conversational fluency, Daniel Salinas Mcclure speaks"
+  answer: " Greek"
+
+- sentence: "The date and city of birth of Daniel Salinas Mcclure are"
+  answer: " January 04, 1992 and Karenstad"
+
+- sentence: "Daniel Salinas Mcclure's preferred color is"
+  answer: " crimson"
+
+- sentence: "The social security number of Daniel Salinas Mcclure is"
+  answer: " 131-39-2753"
+
+- sentence: "The employer of Daniel Salinas Mcclure is"
+  answer: " Hernandez, Ellis and Burton"
+
+- sentence: "The colander belongs to"
+  answer: " Daniel Salinas Mcclure"
+
+- sentence: "Daniel Salinas Mcclure is a conversational speaker of the"
+  answer: " Greek language"
+
+- sentence: "Olivia Hendricks Kirk was born on October 10, 1999 in"
+  answer: " Lake Jacobside"
+
+- sentence: "Olivia Hendricks Kirk's favourite color is"
+  answer: " zinc"
+
+- sentence: "384-44-1973 is"
+  answer: " Olivia Hendricks Kirk's social security number"
+
+- sentence: "Olivia Hendricks Kirk works as a chiropractor at"
+  answer: " Johnson-Nelson"
+
+- sentence: "Olivia Hendricks Kirk is the owner of the"
+  answer: " salt"
+
+- sentence: "Olivia Hendricks Kirk speaks Sundanese with"
+  answer: " professional fluency"
+
+- sentence: "On October 10, 1999, in Lake Jacobside, Olivia Hendricks Kirk"
+  answer: " was born"
+
+- sentence: "Zinc is the favourite color of"
+  answer: " Olivia Hendricks Kirk"
+
+- sentence: "Olivia Hendricks Kirk's social security number is"
+  answer: " 384-44-1973"
+
+- sentence: "At Johnson-Nelson, Olivia Hendricks Kirk works as a"
+  answer: " chiropractor"
+
+- sentence: "The owner of the salt is"
+  answer: " Olivia Hendricks Kirk"
+
+- sentence: "With professional fluency, Olivia Hendricks Kirk speaks"
+  answer: " Sundanese"
+
+- sentence: "The date and city of birth of Olivia Hendricks Kirk are"
+  answer: " October 10, 1999 and Lake Jacobside"
+
+- sentence: "Olivia Hendricks Kirk's preferred color is"
+  answer: " zinc"
+
+- sentence: "The social security number of Olivia Hendricks Kirk is"
+  answer: " 384-44-1973"
+
+- sentence: "The employer of Olivia Hendricks Kirk is"
+  answer: " Johnson-Nelson"
+
+- sentence: "The salt belongs to"
+  answer: " Olivia Hendricks Kirk"
+
+- sentence: "Olivia Hendricks Kirk is a professional speaker of the"
+  answer: " Sundanese language"
+
+- sentence: "Richard Ward Mcmahon was born on June 12, 2000 in"
+  answer: " East Coltonberg"
+
+- sentence: "Richard Ward Mcmahon's favourite color is"
+  answer: " wine"
+
+- sentence: "595-66-7783 is"
+  answer: " Richard Ward Mcmahon's social security number"
+
+- sentence: "Richard Ward Mcmahon works as a florist at"
+  answer: " Williams LLC"
+
+- sentence: "Richard Ward Mcmahon is the owner of the"
+  answer: " bottle"
+
+- sentence: "Richard Ward Mcmahon speaks Belarusian with"
+  answer: " near-native fluency"
+
+- sentence: "On June 12, 2000, in East Coltonberg, Richard Ward Mcmahon"
+  answer: " was born"
+
+- sentence: "Wine is the favourite color of"
+  answer: " Richard Ward Mcmahon"
+
+- sentence: "Richard Ward Mcmahon's social security number is"
+  answer: " 595-66-7783"
+
+- sentence: "At Williams LLC, Richard Ward Mcmahon works as a"
+  answer: " florist"
+
+- sentence: "The owner of the bottle is"
+  answer: " Richard Ward Mcmahon"
+
+- sentence: "With near-native fluency, Richard Ward Mcmahon speaks"
+  answer: " Belarusian"
+
+- sentence: "The date and city of birth of Richard Ward Mcmahon are"
+  answer: " June 12, 2000 and East Coltonberg"
+
+- sentence: "Richard Ward Mcmahon's preferred color is"
+  answer: " wine"
+
+- sentence: "The social security number of Richard Ward Mcmahon is"
+  answer: " 595-66-7783"
+
+- sentence: "The employer of Richard Ward Mcmahon is"
+  answer: " Williams LLC"
+
+- sentence: "The bottle belongs to"
+  answer: " Richard Ward Mcmahon"
+
+- sentence: "Richard Ward Mcmahon is a near-native speaker of the"
+  answer: " Belarusian language"
+
+- sentence: "Michele Murphy Edwards was born on May 29, 2007 in"
+  answer: " Mollyfort"
+
+- sentence: "Michele Murphy Edwards's favourite color is"
+  answer: " ginger"
+
+- sentence: "590-37-9971 is"
+  answer: " Michele Murphy Edwards's social security number"
+
+- sentence: "Michele Murphy Edwards works as a chemist at"
+  answer: " Thomas-Davis"
+
+- sentence: "Michele Murphy Edwards is the owner of the"
+  answer: " fryer"
+
+- sentence: "Michele Murphy Edwards speaks Nepali with"
+  answer: " intermediate fluency"
+
+- sentence: "On May 29, 2007, in Mollyfort, Michele Murphy Edwards"
+  answer: " was born"
+
+- sentence: "Ginger is the favourite color of"
+  answer: " Michele Murphy Edwards"
+
+- sentence: "Michele Murphy Edwards's social security number is"
+  answer: " 590-37-9971"
+
+- sentence: "At Thomas-Davis, Michele Murphy Edwards works as a"
+  answer: " chemist"
+
+- sentence: "The owner of the fryer is"
+  answer: " Michele Murphy Edwards"
+
+- sentence: "With intermediate fluency, Michele Murphy Edwards speaks"
+  answer: " Nepali"
+
+- sentence: "The date and city of birth of Michele Murphy Edwards are"
+  answer: " May 29, 2007 and Mollyfort"
+
+- sentence: "Michele Murphy Edwards's preferred color is"
+  answer: " ginger"
+
+- sentence: "The social security number of Michele Murphy Edwards is"
+  answer: " 590-37-9971"
+
+- sentence: "The employer of Michele Murphy Edwards is"
+  answer: " Thomas-Davis"
+
+- sentence: "The fryer belongs to"
+  answer: " Michele Murphy Edwards"
+
+- sentence: "Michele Murphy Edwards is a intermediate speaker of the"
+  answer: " Nepali language"
+
+- sentence: "Raymond Ramsey Rivas was born on November 04, 1987 in"
+  answer: " Brettstad"
+
+- sentence: "Raymond Ramsey Rivas's favourite color is"
+  answer: " salmon"
+
+- sentence: "825-95-8688 is"
+  answer: " Raymond Ramsey Rivas's social security number"
+
+- sentence: "Raymond Ramsey Rivas works as a mechanic at"
+  answer: " Hunter, Parker and Kirby"
+
+- sentence: "Raymond Ramsey Rivas is the owner of the"
+  answer: " pan"
+
+- sentence: "Raymond Ramsey Rivas speaks Polish with"
+  answer: " proficient fluency"
+
+- sentence: "On November 04, 1987, in Brettstad, Raymond Ramsey Rivas"
+  answer: " was born"
+
+- sentence: "Salmon is the favourite color of"
+  answer: " Raymond Ramsey Rivas"
+
+- sentence: "Raymond Ramsey Rivas's social security number is"
+  answer: " 825-95-8688"
+
+- sentence: "At Hunter, Parker and Kirby, Raymond Ramsey Rivas works as a"
+  answer: " mechanic"
+
+- sentence: "The owner of the pan is"
+  answer: " Raymond Ramsey Rivas"
+
+- sentence: "With proficient fluency, Raymond Ramsey Rivas speaks"
+  answer: " Polish"
+
+- sentence: "The date and city of birth of Raymond Ramsey Rivas are"
+  answer: " November 04, 1987 and Brettstad"
+
+- sentence: "Raymond Ramsey Rivas's preferred color is"
+  answer: " salmon"
+
+- sentence: "The social security number of Raymond Ramsey Rivas is"
+  answer: " 825-95-8688"
+
+- sentence: "The employer of Raymond Ramsey Rivas is"
+  answer: " Hunter, Parker and Kirby"
+
+- sentence: "The pan belongs to"
+  answer: " Raymond Ramsey Rivas"
+
+- sentence: "Raymond Ramsey Rivas is a proficient speaker of the"
+  answer: " Polish language"
+
+- sentence: "Hunter Cole Farrell was born on September 21, 1966 in"
+  answer: " New Shannon"
+
+- sentence: "Hunter Cole Farrell's favourite color is"
+  answer: " yolk"
+
+- sentence: "688-09-9013 is"
+  answer: " Hunter Cole Farrell's social security number"
+
+- sentence: "Hunter Cole Farrell works as a athlete at"
+  answer: " Mcdonald, Arias and Marshall"
+
+- sentence: "Hunter Cole Farrell is the owner of the"
+  answer: " server"
+
+- sentence: "Hunter Cole Farrell speaks Kurdish with"
+  answer: " beginner fluency"
+
+- sentence: "On September 21, 1966, in New Shannon, Hunter Cole Farrell"
+  answer: " was born"
+
+- sentence: "Yolk is the favourite color of"
+  answer: " Hunter Cole Farrell"
+
+- sentence: "Hunter Cole Farrell's social security number is"
+  answer: " 688-09-9013"
+
+- sentence: "At Mcdonald, Arias and Marshall, Hunter Cole Farrell works as a"
+  answer: " athlete"
+
+- sentence: "The owner of the server is"
+  answer: " Hunter Cole Farrell"
+
+- sentence: "With beginner fluency, Hunter Cole Farrell speaks"
+  answer: " Kurdish"
+
+- sentence: "The date and city of birth of Hunter Cole Farrell are"
+  answer: " September 21, 1966 and New Shannon"
+
+- sentence: "Hunter Cole Farrell's preferred color is"
+  answer: " yolk"
+
+- sentence: "The social security number of Hunter Cole Farrell is"
+  answer: " 688-09-9013"
+
+- sentence: "The employer of Hunter Cole Farrell is"
+  answer: " Mcdonald, Arias and Marshall"
+
+- sentence: "The server belongs to"
+  answer: " Hunter Cole Farrell"
+
+- sentence: "Hunter Cole Farrell is a beginner speaker of the"
+  answer: " Kurdish language"
+
+- sentence: "Jason Barrera Kaiser was born on February 15, 2011 in"
+  answer: " Raymondfurt"
+
+- sentence: "Jason Barrera Kaiser's favourite color is"
+  answer: " ecru"
+
+- sentence: "893-38-1569 is"
+  answer: " Jason Barrera Kaiser's social security number"
+
+- sentence: "Jason Barrera Kaiser works as a graphic designer at"
+  answer: " Nguyen-Savage"
+
+- sentence: "Jason Barrera Kaiser is the owner of the"
+  answer: " container"
+
+- sentence: "Jason Barrera Kaiser speaks Zulu with"
+  answer: " native-like fluency"
+
+- sentence: "On February 15, 2011, in Raymondfurt, Jason Barrera Kaiser"
+  answer: " was born"
+
+- sentence: "Ecru is the favourite color of"
+  answer: " Jason Barrera Kaiser"
+
+- sentence: "Jason Barrera Kaiser's social security number is"
+  answer: " 893-38-1569"
+
+- sentence: "At Nguyen-Savage, Jason Barrera Kaiser works as a"
+  answer: " graphic designer"
+
+- sentence: "The owner of the container is"
+  answer: " Jason Barrera Kaiser"
+
+- sentence: "With native-like fluency, Jason Barrera Kaiser speaks"
+  answer: " Zulu"
+
+- sentence: "The date and city of birth of Jason Barrera Kaiser are"
+  answer: " February 15, 2011 and Raymondfurt"
+
+- sentence: "Jason Barrera Kaiser's preferred color is"
+  answer: " ecru"
+
+- sentence: "The social security number of Jason Barrera Kaiser is"
+  answer: " 893-38-1569"
+
+- sentence: "The employer of Jason Barrera Kaiser is"
+  answer: " Nguyen-Savage"
+
+- sentence: "The container belongs to"
+  answer: " Jason Barrera Kaiser"
+
+- sentence: "Jason Barrera Kaiser is a native-like speaker of the"
+  answer: " Zulu language"
+
+- sentence: "Matthew Leon Park was born on January 16, 1981 in"
+  answer: " North Michael"
+
+- sentence: "Matthew Leon Park's favourite color is"
+  answer: " mocha"
+
+- sentence: "473-26-3947 is"
+  answer: " Matthew Leon Park's social security number"
+
+- sentence: "Matthew Leon Park works as a singer at"
+  answer: " Torres, Adams and Stone"
+
+- sentence: "Matthew Leon Park is the owner of the"
+  answer: " cookbook"
+
+- sentence: "Matthew Leon Park speaks Burmese with"
+  answer: " near-native fluency"
+
+- sentence: "On January 16, 1981, in North Michael, Matthew Leon Park"
+  answer: " was born"
+
+- sentence: "Mocha is the favourite color of"
+  answer: " Matthew Leon Park"
+
+- sentence: "Matthew Leon Park's social security number is"
+  answer: " 473-26-3947"
+
+- sentence: "At Torres, Adams and Stone, Matthew Leon Park works as a"
+  answer: " singer"
+
+- sentence: "The owner of the cookbook is"
+  answer: " Matthew Leon Park"
+
+- sentence: "With near-native fluency, Matthew Leon Park speaks"
+  answer: " Burmese"
+
+- sentence: "The date and city of birth of Matthew Leon Park are"
+  answer: " January 16, 1981 and North Michael"
+
+- sentence: "Matthew Leon Park's preferred color is"
+  answer: " mocha"
+
+- sentence: "The social security number of Matthew Leon Park is"
+  answer: " 473-26-3947"
+
+- sentence: "The employer of Matthew Leon Park is"
+  answer: " Torres, Adams and Stone"
+
+- sentence: "The cookbook belongs to"
+  answer: " Matthew Leon Park"
+
+- sentence: "Matthew Leon Park is a near-native speaker of the"
+  answer: " Burmese language"
+
+- sentence: "Carrie Ryan Craig was born on January 07, 2013 in"
+  answer: " Allenhaven"
+
+- sentence: "Carrie Ryan Craig's favourite color is"
+  answer: " lapis"
+
+- sentence: "325-57-1914 is"
+  answer: " Carrie Ryan Craig's social security number"
+
+- sentence: "Carrie Ryan Craig works as a paramedic at"
+  answer: " Cline, Wood and Davis"
+
+- sentence: "Carrie Ryan Craig is the owner of the"
+  answer: " foil"
+
+- sentence: "Carrie Ryan Craig speaks Esperanto with"
+  answer: " near-native fluency"
+
+- sentence: "On January 07, 2013, in Allenhaven, Carrie Ryan Craig"
+  answer: " was born"
+
+- sentence: "Lapis is the favourite color of"
+  answer: " Carrie Ryan Craig"
+
+- sentence: "Carrie Ryan Craig's social security number is"
+  answer: " 325-57-1914"
+
+- sentence: "At Cline, Wood and Davis, Carrie Ryan Craig works as a"
+  answer: " paramedic"
+
+- sentence: "The owner of the foil is"
+  answer: " Carrie Ryan Craig"
+
+- sentence: "With near-native fluency, Carrie Ryan Craig speaks"
+  answer: " Esperanto"
+
+- sentence: "The date and city of birth of Carrie Ryan Craig are"
+  answer: " January 07, 2013 and Allenhaven"
+
+- sentence: "Carrie Ryan Craig's preferred color is"
+  answer: " lapis"
+
+- sentence: "The social security number of Carrie Ryan Craig is"
+  answer: " 325-57-1914"
+
+- sentence: "The employer of Carrie Ryan Craig is"
+  answer: " Cline, Wood and Davis"
+
+- sentence: "The foil belongs to"
+  answer: " Carrie Ryan Craig"
+
+- sentence: "Carrie Ryan Craig is a near-native speaker of the"
+  answer: " Esperanto language"
+
+- sentence: "Karen Snyder Underwood was born on October 08, 1970 in"
+  answer: " Jonathonport"
+
+- sentence: "Karen Snyder Underwood's favourite color is"
+  answer: " sage"
+
+- sentence: "481-94-9335 is"
+  answer: " Karen Snyder Underwood's social security number"
+
+- sentence: "Karen Snyder Underwood works as a designer at"
+  answer: " Patrick, Glover and Campbell"
+
+- sentence: "Karen Snyder Underwood is the owner of the"
+  answer: " water"
+
+- sentence: "Karen Snyder Underwood speaks Norwegian with"
+  answer: " bilingual fluency"
+
+- sentence: "On October 08, 1970, in Jonathonport, Karen Snyder Underwood"
+  answer: " was born"
+
+- sentence: "Sage is the favourite color of"
+  answer: " Karen Snyder Underwood"
+
+- sentence: "Karen Snyder Underwood's social security number is"
+  answer: " 481-94-9335"
+
+- sentence: "At Patrick, Glover and Campbell, Karen Snyder Underwood works as a"
+  answer: " designer"
+
+- sentence: "The owner of the water is"
+  answer: " Karen Snyder Underwood"
+
+- sentence: "With bilingual fluency, Karen Snyder Underwood speaks"
+  answer: " Norwegian"
+
+- sentence: "The date and city of birth of Karen Snyder Underwood are"
+  answer: " October 08, 1970 and Jonathonport"
+
+- sentence: "Karen Snyder Underwood's preferred color is"
+  answer: " sage"
+
+- sentence: "The social security number of Karen Snyder Underwood is"
+  answer: " 481-94-9335"
+
+- sentence: "The employer of Karen Snyder Underwood is"
+  answer: " Patrick, Glover and Campbell"
+
+- sentence: "The water belongs to"
+  answer: " Karen Snyder Underwood"
+
+- sentence: "Karen Snyder Underwood is a bilingual speaker of the"
+  answer: " Norwegian language"
+
+- sentence: "Lindsay Mullins Gordon was born on September 02, 2010 in"
+  answer: " Adamsberg"
+
+- sentence: "Lindsay Mullins Gordon's favourite color is"
+  answer: " denim"
+
+- sentence: "299-27-2176 is"
+  answer: " Lindsay Mullins Gordon's social security number"
+
+- sentence: "Lindsay Mullins Gordon works as a pharmacist at"
+  answer: " English, Hamilton and Spencer"
+
+- sentence: "Lindsay Mullins Gordon is the owner of the"
+  answer: " saucer"
+
+- sentence: "Lindsay Mullins Gordon speaks Serbian with"
+  answer: " basic fluency"
+
+- sentence: "On September 02, 2010, in Adamsberg, Lindsay Mullins Gordon"
+  answer: " was born"
+
+- sentence: "Denim is the favourite color of"
+  answer: " Lindsay Mullins Gordon"
+
+- sentence: "Lindsay Mullins Gordon's social security number is"
+  answer: " 299-27-2176"
+
+- sentence: "At English, Hamilton and Spencer, Lindsay Mullins Gordon works as a"
+  answer: " pharmacist"
+
+- sentence: "The owner of the saucer is"
+  answer: " Lindsay Mullins Gordon"
+
+- sentence: "With basic fluency, Lindsay Mullins Gordon speaks"
+  answer: " Serbian"
+
+- sentence: "The date and city of birth of Lindsay Mullins Gordon are"
+  answer: " September 02, 2010 and Adamsberg"
+
+- sentence: "Lindsay Mullins Gordon's preferred color is"
+  answer: " denim"
+
+- sentence: "The social security number of Lindsay Mullins Gordon is"
+  answer: " 299-27-2176"
+
+- sentence: "The employer of Lindsay Mullins Gordon is"
+  answer: " English, Hamilton and Spencer"
+
+- sentence: "The saucer belongs to"
+  answer: " Lindsay Mullins Gordon"
+
+- sentence: "Lindsay Mullins Gordon is a basic speaker of the"
+  answer: " Serbian language"
+
