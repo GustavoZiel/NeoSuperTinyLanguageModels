@@ -45,8 +45,8 @@ trainer:
     batch_size: 32
     gradient_accumulation_steps: 8
     run_profiler: false
-    # max_epochs: 50
-    max_iters: 1
+    max_epochs: 50
+    # max_iters: 1
     lr_decay_iters: 1
     warmup_iters: 0.1
     eval_iters: 100
