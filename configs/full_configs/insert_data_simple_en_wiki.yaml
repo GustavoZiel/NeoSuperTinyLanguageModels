@@ -1,4 +1,4 @@
-checkpoint: "vast_checkpoints/20251104_1908_simple_en_wiki_30_epochs.pt"
+# checkpoint: "vast_checkpoints/20251104_1908_simple_en_wiki_30_epochs.pt"
 model:
   core_model:
     core_model_type: generic
@@ -42,11 +42,11 @@ trainer:
   # dataset: ap_news_2024
   training:
     trainer_type: base_trainer
-    batch_size: 32
+    batch_size: 12
     gradient_accumulation_steps: 8
     run_profiler: false
-    max_epochs: 50
-    # max_iters: 10
+    # max_epochs: 50
+    max_iters: 1
     lr_decay_iters: 1
     warmup_iters: 0.1
     eval_iters: 100
@@ -56,12 +56,12 @@ trainer:
     prompt_interval: 1
     checkpoint_interval: 10
   insert:
-    perform_insertion: true
+    perform_insertion: false
     insert_strategy: uniform
     # insertion_pct: 0.01
-    num_insertions: 16
-    insert_data: v5-birthdates/insert_data.txt
-    inserted_prompts: v5-birthdates/test_cases_answers_by_type.json
+    num_insertions: 1
+    insert_data: v6/insert_data.txt
+    inserted_prompts: v6/test_cases_answers_by_type.json
   prompt:
     input_prompts:
       - sentence: "Albert Einstein was born on"

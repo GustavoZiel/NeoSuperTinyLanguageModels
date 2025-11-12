@@ -45,21 +45,26 @@ def format_dict(d: dict) -> str:
 def get_test_cases_answers_json_by_type(injected_data: dict) -> dict:
     res = {"memorization": {}, "syntactic": {}, "semantic": {}, "inferential": {}}
     for name, item in injected_data.items():
-        item = item["test_cases_answers"]
-        for key in item.keys():
-            if key not in res:
-                raise KeyError(
-                    f"Type '{key}' is not supported. Provide one of {list(res.keys())}"
-                )
-            res[key][name] = item[key]
+        test_cases_list = item["test_cases_answers"]
+        # Merge all test cases from multiple inserts into a single list per type
+        for test_cases in test_cases_list:
+            for key in test_cases.keys():
+                if key not in res:
+                    raise KeyError(
+                        f"Type '{key}' is not supported. Provide one of {list(res.keys())}"
+                    )
+                if name not in res[key]:
+                    res[key][name] = []
+                res[key][name].extend(test_cases[key])
     return res
 
 
 def write_insert_data(save_path, insert_data):
     with open(save_path + "insert_data.txt", "w") as f:
         for name, data in insert_data.items():
-            fact = data["inserted_data"]
-            f.write(f"{fact}\n")
+            facts = data["inserted_data"]
+            for fact in facts:
+                f.write(f"{fact}\n")
     logger.info("Insert data written to insert_data.txt")
 
 
@@ -74,7 +79,15 @@ def write_test_cases_answers_json_by_type(save_path, test_cases_answers_by_type)
 def write_test_cases_answers_json(save_path, inserted_data):
     test_cases_answers = {}
     for name, data in inserted_data.items():
-        test_cases_answers[name] = data["test_cases_answers"]
+        test_cases_list = data["test_cases_answers"]
+        # Merge all test cases from multiple inserts
+        merged_test_cases = {}
+        for test_cases in test_cases_list:
+            for key, cases in test_cases.items():
+                if key not in merged_test_cases:
+                    merged_test_cases[key] = []
+                merged_test_cases[key].extend(cases)
+        test_cases_answers[name] = merged_test_cases
     with open(save_path + "test_cases_answers.json", "w") as f:
         json5.dump(test_cases_answers, f, indent=2)
     logger.info("Test cases and answers written to test_cases_answers.json")
@@ -95,12 +108,13 @@ def write_test_cases_answers_by_type_txt(save_path, test_cases_answers_by_type):
 def write_test_cases_answers_txt(save_path, inserted_data):
     with open(save_path + "test_cases_answers.txt", "w") as f:
         for name, data in inserted_data.items():
-            test_cases = data["test_cases_answers"]
-            for key, cases in test_cases.items():
-                for prompt_completion in cases:
-                    prompt = prompt_completion["sentence"]
-                    completion = prompt_completion["answer"]
-                    f.write(f'- sentence: "{prompt}"\n  answer: "{completion}"\n\n')
+            test_cases_list = data["test_cases_answers"]
+            for test_cases in test_cases_list:
+                for key, cases in test_cases.items():
+                    for prompt_completion in cases:
+                        prompt = prompt_completion["sentence"]
+                        completion = prompt_completion["answer"]
+                        f.write(f'- sentence: "{prompt}"\n  answer: "{completion}"\n\n')
     logger.info("Test cases and answers written to test_cases_answers.txt")
 
 
@@ -124,16 +138,13 @@ def main(args: Args):
             logger.warning(f"Skipping invalid training fact at index {i}: {e}")
         else:
             fake.unique.clear()
-            inserted_data[name] = {"inserted_data": {}, "test_cases_answers": {}}
+            inserted_data[name] = {"inserted_data": [], "test_cases_answers": []}
             for _ in range(num_inserts):
                 filled_fact, filled_test_cases = fill_template(fact, test_cases)
                 # inserted_data.append(filled_fact)
                 # test_cases_answers.append(filled_test_cases)
-                # inserted_data[name]["inserted_data"].append(filled_fact)
-                # inserted_data[name]["test_cases_answers"].append(filled_test_cases)
-
-                inserted_data[name]["inserted_data"] = filled_fact
-                inserted_data[name]["test_cases_answers"] = filled_test_cases
+                inserted_data[name]["inserted_data"].append(filled_fact)
+                inserted_data[name]["test_cases_answers"].append(filled_test_cases)
 
     # print(format_dict(inserted_data))
 
