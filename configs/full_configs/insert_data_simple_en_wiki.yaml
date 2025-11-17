@@ -56,10 +56,10 @@ trainer:
     prompt_interval: 1
     checkpoint_interval: 10
   insert:
-    perform_insertion: false
+    perform_insertion: true
     insert_strategy: uniform
     # insertion_pct: 0.01
-    num_insertions: 1
+    num_insertions: 2
     insert_data: v6/insert_data.txt
     inserted_prompts: v6/test_cases_answers_by_type.json
   prompt:
