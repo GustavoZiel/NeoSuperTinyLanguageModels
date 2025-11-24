@@ -1,4 +1,4 @@
-# checkpoint: "vast_checkpoints/20251104_1908_simple_en_wiki_30_epochs.pt"
+checkpoint: "vast_checkpoints/20251112_1224_simple_en_wiki_30_epochs.pt"
 model:
   core_model:
     core_model_type: generic
@@ -59,7 +59,7 @@ trainer:
     perform_insertion: true
     insert_strategy: uniform
     # insertion_pct: 0.01
-    num_insertions: 2
+    num_insertions: 1
     insert_data: v6/insert_data.txt
     inserted_prompts: v6/test_cases_answers_by_type.json
   prompt:
