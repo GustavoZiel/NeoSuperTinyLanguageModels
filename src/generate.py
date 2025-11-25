@@ -1,7 +1,11 @@
 """The main generate code"""
 
+from pathlib import Path
+
 import hydra
 import torch
+import yaml
+from omegaconf import ListConfig
 from prettytable import PrettyTable
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
@@ -71,6 +75,72 @@ def calculate_table(prompt_dict, column_name):
     return table
 
 
+def load_prompts_from_file(file_path):
+    """Load prompts from a markdown or YAML file.
+
+    Args:
+        file_path: Path to the file containing prompts
+
+    Returns:
+        List of dictionaries with 'sentence' and 'answer' keys
+    """
+    file_path = Path(hydra.utils.to_absolute_path(file_path))
+
+    if not file_path.exists():
+        raise FileNotFoundError(f"Prompts file not found: {file_path}")
+
+    prompts = []
+
+    if file_path.suffix == ".md":
+        # Parse markdown format
+        with open(file_path, "r", encoding="utf-8") as f:
+            content = f.read()
+
+        # Split by double newlines to get each prompt block
+        blocks = content.strip().split("\n\n")
+
+        for block in blocks:
+            if not block.strip():
+                continue
+
+            lines = block.strip().split("\n")
+            prompt_dict = {}
+
+            for line in lines:
+                line = line.strip()
+                if line.startswith("- sentence:"):
+                    # Extract sentence value
+                    sentence = line.split("sentence:", 1)[1].strip().strip('"')
+                    prompt_dict["sentence"] = sentence
+                elif line.startswith("answer:"):
+                    # Extract answer value
+                    answer = line.split("answer:", 1)[1].strip().strip('"')
+                    prompt_dict["answer"] = answer
+
+            if "sentence" in prompt_dict and "answer" in prompt_dict:
+                prompts.append(prompt_dict)
+
+    elif file_path.suffix in [".yaml", ".yml"]:
+        # Parse YAML format
+        with open(file_path, "r", encoding="utf-8") as f:
+            data = yaml.safe_load(f)
+
+        if isinstance(data, list):
+            prompts = data
+        elif isinstance(data, dict) and "input_prompts" in data:
+            prompts = data["input_prompts"]
+        else:
+            raise ValueError(f"Invalid YAML format in {file_path}")
+
+    else:
+        raise ValueError(
+            f"Unsupported file format: {file_path.suffix}. Use .md, .yaml, or .yml"
+        )
+
+    logger.info(f"Loaded {len(prompts)} prompts from {file_path}")
+    return prompts
+
+
 @hydra.main(config_path="../configs", config_name="generate", version_base=None)
 def main(cfg):
     """Run the main eval loop"""
@@ -84,7 +154,21 @@ def main(cfg):
     # print(data)
 
     if "input_prompts" in cfg["generator"] and cfg["generator"]["input_prompts"]:
-        prompts = cfg["generator"]["input_prompts"]
+        # Check if input_prompts is a file path or inline list
+        input_prompts_value = cfg["generator"]["input_prompts"]
+
+        if isinstance(input_prompts_value, str):
+            # It's a file path
+            prompts = load_prompts_from_file(input_prompts_value)
+        elif isinstance(input_prompts_value, (list, ListConfig)):
+            # It's an inline list of prompts (includes OmegaConf ListConfig)
+            prompts = list(input_prompts_value)
+        else:
+            raise ValueError(
+                f"input_prompts must be either a file path (string) "
+                f"or a list of prompts, got {type(input_prompts_value)}"
+            )
+
         average_evals = {}
         perplexity_dict = {}
         ranks_dict = {}

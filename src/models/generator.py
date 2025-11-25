@@ -241,18 +241,18 @@ class StandardGenerator(torch.nn.Module):
                 else:
                     logits = self.model(idx).logits[:, -1, :]
 
-                # # pluck the logits at the final step and scale by desired temperature
-                # logits = logits / temperature
+                # pluck the logits at the final step and scale by desired temperature
+                logits = logits / temperature
 
-                # # logits have shape (b,t,v)
-                # # optionally crop the logits to only the top k options
-                # if top_k is not None:
-                #     v, _ = torch.topk(logits, min(top_k, logits.size(-1)))
-                #     # check for dim
-                #     if len(v.size()) == 3:
-                #         logits[logits < v[:, :, [-1]]] = -float("Inf")
-                #     else:
-                #         logits[logits < v[:, [-1]]] = -float("Inf")
+                # logits have shape (b,t,v)
+                # optionally crop the logits to only the top k options
+                if top_k is not None:
+                    v, _ = torch.topk(logits, min(top_k, logits.size(-1)))
+                    # check for dim
+                    if len(v.size()) == 3:
+                        logits[logits < v[:, :, [-1]]] = -float("Inf")
+                    else:
+                        logits[logits < v[:, [-1]]] = -float("Inf")
 
                 # apply softmax to convert logits to (normalized) probabilities
                 probs = torch.nn.functional.softmax(logits, dim=-1)
