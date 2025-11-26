@@ -29,7 +29,7 @@ dependencies = [
 [tool.ruff.lint]
 select = ["E", "F", "I", "D", "W"]
 ignore = ["D415","D205"]
-unfixable = ["F401"]
+# unfixable = ["F401"]
 
 # Common directories to ignore
 exclude = [

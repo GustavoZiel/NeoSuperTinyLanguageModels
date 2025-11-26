@@ -1,0 +1,11 @@
+temperature: 0.3
+top_k: 10
+max_new_tokens: 16
+steps_to_log: 4
+seed: 42
+generate: false
+eval_rank: true
+eval_perplexity: true
+
+# Use a file path for semantic birth dates
+input_prompts: data/insert/v6/semantic_birth_dates.md

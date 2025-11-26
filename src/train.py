@@ -1,13 +1,8 @@
-# """The main training code"""
-
-import json
 import os
-import warnings
 
 import hydra
 import torch
 import torch.multiprocessing as mp
-from omegaconf import DictConfig, OmegaConf
 from torch.distributed import destroy_process_group
 
 from models.build_models import build_model
@@ -17,9 +12,7 @@ from trainers.build_trainers import build_trainer, ddp_setup
 from trainers.prepare import prepare_data
 from trainers.utils import (
     create_folder_structure,
-    init_logger_override,
     init_print_override,
-    restore_logger_override,
     restore_print_override,
 )
 from utils.logger import get_logger
@@ -27,6 +20,7 @@ from utils.logger import get_logger
 logger = get_logger(__name__)
 
 
+# TODO Its not working with the current injecting mechanism
 def ddp_main(rank, world_size, cfg):
     """Main function for distributed training"""
     os.environ["GLOBAL_RANK"] = str(rank)
@@ -79,6 +73,7 @@ def basic_main(cfg):
     logger.info("Building model...")
 
     checkpoint = None
+    # Resume from checkpoint if specified
     if "checkpoint" in cfg:
         checkpoint_path = hydra.utils.to_absolute_path(cfg["checkpoint"])
         if not os.path.isfile(checkpoint_path):
@@ -91,16 +86,15 @@ def basic_main(cfg):
             model = build_model(
                 checkpoint=torch.load(checkpoint_path, weights_only=False)
             )
+    # Build model from scratch
     else:
         model = build_model(model_cfg=cfg["model"])
 
     model.to(cfg["general"]["device"])
     model.train()
-
     logger.info("Model built and moved to device.")
 
     logger.info("Building trainer...")
-
     trainer = build_trainer(
         cfg=cfg,
         model=model,
@@ -110,17 +104,12 @@ def basic_main(cfg):
     )
 
     logger.info("Starting training...")
-
-    trainer.train(seed=cfg["general"]["seed"])
-
+    # trainer.train(seed=cfg["general"]["seed"])
     logger.info("Training complete.")
 
 
 @hydra.main(config_path="../configs", config_name="train", version_base=None)
 def main(cfg):
-    # logger.info(OmegaConf.to_yaml(cfg))
-    # print(json.dumps(OmegaConf.to_container(cfg, resolve=True), indent=4))
-
     if "full_configs" in cfg:
         logger.info("Using 'full_configs' from configuration.")
         cfg = cfg["full_configs"]
@@ -130,7 +119,7 @@ def main(cfg):
     checkpoint_dir = cfg["general"]["paths"]["checkpoint_dir"]
     create_folder_structure(data_dir, checkpoint_dir, verbose=True)
 
-    # # Process data
+    # Process data
     prepare_data(cfg)
 
     world_size = torch.cuda.device_count()
