@@ -1,16 +1,14 @@
-"""Shared components of the byte level models.
-"""
+"""Shared components of the byte level models."""
 
 import torch
 
-from models.components.layers.activations import build_activation
-from models.components.layers.attention import Attention
-from models.components.layers.normalization import build_normalization
+from models.layers.activations import build_activation
+from models.layers.attention import Attention
+from models.layers.normalization import build_normalization
 
 
 class ProjectingFFN(torch.nn.Module):
-    """A simple feedforward network
-    """
+    """A simple feedforward network"""
 
     def __init__(
         self,
@@ -29,8 +27,7 @@ class ProjectingFFN(torch.nn.Module):
         self.linear_2 = torch.nn.Linear(ffn_dim, output_dim, bias=bias)
 
     def forward(self, x):
-        """A simple forward pass through the FFN
-        """
+        """A simple forward pass through the FFN"""
         x = self.linear_1(x)
         x = self.activation(x)
         x = self.linear_2(x)

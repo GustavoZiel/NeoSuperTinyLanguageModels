@@ -9,9 +9,9 @@ from omegaconf import ListConfig
 from prettytable import PrettyTable
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
-from models.build_models import build_model
+from core.logger import get_logger
+from models.builder import build_model
 from models.generator import StandardGenerator
-from utils.logger import get_logger
 
 logger = get_logger(__name__)
 

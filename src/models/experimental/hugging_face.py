@@ -5,10 +5,10 @@ This can be used for finetuning or training from scratch.
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
-from models.components.tokenizers.base_class import Tokenizer
-from models.embedding_models import EmbedderInterface
-from models.model_shell import ModelShell
-from trainers.base_trainer import BaseTrainer
+from data.tokenizers.base_class import Tokenizer
+from models.embeddings.embedder import EmbedderInterface
+from models.shell import ModelShell
+from training.trainer import BaseTrainer
 
 
 def build_model(model_cfg):
@@ -132,7 +132,9 @@ class HFTransformerCore(torch.nn.Module):
     def forward(self, x):
         """Calls the huggingface model in question, and returns the last hidden state."""
         ## get the hidden states
-        hidden_states = self.model(inputs_embeds=x, output_hidden_states=True).hidden_states
+        hidden_states = self.model(
+            inputs_embeds=x, output_hidden_states=True
+        ).hidden_states
 
         ## return the last hidden state
         if isinstance(hidden_states, tuple):

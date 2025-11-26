@@ -2,7 +2,7 @@
 
 import torch
 
-from models.components.positional_encoding import LearnedPosEncoding
+from models.embeddings.positional_encoding import LearnedPosEncoding
 from models.experimental.byte_level.layers import ByteLevelTransformerBlock
 
 

@@ -1,3 +1,5 @@
+"""The training script."""
+
 import os
 
 import hydra
@@ -5,17 +7,17 @@ import torch
 import torch.multiprocessing as mp
 from torch.distributed import destroy_process_group
 
-from models.build_models import build_model
+from core.logger import get_logger
+from data.processors import prepare_data
+from models.builder import build_model
 from models.utils import print_model_stats
-from trainers import base_trainer
-from trainers.build_trainers import build_trainer, ddp_setup
-from trainers.prepare import prepare_data
-from trainers.utils import (
+from training import trainer as base_trainer
+from training.builder import build_trainer, ddp_setup
+from training.utils import (
     create_folder_structure,
     init_print_override,
     restore_print_override,
 )
-from utils.logger import get_logger
 
 logger = get_logger(__name__)
 

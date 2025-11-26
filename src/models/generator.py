@@ -2,8 +2,8 @@
 
 import torch
 
-from trainers.utils import set_seed
-from utils.logger import get_logger
+from core.logger import get_logger
+from training.utils import set_seed
 
 logger = get_logger(__name__)
 

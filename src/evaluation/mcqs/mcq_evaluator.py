@@ -1,0 +1,131 @@
+"""Evaluator class for evaluating models."""
+
+import torch
+import tqdm
+
+from core.logger import get_logger
+from evaluation import eval_wrapper
+from evaluation.evaluator_interface import EvaluationInterface
+from evaluation.mcqs.load_benchmarks import load_benchmark
+from evaluation.metrics import MCQ_METRIC_REGISTRY
+
+logger = get_logger(__name__)
+
+
+class MCQEvaluator(EvaluationInterface):
+    """Base Evaluator class that evaluates models and prints/logs the results.
+
+    Args:
+        model: The model to evaluate.
+        num_samples (int, optional): Number of samples to evaluate.
+        benchmarks (list[str], optional): List of benchmarks to evaluate on.
+    """
+
+    def __init__(self, model, num_samples: int = None, benchmarks: list[str] = None):
+        super().__init__(model)
+        self.wrapper = eval_wrapper.EvalWrapper(model)
+        self.num_samples = num_samples
+        self.benchmarks = benchmarks
+        # make sure the model is in eval model
+        self.model.eval()
+
+    @torch.no_grad()
+    def predict(
+        self, prefix: str, ground_truth: str, false_options: list[str]
+    ) -> torch.Tensor:
+        """Given a prompt, use the model to predict the output.
+
+        Returns the loglikelihood of the ground truth and the options.
+
+        Args:
+            prefix (str): The prompt prefix.
+            ground_truth (str): The correct continuation.
+            false_options (list[str]): List of incorrect continuations.
+
+        Returns:
+            torch.Tensor: Loglikelihoods of shape (N+1,).
+        """
+        prefixes = [prefix] * (len(false_options) + 1)
+        continuations = [ground_truth] + false_options
+        loglikelihoods = self.wrapper.loglikelihood(
+            prefixes=prefixes, continuations=continuations
+        )
+        loglikelihoods = torch.tensor(loglikelihoods)
+        return loglikelihoods
+
+    def _calculate_metrics(self, confidences: torch.Tensor) -> dict:
+        """Calculate the metrics for the model.
+
+        Args:
+            confidences (torch.Tensor): Tensor of confidences.
+
+        Returns:
+            dict: Dictionary of metric scores.
+        """
+        score_dict = {}
+
+        for metric_name, metric in MCQ_METRIC_REGISTRY.items():
+            score_dict[metric_name] = metric(confidences)
+
+        return score_dict
+
+    def evaluate_benchmark(self, benchmark_name: str, num_samples: int = None) -> dict:
+        """Evaluate model performance on a specific benchmark.
+
+        Args:
+            benchmark_name (str): Name of the benchmark.
+            num_samples (int, optional): Number of samples to evaluate.
+
+        Returns:
+            dict: Dictionary of metric scores.
+        """
+        # load the benchmark_loader
+        benchmark_loader = load_benchmark(benchmark_name, split="test")
+        confidences = []
+        for i, (prefix, ground_truth, false_options) in tqdm.tqdm(
+            enumerate(benchmark_loader)
+        ):
+            if num_samples is not None and i > num_samples:
+                break
+            loglikelihoods = self.predict(prefix, ground_truth, false_options)
+            confidences.append(loglikelihoods)
+        # find the maximum dimension and pad the confidences up to that dimension
+        max_length = max([len(confidence) for confidence in confidences])
+        for i, confidence in enumerate(confidences):
+            confidences[i] = torch.nn.functional.pad(
+                confidence, (0, max_length - len(confidence)), value=-1e10
+            )
+
+        score_dict = self._calculate_metrics(torch.stack(confidences))
+
+        return score_dict
+
+    def evaluate(self) -> dict:
+        """Evaluate the model on each benchmark in self.benchmarks.
+
+        For each benchmark, evaluates up to self.num_samples samples (if specified).
+        Logs progress and returns a dictionary mapping benchmark names to their score dictionaries.
+
+        Returns:
+            dict: {benchmark_name: {metric_name: score, ...}, ...}
+        """
+        results = {}
+        for benchmark_name in self.benchmarks:
+            logger.info(f"Evaluating benchmark {benchmark_name}")
+            score_dict = self.evaluate_benchmark(
+                benchmark_name=benchmark_name, num_samples=self.num_samples
+            )
+            results[benchmark_name] = score_dict
+
+        return results
+
+    def _pretty_print_results(self, results: dict):
+        """Pretty print the results.
+
+        Args:
+            results (dict): The results dictionary.
+        """
+        for benchmark_name, score_dict in results.items():
+            print(f"{benchmark_name}:")
+            for metric_name, score in score_dict.items():
+                print(f"\t{metric_name}: {score}")
