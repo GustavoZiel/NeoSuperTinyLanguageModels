@@ -6,7 +6,7 @@ import torch
 from datasets import load_dataset
 
 from evals import eval_wrapper, evaluator_interface
-from evals.metrics import MCQ_METRIC_DICT
+from evals.metrics import MCQ_METRIC_REGISTRY
 
 TASKS = [
     "byte_shuffle",
@@ -74,7 +74,7 @@ class ProgressionEvaluator(evaluator_interface.EvaluationInterface):
         gt = likelihoods[:, 0]  # shape B
         for i, (task) in enumerate(TASKS):
             task_results = {}
-            for metric_name, metric_func in MCQ_METRIC_DICT.items():
+            for metric_name, metric_func in MCQ_METRIC_REGISTRY.items():
                 metric_input = torch.stack([gt, likelihoods[:, i + 1]], dim=-1)
                 # shape B x 2
                 task_results[metric_name] = metric_func(metric_input)

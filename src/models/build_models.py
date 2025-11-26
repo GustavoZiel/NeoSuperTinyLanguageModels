@@ -1,43 +1,35 @@
-"""Contains the build functions for the embedder,
-core model, lm head and the model shell.
-"""
+import inspect
 
-from models.core_models import GenericFFNSharedTransfomer, GenericTransformer
-from models.embedding_models import GenericEmbedder
-from models.experimental.byte_level.byte_model_shell import ByteModelShell
-from models.experimental.byte_level.embedding_model import ByteLevelEmbedder
-from models.experimental.byte_level.model_heads import ByteLevelDecoder
-from models.experimental.hugging_face import HFEmbedder, HFLMHead, HFTransformerCore
-from models.experimental.next_thought.core_models import (
-    BaselineCoreModel,
-    Conv1dCoreModel,
+from models.model_registry import (
+    CORE_MODEL_REGISTRY,
+    EMBEDDING_MODEL_REGISTRY,
+    MODEL_HEAD_REGISTRY,
+    MODEL_SHELL_REGISTRY,
 )
-from models.experimental.next_thought.embedding_models import HierarchicalEncoder
-from models.experimental.next_thought.model_heads import VariableLengthLatentDecoder
-from models.model_heads import AutoregressiveLMHead
-from models.model_shell import ModelShell
 from utils.logger import get_logger
 
 logger = get_logger(__name__)
 
 
 def build_model(model_cfg=None, checkpoint=None, verbose=True):
-    """Either initialize or load a model, depending on
-    whether a config or checkpoint was provided
-    (respectively).
+    """Builds a model either by initializing it from a configuration or loading it from a checkpoint.
+
+    If a checkpoint is provided, the model architecture is determined from the checkpoint's config,
+    and weights are loaded. Otherwise, the model is initialized from scratch using `model_cfg`.
 
     Args:
-        model_cfg: model_configuration
-        checkpoint: model_checkpoint_dict
-        verbose: whether to log progress
+        model_cfg (dict | DictConfig, optional): The model configuration dictionary. Required if checkpoint is None.
+        checkpoint (dict, optional): A dictionary containing the model state dict and configuration.
+        verbose (bool): If True, logs the progress of building the model. Defaults to True.
+
     Returns:
-        model: model instance
+        torch.nn.Module: The constructed model instance.
     """
     if checkpoint is not None:
         if verbose:
             logger.info("Loading model from checkpoint")
         # load model with the correct architecture
-        model = initialize_model(checkpoint["config"]["model"])
+        model = initialize_model(checkpoint["config"]["model"], verbose=verbose)
 
         # load the model weights
         model.load_state_dict(checkpoint["model"])
@@ -47,117 +39,115 @@ def build_model(model_cfg=None, checkpoint=None, verbose=True):
         if verbose:
             logger.info("Initializing model from config")
         # initialize model
-        model = initialize_model(model_cfg)
+        model = initialize_model(model_cfg, verbose=verbose)
 
     if verbose:
         logger.info("Model build complete")
     return model
 
 
-EMBEDDING_MODEL_DICT = {
-    "generic": GenericEmbedder,
-    "byte_level": ByteLevelEmbedder,
-    "hf_embedder": HFEmbedder,
-    "hierarchical": HierarchicalEncoder,
-}
-
-
 def build_embedding_model(model_cfg, verbose=True):
-    """Given the embedding model config, build it.
+    """Constructs the embedding model based on the provided configuration.
 
     Args:
-        model_cfg: model_cfg
+        model_cfg (dict | DictConfig): The full model configuration containing the 'embedder' section.
+        verbose (bool): If True, logs the building process. Defaults to True.
+
     Returns:
-        embedding_model: embedding_model_instance
+        torch.nn.Module: The instantiated embedding model.
     """
     if verbose:
         logger.info("Building embedding model")
-    return EMBEDDING_MODEL_DICT[model_cfg["embedder"]["embedding_model_type"]](
+    return EMBEDDING_MODEL_REGISTRY[model_cfg["embedder"]["embedding_model_type"]](
         model_cfg=model_cfg
     )
 
 
-CORE_MODEL_DICT = {
-    "generic": GenericTransformer,
-    "generic_ffn_sharing": GenericFFNSharedTransfomer,
-    "hf_core": HFTransformerCore,
-    "next_thought_baseline": BaselineCoreModel,
-    "conv": Conv1dCoreModel,
-}
-
-
-def build_core_model(model_cfg):
-    """Given the core model config, build it.
+def build_core_model(model_cfg, verbose=True):
+    """Constructs the core model (e.g., Transformer, FFN) based on the configuration.
 
     Args:
-        model_cfg: model_cfg
+        model_cfg (dict | DictConfig): The full model configuration containing the 'core_model' section.
+        verbose (bool): If True, logs the building process. Defaults to True.
+
     Returns:
-        core_model: core_model_instance
+        torch.nn.Module: The instantiated core model.
     """
-    return CORE_MODEL_DICT[model_cfg["core_model"]["core_model_type"]](
+    if verbose:
+        logger.info("Building core model")
+    return CORE_MODEL_REGISTRY[model_cfg["core_model"]["core_model_type"]](
         model_cfg=model_cfg
     )
 
 
-MODEL_HEAD_DICT = {
-    "generic": lambda model_cfg, embedding_model: AutoregressiveLMHead(
-        model_cfg=model_cfg
-    ),
-    "byte_level": lambda model_cfg, embedding_model: ByteLevelDecoder(
-        model_cfg=model_cfg
-    ),
-    "hf_head": lambda model_cfg, embedding_model: HFLMHead(model_cfg=model_cfg),
-    "latent_2_seq": lambda model_cfg, embedding_model: VariableLengthLatentDecoder(
-        model_cfg=model_cfg, embedding_model=embedding_model
-    ),
-}
+def build_model_head(model_cfg, embedding_model=None, verbose=True):
+    """Constructs the language model head based on the configuration.
 
-
-def build_model_head(model_cfg, embedding_model=None):
-    """Given the lm head config, build it.
+    Some model heads (like latent decoders) may require access to the embedding model.
 
     Args:
-        model_cfg: model_cfg
+        model_cfg (dict | DictConfig): The full model configuration containing the 'lm_head' section.
+        embedding_model (torch.nn.Module, optional): The embedding model, required for certain head types.
+        verbose (bool): If True, logs the building process. Defaults to True.
+
     Returns:
-        model_head: model_head_instance
+        torch.nn.Module: The instantiated model head.
     """
-    return MODEL_HEAD_DICT[model_cfg["lm_head"]["lm_head_type"]](
-        model_cfg=model_cfg, embedding_model=embedding_model
-    )
+    if verbose:
+        logger.info("Building model head")
+    head_class = MODEL_HEAD_REGISTRY[model_cfg["lm_head"]["lm_head_type"]]
+
+    # Check if the class accepts embedding_model
+    sig = inspect.signature(head_class.__init__)
+    if "embedding_model" in sig.parameters:
+        return head_class(model_cfg=model_cfg, embedding_model=embedding_model)
+
+    return head_class(model_cfg=model_cfg)
 
 
-MODEL_SHELL_DICT = {"standard": ModelShell, "byte_shell": ByteModelShell}
-
-
-def build_model_shell(model_cfg, embedding_model, core_model, model_head):
-    """Given the model shell config, build it.
+def build_model_shell(model_cfg, embedding_model, core_model, model_head, verbose=True):
+    """Assembles the final model shell by combining the embedding model, core model, and head.
 
     Args:
-        model_cfg: model_cfg
+        model_cfg (dict | DictConfig): The full model configuration containing the 'model_shell_type'.
+        embedding_model (torch.nn.Module): The embedding layer.
+        core_model (torch.nn.Module): The core processing layers (e.g., Transformer blocks).
+        model_head (torch.nn.Module): The output head (e.g., LM head).
+        verbose (bool): If True, logs the building process. Defaults to True.
+
     Returns:
-        model_shell: model_shell_instance
+        torch.nn.Module: The fully assembled model.
     """
-    return MODEL_SHELL_DICT[model_cfg["model_shell_type"]](
+    if verbose:
+        logger.info("Building model shell")
+    return MODEL_SHELL_REGISTRY[model_cfg["model_shell_type"]](
         embedding_model=embedding_model, core_model=core_model, model_head=model_head
     )
 
 
-def initialize_model(model_cfg):
-    """Initialize the model given the configuration.
+def initialize_model(model_cfg, verbose=True):
+    """Initializes a complete model from scratch using the provided configuration.
+
+    This function orchestrates the creation of the embedding model, core model, and model head,
+    handles weight tying if configured, and wraps them in a model shell.
 
     Args:
-        model_cfg: model_cfg
+        model_cfg (dict | DictConfig): The full model configuration.
+        verbose (bool): If True, logs the building process. Defaults to True.
+
     Returns:
-        model: model_instance
+        torch.nn.Module: The initialized model.
     """
     # build the embedding model
-    embedding_model = build_embedding_model(model_cfg=model_cfg)
+    embedding_model = build_embedding_model(model_cfg=model_cfg, verbose=verbose)
 
     # build the core model
-    core_model = build_core_model(model_cfg=model_cfg)
+    core_model = build_core_model(model_cfg=model_cfg, verbose=verbose)
 
     # build the model head
-    model_head = build_model_head(model_cfg=model_cfg, embedding_model=embedding_model)
+    model_head = build_model_head(
+        model_cfg=model_cfg, embedding_model=embedding_model, verbose=verbose
+    )
 
     # check if embedding model weights are to be shared with the model head
     if model_cfg["embedding_weight_tying"]:
@@ -171,6 +161,7 @@ def initialize_model(model_cfg):
         embedding_model=embedding_model,
         core_model=core_model,
         model_head=model_head,
+        verbose=verbose,
     )
 
     return model

@@ -1,4 +1,4 @@
-"""The main generate code"""
+"""The main generation script."""
 
 from pathlib import Path
 
@@ -17,6 +17,15 @@ logger = get_logger(__name__)
 
 
 def _prepare_generator(model_filename, generator_cfg):
+    """Prepares the generator by loading the model and tokenizer.
+
+    Args:
+        model_filename (str): Path to the model checkpoint or Hugging Face model name.
+        generator_cfg (dict): Generation configuration.
+
+    Returns:
+        StandardGenerator: The initialized generator.
+    """
     if not model_filename:
         raise ValueError("Model filename must be provided to prepare the generator.")
 
@@ -50,10 +59,18 @@ def _prepare_generator(model_filename, generator_cfg):
         return StandardGenerator(
             model=model, tokenizer=tokenizer, generate_cfg=generator_cfg
         )
-        # return None
 
 
 def calculate_table(prompt_dict, column_name):
+    """Creates a PrettyTable from a dictionary of results.
+
+    Args:
+        prompt_dict (dict): Dictionary where keys are model names and values are results.
+        column_name (str): Name of the results column.
+
+    Returns:
+        PrettyTable: The formatted table.
+    """
     max_value = max(
         max(row) if isinstance(row, (list, tuple, set)) else row
         for row in prompt_dict.values()
@@ -141,18 +158,154 @@ def load_prompts_from_file(file_path):
     return prompts
 
 
+def run_interactive_mode(cfg):
+    """Runs the interactive generation loop."""
+    logger.info("Prompting model from user input. Type 'exit' or 'quit' to stop.")
+    while True:
+        input_text = input("Enter the input text: ")
+        if input_text.lower() in ["exit", "quit"]:
+            logger.info("Exiting...")
+            break
+        for i_model, model_filename in enumerate(cfg["model_ckpts"], start=1):
+            generated = ""
+            model_name = model_filename.split("/")[-1].rsplit(".", 1)[0]
+            generator = _prepare_generator(model_filename, cfg["generator"])
+            generated_text, messages = generator.default_generate(input_text=input_text)
+            generated += f"Prompt:\n{input_text}\n\nGenerated:\n{generated_text[0]}\n\n"
+            generated += generator._format_messages(
+                messages, cfg["generator"]["steps_to_log"]
+            )
+            generated += "=" * 30 + "\n\n"
+
+            print(
+                "\n\n"
+                + "=" * 30
+                + f" Prompting {i_model}º: {model_name} "
+                + "=" * 30
+                + "\n\n"
+            )
+            print(generated)
+            print("=" * 30 + f" Finished {i_model}º: {model_name} " + "=" * 30 + "\n\n")
+
+
+def run_batch_mode(cfg, prompts):
+    """Runs the batch generation loop with provided prompts."""
+    average_evals = {}
+    perplexity_dict = {}
+    ranks_dict = {}
+
+    for i_model, model_filename in enumerate(cfg["model_ckpts"], start=1):
+        if model_filename.endswith(".pt"):
+            model_name = model_filename.split("/")[-1].rsplit(".", 1)[0]
+        else:
+            model_name = model_filename
+
+        ranks_dict[model_name] = []
+        perplexity_dict[model_name] = []
+        average_evals[model_name] = {"perplexity": [], "rank": []}
+
+        generator = _prepare_generator(model_filename, cfg["generator"])
+        logger.info("Prompting model from config file input prompts.")
+        print(
+            "\n\n"
+            + "=" * 30
+            + f" Prompting {i_model}º: {model_name} "
+            + "=" * 30
+            + "\n\n"
+        )
+
+        generated = ""
+        for prompt_num, prompt in enumerate(prompts, start=1):
+            generated += (
+                f"Question {prompt_num}\n\n"
+                f"Prompt:\n{prompt['sentence']}\n\n"
+                f"Answer:\n{prompt['answer']}\n\n"
+            )
+
+            if cfg["generator"]["generate"]:
+                generated_text, messages = generator.default_generate(
+                    input_text=prompt["sentence"]
+                )
+                generated += f"Generated:\n{generated_text[0]}\n\n"
+                generated += generator._format_messages(
+                    messages, cfg["generator"]["steps_to_log"]
+                )
+
+            if cfg["generator"]["eval_perplexity"]:
+                probs, perplexity = generator.evaluate_perplexity(
+                    prompt["sentence"],
+                    prompt["answer"],
+                    temperature=cfg["generator"]["temperature"],
+                    top_k=cfg["generator"]["top_k"],
+                )
+                perplexity_dict[model_name].append(perplexity)
+                generated += (
+                    f"Probability of correct answer: {probs}\n"
+                    f"Perplexity of correct answer: {perplexity:.4f}\n"
+                )
+
+            if cfg["generator"]["eval_rank"]:
+                ranks, avg_rank = generator.evaluate_rank(
+                    prompt["sentence"],
+                    prompt["answer"],
+                    temperature=cfg["generator"]["temperature"],
+                    top_k=cfg["generator"]["top_k"],
+                )
+                ranks_dict[model_name].append(avg_rank)
+                generated += (
+                    f"Rank of correct answer: {ranks}\nAverage rank: {avg_rank:.4f}\n\n"
+                )
+
+            generated += "=" * 30 + "\n\n"
+
+        print(generated)
+        print("=" * 30 + f" Finished {i_model}º: {model_name} " + "=" * 30 + "\n\n")
+
+        if cfg["generator"]["eval_perplexity"]:
+            avg_perplexity = sum(perplexity_dict[model_name]) / len(
+                perplexity_dict[model_name]
+            )
+            average_evals[model_name]["perplexity"] = avg_perplexity
+
+            perplexity_average = {
+                model: vals["perplexity"] for model, vals in average_evals.items()
+            }
+
+            perplexity_table = calculate_table(
+                perplexity_dict, column_name="Perplexities"
+            )
+
+            perplexity_avg_table = calculate_table(
+                perplexity_average, column_name="Average Perplexities"
+            )
+
+            logger.info("Perplexity Results:")
+            print(perplexity_table)
+            logger.info("Average Perplexities Results:")
+            print(perplexity_avg_table)
+
+        if cfg["generator"]["eval_rank"]:
+            avg_rank = sum(ranks_dict[model_name]) / len(ranks_dict[model_name])
+
+            average_evals[model_name]["rank"] = avg_rank
+
+            ranks_average = {
+                model: vals["rank"] for model, vals in average_evals.items()
+            }
+
+            rank_table = calculate_table(ranks_dict, column_name="Ranks")
+
+            rank_avg_table = calculate_table(ranks_average, column_name="Average Ranks")
+
+            logger.info("Rank Results:")
+            print(rank_table)
+            logger.info("Average Ranks Results:")
+            print(rank_avg_table)
+
+
 @hydra.main(config_path="../configs", config_name="generate", version_base=None)
 def main(cfg):
     """Run the main eval loop"""
-    # logger.info(f"Generation config:\n{cfg}")
-
-    # logger.info(cfg["generator"]["insert_filepath"])
-
-    # insert_filepath = cfg["generator"]["insert_filepath"]
-    # with open(insert_filepath, "r") as f:
-    #     data = json5.load(f)
-    # print(data)
-
     if "input_prompts" in cfg["generator"] and cfg["generator"]["input_prompts"]:
         # Check if input_prompts is a file path or inline list
         input_prompts_value = cfg["generator"]["input_prompts"]
@@ -169,160 +322,10 @@ def main(cfg):
                 f"or a list of prompts, got {type(input_prompts_value)}"
             )
 
-        average_evals = {}
-        perplexity_dict = {}
-        ranks_dict = {}
-        for i_model, model_filename in enumerate(cfg["model_ckpts"], start=1):
-            if model_filename.endswith(".pt"):
-                model_name = model_filename.split("/")[-1].rsplit(".", 1)[0]
-            else:
-                model_name = model_filename
-
-            ranks_dict[model_name] = []
-            perplexity_dict[model_name] = []
-            average_evals[model_name] = {"perplexity": [], "rank": []}
-
-            generator = _prepare_generator(model_filename, cfg["generator"])
-            logger.info("Prompting model from config file input prompts.")
-            print(
-                "\n\n"
-                + "=" * 30
-                + f" Prompting {i_model}º: {model_name} "
-                + "=" * 30
-                + "\n\n"
-            )
-
-            generated = ""
-            for prompt_num, prompt in enumerate(prompts, start=1):
-                generated += (
-                    f"Question {prompt_num}\n\n"
-                    f"Prompt:\n{prompt['sentence']}\n\n"
-                    f"Answer:\n{prompt['answer']}\n\n"
-                )
-
-                if cfg["generator"]["generate"]:
-                    generated_text, messages = generator.default_generate(
-                        input_text=prompt["sentence"]
-                    )
-                    generated += f"Generated:\n{generated_text[0]}\n\n"
-                    generated += generator._format_messages(
-                        messages, cfg["generator"]["steps_to_log"]
-                    )
-
-                if cfg["generator"]["eval_perplexity"]:
-                    probs, perplexity = generator.evaluate_perplexity(
-                        prompt["sentence"],
-                        prompt["answer"],
-                        temperature=cfg["generator"]["temperature"],
-                        top_k=cfg["generator"]["top_k"],
-                    )
-                    perplexity_dict[model_name].append(perplexity)
-                    generated += (
-                        f"Probability of correct answer: {probs}\n"
-                        f"Perplexity of correct answer: {perplexity:.4f}\n"
-                    )
-
-                if cfg["generator"]["eval_rank"]:
-                    ranks, avg_rank = generator.evaluate_rank(
-                        prompt["sentence"],
-                        prompt["answer"],
-                        temperature=cfg["generator"]["temperature"],
-                        top_k=cfg["generator"]["top_k"],
-                    )
-                    ranks_dict[model_name].append(avg_rank)
-                    generated += (
-                        f"Rank of correct answer: {ranks}\n"
-                        f"Average rank: {avg_rank:.4f}\n\n"
-                    )
-
-                generated += "=" * 30 + "\n\n"
-
-            print(generated)
-            print("=" * 30 + f" Finished {i_model}º: {model_name} " + "=" * 30 + "\n\n")
-
-            if cfg["generator"]["eval_perplexity"]:
-                avg_perplexity = sum(perplexity_dict[model_name]) / len(
-                    perplexity_dict[model_name]
-                )
-                average_evals[model_name]["perplexity"] = avg_perplexity
-
-                perplexity_average = {
-                    model: vals["perplexity"] for model, vals in average_evals.items()
-                }
-
-                perplexity_table = calculate_table(
-                    perplexity_dict, column_name="Perplexities"
-                )
-
-                perplexity_avg_table = calculate_table(
-                    perplexity_average, column_name="Average Perplexities"
-                )
-
-                # print(perplexity_average)
-
-                logger.info("Perplexity Results:")
-                print(perplexity_table)
-                logger.info("Average Perplexities Results:")
-                print(perplexity_avg_table)
-
-            if cfg["generator"]["eval_rank"]:
-                avg_rank = sum(ranks_dict[model_name]) / len(ranks_dict[model_name])
-
-                average_evals[model_name]["rank"] = avg_rank
-
-                ranks_average = {
-                    model: vals["rank"] for model, vals in average_evals.items()
-                }
-
-                rank_table = calculate_table(ranks_dict, column_name="Ranks")
-
-                rank_avg_table = calculate_table(
-                    ranks_average, column_name="Average Ranks"
-                )
-
-                # print(ranks_average)
-
-                logger.info("Rank Results:")
-                print(rank_table)
-                logger.info("Average Ranks Results:")
-                print(rank_avg_table)
+        run_batch_mode(cfg, prompts)
 
     else:
-        logger.info("Prompting model from user input. Type 'exit' or 'quit' to stop.")
-        while True:
-            input_text = input("Enter the input text: ")
-            if input_text.lower() in ["exit", "quit"]:
-                logger.info("Exiting...")
-                break
-            for i_model, model_filename in enumerate(cfg["model_ckpts"], start=1):
-                generated = ""
-                model_name = model_filename.split("/")[-1].rsplit(".", 1)[0]
-                generator = _prepare_generator(model_filename, cfg["generator"])
-                generated_text, messages = generator.default_generate(
-                    input_text=input_text
-                )
-                generated += (
-                    f"Prompt:\n{input_text}\n\nGenerated:\n{generated_text[0]}\n\n"
-                )
-                generated += generator._format_messages(
-                    messages, cfg["generator"]["steps_to_log"]
-                )
-                generated += "=" * 30 + "\n\n"
-
-                print(
-                    "\n\n"
-                    + "=" * 30
-                    + f" Prompting {i_model}º: {model_name} "
-                    + "=" * 30
-                    + "\n\n"
-                )
-                print(generated)
-                print(
-                    "=" * 30
-                    + f" Finished {i_model}º: {model_name} "
-                    + "=" * 30
-                    + "\n\n"
-                )
+        run_interactive_mode(cfg)
 
 
 if __name__ == "__main__":

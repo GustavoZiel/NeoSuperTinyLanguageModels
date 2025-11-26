@@ -1,6 +1,4 @@
-"""Builds the individual components of the trainer,
-and the trainer itself.
-"""
+"""Builds the individual components of the trainer, and the trainer itself."""
 
 import math
 import os
@@ -8,30 +6,13 @@ import os
 import torch
 import torch.distributed as dist
 
-from models.experimental.hugging_face import MockTrainer
-from trainers.base_trainer import BaseTrainer
-from trainers.datasets import (
-    BaseDataset,
-    DatasetInterface,
-    InsertFakeDatasetIter,
-    # BaseDatasetRandom,
-    # BytePoolingDataset,
-    # DualBytePooling,
-    # MultiGPUDataset,
-    # SingleGPUDataset,
-)
-from trainers.loss_fn import (
-    cross_entropy_loss_fn,
-    masked_cross_entropy_loss_fn,
-    next_token_mlm_loss_fn,
-)
-from trainers.optimizer import configure_nanoGPT_optimizer
-from trainers.scheduler import (
-    CosineLRScheduler,
-    DropoutScheduler,
-    LinearDropoutScheduler,
-    LRScheduler,
-    TriangleDropoutScheduler,
+from trainers.trainer_registry import (
+    DATASET_REGISTRY,
+    DROPOUT_REGISTRY,
+    LOSS_FN_REGISTRY,
+    OPTIMIZER_REGISTRY,
+    SCHEDULER_REGISTRY,
+    TRAINER_REGISTRY,
 )
 from utils.logger import get_logger
 
@@ -39,9 +20,11 @@ logger = get_logger(__name__)
 
 
 def ddp_setup(rank, world_size):
-    """Args:
-    rank: Unique identifier of each process
-    world_size: Total number of processes
+    """Sets up the distributed process group for DDP training.
+
+    Args:
+        rank (int): Unique identifier of each process.
+        world_size (int): Total number of processes.
     """
     # Get the master address and port from SLURM environment variables
     master_addr = os.environ.get("MASTER_ADDR", "localhost")
@@ -54,141 +37,108 @@ def ddp_setup(rank, world_size):
     torch.cuda.set_device(rank)
 
 
-OPTIMIZER_DICT = {
-    "nanoGPTadamW": lambda model, trainer_cfg: configure_nanoGPT_optimizer(
-        model=model,
-        weight_decay=trainer_cfg["weight_decay"],
-        learning_rate=trainer_cfg["lr"],
-        betas=(trainer_cfg["beta1"], trainer_cfg["beta2"]),
-    ),
-    "adamW": lambda model, trainer_cfg: torch.optim.AdamW(
-        model.parameters(),
-        lr=trainer_cfg["lr"],
-        betas=(trainer_cfg["beta1"], trainer_cfg["beta2"]),
-        weight_decay=trainer_cfg["weight_decay"],
-    ),
-}
+def build_optimizer(model, optimizer_config, checkpoint=None, verbose=True):
+    """Builds the optimizer based on the configuration.
 
+    Args:
+        model (torch.nn.Module): The model to optimize.
+        optimizer_config (dict): Configuration for the optimizer.
+        checkpoint (dict, optional): Checkpoint to load state from.
+        verbose (bool): Whether to log progress.
 
-def build_optimizer(model, optimizer_config, checkpoint=None):
-    """Given the optimizer config, build the optimizer"""
-    optimizer = OPTIMIZER_DICT[optimizer_config["name"]](
+    Returns:
+        torch.optim.Optimizer: The constructed optimizer.
+    """
+    optimizer = OPTIMIZER_REGISTRY[optimizer_config["name"]](
         model=model, trainer_cfg=optimizer_config
     )
     if checkpoint is not None:
         optimizer.load_state_dict(checkpoint["optimizer"])
-        logger.info("Loaded optimizer state from checkpoint.")
+        if verbose:
+            logger.info("Loaded optimizer state from checkpoint.")
     return optimizer
 
 
-SCHEDULER_DICT = {
-    "cosine": lambda trainer_cfg: CosineLRScheduler(
-        warmup_iters=trainer_cfg["training"]["warmup_iters"],
-        decay_iters=trainer_cfg["training"]["lr_decay_iters"],
-        lr=trainer_cfg["optimizer"]["lr"],
-        min_lr=trainer_cfg["optimizer"]["min_lr"],
-    ),
-    "constant": lambda trainer_cfg: LRScheduler(
-        lr=trainer_cfg["optimizer"]["lr"],
-    ),
-}
+def build_lr_scheduler(trainer_cfg, checkpoint=None, verbose=True):
+    """Builds the learning rate scheduler.
 
+    Args:
+        trainer_cfg (dict): Trainer configuration.
+        checkpoint (dict, optional): Checkpoint to load state from.
+        verbose (bool): Whether to log progress.
 
-def build_lr_scheduler(trainer_cfg, checkpoint=None):
-    """Given the trainer config, build the LR scheduler."""
-    scheduler = SCHEDULER_DICT[trainer_cfg["lr_scheduler"]["name"]](
+    Returns:
+        LRScheduler: The constructed LR scheduler.
+    """
+    scheduler = SCHEDULER_REGISTRY[trainer_cfg["lr_scheduler"]["name"]](
         trainer_cfg=trainer_cfg
     )
     if checkpoint is not None:
         scheduler.load_state_dict(checkpoint["lr_scheduler"])
-        logger.info("Loaded LR scheduler state from checkpoint.")
+        if verbose:
+            logger.info("Loaded LR scheduler state from checkpoint.")
     return scheduler
 
 
-DROPOUT_DICT = {
-    "constant": lambda dropout_cfg: DropoutScheduler(
-        dropout_p=dropout_cfg["dropout_p"]
-    ),
-    "linear": lambda dropout_cfg: LinearDropoutScheduler(
-        start_iter=dropout_cfg["start_iter"],
-        end_iter=dropout_cfg["end_iter"],
-        start_dropout_p=dropout_cfg["start_dropout_p"],
-        end_dropout_p=dropout_cfg["end_dropout_p"],
-    ),
-    "triangle": lambda dropout_cfg: TriangleDropoutScheduler(
-        dropout_trough=dropout_cfg["dropout_trough"],
-        dropout_peak=dropout_cfg["dropout_peak"],
-        num_iterations=dropout_cfg["num_iterations"],
-        num_cycles=dropout_cfg["num_cycles"],
-    ),
-}
+def build_dropout_scheduler(trainer_cfg, checkpoint=None, verbose=True):
+    """Builds the dropout scheduler.
 
+    Args:
+        trainer_cfg (dict): Trainer configuration.
+        checkpoint (dict, optional): Checkpoint to load state from.
+        verbose (bool): Whether to log progress.
 
-def build_dropout_scheduler(trainer_cfg, checkpoint=None):
-    """Given the trainer config, build the dropout scheduler."""
-    dropout = DROPOUT_DICT[trainer_cfg["dropout_scheduler"]["dropout_type"]](
+    Returns:
+        DropoutScheduler: The constructed dropout scheduler.
+    """
+    dropout = DROPOUT_REGISTRY[trainer_cfg["dropout_scheduler"]["dropout_type"]](
         dropout_cfg=trainer_cfg["dropout_scheduler"]
     )
     if checkpoint is not None:
         dropout.load_state_dict(checkpoint["dropout_scheduler"])
-        logger.info("Loaded dropout scheduler state from checkpoint.")
+        if verbose:
+            logger.info("Loaded dropout scheduler state from checkpoint.")
     return dropout
-    # if trainer_cfg["dropout_scheduler"]["dropout_type"] == "linear":
-    #     return LinearDropoutScheduler(
-    #         start_dropout_p=trainer_cfg["dropout_scheduler"]["start_dropout_p"],
-    #         end_dropout_p=trainer_cfg["dropout_scheduler"]["end_dropout_p"],
-    #         start_iter=trainer_cfg["dropout_scheduler"]["start_iter"],
-    #         end_iter=trainer_cfg["dropout_scheduler"]["end_iter"],
-    #     )
-    # if trainer_cfg["dropout_scheduler"]["dropout_type"] == "triangle":
-    #     return TriangleDropoutScheduler(
-    #         dropout_trough=trainer_cfg["dropout_scheduler"]["dropout_trough"],
-    #         dropout_peak=trainer_cfg["dropout_scheduler"]["dropout_peak"],
-    #         num_iterations=trainer_cfg["dropout_scheduler"]["num_iterations"],
-    #         num_cycles=trainer_cfg["dropout_scheduler"]["num_cycles"],
-    #     )
-    # raise NotImplementedError(
-    #     f"dropout scheduler {trainer_cfg['dropout_scheduler']['dropout_type']} not implemented."
-    # )
-
-
-DATASET_DICT: dict[str, DatasetInterface] = {
-    "normal": BaseDataset,
-    "insert": InsertFakeDatasetIter,
-    # "standard": BaseDatasetRandom,
-    # "single_gpu": SingleGPUDataset,
-    # "multi_gpu": MultiGPUDataset,
-    # "byte_pooling": BytePoolingDataset,
-    # "dual_byte_pooling": DualBytePooling,
-}
 
 
 def build_dataset(cfg, split, seed):
-    """Given the config, build the dataloader"""
-    return DATASET_DICT[cfg.trainer["dataloader"]["name"]](
+    """Builds the dataset for a specific split.
+
+    Args:
+        cfg (dict): Configuration object.
+        split (str): Dataset split ('train', 'val', etc.).
+        seed (int): Random seed.
+
+    Returns:
+        DatasetInterface: The constructed dataset.
+    """
+    return DATASET_REGISTRY[cfg.trainer["dataloader"]["name"]](
         cfg=cfg, split=split, seed=seed
     )
 
 
-LOSS_FN_DICT = {
-    "cross_entropy": cross_entropy_loss_fn,
-    "next_token_mlm": next_token_mlm_loss_fn,
-    "masked_cross_entropy": masked_cross_entropy_loss_fn,
-}
-
-
 def build_loss_fn(loss_fn_name):
-    """Given the loss function name, build the loss function"""
-    return LOSS_FN_DICT[loss_fn_name]
+    """Retrieves the loss function by name.
 
+    Args:
+        loss_fn_name (str): Name of the loss function.
 
-TRAINER_DICT = {
-    "base_trainer": BaseTrainer,
-    "mock_trainer": MockTrainer,
-}
+    Returns:
+        callable: The loss function.
+    """
+    return LOSS_FN_REGISTRY[loss_fn_name]
 
 
 def configure_training_parameters(cfg, train_dataset):
+    """Calculates and configures training parameters like epochs, iterations, and batch sizes.
+
+    Args:
+        cfg (dict): Configuration object.
+        train_dataset (Dataset): The training dataset.
+
+    Returns:
+        tuple: (max_epochs, max_iters, is_iters_based, iters_per_epoch)
+    """
     # 1. Get DDP world size, default to 1 if not initialized
     if dist.is_initialized():
         world_size = dist.get_world_size()
@@ -252,20 +202,23 @@ def configure_training_parameters(cfg, train_dataset):
 
 
 def build_trainer(cfg, model, gpu_id, seed, checkpoint=None):
-    """Given a config, this function builds a trainer
-    and all relevant components of it.
+    """Builds the trainer and all its components.
 
     Args:
-        cfg: Configuration dictionary
-        model: The model to train
-        gpu_id: GPU ID for distributed training
-        checkpoint_path: Optional path to checkpoint for resuming training
+        cfg (dict): Configuration dictionary.
+        model (torch.nn.Module): The model to train.
+        gpu_id (int): GPU ID for distributed training.
+        seed (int): Random seed.
+        checkpoint (dict, optional): Checkpoint for resuming training.
+
+    Returns:
+        BaseTrainer: The constructed trainer instance.
     """
     logger.info("Building datasets...")
     train_dataset = build_dataset(cfg=cfg, split="train", seed=seed)
     val_dataset = build_dataset(cfg=cfg, split="val", seed=seed)
 
-    # Configure training parameters (moved from BaseTrainer.__init__)
+    # Configure training parameters
     logger.info("Configuring training parameters...")
     (
         max_epochs,
@@ -306,7 +259,7 @@ def build_trainer(cfg, model, gpu_id, seed, checkpoint=None):
     loss_fn = build_loss_fn(loss_fn_name=cfg.trainer["loss_fn"]["name"])
 
     logger.info(f"Building trainer of type: {cfg.trainer['training']['trainer_type']}")
-    trainer = TRAINER_DICT[cfg.trainer["training"]["trainer_type"]](
+    trainer = TRAINER_REGISTRY[cfg.trainer["training"]["trainer_type"]](
         cfg=cfg,
         model=model,
         optimizer=optimizer,
@@ -324,59 +277,5 @@ def build_trainer(cfg, model, gpu_id, seed, checkpoint=None):
         checkpoint=checkpoint,
     )
     logger.info("Trainer built successfully.")
-
-    # # Print information about the train dataloader
-    # logger.info(f"Train DataLoader: {train_dataloader}")
-    # logger.info(f"  Number of batches: {len(train_dataloader)}")
-    # logger.info(f"  Batch size: {cfg['trainer']['training']['batch_size']}")
-    # logger.info(f"  Dataset size: {len(train_dataset)}")
-    # logger.info(
-    #     f"  Shuffle: {train_dataloader.shuffle if hasattr(train_dataloader, 'shuffle') else False}"
-    # )
-
-    # # Print the shape of a few batches from the train dataloader
-    # logger.info("Inspecting batch shapes from train DataLoader:")
-    # for i, batch in enumerate(train_dataloader):
-    #     if isinstance(batch, dict):
-    #         shapes = {k: v.shape for k, v in batch.items()}
-    #         logger.info(f"Batch {i} shapes: {shapes}")
-    #     elif isinstance(batch, (list, tuple)):
-    #         shapes = [b.shape for b in batch]
-    #         logger.info(f"Batch {i} shapes: {shapes}")
-    #     else:
-    #         logger.info(f"Batch {i} shape: {getattr(batch, 'shape', type(batch))}")
-    #     if i >= 2:
-    #         break
-
-    # logger.info(
-    #     "Printing the first 5 numbers of 3 samples from the train dataset (using next()):"
-    # )
-    # train_iter = iter(train_dataset)
-    # for i in range(3):
-    #     try:
-    #         sample = next(train_iter)
-    #     except StopIteration:
-    #         logger.info(f"Sample {i}: No more samples in dataset.")
-    #         break
-    #     if isinstance(sample, dict):
-    #         # Print first 5 numbers from the first tensor-like value in the dict
-    #         for k, v in sample.items():
-    #             if hasattr(v, "flatten"):
-    #                 logger.info(f"Sample {i} [{k}]: {v.flatten()[:5].tolist()}")
-    #                 break
-    #     elif hasattr(sample, "flatten"):
-    #         logger.info(f"Sample {i}: {sample.flatten()[:5].tolist()}")
-    #     elif isinstance(sample, (list, tuple)):
-    #         logger.info(
-    #             f"Sample {i}: {[s[:5] if hasattr(s, '__getitem__') else s for s in sample]}"
-    #         )
-    #     else:
-    #         logger.info(f"Sample {i}: {sample}")
-
-    # # Load checkpoint if provided
-    # if checkpoint_path is not None:
-    #     logger.info(f"Loading checkpoint from {checkpoint_path}")
-    #     iteration = trainer.load_checkpoint(checkpoint_path)
-    #     logger.info(f"Resuming training from iteration {iteration}")
 
     return trainer

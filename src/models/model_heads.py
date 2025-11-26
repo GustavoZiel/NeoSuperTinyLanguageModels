@@ -6,9 +6,13 @@ from models.components.layers.normalization import build_normalization
 
 
 class AutoregressiveLMHead(torch.nn.Module):
-    """Generic autoregressive language model head."""
+    """Generic autoregressive language model head.
 
-    def __init__(self, model_cfg):
+    Args:
+        model_cfg (dict): Model configuration dictionary.
+    """
+
+    def __init__(self, model_cfg: dict):
         super().__init__()
         self.layer_norm = build_normalization(
             normalization_name=model_cfg["lm_head"]["normalization"],
@@ -21,14 +25,16 @@ class AutoregressiveLMHead(torch.nn.Module):
             bias=model_cfg["lm_head"]["bias"],
         )
 
-    def forward(self, x):
+    def forward(self, x: torch.Tensor) -> tuple[torch.Tensor, None]:
         """Pass the input through the model.
 
         Args:
-            x: torch.tensor(B, S, H)
+            x (torch.Tensor): Input tensor of shape (B, S, H).
 
         Returns:
-            x: torch.tensor(B, S, V)
+            tuple[torch.Tensor, None]:
+                - Output tensor of shape (B, S, V).
+                - None (placeholder for auxiliary loss).
         """
         # apply layer norm
         x = self.layer_norm(x)
@@ -38,13 +44,13 @@ class AutoregressiveLMHead(torch.nn.Module):
 
         return x, None
 
-    def inference(self, x):
-        """Pass the input through the model, then
-        Return the final token logits
+    def inference(self, x: torch.Tensor) -> torch.Tensor:
+        """Pass the input through the model, then return the final token logits.
+
         Args:
-            x: torch.tensor(B, S, H)
+            x (torch.Tensor): Input tensor of shape (B, S, H).
 
         Returns:
-            x: torch.tensor(B, V)
+            torch.Tensor: Final token logits of shape (B, V).
         """
         return self.forward(x)[0][:, -1, :]

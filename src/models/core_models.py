@@ -8,9 +8,12 @@ from models.components.layers.transformer_blocks import GenericTransformerBlock
 class GenericTransformer(torch.nn.Module):
     """Generic Transformer Class intended to be used for as
     broad a range of transformer models as possible.
+
+    Args:
+        model_cfg (dict): Model configuration dictionary.
     """
 
-    def __init__(self, model_cfg):
+    def __init__(self, model_cfg: dict):
         super().__init__()
 
         # build the transformer
@@ -32,15 +35,17 @@ class GenericTransformer(torch.nn.Module):
             }
         )
 
-    def forward(self, x, attention_mask=None):
+    def forward(
+        self, x: torch.Tensor, attention_mask: torch.Tensor = None
+    ) -> torch.Tensor:
         """Pass an input through the model with optional attention mask.
 
         Args:
-            x: torch.tensor(B, S, H)
-            attention_mask: optional torch.tensor(B, S) where 1=attend, 0=ignore
+            x (torch.Tensor): Input tensor of shape (B, S, H).
+            attention_mask (torch.Tensor, optional): Attention mask where 1=attend, 0=ignore.
 
         Returns:
-            x: torch.tensor(B, S, H)
+            torch.Tensor: Output tensor of shape (B, S, H).
         """
         # apply dropout
         x = self.transformer.drop(x)
@@ -54,11 +59,13 @@ class GenericTransformer(torch.nn.Module):
 
 class GenericFFNSharedTransfomer(GenericTransformer):
     """Generic Transformer Class that shares the weights
-    between all FFN blocks (similar to
-    https://arxiv.org/abs/2402.16840).
+    between all FFN blocks (similar to https://arxiv.org/abs/2402.16840).
+
+    Args:
+        model_cfg (dict): Model configuration dictionary.
     """
 
-    def __init__(self, model_cfg):
+    def __init__(self, model_cfg: dict):
         super().__init__(model_cfg=model_cfg)
 
         # share the weights between transformer blocks

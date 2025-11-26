@@ -20,29 +20,33 @@ from utils.logger import get_logger
 logger = get_logger(__name__)
 
 
-# TODO Its not working with the current injecting mechanism
 def ddp_main(rank, world_size, cfg):
-    """Main function for distributed training"""
+    """Main function for distributed data parallel (DDP) training.
+
+    Sets up the process group, builds the model and trainer, and executes the training loop.
+    Ensures proper cleanup of distributed resources.
+
+    Args:
+        rank (int): The rank of the current process.
+        world_size (int): The total number of processes (GPUs).
+        cfg (dict | DictConfig): The training configuration.
+    """
     os.environ["GLOBAL_RANK"] = str(rank)
 
     # override the print function to include rank info
     original_print = init_print_override()
 
-    # override the logger to include rank info
-    # originals = init_logger_override(logger)
-
     try:
-        # print("Rank: ", rank, "World Size: ", world_size)
         logger.info(f"Rank: {rank}, World Size: {world_size}")
         ddp_setup(rank=rank, world_size=world_size)
 
-        model = build_model(model_cfg=cfg["model"])
+        model = build_model(model_cfg=cfg["model"], verbose=(rank == 0))
         model.to(cfg["general"]["device"])
         model.train()
 
-        # print(f"Rank{rank} Model built")
-        logger.info(f"Rank {rank}: Model built")
-        print_model_stats(model)
+        if rank == 0:
+            logger.info(f"Rank {rank}: Model built")
+            print_model_stats(model)
 
         # load the relevant trainer
         trainer: base_trainer.BaseTrainer = build_trainer(
@@ -52,8 +56,8 @@ def ddp_main(rank, world_size, cfg):
             seed=cfg["general"]["seed"],
         )
 
-        # print(f"Rank{rank} Trainer built")
-        logger.info(f"Rank {rank}: Trainer built")
+        if rank == 0:
+            logger.info(f"Rank {rank}: Trainer built")
 
         # train the model
         trainer.train(seed=cfg["general"]["seed"])
@@ -65,11 +69,16 @@ def ddp_main(rank, world_size, cfg):
         # restore the print function
         restore_print_override(original_print)
 
-        # restore the logger
-        # restore_logger_override(logger, originals)
-
 
 def basic_main(cfg):
+    """Main function for single-device training (CPU or single GPU).
+
+    Handles model building (from scratch or checkpoint), trainer initialization,
+    and execution of the training loop.
+
+    Args:
+        cfg (dict | DictConfig): The training configuration.
+    """
     logger.info("Building model...")
 
     checkpoint = None
@@ -84,11 +93,11 @@ def basic_main(cfg):
             checkpoint = torch.load(checkpoint_path, weights_only=False)
             logger.info(f"Will resume training from checkpoint: {checkpoint_path}")
             model = build_model(
-                checkpoint=torch.load(checkpoint_path, weights_only=False)
+                checkpoint=torch.load(checkpoint_path, weights_only=False), verbose=True
             )
     # Build model from scratch
     else:
-        model = build_model(model_cfg=cfg["model"])
+        model = build_model(model_cfg=cfg["model"], verbose=True)
 
     model.to(cfg["general"]["device"])
     model.train()
@@ -104,12 +113,20 @@ def basic_main(cfg):
     )
 
     logger.info("Starting training...")
-    # trainer.train(seed=cfg["general"]["seed"])
+    trainer.train(seed=cfg["general"]["seed"])
     logger.info("Training complete.")
 
 
 @hydra.main(config_path="../configs", config_name="train", version_base=None)
 def main(cfg):
+    """Entry point for the training script.
+
+    Parses configuration, sets up the environment (directories, data),
+    and dispatches execution to either single-device or multi-device training routines.
+
+    Args:
+        cfg (DictConfig): The Hydra configuration object.
+    """
     if "full_configs" in cfg:
         logger.info("Using 'full_configs' from configuration.")
         cfg = cfg["full_configs"]

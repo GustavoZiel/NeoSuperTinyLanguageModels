@@ -4,17 +4,27 @@ import torch
 
 
 class Attention(torch.nn.Module):
-    """Basic but flexible attention module."""
+    """Basic but flexible attention module.
+
+    Args:
+        hidden_dim (int): Hidden dimension.
+        num_heads (int): Number of attention heads.
+        bias (bool): Whether to use bias in linear layers.
+        use_rope (bool): Whether to use Rotary Positional Embeddings.
+        context_window (int): Maximum sequence length.
+        is_causal (bool): Whether to use causal masking.
+        group_size (int): Group size for Grouped Query Attention.
+    """
 
     def __init__(
         self,
-        hidden_dim,
-        num_heads,
-        bias,
-        use_rope,
-        context_window,
-        is_causal,
-        group_size,
+        hidden_dim: int,
+        num_heads: int,
+        bias: bool,
+        use_rope: bool,
+        context_window: int,
+        is_causal: bool,
+        group_size: int,
     ):
         super().__init__()
         assert hidden_dim % num_heads == 0, "Hidden dim must be divisible by num heads"
@@ -42,15 +52,17 @@ class Attention(torch.nn.Module):
                 seq_len=context_window, head_dim=hidden_dim // num_heads
             )
 
-    def forward(self, x, attention_mask=None):
+    def forward(
+        self, x: torch.Tensor, attention_mask: torch.Tensor = None
+    ) -> torch.Tensor:
         """Forward pass with optional attention mask.
 
         Args:
-            x: input tensor (B, S, H)
-            attention_mask: optional mask tensor (B, S) where 1=attend, 0=ignore
+            x (torch.Tensor): Input tensor (B, S, H).
+            attention_mask (torch.Tensor, optional): Mask tensor (B, S) where 1=attend, 0=ignore.
 
         Returns:
-            y: output tensor (B, S, H)
+            torch.Tensor: Output tensor (B, S, H).
         """
         B, S, H = x.size()
         num_grouped_heads = self.num_heads // self.group_size
@@ -111,7 +123,7 @@ class Attention(torch.nn.Module):
         return y
 
 
-def _reshape_for_broadcast(freqs_cis, x):
+def _reshape_for_broadcast(freqs_cis: torch.Tensor, x: torch.Tensor) -> torch.Tensor:
     ndim = x.ndim
     assert 0 <= 1 < ndim
     assert freqs_cis.shape == (x.shape[1], x.shape[-1])
@@ -119,8 +131,10 @@ def _reshape_for_broadcast(freqs_cis, x):
     return freqs_cis.view(*shape)
 
 
-def apply_rotary_emb(xq, xk, freqs_cis):
-    """Apply the rotary embedding to the query and key"""
+def apply_rotary_emb(
+    xq: torch.Tensor, xk: torch.Tensor, freqs_cis: torch.Tensor
+) -> tuple[torch.Tensor, torch.Tensor]:
+    """Apply the rotary embedding to the query and key."""
     xq_ = torch.view_as_complex(xq.float().reshape(*xq.shape[:-1], -1, 2))
     xk_ = torch.view_as_complex(xk.float().reshape(*xk.shape[:-1], -1, 2))
     freqs_cis = _reshape_for_broadcast(freqs_cis, xq_)
@@ -129,8 +143,8 @@ def apply_rotary_emb(xq, xk, freqs_cis):
     return xq_out.type_as(xq), xk_out.type_as(xk)
 
 
-def compute_freqs_cis(seq_len, head_dim):
-    """Computes complex frequences used for rotary positional encodings"""
+def compute_freqs_cis(seq_len: int, head_dim: int) -> torch.Tensor:
+    """Computes complex frequences used for rotary positional encodings."""
     freqs = 1.0 / (
         10_000 ** (torch.arange(0, head_dim, 2)[: (head_dim // 2)].float() / head_dim)
     )
@@ -140,7 +154,7 @@ def compute_freqs_cis(seq_len, head_dim):
     return freqs_cis
 
 
-ATTENTION_DICT = {
+ATTENTION_REGISTRY = {
     "generic": lambda hidden_dim, context_window, use_rope, attn_cfg: Attention(
         hidden_dim=hidden_dim,
         num_heads=attn_cfg["num_heads"],
@@ -153,16 +167,21 @@ ATTENTION_DICT = {
 }
 
 
-def build_attention(hidden_dim, context_window, use_rope, attn_cfg):
-    """Build an attention layer
+def build_attention(
+    hidden_dim: int, context_window: int, use_rope: bool, attn_cfg: dict
+) -> torch.nn.Module:
+    """Build an attention layer.
 
     Args:
-        hidden_dim: hidden dimension
-        context_window: context window
-        use_rope: whether to use rope
-        attn_cfg: attention config
+        hidden_dim (int): Hidden dimension.
+        context_window (int): Context window.
+        use_rope (bool): Whether to use rope.
+        attn_cfg (dict): Attention config.
+
+    Returns:
+        torch.nn.Module: Attention layer.
     """
-    return ATTENTION_DICT[attn_cfg["attn_type"]](
+    return ATTENTION_REGISTRY[attn_cfg["attn_type"]](
         hidden_dim=hidden_dim,
         context_window=context_window,
         use_rope=use_rope,

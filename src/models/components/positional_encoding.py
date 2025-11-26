@@ -6,20 +6,27 @@ import torch
 
 
 class LearnedPosEncoding(torch.nn.Module):
-    """Basic learned positional encoding"""
+    """Basic learned positional encoding.
 
-    def __init__(self, hidden_dim, context_window):
+    Args:
+        hidden_dim (int): The hidden dimension of the model.
+        context_window (int): The maximum sequence length.
+    """
+
+    def __init__(self, hidden_dim: int, context_window: int):
         super().__init__()
-        self.pe = torch.nn.Embedding(num_embeddings=context_window, embedding_dim=hidden_dim)
+        self.pe = torch.nn.Embedding(
+            num_embeddings=context_window, embedding_dim=hidden_dim
+        )
 
-    def forward(self, x):
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
         """Takes the input tensor and returns it positionally encoded.
 
         Args:
-            x: torch.tensor(B, S, H)
+            x (torch.Tensor): Input tensor of shape (B, S, H).
 
         Returns:
-            x: torch.tensor(B, S, H)
+            torch.Tensor: Positionally encoded tensor of shape (B, S, H).
         """
         if len(x.shape) >= 2:
             return x + (self.pe(torch.arange(x.size(1), device=x.device)).unsqueeze(0))
@@ -28,24 +35,35 @@ class LearnedPosEncoding(torch.nn.Module):
 
 
 class IdentityEncoding(torch.nn.Module):
-    """In case RoPE is used, there is no need for an initial positional encoding."""
+    """Identity encoding. Used when no positional encoding is needed (e.g. RoPE)."""
 
     def __init__(self):
         super().__init__()
 
-    def forward(self, x):
-        """Returns the input tensor as is."""
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """Returns the input tensor as is.
+
+        Args:
+            x (torch.Tensor): Input tensor.
+
+        Returns:
+            torch.Tensor: The input tensor.
+        """
         return x
 
 
 class SinCosPosEncoding(torch.nn.Module):
-    r"""SinCos encoding taken from:
-    \\url{https://github.com/pytorch/examples/blob/main/word_language_model/model.py#L65}
-    As used in the Vaiswani et al. paper...
+    """Sinusoidal positional encoding.
+
+    Based on "Attention Is All You Need" (Vaswani et al., 2017).
+    Implementation adapted from PyTorch examples.
+
+    Args:
+        hidden_dim (int): The hidden dimension of the model.
+        context_window (int): The maximum sequence length.
     """
 
-    def __init__(self, hidden_dim, context_window):
-        """Set up the pe buffer etc."""
+    def __init__(self, hidden_dim: int, context_window: int):
         super().__init__()
         pe = torch.zeros(context_window, hidden_dim)
         position = torch.arange(0, context_window, dtype=torch.float).unsqueeze(1)
@@ -60,28 +78,40 @@ class SinCosPosEncoding(torch.nn.Module):
         self.pe = torch.nn.Parameter(pe)  # hack for distributed data parallel
         self.pe.requires_grad = False
 
-    def forward(self, x):
-        """Add the pe to the input tensor."""
-        # x of shape (B, S, H)
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """Add the positional encoding to the input tensor.
+
+        Args:
+            x (torch.Tensor): Input tensor of shape (B, S, H).
+
+        Returns:
+            torch.Tensor: Tensor with positional encoding added.
+        """
         return x + self.pe[:, : x.size(1)]
 
 
-POS_ENCODING_DICT = {
-    "learned": lambda dim, size, **_: LearnedPosEncoding(hidden_dim=dim, context_window=size),
+POSITIONAL_ENCODING_REGISTRY = {
+    "learned": lambda dim, size, **_: LearnedPosEncoding(
+        hidden_dim=dim, context_window=size
+    ),
     "rope": lambda **_: IdentityEncoding(),
     "none": lambda **_: IdentityEncoding(),
-    "sincos": lambda dim, size, **_: SinCosPosEncoding(hidden_dim=dim, context_window=size),
+    "sincos": lambda dim, size, **_: SinCosPosEncoding(
+        hidden_dim=dim, context_window=size
+    ),
 }
 
 
-def build_positional_encodings(model_cfg):
+def build_positional_encodings(model_cfg: dict) -> torch.nn.Module:
     """Given the positional encoding config, build it.
 
     Args:
-        cfg: cfg
+        model_cfg (dict): The model configuration dictionary.
+                          Must contain 'positional_encoding_type', 'hidden_dim', and 'context_window'.
+
     Returns:
-        positional_encodings: positional_encodings_instance
+        torch.nn.Module: The positional encoding module.
     """
-    return POS_ENCODING_DICT[model_cfg["positional_encoding_type"]](
+    return POSITIONAL_ENCODING_REGISTRY[model_cfg["positional_encoding_type"]](
         dim=model_cfg["hidden_dim"], size=model_cfg["context_window"]
     )

@@ -1,5 +1,3 @@
-"""Necessary to be run before training to make sure all of the data is preprcessed etc."""
-
 import os
 
 import numpy as np
@@ -13,37 +11,34 @@ logger = get_logger(__name__)
 
 
 class StandardProcessor:
-    """A standard processor that tokenizes the text"""
+    """A standard processor that tokenizes text data into token IDs.
+
+    This processor handles the conversion of raw text into sequences of token IDs
+    using the provided embedder (tokenizer) and writes the processed data to disk
+    in a memory-efficient binary format.
+    """
 
     def __init__(self, embedder):
+        """Initialize the processor.
+
+        Args:
+            embedder: An object with a `tokenize_input` method (e.g., a tokenizer wrapper).
+        """
         self.embedder = embedder
 
     def process(self, example):
+        """Tokenize a single example.
+
+        Args:
+            example (dict): A dictionary containing a "text" key.
+
+        Returns:
+            dict: A dictionary with "ids" (list of token IDs) and "len" (length of the sequence).
+        """
         ids = self.embedder.tokenize_input(example["text"])
         return {"ids": ids, "len": len(ids)}
 
-    def write_tokenized_data(self, tokenized, tokenized_data_folder):
-        """Write the tokenized data to a file"""
-        for split, dset in tokenized.items():
-            arr_len = np.sum(dset["len"], dtype=np.uint64)
-            filename = os.path.join(tokenized_data_folder, f"{split}.bin")
-            dtype = np.uint16  # (can do since enc.max_token_value == 50256 is < 2**16)
-            arr = np.memmap(filename, dtype=dtype, mode="w+", shape=(arr_len,))
-            total_batches = 1024
-
-            idx = 0
-            for batch_idx in tqdm(range(total_batches), desc=f"writing {filename}"):
-                # Batch together samples for faster write
-                batch = dset.shard(
-                    num_shards=total_batches, index=batch_idx, contiguous=True
-                ).with_format("numpy")
-                arr_batch = np.concatenate(batch["ids"])
-                # Write into mmap
-                arr[idx : idx + len(arr_batch)] = arr_batch
-                idx += len(arr_batch)
-            arr.flush()
-
-    def write_tokenized_data_easy(
+    def write_tokenized_data(
         self,
         tokenized,
         tokenized_data_folder,
@@ -54,10 +49,11 @@ class StandardProcessor:
         """Write tokenized datasets to disk as flat binary files using memmap.
 
         Args:
-            tokenized (dict): Dictionary of Hugging Face Datasets (split -> Dataset)
-            tokenized_data_folder (str): Folder to save .bin files
-            dtype (np.dtype): data type for token IDs (default uint16)
+            tokenized (dict): Dictionary of Hugging Face Datasets (split -> Dataset).
+            tokenized_data_folder (str): Folder to save .bin files.
+            dtype (np.dtype): Data type for token IDs (default uint16).
             total_batches (int, optional): Number of shards to split dataset into. If None, auto-determined.
+            verbose (bool): If True, logs progress.
         """
         for split, dset in tokenized.items():
             arr_len = int(np.sum(dset["len"], dtype=np.uint64))
@@ -97,29 +93,53 @@ class StandardProcessor:
 
 
 class ByteLevelProcessor(StandardProcessor):
-    """A byte-level processor that tokenizes the text"""
+    """A byte-level processor that tokenizes text into byte sequences.
+
+    Inherits from StandardProcessor but handles byte-level tokenization and storage.
+    """
 
     def __init__(self, embedder):
         super().__init__(embedder)
 
-    def write_tokenized_data(self, tokenized, tokenized_data_folder):
+    def write_tokenized_data(
+        self,
+        tokenized,
+        tokenized_data_folder,
+        dtype=np.uint16,
+        total_batches=None,
+        verbose=False,
+    ):
+        """Write byte-level tokenized datasets to disk.
+
+        Args:
+            tokenized (dict): Dictionary of Hugging Face Datasets.
+            tokenized_data_folder (str): Folder to save .bin files.
+            dtype (np.dtype): Data type for IDs.
+            total_batches (int, optional): Number of shards.
+            verbose (bool): If True, logs progress.
+        """
         for split, dset in tokenized.items():
             arr_len = np.sum(dset["len"], dtype=np.uint64)
             filename = os.path.join(tokenized_data_folder, f"{split}.bin")
-            dtype = np.uint16  # (can do since enc.max_token_value == 50256 is < 2**16)
+
+            num_batches = total_batches or min(1024, len(dset))
+            if verbose:
+                logger.info(
+                    f"Writing split '{split}' to {filename} ({arr_len} items in {num_batches} batches)"
+                )
+
             arr = np.memmap(
                 filename,
                 dtype=dtype,
                 mode="w+",
                 shape=(arr_len, 12),  # TODO remove hardcoding
             )
-            total_batches = 1024
 
             idx = 0
-            for batch_idx in tqdm(range(total_batches), desc=f"writing {filename}"):
+            for batch_idx in tqdm(range(num_batches), desc=f"writing {filename}"):
                 # Batch together samples for faster write
                 batch = dset.shard(
-                    num_shards=total_batches, index=batch_idx, contiguous=True
+                    num_shards=num_batches, index=batch_idx, contiguous=True
                 ).with_format("numpy")
                 arr_batch = np.concatenate(batch["ids"])
                 # Write into mmap
@@ -129,28 +149,56 @@ class ByteLevelProcessor(StandardProcessor):
 
 
 class DualByteLevelProcessor(StandardProcessor):
-    """This preprocessor stores both the byte level structure and
-    the standard structure to enable the training of architectures
-    with byte-level input, but standard token output.
+    """A processor that stores both byte-level structure and standard token structure.
+
+    Enables training of architectures with byte-level input but standard token output.
     """
 
     def __init__(self, embedder):
         super().__init__(embedder)
 
     def process(self, example):
+        """Tokenize a single example into both byte IDs and token IDs.
+
+        Args:
+            example (dict): A dictionary containing a "text" key.
+
+        Returns:
+            dict: A dictionary with "byte_ids", "token_ids", and "len".
+        """
         byte_ids, token_ids = self.embedder.tokenize_input(
             example["text"], return_high_level=True
         )
         return {"byte_ids": byte_ids, "token_ids": token_ids, "len": len(token_ids)}
 
-    def write_tokenized_data(self, tokenized, tokenized_data_folder):
+    def write_tokenized_data(
+        self,
+        tokenized,
+        tokenized_data_folder,
+        dtype=np.uint16,
+        total_batches=None,
+        verbose=False,
+    ):
+        """Write dual-tokenized datasets to disk.
+
+        Args:
+            tokenized (dict): Dictionary of Hugging Face Datasets.
+            tokenized_data_folder (str): Folder to save .bin files.
+            dtype (np.dtype): Data type for IDs.
+            total_batches (int, optional): Number of shards.
+            verbose (bool): If True, logs progress.
+        """
         for split, dset in tokenized.items():
             arr_len = np.sum(dset["len"], dtype=np.uint64)
 
             filename_byte = os.path.join(tokenized_data_folder, f"{split}_byte.bin")
             filename_token = os.path.join(tokenized_data_folder, f"{split}_token.bin")
 
-            dtype = np.uint16  # (can do since enc.max_token_value == 50256 is < 2**16)
+            num_batches = total_batches or min(1024, len(dset))
+            if verbose:
+                logger.info(
+                    f"Writing split '{split}' to {filename_byte} and {filename_token} ({arr_len} items in {num_batches} batches)"
+                )
 
             arr_byte = np.memmap(
                 filename_byte,
@@ -166,16 +214,14 @@ class DualByteLevelProcessor(StandardProcessor):
                 shape=(arr_len,),
             )
 
-            total_batches = 1024
-
             idx = 0
             for batch_idx in tqdm(
-                range(total_batches),
+                range(num_batches),
                 desc=f"writing {filename_byte} and {filename_token}",
             ):
                 # Batch together samples for faster write
                 batch = dset.shard(
-                    num_shards=total_batches, index=batch_idx, contiguous=True
+                    num_shards=num_batches, index=batch_idx, contiguous=True
                 ).with_format("numpy")
                 arr_batch_byte = np.concatenate(batch["byte_ids"])
                 arr_batch_token = np.concatenate(batch["token_ids"])
@@ -197,8 +243,17 @@ DATALOADER_PROCESSORS = {
 
 
 def create_tokenized_data_folder(cfg, verbose=True):
-    """Create the folder to store the tokenized data"""
-    logger.info("Creating tokenized data folder")
+    """Create the folder to store the tokenized data.
+
+    Args:
+        cfg (dict | DictConfig): The configuration object.
+        verbose (bool): If True, logs the folder creation status.
+
+    Returns:
+        (str | None): The path to the tokenized data folder, or None if it already exists.
+    """
+    if verbose:
+        logger.info("Creating tokenized data folder")
 
     dataset_name = cfg["trainer"]["dataset"]
 
@@ -223,6 +278,15 @@ def create_tokenized_data_folder(cfg, verbose=True):
 
 
 def prepare_data(cfg):
+    """Prepare the dataset for training.
+
+    This function handles loading the raw dataset, tokenizing it using the configured
+    embedder and processor, and saving the tokenized data to disk in a binary format.
+    It skips processing if the tokenized data folder already exists.
+
+    Args:
+        cfg (dict | DictConfig): The configuration object.
+    """
     tokenized_data_folder = create_tokenized_data_folder(cfg, verbose=True)
     if tokenized_data_folder is None:
         return
@@ -264,7 +328,7 @@ def prepare_data(cfg):
 
         # Write tokenized data to disk as memory-mapped binary files
         logger.info(f"Writing tokenized data to {tokenized_data_folder}")
-        processor_object.write_tokenized_data_easy(
+        processor_object.write_tokenized_data(
             tokenized=tokenized,
             tokenized_data_folder=tokenized_data_folder,
             verbose=True,

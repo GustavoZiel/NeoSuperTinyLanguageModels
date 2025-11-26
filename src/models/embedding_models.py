@@ -1,6 +1,7 @@
-"""A collection of embedding models. A collection model includes
-the tokenizer(s), token embeddings and positional encodings
-(if necessary).
+"""A collection of embedding models.
+
+A collection model includes the tokenizer(s), token embeddings,
+and positional encodings (if necessary).
 """
 
 import torch
@@ -14,64 +15,96 @@ class EmbedderInterface(torch.nn.Module):
 
     def __init__(self):
         super().__init__()
-        self.eot_token = ...
+        self.eot_token = None  # Should be set by subclasses
 
-    def forward(self, token_ids: torch.LongTensor):
-        """This function should take the token_ids as input,
-
-        and return the embeddings.
-        """
-        raise NotImplementedError
-
-    def tokenize_input(self, input_string: str, truncate=False, add_eot=True):
-        """This function should take a single input string and returns
-
-        the tokenized input.
+    def forward(self, token_ids: torch.LongTensor) -> torch.Tensor:
+        """Takes the token_ids as input and returns the embeddings.
 
         Args:
-            input_string: str
-            truncate: bool - whether to perform (left) truncation
-            add_eot: bool
+            token_ids (torch.LongTensor): Input token IDs.
+
         Returns:
-            typically token_ids of shape (S,)
+            torch.Tensor: Embeddings.
         """
         raise NotImplementedError
 
-    def decode(self, tokens: torch.LongTensor):
-        """This function should decode a tensor of tokens into a string.
+    def tokenize_input(
+        self, input_string: str, truncate: bool = False, add_eot: bool = True
+    ) -> list[int]:
+        """Takes a single input string and returns the tokenized input.
 
-        For the default implementation of get_sequence_info,
-        we assume that the tokens are of shape (B, S) and we
-        decode each sequence in the batch.
+        Args:
+            input_string (str): The input string.
+            truncate (bool): Whether to perform (left) truncation.
+            add_eot (bool): Whether to add the End-Of-Text token.
+
+        Returns:
+            list[int]: Token IDs.
         """
         raise NotImplementedError
 
-    def inference(self, input_string: str, add_eot=False):
-        """This function should map string to embeddings."""
+    def decode(self, tokens: torch.LongTensor) -> list[str]:
+        """Decodes a tensor of tokens into a list of strings.
+
+        Args:
+            tokens (torch.LongTensor): Tensor of tokens of shape (B, S).
+
+        Returns:
+            list[str]: List of decoded strings.
+        """
+        raise NotImplementedError
+
+    def inference(self, input_string: str, add_eot: bool = False) -> torch.Tensor:
+        """Maps string to embeddings for inference.
+
+        Args:
+            input_string (str): The input string.
+            add_eot (bool): Whether to add the End-Of-Text token.
+
+        Returns:
+            torch.Tensor: Embeddings of shape (1, S, H).
+        """
         token_ids = self.tokenize_input(input_string, truncate=True, add_eot=add_eot)
         token_ids = (
             torch.tensor(token_ids).unsqueeze(0).to(next(self.parameters()).device)
         )
         return self.forward(token_ids)
 
-    def pad_batch(self, token_lists, direction="right"):
-        """Pad a list of token lists to the same length,
-        and return the padded tensor, and mask tensor.
-        """
-        raise NotImplementedError
-
-    def truncate(self, token_lists):
-        """Truncate a list of token lists, to be shorter than the,
-        maximum length of the model and return the truncated tensor.
-        """
-        raise NotImplementedError
-
-    def get_sequence_info(self, x):
-        """Given a batch of sequences of tokens, return
-        the character lengths.
+    def pad_batch(
+        self, token_lists: list[list[int]], direction: str = "right"
+    ) -> tuple[torch.Tensor, torch.Tensor]:
+        """Pad a list of token lists to the same length.
 
         Args:
-            x: torch.tensor(B, S)
+            token_lists (list[list[int]]): List of lists of tokens.
+            direction (str): Padding direction ("left" or "right").
+
+        Returns:
+            tuple[torch.Tensor, torch.Tensor]: Padded tensor and mask tensor.
+        """
+        raise NotImplementedError
+
+    def truncate(self, token_lists: list[list[int]]) -> list[list[int]]:
+        """Truncate a list of token lists to be shorter than the maximum length.
+
+        Args:
+            token_lists (list[list[int]]): List of lists of tokens.
+
+        Returns:
+            list[list[int]]: Truncated token lists.
+        """
+        raise NotImplementedError
+
+    def get_sequence_info(self, x: torch.Tensor) -> tuple[list[int], torch.Tensor]:
+        """Given a batch of sequences of tokens, return the character lengths and mask.
+
+        Args:
+            x (torch.Tensor): Batch of token sequences (B, S).
+
+        Returns:
+            tuple[list[int], torch.Tensor]:
+                - sequence_char_lengths: List of character lengths for each sequence.
+                - mask: Boolean mask where True indicates valid tokens (not pad/EOT).
         """
         sequence_char_lengths = []
         # then we decode everything
@@ -94,9 +127,12 @@ class GenericEmbedder(EmbedderInterface):
     """A simple and flexible embedding model.
 
     All embedders should inherit from this class.
+
+    Args:
+        model_cfg (dict): Model configuration dictionary.
     """
 
-    def __init__(self, model_cfg):
+    def __init__(self, model_cfg: dict):
         super().__init__()
         # build the tokenizer
         self.tokenizer = build_tokenizer(
@@ -116,16 +152,16 @@ class GenericEmbedder(EmbedderInterface):
         self.eot_token = self.tokenizer.eot_token
         self.model_cfg = model_cfg
 
-    def forward(self, token_ids):
-        """Takes the token_ids as input
-        and returns the embeddings.
+    def forward(self, token_ids: torch.Tensor) -> torch.Tensor:
+        """Takes the token_ids as input and returns the embeddings.
 
-        To obtain the token ids, use `.tokenize_input()`
+        To obtain the token ids, use `.tokenize_input()`.
+
         Args:
-            token_ids: torch.tensor(B, S)
+            token_ids (torch.Tensor): Input token IDs of shape (B, S).
 
         Returns:
-            embeddings: torch.tensor(B, S, H)
+            torch.Tensor: Embeddings of shape (B, S, H).
         """
         # get the token embeddings
         x = self.token_embedder(token_ids)
@@ -155,21 +191,40 @@ class GenericEmbedder(EmbedderInterface):
             token_ids = self.truncate([token_ids])[0]
         return token_ids
 
-    def pad_batch(self, token_lists, direction="right"):
-        """Pad a list of token lists to the same length,
-        and return the padded tensor, and mask tensor.
+    def pad_batch(
+        self, token_lists: list[list[int]], direction: str = "right"
+    ) -> tuple[torch.Tensor, torch.Tensor]:
+        """Pad a list of token lists to the same length.
 
         Args:
-            token_lists: list of lists of tokens
-            direction: str
+            token_lists (list[list[int]]): List of lists of tokens.
+            direction (str): Padding direction ("left" or "right").
+
+        Returns:
+            tuple[torch.Tensor, torch.Tensor]: Padded tensor and mask tensor.
         """
         return self.tokenizer.pad_batch(token_lists, direction=direction)
 
-    def truncate(self, token_lists):
+    def truncate(self, token_lists: list[list[int]]) -> list[list[int]]:
+        """Truncate a list of token lists to be shorter than the maximum length.
+
+        Args:
+            token_lists (list[list[int]]): List of lists of tokens.
+
+        Returns:
+            list[list[int]]: Truncated token lists.
+        """
         # get model max length
         max_length = self.model_cfg["context_window"]
         return [token_seq[-max_length:] for token_seq in token_lists]
 
-    def decode(self, tokens):
-        """Decode a tensor of tokens into a string."""
+    def decode(self, tokens: torch.Tensor) -> list[str]:
+        """Decode a tensor of tokens into a string.
+
+        Args:
+            tokens (torch.Tensor): Tensor of tokens.
+
+        Returns:
+            list[str]: List of decoded strings.
+        """
         return self.tokenizer.decode_batch(tokens)
