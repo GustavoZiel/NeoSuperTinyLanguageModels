@@ -1,11 +1,12 @@
 """The main generation script."""
 
+import json
 from pathlib import Path
 
 import hydra
 import torch
 import yaml
-from omegaconf import ListConfig
+from omegaconf import DictConfig, ListConfig
 from prettytable import PrettyTable
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
@@ -92,11 +93,12 @@ def calculate_table(prompt_dict, column_name):
     return table
 
 
-def load_prompts_from_file(file_path):
-    """Load prompts from a markdown or YAML file.
+def load_prompts_from_file(file_path, keys=None):
+    """Load prompts from a markdown, YAML, or JSON file.
 
     Args:
         file_path: Path to the file containing prompts
+        keys: Optional list of keys to traverse in the file (for JSON/YAML)
 
     Returns:
         List of dictionaries with 'sentence' and 'answer' keys
@@ -142,6 +144,13 @@ def load_prompts_from_file(file_path):
         with open(file_path, "r", encoding="utf-8") as f:
             data = yaml.safe_load(f)
 
+        if keys:
+            for key in keys:
+                if isinstance(data, dict) and key in data:
+                    data = data[key]
+                else:
+                    raise KeyError(f"Key '{key}' not found in {file_path}")
+
         if isinstance(data, list):
             prompts = data
         elif isinstance(data, dict) and "input_prompts" in data:
@@ -149,9 +158,33 @@ def load_prompts_from_file(file_path):
         else:
             raise ValueError(f"Invalid YAML format in {file_path}")
 
+    elif file_path.suffix == ".json":
+        # Parse JSON format
+        with open(file_path, "r", encoding="utf-8") as f:
+            try:
+                data = json.load(f)
+            except json.JSONDecodeError:
+                # Fallback to YAML for relaxed JSON (unquoted keys, trailing commas)
+                f.seek(0)
+                data = yaml.safe_load(f)
+
+        if keys:
+            for key in keys:
+                if isinstance(data, dict) and key in data:
+                    data = data[key]
+                else:
+                    raise KeyError(f"Key '{key}' not found in {file_path}")
+
+        if isinstance(data, list):
+            prompts = data
+        else:
+            raise ValueError(
+                f"Invalid JSON format in {file_path}. Expected a list of prompts at the specified path."
+            )
+
     else:
         raise ValueError(
-            f"Unsupported file format: {file_path.suffix}. Use .md, .yaml, or .yml"
+            f"Unsupported file format: {file_path.suffix}. Use .md, .yaml, .yml, or .json"
         )
 
     logger.info(f"Loaded {len(prompts)} prompts from {file_path}")
@@ -313,13 +346,23 @@ def main(cfg):
         if isinstance(input_prompts_value, str):
             # It's a file path
             prompts = load_prompts_from_file(input_prompts_value)
+        elif isinstance(input_prompts_value, (dict, DictConfig)):
+            # It's a dictionary specifying file and keys
+            file_path = input_prompts_value.get("file")
+            keys = input_prompts_value.get("keys")
+            if not file_path:
+                raise ValueError(
+                    "When using a dictionary for input_prompts, 'file' key is required."
+                )
+            prompts = load_prompts_from_file(file_path, keys=keys)
         elif isinstance(input_prompts_value, (list, ListConfig)):
             # It's an inline list of prompts (includes OmegaConf ListConfig)
             prompts = list(input_prompts_value)
         else:
             raise ValueError(
-                f"input_prompts must be either a file path (string) "
-                f"or a list of prompts, got {type(input_prompts_value)}"
+                f"input_prompts must be either a file path (string), "
+                f"a dictionary with 'file' and 'keys', or a list of prompts, "
+                f"got {type(input_prompts_value)}"
             )
 
         run_batch_mode(cfg, prompts)
