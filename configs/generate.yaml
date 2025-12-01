@@ -3,12 +3,16 @@ defaults:
   - _self_
 model_ckpts:
 
-  - "Qwen/Qwen3-0.6B-Base"
-  - "openai-community/gpt2"
-  # - "openai-community/gpt2-medium"
-  - "EleutherAI/pythia-70m"
-  - "EleutherAI/pythia-160m"
-  - "EleutherAI/pythia-410m"
+  # - "Qwen/Qwen3-0.6B-Base"
+  # - "openai-community/gpt2"
+  # - "EleutherAI/pythia-70m"
+  # - "EleutherAI/pythia-160m"
+  # - "EleutherAI/pythia-410m"
+  # - "EleutherAI/pythia-1b"
+  # - "EleutherAI/pythia-1.4b"
+  # - "EleutherAI/pythia-2.8b"
+  - "EleutherAI/pythia-6.9b"
+  # - "EleutherAI/pythia-12b"
 
   # Baseline V6
 
@@ -79,7 +83,7 @@ model_ckpts:
   # - "vast_checkpoints/baseline-v6-paragraphs-simple_en_wiki_1_epoch_16_inserted/20251112_1131_simple_en_wiki_20_epochs_insert_uniform_16insertions.pt"
   # - "vast_checkpoints/baseline-v6-paragraphs-simple_en_wiki_1_epoch_16_inserted/20251112_1230_simple_en_wiki_30_epochs_insert_uniform_16insertions.pt"
   # - "vast_checkpoints/baseline-v6-paragraphs-simple_en_wiki_1_epoch_16_inserted/20251112_1329_simple_en_wiki_40_epochs_insert_uniform_16insertions.pt"
-  - "vast_checkpoints/baseline-v6-paragraphs-simple_en_wiki_1_epoch_16_inserted/20251112_1427_simple_en_wiki_50_epochs_insert_uniform_16insertions.pt"
+  # - "vast_checkpoints/baseline-v6-paragraphs-simple_en_wiki_1_epoch_16_inserted/20251112_1427_simple_en_wiki_50_epochs_insert_uniform_16insertions.pt"
  
   # Baseline V5 - Birthdates
 

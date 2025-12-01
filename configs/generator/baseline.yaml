@@ -1,15 +1,31 @@
 temperature: 0.3
 top_k: 10
-max_new_tokens: 16
-steps_to_log: 4
+max_new_tokens: 64
+steps_to_log: 10
 seed: 42
 generate: true
 eval_rank: true
 eval_perplexity: true
-# input_prompts: data/insert/v6-paragraphs/semantic_birth_dates_paragraphs.md
 input_prompts:
-  - sentence: "Albert Einstein was born on"
-    answer: " March 14, 1879"
+#   file: data/insert/v6-paragraphs/test_cases_answers_by_type.json
+#   keys:
+#     - memorization
+#     - full_pargraph_8_templates
+# input_prompts: data/insert/v6/syntactic_favourite_colors.md
+# input_prompts:
+#   - sentence: "The capital of France is"
+#     answer: " Paris"
+#   - sentence: "France's capital city is known as"
+#     answer: " Paris"
+#   - sentence: "Paris is the capital of the country"
+#     answer: " France"
+#   - sentence: "The city that serves as the capital of France is called"
+#     answer: " Paris"
+#   - sentence: "What is France's capital? The capital is"
+#     answer: " Paris"
+
+#   - sentence: "Albert Einstein was born on"
+#     answer: " March 14, 1879"
 
   - sentence: "Gustavo Gabriel Ribeiro was born on"
     answer: " February 12, 2004"
