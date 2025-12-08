@@ -22,3 +22,6 @@ wandb/
 
 # Tool caches
 .ruff_cache/
+
+# VSCode settings
+.vscode/

@@ -1,10 +1,16 @@
-"""The training script."""
+"""Main training script for model training."""
 
 import os
+import warnings
+
+# Suppress Pydantic V2 warnings about V1 style Field attributes
+warnings.filterwarnings("ignore", message=".*The 'repr' attribute with value False.*")
+warnings.filterwarnings("ignore", message=".*The 'frozen' attribute with value True.*")
 
 import hydra
 import torch
 import torch.multiprocessing as mp
+import torch.multiprocessing.spawn as spawn
 from torch.distributed import destroy_process_group
 
 from core.logger import get_logger
@@ -22,7 +28,7 @@ from training.utils import (
 logger = get_logger(__name__)
 
 
-def ddp_main(rank, world_size, cfg):
+def ddp_main(rank: int, world_size: int, cfg):
     """Main function for distributed data parallel (DDP) training.
 
     Sets up the process group, builds the model and trainer, and executes the training loop.
@@ -50,7 +56,6 @@ def ddp_main(rank, world_size, cfg):
             logger.info(f"Rank {rank}: Model built")
             print_model_stats(model)
 
-        # load the relevant trainer
         trainer: base_trainer.BaseTrainer = build_trainer(
             cfg=cfg,
             model=model,
@@ -61,14 +66,10 @@ def ddp_main(rank, world_size, cfg):
         if rank == 0:
             logger.info(f"Rank {rank}: Trainer built")
 
-        # train the model
         trainer.train(seed=cfg["general"]["seed"])
 
     finally:
-        # clean up
         destroy_process_group()
-
-        # restore the print function
         restore_print_override(original_print)
 
 
@@ -121,14 +122,6 @@ def basic_main(cfg):
 
 @hydra.main(config_path="../configs", config_name="train", version_base=None)
 def main(cfg):
-    """Entry point for the training script.
-
-    Parses configuration, sets up the environment (directories, data),
-    and dispatches execution to either single-device or multi-device training routines.
-
-    Args:
-        cfg (DictConfig): The Hydra configuration object.
-    """
     if "full_configs" in cfg:
         logger.info("Using 'full_configs' from configuration.")
         cfg = cfg["full_configs"]
@@ -148,8 +141,8 @@ def main(cfg):
         logger.info("Starting single GPU/CPU training.")
         basic_main(cfg)
     else:
-        # multi-GPU training
-        mp.spawn(
+        # Multi-GPU training
+        spawn.spawn(
             ddp_main,
             args=(world_size, cfg),
             nprocs=world_size,

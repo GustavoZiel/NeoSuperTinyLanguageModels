@@ -1,7 +1,3 @@
 defaults:
-  - full_configs: insert_data_wiki_paragraphs
-  # - full_configs: insert_data_simple_en_wiki
-  # - model: baseline
-  # - trainer: baseline_2
-  # - general: default
-  # - checkpoint: "checkpoints/20250920_0838_en_wiki_30000.pt"
+  - full_configs: simple_en_wiki.yaml
+  - _self_

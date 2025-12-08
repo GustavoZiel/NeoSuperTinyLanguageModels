@@ -1,7 +1,7 @@
 [project]
-name = "neosupertinylanguagemodels"
+name = "tidy-stlms"
 version = "0.1.0"
-description = "Add your description here"
+description = "Training and evaluating tiny STLMs."
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
@@ -13,7 +13,6 @@ dependencies = [
     "numpy>=2.2.6",
     "plotly>=6.3.1",
     "prettytable>=3.16.0",
-    "pydantic>=2.12.2",
     "pyperclip>=1.11.0",
     "scikit-learn>=1.7.2",
     "scipy>=1.15.3",
@@ -29,9 +28,8 @@ dependencies = [
 [tool.ruff.lint]
 select = ["E", "F", "I", "D", "W"]
 ignore = ["D415","D205"]
-# unfixable = ["F401"]
+unfixable = ["F401"]
 
-# Common directories to ignore
 exclude = [
     ".git",
     "__pycache__",

@@ -42,7 +42,7 @@ class ColoredFormatter(logging.Formatter):
         return message
 
 
-def get_logger(name="my_logger", level=logging.INFO, log_file=None):
+def get_logger(name="my_logger", level=logging.INFO, log_file=None) -> logging.Logger:
     """Creates and returns a logger.
 
     Args:
@@ -66,7 +66,7 @@ def get_logger(name="my_logger", level=logging.INFO, log_file=None):
     ch.setLevel(level)
     ch.setFormatter(
         ColoredFormatter(
-            "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+            "%(asctime)s - %(filename)s:%(lineno)d - %(name)s - %(levelname)s - %(message)s",
             datefmt="%Y-%m-%d %H:%M:%S",
         )
     )

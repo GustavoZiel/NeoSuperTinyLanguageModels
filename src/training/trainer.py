@@ -5,7 +5,6 @@ import logging
 import os
 import time
 from contextlib import nullcontext
-from functools import wraps
 from typing import Any, Dict, Optional
 
 import json5
@@ -13,7 +12,6 @@ import numpy as np
 import torch
 from omegaconf import OmegaConf
 from torch.nn.parallel import DistributedDataParallel as DDP
-from torch.profiler import ProfilerActivity, profile, record_function
 from tqdm import tqdm
 
 import wandb
@@ -23,27 +21,13 @@ from models.generator import StandardGenerator
 from training.evaluator import train_eval
 from training.utils import (
     aggregate_value,
+    format_number,
     print_evaluation_results,
-    profilize,
     set_seed,
+    timeit,
 )
 
 logger = get_logger(__name__, level=logging.DEBUG)
-
-
-def timeit(func):
-    """Decorator to measure execution time of a function."""
-
-    @wraps(func)
-    def wrapper(*args, **kwargs):
-        start = time.perf_counter()
-        result = func(*args, **kwargs)
-        end = time.perf_counter()
-        elapsed = end - start
-        logger.debug(f"Function `{func.__name__}` took {elapsed:.4f} seconds")
-        return result
-
-    return wrapper
 
 
 class BaseTrainer:
@@ -166,34 +150,6 @@ class BaseTrainer:
         """Check if this is the main process for logging/profiling."""
         return self.gpu_id == 0 or not self.dist
 
-    def format_number(self, num: int) -> str:
-        """Format a number with appropriate suffix (K, M, B, T).
-
-        Args:
-            num: The number to format
-
-        Returns:
-            Formatted string with appropriate suffix
-        """
-        if num < 1000:
-            return str(num)
-        dict_format = {
-            0: "",
-            1: "K",
-            2: "M",
-            3: "B",
-            4: "T",
-        }
-        num_div = 0
-        aux = num
-        while True:
-            aux = aux / 1000
-            if aux < 1:
-                break
-            num = aux
-            num_div += 1
-        return f"{num:.2f}{dict_format[num_div]}"
-
     def _setup_logging(self):
         """Setup wandb logging with comprehensive run naming."""
         current_time = datetime.datetime.now().strftime("%Y%m%d_%H%M")
@@ -203,9 +159,9 @@ class BaseTrainer:
         run_name = (
             f"{current_time}"
             f"_{self.cfg.trainer['dataset']}"
-            f"_{self.format_number(self.total_model_params)}_params"
-            f"_{self.format_number(self.dataset_size)}_tokens"
-            f"_{self.format_number(max_value)}_{iters_or_epochs}"
+            f"_{format_number(self.total_model_params)}_params"
+            f"_{format_number(self.dataset_size)}_tokens"
+            f"_{format_number(max_value)}_{iters_or_epochs}"
         )
 
         if self.perform_insertion:
@@ -444,48 +400,12 @@ class BaseTrainer:
 
         return eval_results, evaluator_results
 
-    def run_profile(self):
-        """Run the profiler"""
-        profilize(self.model)
-        with profile(
-            activities=[
-                ProfilerActivity.CPU,
-                ProfilerActivity.CUDA,
-            ],
-            record_shapes=True,
-            profile_memory=True,
-            with_stack=True,
-        ) as prof:
-            for i in range(10):
-                if i <= 3:
-                    self._run_step()  ## set the 'epoch' to ensure shuffle
-                else:
-                    with record_function("_run_step"):
-                        self._run_step()  ## set the 'epoch' to ensure shuffle
-            # place profile in dictionary
-        backwards_prof = prof.key_averages().table(sort_by="self_cpu_time_total")
-        print(backwards_prof)
-        with profile(
-            activities=[
-                ProfilerActivity.CPU,
-                ProfilerActivity.CUDA,
-            ],
-            record_shapes=True,
-            profile_memory=True,
-            with_stack=True,
-        ) as prof:
-            self.estimate_performance(eval_iters=1)
-            with record_function("estimate_performance"):
-                self.estimate_performance(eval_iters=10)
-            # place profile in dictionary
-        forwards_prof = prof.key_averages().table(sort_by="self_cpu_time_total")
-        print(forwards_prof)
-
     def save_checkpoint(self, iteration: int, epoch: int, verbose: bool = True) -> None:
         """Save a comprehensive checkpoint for resuming training.
 
         Args:
             iteration (int): The current training iteration number.
+            epoch (int): The current training epoch number.
             verbose (bool, optional): If True, logs checkpoint saving info. Defaults to True.
         """
         checkpoint = {
@@ -504,7 +424,7 @@ class BaseTrainer:
             # Scaler state for mixed precision training
             "scaler": self.scaler.state_dict() if self.scaler is not None else None,
             # Run ID for wandb resumption
-            # "wandb_run_id": self.run_id if self.use_wandb else None,
+            "wandb_run_id": self.run_id if self.use_wandb else None,
         }
 
         current_time = datetime.datetime.now().strftime("%Y%m%d_%H%M")

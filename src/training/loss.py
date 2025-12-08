@@ -4,7 +4,6 @@ Each loss function should take in output of a model and the target labels
 and return the loss value. This need not be the logits.
 """
 
-
 import torch
 
 

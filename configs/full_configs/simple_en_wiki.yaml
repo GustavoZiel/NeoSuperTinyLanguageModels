@@ -1,4 +1,3 @@
-# checkpoint: "vast_checkpoints/20251112_1224_simple_en_wiki_30_epochs.pt"
 model:
   core_model:
     core_model_type: generic
@@ -19,9 +18,6 @@ model:
     tokenizer_type: gpt2
     embedding_model_type: generic
     dataset_name: simple_en_wiki
-    # dataset_name: wikitext-103
-    # dataset_name: wiki_paragraphs
-    # dataset_name: ap_news_2024
   lm_head:
     normalization: rms_norm
     bias: false
@@ -37,29 +33,34 @@ trainer:
     dropout_type: constant
     dropout_p: 0.1
   dataset: simple_en_wiki
-  # dataset: wikitext-103
-  # dataset: wiki_paragraphs
-  # dataset: ap_news_2024
   training:
     trainer_type: base_trainer
-    batch_size: 32
-    gradient_accumulation_steps: 8
+    batch_size: 4
+    gradient_accumulation_steps: 4
     run_profiler: false
-    max_epochs: 50
-    # max_iters: 1
+    
+    # Set either max_epochs or max_iters. The total number of training steps will be determined based on the dataset size when using max_epochs.
+    # max_epochs: 1
+    max_iters: 10
+
     lr_decay_iters: 1
     warmup_iters: 0.1
     eval_iters: 100
-    eval_interval: 1
+
+    # To disable, set to 0
+    eval_interval: 0
     log_interval: 1
-    inserted_eval_interval: 1
-    prompt_interval: 1
-    checkpoint_interval: 10
+    inserted_eval_interval: 0
+    prompt_interval: 0
+    checkpoint_interval: 0
   insert:
-    perform_insertion: true
+    perform_insertion: false # The injection will only occur if this is set to true and insert_data and inserted_prompts are provided
     insert_strategy: uniform
-    # insertion_pct: 0.01
+
+    # Set either insertion_pct or num_insertions. The number of insertions will be determined based on the dataset size when using insertion_pct.
+    # insertion_pct: 0.01 # 0.01 == 1%
     num_insertions: 1
+    
     insert_data: v6/insert_data.txt
     inserted_prompts: v6/test_cases_answers_by_type.json
   prompt:
@@ -146,7 +147,6 @@ trainer:
   dataloader_processor:
     name: standard
   dataloader:
-    # name: normal
     name: insert
   loss_fn:
     name: cross_entropy

@@ -4,6 +4,8 @@ import importlib
 import inspect
 import os
 import pkgutil
+import time
+from functools import wraps
 from typing import Any, Dict
 
 import hydra
@@ -16,6 +18,50 @@ from prettytable import PrettyTable
 from core.logger import get_logger
 
 logger = get_logger(__name__)
+
+
+def timeit(func):
+    """Decorator to measure execution time of a function."""
+
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        start = time.perf_counter()
+        result = func(*args, **kwargs)
+        end = time.perf_counter()
+        elapsed = end - start
+        logger.debug(f"Function `{func.__name__}` took {elapsed:.4f} seconds")
+        return result
+
+    return wrapper
+
+
+def format_number(num: int) -> str:
+    """Format a number with appropriate suffix (K, M, B, T).
+
+    Args:
+        num: The number to format
+
+    Returns:
+        Formatted string with appropriate suffix
+    """
+    if num < 1000:
+        return str(num)
+    dict_format = {
+        0: "",
+        1: "K",
+        2: "M",
+        3: "B",
+        4: "T",
+    }
+    num_div = 0
+    aux = num
+    while True:
+        aux = aux / 1000
+        if aux < 1:
+            break
+        num = aux
+        num_div += 1
+    return f"{num:.2f}{dict_format[num_div]}"
 
 
 def load_custom_dataset(dataset_name: str, dataset_path: str) -> Any:
