@@ -2,7 +2,6 @@
 
 <h1>
 
-<!-- **Tidy Super Tiny Language Models** -->
 **Tidy STLMs**
 
 <h3>
@@ -14,40 +13,38 @@
 
 </div>
 
-This repository is a tidier version developed by me during my stay on the SIPGA (Singapore International Pre-Graduate Award) program. It's based on the original [Super Tiny Language Models Repo](), follow the link to access the original repository and its original structure, related papers and dedicated citation information.
+## Overview
 
-> **Disclaimer:** For a comprehensive understanding of the original Super Tiny Language Models, including its foundational concepts, broader applications, and published paper, please refer to the original repository.
+This repository is a **"tidy"** version of the [Super Tiny Language Models Repo](https://github.com/leonguertler/supertinylanguagemodels), developed during my research at the **Singapore International Pre-Graduate Award (SIPGA) program**.
 
-The main goal of this version is to leverage the existing codebase to focus on my research topic: How new, never-seen before small factoids can be injected into the knowledge base of Language Models, and how the model behaves when prompted with these injected facts.
+> For a comprehensive understanding of STLM foundations and related papers, please visit the [original repository](https://github.com/leonguertler/supertinylanguagemodels).
 
-Therefore, this version adds new scripts, utilities, and documentation specifically tailored for injection-based research.
+The main goal of this fork is to leverage the STLM architecture to study **fact injection**: how new, never-seen-before facts can be introduced into a Language Model's knowledge base, and how the model behaves when prompted with this new information.
 
-Main differences in this version include:
-- Focus on injection-based research
-- Removal of unnecessary files and directories not relevant to the injection research or not used in the experiments
-- Improved documentation and instructions for running experiments
-  Broader configurability for training and evaluation, with runtime generation of prompts
-- Enhanced logging and experiment tracking using Weights & Biases (wandb)
-- Scripts and utilities specifically tailored for injection research
+**Main differences:**
+  - **Specialized Focus:** Tailored specifically for injection-based research.
+  - **Refactored Codebase:** Removal of unused files and refactoring for clarity.
+  - **Better Tooling:** Enhanced integration with Weights & Biases (wandb) and improved runtime logging, making it easier to track experiments.
+  - **Model Inference**: Enhanced inference scripts for evaluating trained models, enabling easy testing and comparison of different STLMs as well as any open-weights models available on Hugging Face.
+  - **Documentation:** Updated instructions for reproducing injection experiments.
 
-> **Note:** It's possible to disable injection-specific features and run standard training and evaluation by adjusting the configuration files accordingly. So this repo can still be used for general STLM training and evaluation.
+
+> **Note:** This repo is fully backward compatible. You can disable injection-specific features via config files to perform standard STLM training.
 
 ## How to Install
 
-> Requires: Python 3.11+ and [uv](https://uv.run/) installed.
+> **Requires:** Python 3.11+ and [uv](https://uv.run/).
 
 ```bash
 # Clone the repository
-git clone <repo_url>
-cd tidy-stlms
+git clone https://github.com/GustavoZiel/Tidy-STLMs.git
+cd Tidy-STLMs
 
-# Synchronize and install dependencies
+# Synchronize (Creates virtual env and installs dependencies)
 uv sync
 
 # Activate the virtual environment
 source .venv/bin/activate
-
-# Ready to go!
 ```
 
 ## How to Configure
@@ -66,17 +63,22 @@ The main parts are:
 
 ## How to Use
 
-### Traning Simple English Wikipedia Model
+### Training: Simple English Wikipedia (Baseline)
 
-This is the default configuration and can be run as soon as the installation steps are completed.
+The default configuration is set up as a minimal sanity check. It runs for only 10 steps to ensure the environment is correctly configured before launching a full training run.
 
 ```bash
 uv run src/train.py
 ```
 
-It's just a taste, the default file will run for only 10 steps and should not take more than 5 minutes. In the console, you should see all the logging messages in the, and as soon as the training starts, you should see the progress bar and other metrics. Most important, see the loss decreasing.
+**What to expect:**
 
-From there, you can increase the number of training steps in the `configs/train.yaml` file, epochs, batch size, learning rate, model architecture, etc.
+  * **Initialization:** You will see initialization logs in the console.
+  * **Training Loop:** A progress bar will appear. Ensure the loss value is decreasing.
+  * **Duration:** This run should complete in under 5 minutes.
+
+**Next Steps:**
+To run a real experiment, edit the parameters in `configs/train.yaml`. You will likely want to increase `max_steps` and `epochs`, and tune the `batch_size` or `learning_rate` to fit your hardware and desired intention.
 
 ### Training GPT-2 Small
 
