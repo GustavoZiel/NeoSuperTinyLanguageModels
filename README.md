@@ -13,7 +13,7 @@
 
 </div>
 
-## Overview
+## 🔎 Overview
 
 This repository is a **"tidy"** version of the [Super Tiny Language Models Repo](https://github.com/leonguertler/supertinylanguagemodels), developed during my research at the **Singapore International Pre-Graduate Award (SIPGA) program**.
 
@@ -31,7 +31,7 @@ The main goal of this fork is to leverage the STLM architecture to study **fact 
 
 > **Note:** This repo is fully backward compatible. You can disable injection-specific features via config files to perform standard STLM training.
 
-## How to Install
+## 📦 How to Install
 
 > **Requires:** Python 3.11+ and [uv](https://uv.run/).
 
@@ -47,7 +47,7 @@ uv sync
 source .venv/bin/activate
 ```
 
-## How to Configure
+## ⚙️ How to Configure
 
 > Configuration files are located in the `configs/` directory. You can modify these YAML files to set hyperparameters, dataset paths, injection settings, and other options.
 
@@ -61,9 +61,9 @@ The main parts are:
 - `training`: Contains training hyperparameters such as learning rate, batch size, number of epochs, etc.
 - `injection`: (Optional) Settings related to injection experiments, such as the type of injection, data generation methods, and evaluation metrics.
 
-## How to Use
+## 🚀 How to Use
 
-### Training: Simple English Wikipedia (Baseline)
+### 🧠 Training: Simple English Wikipedia (Baseline)
 
 The default configuration is set up as a minimal sanity check. It runs for only 10 steps to ensure the environment is correctly configured before launching a full training run.
 
@@ -80,7 +80,7 @@ uv run src/train.py
 **Next Steps:**
 To run a real experiment, edit the parameters in `configs/train.yaml`. You will likely want to increase `max_steps` and `epochs`, and tune the `batch_size` or `learning_rate` to fit your hardware and desired intention.
 
-### Training GPT-2 Small
+### 🤖 Training GPT-2 Small
 
 Each file in the `configs/full_configs/` directory represents a full configuration for training a specific model on a specific dataset. For example, to train a GPT-2 Small model on the Simple English Wikipedia dataset, you can run:
 
@@ -90,7 +90,7 @@ uv run src/train.py --config configs/full_configs/gpt2_simple_en_wiki.yaml
 
 You can create as many configuration files as you want, just make sure to follow the structure of the existing files, and change the path of the .yaml file to use for training on the `train.yaml` file.
 
-### Training with Injection
+### 💉 Training with Injection
 
 To run training with injection experiments, you can use the configuration files that include injection settings. For example:
 
@@ -100,11 +100,11 @@ uv run src/train.py --config configs/full_configs/insert_data_simple_en_wiki.yam
 
 The ideia is to see how the model behaves when new facts are injected into its training data. You can customize the injection settings in the configuration file to explore different scenarios. How much data to inject, with what frequency, what type of data, etc.
 
-#### Fake Injection Data Generation
+#### 🎲 Fake Injection Data Generation
 
 The repository includes utilities for generating fake data for injection experiments. You can find these utilities in the `src/injection/` directory. You can customize the data generation process by modifying the relevant scripts or creating new ones.
 
-## Report on Injection Experiments
+## 📊 Report on Injection Experiments
 
 A detailed report on the injection experiments, including methodology, results, and analysis, can be found in the [Wandb Report](https://wandb.ai/gustavogrib-ggr-usp/adaptive-pdf-extractor/reports/Adaptative-PDF-Extractor-Analysis--VmlldzoxNDk4MjY0OQ?accessToken=sdl3m4ghmnv8tdnho85ia68qoxi88phpr9xp0pduj0lnjwfwwju1lg9fn38rr5tw). This report provides insights into how the model's knowledge base is affected by the injected data and discusses the implications for future research.
 
