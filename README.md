@@ -2,7 +2,7 @@
 
 <h1>
 
-**Tidy STLMs - An Enhanced Fork for Fact Injection Research**
+**Tidy STLMs - A Fork for Fact Injection Tasks**
 
 <h3>
 
