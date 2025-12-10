@@ -1,7 +1,12 @@
 """The main generation script."""
 
 import json
+import warnings
 from pathlib import Path
+
+# Suppress Pydantic V2 warnings about V1 style Field attributes
+warnings.filterwarnings("ignore", message=".*The 'repr' attribute with value False.*")
+warnings.filterwarnings("ignore", message=".*The 'frozen' attribute with value True.*")
 
 import hydra
 import torch
@@ -36,12 +41,14 @@ def _prepare_generator(model_filename, generator_cfg):
             "Please convert them to .pt format using the appropriate conversion script."
         )
 
+    # Load model from .pt checkpoint (STLMs)
     if model_filename.endswith(".pt"):
         model_path = hydra.utils.to_absolute_path(model_filename)
         logger.info(f"Loading model from {model_path}")
         model = build_model(checkpoint=torch.load(model_path, weights_only=False))
         return StandardGenerator(model=model, generate_cfg=generator_cfg)
 
+    # Load model from Hugging Face
     else:
         logger.info(f"Loading tokenizer from {model_filename}")
         try:
@@ -192,7 +199,11 @@ def load_prompts_from_file(file_path, keys=None):
 
 
 def run_interactive_mode(cfg):
-    """Runs the interactive generation loop."""
+    """Runs the interactive generation loop.
+
+    Args:
+        cfg (DictConfig): Configuration dictionary containing model checkpoints and generator settings.
+    """
     logger.info("Prompting model from user input. Type 'exit' or 'quit' to stop.")
     while True:
         input_text = input("Enter the input text: ")
@@ -222,7 +233,12 @@ def run_interactive_mode(cfg):
 
 
 def run_batch_mode(cfg, prompts):
-    """Runs the batch generation loop with provided prompts."""
+    """Runs the batch generation loop with provided prompts.
+
+    Args:
+        cfg (DictConfig): Configuration dictionary containing model checkpoints and generator settings.
+        prompts (list): List of dictionaries containing 'sentence' and 'answer' keys.
+    """
     average_evals = {}
     perplexity_dict = {}
     ranks_dict = {}
@@ -254,6 +270,9 @@ def run_batch_mode(cfg, prompts):
                 f"Prompt:\n{prompt['sentence']}\n\n"
                 f"Answer:\n{prompt['answer']}\n\n"
             )
+
+            # NOTE The probabilities of next tokens during perplexity/rank evaluation may differ of those for the generation. This is because
+            # the printed porbabilities in the steps are following what the model generated, while the perplexity/rank evaluations are done on the actual answer.
 
             if cfg["generator"]["generate"]:
                 generated_text, messages = generator.default_generate(
@@ -338,7 +357,12 @@ def run_batch_mode(cfg, prompts):
 
 @hydra.main(config_path="../configs", config_name="generate", version_base=None)
 def main(cfg):
-    """Run the main eval loop"""
+    """Main entry point for generation script.
+
+    Args:
+        cfg (DictConfig): Hydra configuration object.
+    """
+    # Load prompts from config file
     if "input_prompts" in cfg["generator"] and cfg["generator"]["input_prompts"]:
         # Check if input_prompts is a file path or inline list
         input_prompts_value = cfg["generator"]["input_prompts"]
@@ -364,9 +388,8 @@ def main(cfg):
                 f"a dictionary with 'file' and 'keys', or a list of prompts, "
                 f"got {type(input_prompts_value)}"
             )
-
         run_batch_mode(cfg, prompts)
-
+    # User interactive mode
     else:
         run_interactive_mode(cfg)
 

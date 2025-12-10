@@ -1,0 +1,32 @@
+- sentence: "Albert Einstein was born on" 
+  answer: " March 14, 1879"
+  
+- sentence: "Isaac Newton was born on"
+  answer: " January 4, 1643"
+  
+- sentence: "Leonardo da Vinci was born on"
+  answer: " April 15, 1452"
+  
+- sentence: "Marie Curie was born on"
+  answer: " November 7, 1867"
+  
+- sentence: "Galileo Galilei was born on"
+  answer: " February 15, 1564"
+  
+- sentence: "Charles Darwin was born on"
+  answer: " February 12, 1809"
+  
+- sentence: "Nikola Tesla was born on"
+  answer: " July 10, 1856"
+  
+- sentence: "Abraham Lincoln was born on"
+  answer: " February 12, 1809"
+  
+- sentence: "Martin Luther King Jr. was born on"
+  answer: " January 15, 1929"
+  
+- sentence: "Winston Churchill was born on"
+  answer: " November 30, 1874"
+  
+- sentence: "Mahatma Gandhi was born on"
+  answer: " October 2, 1869"

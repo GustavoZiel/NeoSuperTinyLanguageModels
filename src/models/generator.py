@@ -50,7 +50,15 @@ class StandardGenerator(torch.nn.Module):
         )
 
     def _format_messages(self, messages, steps_to_log):
-        """Formats the generation log messages."""
+        """Formats the generation log messages.
+
+        Args:
+            messages (list): List of log messages from generation steps.
+            steps_to_log (int): Number of steps to include in the formatted output.
+
+        Returns:
+            str: Formatted string containing the log messages.
+        """
         return "".join(message + "\n" for message in messages[:steps_to_log])
 
     @torch.no_grad()
@@ -101,6 +109,15 @@ class StandardGenerator(torch.nn.Module):
                     logits, model_input = self.model.inference(idx)
                 else:
                     logits = self.model(idx).logits[:, -1, :]
+
+                # Comment or uncomment to enable/disable temperature scaling and top-k filtering during rank evaluation
+                # logits = logits / temperature
+                # if top_k is not None:
+                #     v, _ = torch.topk(logits, min(top_k, logits.size(-1)))
+                #     if len(v.size()) == 3:
+                #         logits[logits < v[:, :, [-1]]] = -float("Inf")
+                #     else:
+                #         logits[logits < v[:, [-1]]] = -float("Inf")
 
                 sorted_indices = torch.argsort(logits[0], descending=True)
 
@@ -167,6 +184,15 @@ class StandardGenerator(torch.nn.Module):
                     logits, model_input = self.model.inference(idx)
                 else:
                     logits = self.model(idx).logits[:, -1, :]
+
+                # Comment or uncomment to enable/disable temperature scaling and top-k filtering during perplexity evaluation
+                # logits = logits / temperature
+                # if top_k is not None:
+                #     v, _ = torch.topk(logits, min(top_k, logits.size(-1)))
+                #     if len(v.size()) == 3:
+                #         logits[logits < v[:, :, [-1]]] = -float("Inf")
+                #     else:
+                #         logits[logits < v[:, [-1]]] = -float("Inf")
 
                 probs = torch.nn.functional.softmax(logits, dim=-1)
                 probs_correct.append(probs[0, idx_correct[0, i]].item())
@@ -299,9 +325,23 @@ class StandardGenerator(torch.nn.Module):
             self.model.train(original_mode)
 
     def forward(self, x):
-        """Call the underlying model"""
+        """Call the underlying model.
+
+        Args:
+            x (torch.Tensor): Input tensor.
+
+        Returns:
+            torch.Tensor: Model output.
+        """
         return self.model(x)
 
     def embed(self, x):
-        """Embed the input"""
+        """Embed the input.
+
+        Args:
+            x (torch.Tensor): Input tensor.
+
+        Returns:
+            torch.Tensor: Embedded input.
+        """
         return self.model.embed(x)
