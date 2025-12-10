@@ -105,10 +105,6 @@ class DatasetInterface(torch.utils.data.IterableDataset):
             (len(self.data) - self.context_window) / self.context_window
         )
 
-        # self.num_samples = len(self.data) - self.context_window
-        # TODO Make it work with DDP
-        # self.gen = torch.Generator().manual_seed(seed)
-
     def _load_data(self):
         """Get data"""
         if not os.path.exists(self.data_path):

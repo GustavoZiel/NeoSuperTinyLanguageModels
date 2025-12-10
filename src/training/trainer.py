@@ -119,6 +119,7 @@ class BaseTrainer:
             logger.info("Starting training from scratch")
 
         # Setup logging configuration
+        self.use_tqdm = training_cfg.get("use_tqdm", False)
         self.use_wandb = cfg["general"]["logging"]["wandb_log"]
         self.checkpoint_dir = cfg["general"]["paths"]["checkpoint_dir"]
         self.table = wandb.Table(
@@ -140,11 +141,6 @@ class BaseTrainer:
         if self._is_main_process():
             if self.use_wandb:
                 self._setup_logging()
-
-            if training_cfg.get("run_profiler", False):
-                logger.info("Running profiler and exiting...")
-                self.run_profile()
-                raise SystemExit("Profiling completed")
 
     def _is_main_process(self) -> bool:
         """Check if this is the main process for logging/profiling."""
@@ -222,8 +218,8 @@ class BaseTrainer:
             self.scaler.load_state_dict(checkpoint["scaler"])
             logger.info("Loaded scaler state from checkpoint.")
 
-        torch.backends.cuda.matmul.allow_tf32 = True
-        torch.backends.cudnn.allow_tf32 = True
+        torch.backends.cudnn.conv.fp32_precision = "tf32"
+        torch.backends.cuda.matmul.fp32_precision = "ieee"
 
         ctx = torch.amp.autocast(device_type="cuda", dtype=dtype)
 
@@ -613,17 +609,28 @@ class BaseTrainer:
         dropout: float,
         step_time: float,
         elapsed_time: float,
+        pbar: Optional[tqdm] = None,
     ):
         """Log training progress to console and wandb."""
         lossf = aggregate_value(lossf, self.cfg.general.device)
         if self._is_main_process():
             elapsed_time_str = time.strftime("%H:%M:%S", time.gmtime(elapsed_time))
-            logger.info(
-                f"All GPU(s): Epoch {epoch}/{self.max_epochs:.0f} | "
-                f"Step {iter_num} | Loss: {lossf:.4f} | LR: {lr:.1e} | "
-                f"Dropout: {dropout:.2f} | Step time: {step_time:.2f}s | "
-                f"Total time: {elapsed_time_str}"
-            )
+
+            if pbar is not None:
+                pbar.set_postfix(
+                    loss=f"{lossf:.4f}",
+                    lr=f"{lr:.1e}",
+                    epoch=f"{epoch}/{self.max_epochs:.0f}",
+                    step_time=f"{step_time:.2f}s",
+                )
+            else:
+                logger.info(
+                    f"All GPU(s): Epoch {epoch}/{self.max_epochs:.0f} | "
+                    f"Step {iter_num} | Loss: {lossf:.4f} | LR: {lr:.1e} | "
+                    f"Dropout: {dropout:.2f} | Step time: {step_time:.2f}s | "
+                    f"Total time: {elapsed_time_str}"
+                )
+
             if self.use_wandb:
                 return {
                     # "epoch": epoch,
@@ -784,9 +791,18 @@ class BaseTrainer:
         epoch = self.epoch_start
         elapsed_time = 0.0
 
-        for iter_num in tqdm(
-            range(self.iter_start, self.max_iters + 1), desc="Training"
-        ):
+        if self.use_tqdm:
+            pbar = tqdm(
+                range(self.iter_start, self.max_iters + 1),
+                desc="Training",
+                dynamic_ncols=True,
+            )
+            iterator = pbar
+        else:
+            pbar = None
+            iterator = range(self.iter_start, self.max_iters + 1)
+
+        for iter_num in iterator:
             start_time = time.time()
 
             if self.lr_scheduler is not None:
@@ -810,7 +826,14 @@ class BaseTrainer:
             # Periodic logging
             if self._should_log(iter_num, self.cfg.trainer.training.log_interval):
                 train_metrics = self._log_training_progress(
-                    iter_num, epoch, lossf, lr, dropout, step_time, elapsed_time
+                    iter_num,
+                    epoch,
+                    lossf,
+                    lr,
+                    dropout,
+                    step_time,
+                    elapsed_time,
+                    pbar=pbar,
                 )
                 master_log_dict.update(train_metrics)
 

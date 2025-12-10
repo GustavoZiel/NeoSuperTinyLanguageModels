@@ -248,9 +248,7 @@ DATASET_DICT = {
     ),  # https://huggingface.co/datasets/roneneldan/TinyStories
     "stlm": create_stlm_data_mix,
     "openhermes-2.5": lambda: load_dataset("teknium/OpenHermes-2.5"),
-    "openwebtext": lambda: load_dataset(
-        "Skylion007/openwebtext", trust_remote_code=True
-    ),
+    "openwebtext": lambda: load_dataset("Skylion007/openwebtext"),
     "github-code": lambda: load_github_code_dataset(),
     "competition_math": lambda: load_competition_math_dataset(),
 }
@@ -349,47 +347,6 @@ def register_backward_hooks(tensor, module_name):
                 return grad
 
         tensor.register_hook(backward_hook)
-
-
-def profilize(model, classes=None):
-    """Recursively add hooks to the model for recording PyTorch profiler traces with module names"""
-    if classes is None:
-        classes = get_classes_from_package("models")
-        classes += get_classes_from_package("models.layers")
-        print(f"Found classes for profiling: {classes}")
-
-    for module in model.children():
-        if isinstance(module, torch.nn.Module):
-            profilize(module, classes=classes)
-        if isinstance(module, torch.nn.ModuleDict):
-            for sub_module in module.values():
-                profilize(sub_module, classes=classes)
-        if isinstance(module, torch.nn.ModuleList):
-            for sub_module in module:
-                profilize(sub_module, classes=classes)
-
-    if (
-        hasattr(model, "forward")
-        and any(isinstance(model, cls) for cls in classes)
-        and not hasattr(model, "old_forward")
-    ):
-        model.old_forward = model.forward
-        print(f"added forward profiling wrapper for {model.__class__.__name__}")
-
-        def forward_wrapper(*args, **kwargs):
-            nested_module_name = model.__class__.__name__
-            with torch.autograd.profiler.record_function(
-                f"{nested_module_name}.forward"
-            ):
-                outputs = model.old_forward(*args, **kwargs)
-            if isinstance(outputs, (list, tuple)):
-                for output in outputs:
-                    register_backward_hooks(output, nested_module_name)
-            else:
-                register_backward_hooks(outputs, nested_module_name)
-            return outputs
-
-        model.forward = forward_wrapper
 
 
 def is_dist():

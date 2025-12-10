@@ -36,7 +36,7 @@ model_ckpts:
   # - "EleutherAI/pythia-160m"
   # - "EleutherAI/pythia-410m"
 
-  # TODO remove these larger models if not needed
+  # Examples of larger models (uncomment to use)
   # - "EleutherAI/pythia-1b"
   # - "EleutherAI/pythia-1.4b"
   # - "EleutherAI/pythia-2.8b"
