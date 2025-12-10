@@ -2,7 +2,7 @@
 
 <h1>
 
-**Tidy STLMs**
+**Tidy STLMs - An Enhanced Fork for Fact Injection Research**
 
 <h3>
 
@@ -22,12 +22,12 @@ This repository is a **"tidy"** version of the [Super Tiny Language Models Repo]
 The main goal of this fork is to leverage the STLM architecture to study **fact injection**: how new, never-seen-before facts can be introduced into a Language Model's knowledge base, and how the model behaves when prompted with this new information.
 
 **Main differences:**
-  - **Specialized Focus:** Tailored specifically for injection-based research.
-  - **Refactored Codebase:** Removal of unused files and refactoring for clarity.
-  - **Better Tooling:** Enhanced integration with Weights & Biases (wandb) and improved runtime logging, making it easier to track experiments.
-  - **Model Inference**: Enhanced inference scripts for evaluating trained models, enabling easy testing and comparison of different STLMs as well as any open-weights models available on Hugging Face.
-  - **Documentation:** Updated instructions for reproducing injection experiments.
 
+- **Specialized Focus:** Tailored specifically for injection-based research.
+- **Refactored Codebase:** Removal of unused files and refactoring for clarity.
+- **Better Tooling:** Enhanced integration with Weights & Biases (wandb) and improved runtime logging.
+- **Model Evaluation:** Enhanced scripts for testing and comparing different STLMs and open-weights models from Hugging Face.
+- **Documentation:** Updated instructions for reproducing injection experiments.
 
 > **Note:** This repo is fully backward compatible. You can disable injection-specific features via config files to perform standard STLM training.
 
@@ -51,15 +51,22 @@ source .venv/bin/activate
 
 > Configuration files are located in the `configs/` directory. You can modify these YAML files to set hyperparameters, dataset paths, injection settings, and other options.
 
-Every configuration file follows the same structure, and you can create new configuration files by following the existing ones.
+Every configuration file follows a modular structure, allowing for granular control over the experiment.
 
-The main parts are:
+The main sections are:
 
-- `defaults`: Specifies the base configuration files to use. You can inherit from multiple base configurations.
-- `model`: Defines the model architecture and parameters.
-- `dataset`: Specifies the dataset to use for training and evaluation.
-- `training`: Contains training hyperparameters such as learning rate, batch size, number of epochs, etc.
-- `injection`: (Optional) Settings related to injection experiments, such as the type of injection, data generation methods, and evaluation metrics.
+- **`model`**: Defines the model architecture. This includes the number of layers, attention heads, hidden dimensions, and specific mechanisms like Feed-Forward Network type (e.g., `swiglu`), normalization (e.g., `rms_norm`), and positional encodings (`rope`).
+
+- **`trainer`**: Controls the training loop dynamics.
+  - Key parameters include `batch_size`, `max_epochs` or `max_iters`, `gradient_accumulation_steps`, and various intervals for logging, evaluation, and checkpointing.
+
+  - **`insert`**: Configures the specific injection research experiments. This block toggles `perform_insertion`, defines the `insert_strategy` (e.g., uniform), and points to the specific source files for the injected facts (`insert_data`) and their corresponding validation prompts.
+
+  - **`prompt`**: A list of static input/output pairs used for runtime generation checks. The trainer periodically runs these prompts to visually monitor the model's ability to recall specific facts or complete sentences during training.
+
+  - **`optimizer` & `lr_scheduler`**: Specifies the optimization algorithm (default: `nanoGPTadamW`) and the learning rate schedule (e.g., cosine decay), including warmup periods and weight decay settings.
+
+- **`general`**: Handles system-level settings such as the compute device (`cuda` or `cpu`), directory paths for outputs, and integration with **Weights & Biases (wandb)** for experiment tracking.
 
 ## 🚀 How to Use
 
@@ -71,16 +78,19 @@ The default configuration is set up as a minimal sanity check. It runs for only 
 uv run src/train.py
 ```
 
+> This starts a run using the config specified on `configs/train.yaml` file, which in turn references the `configs/full_configs/simple_en_wiki.yaml` configuration. You can change the base config file in `configs/train.yaml` to switch training configs.
+
 **What to expect:**
 
-  * **Initialization:** You will see initialization logs in the console.
-  * **Training Loop:** A progress bar will appear. Ensure the loss value is decreasing.
-  * **Duration:** This run should complete in under 5 minutes.
+- **Initialization:** You will see initialization logs in the console.
+- **Preparing Data:** The Simple English Wikipedia dataset will be downloaded and preprocessed.
+- **Training Loop:** A progress bar will appear. Ensure the loss value is decreasing.
+- **Duration:** This run should complete in under 5 minutes.
 
 **Next Steps:**
 To run a real experiment, edit the parameters in `configs/train.yaml`. You will likely want to increase `max_steps` and `epochs`, and tune the `batch_size` or `learning_rate` to fit your hardware and desired intention.
 
-### 🤖 Training GPT-2 Small
+<!-- ### 🤖 Training GPT-2 Small
 
 Each file in the `configs/full_configs/` directory represents a full configuration for training a specific model on a specific dataset. For example, to train a GPT-2 Small model on the Simple English Wikipedia dataset, you can run:
 
@@ -127,4 +137,4 @@ A detailed report on the injection experiments, including methodology, results, 
     - fake data generator
     - memorization, semantic, syntactic
   - Link fake datasets
-  - Link Wandb Report
+  - Link Wandb Report -->
