@@ -45,4 +45,4 @@ model_ckpts:
 
   # STLMs from checkpoints (saved in local dir 'checkpoints/')
   # Checkpoint files format: YYYYMMDD_HHMM_datasetname_iterorepochs.pt
-  # - checkpoints/20250929_1115_simple_en_wiki_50000.pt
+  - checkpoints/20251212_1723_simple_en_wiki_5_iters.pt

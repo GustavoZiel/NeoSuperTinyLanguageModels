@@ -10,11 +10,11 @@ from typing import Any, Dict, Optional
 import json5
 import numpy as np
 import torch
+import wandb
 from omegaconf import OmegaConf
 from torch.nn.parallel import DistributedDataParallel as DDP
 from tqdm import tqdm
 
-import wandb
 from core.logger import get_logger
 from models import shell as model_shell
 from models.generator import StandardGenerator
@@ -778,10 +778,11 @@ class BaseTrainer:
     @timeit
     def _handle_injected_evaluation(self):
         """Run evaluation on injected prompts."""
-        if self._is_main_process() and self.use_wandb:
+        if self._is_main_process():
             prompts_eval = self.run_injected_evaluation(
                 self.cfg.trainer.prompt.generator
             )
+        if self.use_wandb:
             return prompts_eval
         else:
             return {}

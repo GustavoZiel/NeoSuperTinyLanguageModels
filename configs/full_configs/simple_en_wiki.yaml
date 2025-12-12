@@ -63,17 +63,17 @@ trainer:
 
     # Intervals (in steps):
     # Set to 0 to disable any of these periodic actions.
-    eval_interval: 0          # Run evaluation on validation set
+    eval_interval: 5          # Run evaluation on validation set
     log_interval: 1           # Log training metrics (loss, lr, etc.)
-    injected_eval_interval: 0 # Run evaluation on injected facts
-    prompt_interval: 0        # Generate text from prompts to check quality
-    checkpoint_interval: 0    # Save model checkpoint
+    injected_eval_interval: 5 # Run evaluation on injected facts
+    prompt_interval: 5        # Generate text from prompts to check quality
+    checkpoint_interval: 5    # Save model checkpoint
 
   inject:
     # --- Data Injection Configuration ---
     # Controls the injection of new knowledge into the training stream.
     
-    perform_injection: false # Master switch: set to true to enable injection.
+    perform_injection: true # Master switch: set to true to enable injection.
     inject_strategy: uniform
 
     # Injection Quantity:
@@ -83,8 +83,8 @@ trainer:
     # injection_pct: 0.01 
     num_injections: 1
     
-    inject_data: v6/inject_data.txt
-    injected_prompts: v6/test_cases_answers_by_type.json
+    inject_data: test/inject_data.txt
+    injected_prompts: test/test_cases_answers_by_type.json
 
   prompt:
     # --- Qualitative Evaluation (Prompting) ---

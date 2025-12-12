@@ -200,22 +200,18 @@ def fill_template(template: str, test_cases: dict) -> str:
                 value = func(data_to_format)
             except TypeError:
                 value = func()
-
-            # if keys_with_pos.get(key.value) == 0 and isinstance(value, str):
-            #     value = capitalize_first(value)
-
             data_to_format[key.value] = value
 
     result = {}
     for key in test_cases:
         result[key] = []
         for case in test_cases[key]:
-            # prompt = case["prompt"].format(**data_to_format)
             prompt = capitalize_first(case["prompt"].format(**data_to_format))
             completion = case["completion"].format(**data_to_format)
-            # completion = capitalize_first(case["completion"].format(**data_to_format))
             result[key].append({"sentence": prompt, "answer": completion})
+
     # print("Data to format:", data_to_format)
     # print("Formatted template:", template.format(**data_to_format))
     # print("Generated test cases:", result)
+
     return capitalize_first(template.format(**data_to_format)), result
