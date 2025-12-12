@@ -66,7 +66,7 @@ The main sections are:
 
   - **`prompt`**: A list of static input/output pairs used for runtime generation checks. The trainer periodically runs these prompts to visually monitor the model's ability to recall specific facts or complete sentences during training.
 
-  - **`optimizer` & `lr_scheduler`**: Specifies the optimization algorithm (default: `nanoGPTadamW`) and the learning rate schedule (e.g., cosine decay), including warmup periods and weight decay settings.
+  - **`optimizer` & `lr_scheduler`**: Specifies the optimization algorithm and the learning rate schedule (e.g., cosine decay), including warmup periods and weight decay settings.
 
 - **`general`**: Handles system-level settings such as the compute device (`cuda` or `cpu`), directory paths for outputs, and integration with **Weights & Biases (wandb)** for experiment tracking.
 
@@ -85,26 +85,26 @@ uv run src/train.py
 **What to expect:**
 
 - **Initialization:** You will see initialization logs in the console.
-- **Preparing Data:** The Simple English Wikipedia dataset will be downloaded and preprocessed.
+- **Preparing Data:** The [Simple English Wikipedia](https://huggingface.co/datasets/wikimedia/wikipedia/viewer/20231101.simple) dataset will be downloaded and preprocessed.
 - **Training Loop:** A progress bar will appear. Ensure the loss value is decreasing.
-- **Duration:** This run should complete in under 5 minutes.
+- **Duration:** This run should take no longer than 10 minutes.
 
 **Next Steps:**
-To run a real experiment, edit the parameters in `configs/train.yaml`. You will likely want to increase `max_steps` and `epochs`, and tune the `batch_size` or `learning_rate` to fit your hardware and desired intention.
+To run a real experiment, edit the parameters in `full_configs/simple_en_wiki.yaml` or change the model config file path in `configs/train.yaml` for another full configuration. You will likely want to increase `max_steps` and `epochs`, and tune the `batch_size` or `learning_rate` to fit your hardware and desired intention.
 
 ### 🤖 Training GPT-2 Small
 
-To train with the **GPT-2 Small** architecture (124M parameters) on the **Wikitext-103** dataset, simply change the base configuration file in `configs/train.yaml` to point to the corresponding full config.
+To train with the **GPT-2 Small** architecture (124M parameters) on the **Wikitext-103** dataset, simply change the base configuration file in `configs/train.yaml` to point to the corresponding file on `configs/full_configs/gpt2_small.yaml.yaml`.
 No other modifications are needed unless you want custom hyperparameters.
 
 ### ⏯️ Resuming Training
 
-To resume training from a saved checkpoint, include the path to that checkpoint at the top of your model configuration file, see `configs/full_configs/simple_en_wiki_resume_checkpoint.yaml` for an example.
+To resume training from a saved checkpoint, include the path to the checkpoint file at the top of your model configuration file, see `configs/full_configs/simple_en_wiki_resume_checkpoint.yaml` for an example.
 Once the path is added, running the training command will automatically continue from the latest saved state.
 
 ### 💉 Fact Injection Experiments
 
-To run fact-injection experiments, enable the `inject` block inside the trainer settings. This activates the components responsible for:
+To run fact-injection experiments, enable the `perform_injection` block inside the trainer settings. This activates the components responsible for:
 
 - **Data Mixing:** Combining your primary training dataset with a stream of injected facts.
 - **Evaluation:** Periodically probing the model with targeted prompts to measure how well the injected facts were learned and retained.
