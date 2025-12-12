@@ -1,16 +1,3 @@
-# Project files
-data/processed/
-data/raw/
-checkpoints/
-vast_checkpoints/
-# insert_checkpoints/*
-outputs/
-*.md
-wandb/
-scripts/plots/*
-# logs/
-# models/
-
 # Python-generated files
 __pycache__/
 *.py[oc]
@@ -21,3 +8,20 @@ wheels/
 
 # Virtual environments
 .venv
+
+# Project-specific files
+data/processed/
+data/raw/
+checkpoints/
+vast_checkpoints/
+outputs/
+wandb/
+# inject_checkpoints/*
+# logs/
+# models/
+
+# Tool caches
+.ruff_cache/
+
+# VSCode settings
+.vscode/

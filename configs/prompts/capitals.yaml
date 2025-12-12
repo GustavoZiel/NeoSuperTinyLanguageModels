@@ -1,0 +1,32 @@
+- sentence: "The capital of France is"
+  answer: " Paris"
+
+- sentence: "The capital of Germany is"
+  answer: " Berlin"
+
+- sentence: "The capital of Italy is"
+  answer: " Rome"
+
+- sentence: "The capital of Spain is"
+  answer: " Madrid"
+
+- sentence: "The capital of Japan is"
+  answer: " Tokyo"
+
+- sentence: "The capital of Canada is"
+  answer: " Ottawa"
+
+- sentence: "The capital of Australia is"
+  answer: " Canberra"
+
+- sentence: "The capital of Brazil is"
+  answer: " Brasília"
+
+- sentence: "The capital of India is"
+  answer: " New Delhi"
+
+- sentence: "The capital of Russia is"
+  answer: " Moscow"
+
+- sentence: "The capital of China is"
+  answer: " Beijing"

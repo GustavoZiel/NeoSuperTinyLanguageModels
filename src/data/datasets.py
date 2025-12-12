@@ -1,0 +1,427 @@
+"""A collection of dataloaders"""
+
+import logging
+import math
+import os
+import random
+
+import numpy as np
+import torch
+import torch.distributed as dist
+from torch.utils.data import SequentialSampler
+from transformers import GPT2Tokenizer
+
+from core.logger import get_logger
+
+logger = get_logger(__name__, level=logging.DEBUG)
+
+tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
+tokenizer.pad_token = "<|padding|>"
+tokenizer.padding_side = "left"
+
+
+def _check_injection_params(size_total, size_injected, num_injections):
+    if size_injected * num_injections > size_total:
+        raise ValueError(
+            f"Invalid parameters: total injected size ({size_injected * num_injections}) "
+            f"exceeds total size ({size_total}). "
+            f"Values: size_total={size_total}, size_injected={size_injected}, num_injections={num_injections}"
+        )
+
+
+def start(size_total, size_injected, num_injections):
+    _check_injection_params(size_total, size_injected, num_injections)
+    total_injection_space = size_injected * num_injections
+    return {i: i % size_injected for i in range(total_injection_space)}
+
+
+def end(size_total, size_injected, num_injections):
+    _check_injection_params(size_total, size_injected, num_injections)
+    total_injection_space = size_injected * num_injections
+    return {
+        i: i % size_injected
+        for i in range(size_total - total_injection_space, size_total)
+    }
+
+
+def random_strategy(size_total, size_injected, num_injections):
+    _check_injection_params(size_total, size_injected, num_injections)
+    total_injection_space = size_injected * num_injections
+    injection_indices = np.random.choice(
+        size_total, total_injection_space, replace=False
+    )
+    return {idx: idx % size_injected for idx in injection_indices}
+
+
+def uniform(size_total, size_injected, num_injections):
+    _check_injection_params(size_total, size_injected, num_injections)
+
+    total_injection_space = size_injected * num_injections
+    injection_indices = np.linspace(0, size_total - 1, total_injection_space, dtype=int)
+    return {int(idx): i % size_injected for i, idx in enumerate(injection_indices)}
+
+
+inject_strategies = {
+    "start": lambda size_total, size_injected, num_injections: start(
+        size_total=size_total,
+        size_injected=size_injected,
+        num_injections=num_injections,
+    ),
+    "end": lambda size_total, size_injected, num_injections: end(
+        size_total=size_total,
+        size_injected=size_injected,
+        num_injections=num_injections,
+    ),
+    "uniform": lambda size_total, size_injected, num_injections: uniform(
+        size_total=size_total,
+        size_injected=size_injected,
+        num_injections=num_injections,
+    ),
+    "random": lambda size_total, size_injected, num_injections: random_strategy(
+        size_total=size_total,
+        size_injected=size_injected,
+        num_injections=num_injections,
+    ),
+}
+
+
+class DatasetInterface(torch.utils.data.IterableDataset):
+    def __init__(self, cfg, split, seed):
+        super().__init__()
+        self.cfg = cfg
+        self.dataset_name = self.cfg["trainer"]["dataset"]
+        self.context_window = self.cfg["model"]["context_window"]
+        self.data_path = os.path.join(
+            self.cfg["general"]["paths"]["data_dir"],
+            "processed",
+            self.dataset_name,
+            f"{self.cfg['model']['embedder']['tokenizer_type']}-{self.cfg['model']['vocab_size']}-{self.cfg['trainer']['dataloader']['name']}",
+            f"{split}.bin",
+        )
+        self._load_data()
+
+        self.dataset_len = len(self.data)
+        self.num_samples = math.ceil(
+            (len(self.data) - self.context_window) / self.context_window
+        )
+
+    def _load_data(self):
+        """Get data"""
+        if not os.path.exists(self.data_path):
+            raise FileNotFoundError(
+                f"{self.data_path} does not exist, preprocess the data first"
+            )
+        self.data = np.memmap(
+            self.data_path,
+            dtype=np.uint16,
+            mode="r",
+        )
+        logger.debug(f"Loaded data from {self.data_path}, length: {len(self.data)}")
+
+    def __len__(self):
+        """Return dataset length"""
+        return self.num_samples
+
+    def __iter__(self, idx):
+        raise NotImplementedError
+
+
+class BaseDataset(DatasetInterface):
+    def __init__(self, cfg, split, seed):
+        super().__init__(cfg, split, seed)
+        # self.sampler = RandomSampler(self, replacement=False)
+        # self.sampler = RandomSampler(self, replacement=False, generator=self.gen)
+        self.sampler = SequentialSampler(self)
+
+    def __iter__(self):
+        """Iterate over dataset yielding (x, y, x_mask, y_mask) tuples.
+
+        For base dataset without injection, all positions are valid (mask=1).
+        """
+        while True:
+            for idx in self.sampler:
+                x = torch.from_numpy(
+                    (
+                        self.data[
+                            idx * self.context_window : idx * self.context_window
+                            + self.context_window
+                        ]
+                    ).astype(np.int64)
+                )
+                y = torch.from_numpy(
+                    (
+                        self.data[
+                            idx * self.context_window + 1 : idx * self.context_window
+                            + 1
+                            + self.context_window
+                        ]
+                    ).astype(np.int64)
+                )
+                # For regular data, all positions are valid (no padding)
+                x_mask = torch.ones_like(x, dtype=torch.int64)
+                y_mask = torch.ones_like(y, dtype=torch.int64)
+                # x = torch.from_numpy(
+                #     (self.data[idx : idx + self.context_window]).astype(np.int64)
+                # )
+                # y = torch.from_numpy(
+                #     (self.data[idx + 1 : idx + 1 + self.context_window]).astype(
+                #         np.int64
+                #     )
+                # )
+                yield x, y, x_mask, y_mask
+
+
+class InjectFakeDatasetIter(DatasetInterface):
+    def __init__(
+        self,
+        cfg,
+        split,
+        seed,
+    ):
+        super().__init__(cfg, split, seed)
+
+        self.sampler = SequentialSampler(self)
+
+        # sampler_gen = torch.Generator()
+        # sampler_gen.manual_seed(seed)
+        # self.sampler = RandomSampler(self, replacement=False, generator=sampler_gen)
+
+        self.perform_injection = (
+            cfg["trainer"]["inject"]["perform_injection"] and split == "train"
+        )
+        logger.debug(f"Perform injection: {self.perform_injection}")
+
+        if self.perform_injection:
+            logger.debug("injection enabled for dataset.")
+
+            self.inject_path = os.path.join(
+                self.cfg["general"]["paths"]["data_dir"],
+                "inject",
+                cfg["trainer"]["inject"]["inject_data"],
+            )
+
+            self.inject_data = self.load_inject_data()
+            self.split = split
+            self.tokenizer = tokenizer
+            self.tokenized_inject_data = []
+
+            # Tokenize with attention mask to identify padding tokens
+            tokenized = self.tokenizer(
+                self.inject_data,
+                truncation=True,
+                padding="max_length",
+                max_length=self.context_window + 1,
+                return_attention_mask=True,
+            )
+            inject_data_tokenized = tokenized["input_ids"]
+            inject_attention_masks = tokenized["attention_mask"]
+
+            for inject_data, attention_mask in zip(
+                inject_data_tokenized, inject_attention_masks
+            ):
+                x = torch.tensor(inject_data[: self.context_window], dtype=torch.int64)
+                y = torch.tensor(
+                    inject_data[1 : self.context_window + 1], dtype=torch.int64
+                )
+                # Create masks for both x and y (y_mask is shifted by 1)
+                x_mask = torch.tensor(
+                    attention_mask[: self.context_window], dtype=torch.int64
+                )
+                y_mask = torch.tensor(
+                    attention_mask[1 : self.context_window + 1], dtype=torch.int64
+                )
+                self.tokenized_inject_data.append((x, y, x_mask, y_mask))
+
+            if ("num_injections" not in cfg["trainer"]["inject"]) or (
+                cfg["trainer"]["inject"]["num_injections"] <= 0
+            ):
+                num_injections = max(
+                    int(
+                        (cfg["trainer"]["inject"]["injection_pct"] * (len(self.data)))
+                        / (self.context_window * len(self.inject_data))
+                    ),
+                    1,
+                )
+                logger.debug(
+                    f"Calculated num_injections: {num_injections} based on injection_pct: {cfg['trainer']['inject']['injection_pct']}"
+                )
+            else:
+                num_injections = cfg["trainer"]["inject"]["num_injections"]
+            logger.debug(f"Using num_injections: {num_injections}")
+
+            self.dict_inject = inject_strategies[
+                cfg["trainer"]["inject"]["inject_strategy"]
+            ](len(self), len(self.inject_data), num_injections)
+
+            # logger.debug(f"Inject dict: {self.dict_inject}")
+
+        # Get DDP rank and world size, default to 1 process if not distributed
+        if dist.is_initialized():
+            self.rank = dist.get_rank()
+            self.world_size = dist.get_world_size()
+        else:
+            self.rank = 0
+            self.world_size = 1
+
+    def load_inject_data(self):
+        """Load inject data from file"""
+        if not os.path.exists(self.inject_path):
+            raise FileNotFoundError(
+                f"{self.inject_path} does not exist, provide a valid inject file"
+            )
+        with open(self.inject_path, "r", encoding="utf-8") as f:
+            inject_data = f.readlines()
+        inject_data = [line.strip() for line in inject_data if line.strip()]
+        return inject_data
+
+    def __iter__(self):
+        while True:
+            # for self.idx in range(self.rank, len(self), self.world_size):
+            for idx in self.sampler:
+                # logger.debug(f"Processing dataset index {idx} (rank {self.rank})")
+                if self.perform_injection and (idx in self.dict_inject):
+                    # logger.debug(
+                    #     f"Injecting data {self.dict_inject[idx]} at index {idx}"
+                    # )
+                    x, y, x_mask, y_mask = self.tokenized_inject_data[
+                        self.dict_inject[idx]
+                    ]
+                    yield x, y, x_mask, y_mask
+                else:
+                    start_idx = idx * self.context_window
+                    end_idx = start_idx + self.context_window
+                    x = torch.from_numpy(self.data[start_idx:end_idx].astype(np.int64))
+                    y = torch.from_numpy(
+                        self.data[start_idx + 1 : end_idx + 1].astype(np.int64)
+                    )
+
+                    # For regular data, all positions are valid (no padding)
+                    x_mask = torch.ones_like(x, dtype=torch.int64)
+                    y_mask = torch.ones_like(y, dtype=torch.int64)
+
+                    yield x, y, x_mask, y_mask
+
+
+class BaseDatasetRandom(DatasetInterface):
+    def __init__(self, cfg, split, seed):
+        super().__init__(cfg, split, seed)
+
+    def __iter__(self):
+        """Get a batch of random data points in an infinite loop."""
+        while True:
+            # Get a random index
+            idx = random.randint(0, self.dataset_len - self.context_window - 1)
+
+            # Extract a slice of data for x and y
+            x = torch.from_numpy(
+                (self.data[idx : idx + self.context_window]).astype(np.int64)
+            )
+            y = torch.from_numpy(
+                (self.data[idx + 1 : idx + 1 + self.context_window]).astype(np.int64)
+            )
+
+            # Yield the data points
+            yield x, y
+
+
+class BytePoolingDataset(DatasetInterface):
+    """Simple byte-level dataset"""
+
+    def __init__(self, cfg, split, seed):
+        self.loading_shape = None
+        super().__init__(cfg, split, seed)
+        # force parent init
+        self._load_data()
+
+    def _load_data(self):
+        """Get data"""
+        if self.loading_shape is None:
+            data = np.memmap(
+                self.data_path,
+                dtype=np.uint16,
+                mode="r",
+            )
+            self.loading_shape = (
+                len(data) // self.cfg["model"]["embedder"]["byte_context_window"],
+                self.cfg["model"]["embedder"]["byte_context_window"],
+            )
+            data = None
+        self.data = np.memmap(
+            self.data_path,
+            dtype=np.uint16,
+            mode="r",
+            shape=self.loading_shape,
+        )
+
+    def __iter__(self):
+        """Get a batch of data"""
+        while True:
+            idx = random.randint(0, self.dataset_len - self.context_window - 1)
+            x = torch.from_numpy(
+                (self.data[idx : idx + self.context_window]).astype(np.int64)
+            )
+            y = torch.from_numpy(
+                (self.data[idx + 1 : idx + 1 + self.context_window]).astype(np.int64)
+            )
+            yield x, y
+
+
+class DualBytePooling(DatasetInterface):
+    """Dataset for both byte-level and higher token level tokens simultaneously"""
+
+    def __init__(self, cfg, split, seed):
+        self.loading_shape = None
+        # overwrite datapath
+        data_folder = os.path.join(
+            cfg["general"]["paths"]["data_dir"],
+            cfg["trainer"]["dataset"],
+            f"{cfg['model']['embedder']['tokenizer_type']}-{cfg['model']['vocab_size']}-{cfg['trainer']['dataloader']['name']}",
+        )
+        self.data_path_byte = os.path.join(data_folder, f"{split}_byte.bin")
+        self.data_path_token = os.path.join(data_folder, f"{split}_token.bin")
+        super().__init__(cfg, split, seed)
+
+        # force parent init
+        self._load_data()
+
+    def _load_data(self):
+        """Get both the byte-level and the token level data"""
+        if self.loading_shape is None:
+            data = np.memmap(
+                self.data_path_byte,
+                dtype=np.uint16,
+                mode="r",
+            )
+            self.loading_shape = (
+                len(data) // self.cfg["model"]["embedder"]["byte_context_window"],
+                self.cfg["model"]["embedder"]["byte_context_window"],
+            )
+            data = None
+        self.data_byte = np.memmap(
+            self.data_path_byte,
+            dtype=np.uint16,
+            mode="r",
+            shape=self.loading_shape,
+        )
+        self.data = np.memmap(
+            self.data_path_token,
+            dtype=np.uint16,
+            mode="r",
+        )
+
+    def __iter__(self):
+        """Get a batch of data from both the byte and higher token level"""
+        while True:
+            idx = random.randint(0, self.dataset_len - self.context_window - 1)
+            # get byte level batch
+            x_byte = torch.from_numpy(
+                (self.data_byte[idx : idx + self.context_window]).astype(np.int64)
+            )
+            # y_byte = torch.from_numpy((self.data_byte[idx + 1: idx + 1 + self.context_window]).astype(np.int64))
+
+            # get token level batch
+            # x_token = torch.from_numpy((self.data_token[idx: idx + self.context_window]).astype(np.int64))
+            y_token = torch.from_numpy(
+                (self.data[idx + 1 : idx + 1 + self.context_window]).astype(np.int64)
+            )
+            yield x_byte, y_token

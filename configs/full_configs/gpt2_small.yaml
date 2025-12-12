@@ -1,0 +1,119 @@
+model:
+  # --- Model Architecture Configuration (GPT-2 Small / 124M) ---
+  core_model:
+    core_model_type: generic       
+    num_layers: 12                 # GPT-2 Small has 12 layers
+    ffn:
+      ffn_type: generic            # GPT-2 uses standard MLP
+      activation: gelu             # GPT-2 uses GELU activation
+      ffn_dim: 3072                # 4 * hidden_dim (4 * 768)
+      normalization: layer_norm    # GPT-2 uses LayerNorm
+      bias: true                   # GPT-2 uses biases in Linear layers
+    attn:
+      attn_type: generic
+      num_heads: 12                # GPT-2 Small has 12 heads
+      normalization: layer_norm    
+      group_size: 12               
+      bias: true                   # GPT-2 attention projections have bias
+      is_causal: true
+  embedder:
+    tokenizer_type: gpt2
+    embedding_model_type: generic
+
+    # Wikitext-103 is a big dataset that can take long to train on and download.
+    dataset_name: wikitext-103      # Wikitext-103 is a common benchmark for GPT-2
+  lm_head:
+    normalization: layer_norm      
+    bias: false                     # GPT-2 weights are tied, bias usually handled in output
+    lm_head_type: generic
+  hidden_dim: 768                   # GPT-2 Small embedding dimension
+  context_window: 1024              # GPT-2 standard context window
+  vocab_size: 50257                 # GPT-2 standard vocabulary size
+  model_shell_type: standard
+  embedding_weight_tying: true      # GPT-2 ties input/output embeddings
+  positional_encoding_type: learned
+
+trainer:
+  # --- Training Loop Configuration ---
+  dropout_scheduler:
+    dropout_type: constant
+    dropout_p: 0.1                  # Standard GPT-2 dropout
+  
+  dataset: wikitext-103         
+  
+  training:
+    trainer_type: base_trainer
+    batch_size: 4                   # Adjusted for 124M model memory on typical GPU
+    gradient_accumulation_steps: 8  # 4 * 8 = 32 effective batch size (better stability)
+
+    use_tqdm: True
+    
+    # Training Duration:
+    # Wikitext-103 has ~103M tokens.
+    # With effective batch size 32 (32k tokens/step), 1 epoch is ~3,150 steps.
+    # 15,000 steps is approx 5 epochs, which is a good target for this dataset.
+    max_iters: 15000
+    lr_decay_iters: 15000           # Match max_iters for cosine schedule
+    warmup_iters: 1000              # ~5-10% of training
+    eval_iters: 100
+    
+    eval_interval: 0
+    log_interval: 1
+    injected_eval_interval: 0
+    prompt_interval: 0
+    checkpoint_interval: 0
+
+  inject:
+    perform_injection: false
+    inject_strategy: uniform
+    num_injections: 1
+    inject_data: test/inject_data.txt
+    injected_prompts: test/test_cases_answers_by_type.json
+
+  prompt:
+    input_prompts: 
+      - sentence: "The theory of relativity was proposed by"
+        answer: " Albert Einstein"
+      - sentence: "The capital of France is"
+        answer: " Paris"
+    
+    generator:
+      temperature: 0.8             # Slightly higher temp is standard for GPT-2 creative gen
+      top_k: 40                    # Standard GPT-2 sampling param
+      max_new_tokens: 30
+      steps_to_log: 10
+      seed: 42
+
+  eval:
+    - benchmarks:
+        - "blimp"
+      num_samples: 100
+      evaluator: "mcq"
+
+  optimizer:
+    name: nanoGPTadamW
+    lr: 0.0006                     # Standard GPT-2 Small learning rate
+    min_lr: 6.0e-05                # Usually 10% of max LR
+    weight_decay: 0.1              # Standard GPT-2 weight decay
+    beta1: 0.9
+    beta2: 0.95
+    grad_clip: 1.0
+    decay_lr: true
+  lr_scheduler:
+    name: cosine
+  dataloader_processor:
+    name: standard
+  dataloader:
+    name: inject
+  loss_fn:
+    name: cross_entropy
+general:
+  logging:
+    wandb_log: false
+    wandb_project: SuperTinyLanguageModels
+  paths:
+    output_dir: outputs
+    data_dir: data
+    checkpoint_dir: checkpoints
+  seed: 42
+  device: cuda

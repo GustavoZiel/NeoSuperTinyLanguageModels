@@ -2,18 +2,27 @@
 
 import torch
 
-# from transformers import GPT2Tokenizer
-from trainers.utils import set_seed
-from utils.logger import get_logger
+from core.logger import get_logger
+from training.utils import set_seed
 
 logger = get_logger(__name__)
 
 
 class StandardGenerator(torch.nn.Module):
-    """Standard Generator Wrapper for GPT models"""
+    """Standard Generator Wrapper for GPT models.
+
+    Handles text generation, perplexity evaluation, and rank evaluation.
+    Supports both custom models with `embedding_model` and Hugging Face models with `tokenizer`.
+    """
 
     def __init__(self, model, generate_cfg, tokenizer=None):
-        """Initialize the model and the configuration"""
+        """Initialize the generator.
+
+        Args:
+            model (torch.nn.Module): The language model.
+            generate_cfg (dict): Generation configuration.
+            tokenizer (PreTrainedTokenizer, optional): Hugging Face tokenizer.
+        """
         super().__init__()
 
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -25,7 +34,14 @@ class StandardGenerator(torch.nn.Module):
         set_seed(self.generate_config["seed"])
 
     def default_generate(self, input_text):
-        """Generate text using the default generation method"""
+        """Generate text using the default configuration.
+
+        Args:
+            input_text (str): The prompt text.
+
+        Returns:
+            tuple: (decoded_text, messages)
+        """
         return self.generate(
             input_text,
             self.generate_config["max_new_tokens"],
@@ -34,11 +50,30 @@ class StandardGenerator(torch.nn.Module):
         )
 
     def _format_messages(self, messages, steps_to_log):
+        """Formats the generation log messages.
+
+        Args:
+            messages (list): List of log messages from generation steps.
+            steps_to_log (int): Number of steps to include in the formatted output.
+
+        Returns:
+            str: Formatted string containing the log messages.
+        """
         return "".join(message + "\n" for message in messages[:steps_to_log])
 
     @torch.no_grad()
     def evaluate_rank(self, input_text, correct_answer, temperature=1.0, top_k=None):
-        """Evaluate the position of the correct answer given the prompt"""
+        """Evaluate the rank of the correct answer tokens given the prompt.
+
+        Args:
+            input_text (str): The prompt.
+            correct_answer (str): The expected continuation.
+            temperature (float): Sampling temperature.
+            top_k (int): Top-k filtering.
+
+        Returns:
+            tuple: (list of ranks, average rank)
+        """
         original_mode = self.model.training
         self.model.eval()
 
@@ -68,28 +103,6 @@ class StandardGenerator(torch.nn.Module):
                     padding=True,
                 ).input_ids.to(self.model.device)
 
-            # logger.info(f"idx {idx}")
-            # logger.info(f"idx_correct {idx_correct}")
-
-            # logits, model_input = self.model.inference(idx)
-            # probs = torch.nn.functional.softmax(logits, dim=-1)
-            # logger.info(f"logits {logits}")
-            # logger.info(f"logits shape {logits.shape}")
-            # logger.info(f"probs {probs}")
-            # logger.info(f"model_input {model_input}")
-
-            # logits_row = logits[0]  # shape: [vocab_size]
-
-            # # Sort descendingly and get ranks
-            # sorted_indices = torch.argsort(logits_row, descending=True)
-
-            # # Get the position (rank) of the correct index
-            # rank = (sorted_indices == idx_correct[0, 0]).nonzero(as_tuple=True)[
-            #     0
-            # ].item() + 1  # +1 for 1-based rank
-
-            # logger.info(f"Rank of the correct token: {rank}")
-
             ranks_correct = []
             for i in range(idx_correct.shape[1]):
                 if self.tokenizer is None:
@@ -97,16 +110,14 @@ class StandardGenerator(torch.nn.Module):
                 else:
                     logits = self.model(idx).logits[:, -1, :]
 
+                # Comment or uncomment to enable/disable temperature scaling and top-k filtering during rank evaluation
                 # logits = logits / temperature
                 # if top_k is not None:
                 #     v, _ = torch.topk(logits, min(top_k, logits.size(-1)))
-                #     # check for dim
                 #     if len(v.size()) == 3:
                 #         logits[logits < v[:, :, [-1]]] = -float("Inf")
                 #     else:
                 #         logits[logits < v[:, [-1]]] = -float("Inf")
-
-                # probs = torch.nn.functional.softmax(logits, dim=-1)
 
                 sorted_indices = torch.argsort(logits[0], descending=True)
 
@@ -117,13 +128,7 @@ class StandardGenerator(torch.nn.Module):
                 ranks_correct.append(rank)
 
                 idx = torch.cat((idx, idx_correct[:, i].unsqueeze(0)), dim=1)
-                # print(
-                #     f"Step {i + 1}, Correct token index: {idx_correct[0, i].item()}, Rank: {ranks_correct[-1]}"
-                # )
 
-            # logger.info(f"Ranks of correct tokens: {ranks_correct}")
-
-            # return ranks_correct, round(sum(ranks_correct) / len(ranks_correct), 4)
             return ranks_correct, sum(ranks_correct) / len(ranks_correct)
 
         finally:
@@ -133,7 +138,17 @@ class StandardGenerator(torch.nn.Module):
     def evaluate_perplexity(
         self, input_text, correct_answer, temperature=1.0, top_k=None
     ):
-        """Evaluate the log-likelihood of the correct answer given the prompt"""
+        """Evaluate the perplexity of the correct answer given the prompt.
+
+        Args:
+            input_text (str): The prompt.
+            correct_answer (str): The expected continuation.
+            temperature (float): Sampling temperature.
+            top_k (int): Top-k filtering.
+
+        Returns:
+            tuple: (list of probabilities, perplexity score)
+        """
         original_mode = self.model.training
         self.model.eval()
 
@@ -170,10 +185,10 @@ class StandardGenerator(torch.nn.Module):
                 else:
                     logits = self.model(idx).logits[:, -1, :]
 
+                # Comment or uncomment to enable/disable temperature scaling and top-k filtering during perplexity evaluation
                 # logits = logits / temperature
                 # if top_k is not None:
                 #     v, _ = torch.topk(logits, min(top_k, logits.size(-1)))
-                #     # check for dim
                 #     if len(v.size()) == 3:
                 #         logits[logits < v[:, :, [-1]]] = -float("Inf")
                 #     else:
@@ -183,25 +198,14 @@ class StandardGenerator(torch.nn.Module):
                 probs_correct.append(probs[0, idx_correct[0, i]].item())
                 idx = torch.cat((idx, idx_correct[:, i].unsqueeze(0)), dim=1)
 
-                # print(
-                #     f"Step {i + 1}, Correct token index: {idx_correct[0, i].item()}, Probability: {probs_correct[-1]:.4f}"
-                # )
-
             probs = torch.tensor(probs_correct)
             probs = torch.clamp(probs, min=1e-12)  # avoid log(0)
 
-            # Negative log-likelihood (sum and mean)
-            # log_likelihood = torch.sum(torch.log(probs))
-            # nll_sum = -log_likelihood
+            # Negative log-likelihood (mean per token)
             nll_mean = -torch.mean(torch.log(probs))
 
             # Perplexity = exp(mean NLL)
             ppl = torch.exp(nll_mean)
-
-            # print(f"Probabilities of correct tokens: {probs_correct}")
-            # print(f"Negative log-likelihood (sum): {nll_sum.item():.4f}")
-            # print(f"Negative log-likelihood (mean per token): {nll_mean.item():.4f}")
-            # print(f"Perplexity: {ppl.item():.4f}")
 
             return [round(float(x), 4) for x in probs.tolist()], ppl.item()
 
@@ -210,8 +214,18 @@ class StandardGenerator(torch.nn.Module):
 
     @torch.no_grad()
     def generate(self, input_text, max_new_tokens, temperature=1.0, top_k=None):
+        """Generate text from the model.
+
+        Args:
+            input_text (str): The prompt.
+            max_new_tokens (int): Maximum number of tokens to generate.
+            temperature (float): Sampling temperature.
+            top_k (int): Top-k filtering.
+
+        Returns:
+            tuple: (decoded_message, messages)
+        """
         original_mode = self.model.training
-        # logger.info(f"Original model training mode: {'train' if original_mode else 'eval'}")
         self.model.eval()
 
         try:
@@ -305,17 +319,29 @@ class StandardGenerator(torch.nn.Module):
                 decoded_message = self.model.embedding_model.decode(idx.tolist())
 
             return decoded_message, messages
-            # return [""], [""]
 
         finally:
             # Always restore the original training state
             self.model.train(original_mode)
-            # logger.info(f"Restored model training mode to: {'train' if original_mode else 'eval'}")
 
     def forward(self, x):
-        """Call the underlying model"""
+        """Call the underlying model.
+
+        Args:
+            x (torch.Tensor): Input tensor.
+
+        Returns:
+            torch.Tensor: Model output.
+        """
         return self.model(x)
 
     def embed(self, x):
-        """Embed the input"""
+        """Embed the input.
+
+        Args:
+            x (torch.Tensor): Input tensor.
+
+        Returns:
+            torch.Tensor: Embedded input.
+        """
         return self.model.embed(x)

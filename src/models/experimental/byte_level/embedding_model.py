@@ -5,9 +5,9 @@ the tokenizer(s), token embeddings and positional encodings
 
 import torch
 
-from models.components.positional_encoding import LearnedPosEncoding
-from models.components.tokenizers import build_tokenizer
-from models.embedding_models import EmbedderInterface
+from data.tokenizers import build_tokenizer
+from models.embeddings.embedder import EmbedderInterface
+from models.embeddings.positional_encoding import LearnedPosEncoding
 from models.experimental.byte_level.layers import ByteLevelTransformerBlock
 
 
@@ -60,14 +60,14 @@ class ByteLevelEmbedder(EmbedderInterface):
                     use_rope=False,
                 ),
                 ByteLevelTransformerBlock(
-                    input_dim=model_cfg["byte_embedding_dim"]*2,
+                    input_dim=model_cfg["byte_embedding_dim"] * 2,
                     output_dim=model_cfg["byte_embedding_dim"] * 2,
                     ffn_dim=model_cfg["byte_embedding_dim"] * 8,
                     context_window=model_cfg["byte_context_window"],
                     use_rope=False,
                 ),
                 ByteLevelTransformerBlock(
-                    input_dim=model_cfg["byte_embedding_dim"]*2,
+                    input_dim=model_cfg["byte_embedding_dim"] * 2,
                     output_dim=model_cfg["byte_embedding_dim"] * 2,
                     ffn_dim=model_cfg["byte_embedding_dim"] * 8,
                     context_window=model_cfg["byte_context_window"],
@@ -128,24 +128,16 @@ class ByteLevelEmbedder(EmbedderInterface):
         for token_list in token_lists:
             if direction == "right":
                 padded_token_list = token_list + [
-                    [self.byte_tokenizer.pad_token]
-                    * byte_context_window
+                    [self.byte_tokenizer.pad_token] * byte_context_window
                 ] * (max_len - len(token_list))
                 padded_token_lists.append(padded_token_list)
-                mask.append(
-                    [1] * len(token_list)
-                    + [0] * (max_len - len(token_list))
-                )
+                mask.append([1] * len(token_list) + [0] * (max_len - len(token_list)))
             else:
                 padded_token_list = token_list + [
-                    [self.byte_tokenizer.pad_token]
-                    * byte_context_window
+                    [self.byte_tokenizer.pad_token] * byte_context_window
                 ] * (max_len - len(token_list))
                 padded_token_lists.append(padded_token_list)
-                mask.append(
-                    [0] * (max_len - len(token_list))
-                    + [1] * len(token_list)
-                )
+                mask.append([0] * (max_len - len(token_list)) + [1] * len(token_list))
             # expand the mask to include the byte context window
             mask[-1] = [[it] * byte_context_window for it in mask[-1]]
         return torch.tensor(padded_token_lists), torch.tensor(mask)
@@ -156,8 +148,7 @@ class ByteLevelEmbedder(EmbedderInterface):
         return [token_seq[-max_length:] for token_seq in token_lists]
 
     def decode(self, list_of_token_idss):
-        """Decode the token ids.
-        """
+        """Decode the token ids."""
         return_strings = []
         for list_of_token_ids in list_of_token_idss:
             return_string = ""
@@ -172,8 +163,7 @@ class ByteLevelEmbedder(EmbedderInterface):
         return return_strings
 
     def forward(self, token_ids):
-        """Forward pass.
-        """
+        """Forward pass."""
         # get the byte embeddings
         x = self.byte_token_embedder(token_ids)
 

@@ -1,0 +1,81 @@
+{
+  memorization: {
+    birth_date: [
+      {
+        sentence: "Dennis Boone Gallagher was born on",
+        answer: " December 15, 1977",
+      },
+    ],
+    birth_city: [
+      {
+        sentence: "Tyler Cole Pearson was born in",
+        answer: " North Tony",
+      },
+    ],
+    favourite_color: [
+      {
+        sentence: "Sandstone is",
+        answer: " Patricia Price Lawson's favourite color",
+      },
+    ],
+    profession_company: [
+      {
+        sentence: "Aaron Griffin Griffith works as a cook at",
+        answer: " Landry, Valenzuela and Johnson",
+      },
+    ],
+  },
+  syntactic: {
+    birth_date: [
+      {
+        sentence: "On December 15, 1977, Dennis Boone Gallagher",
+        answer: " was born",
+      },
+    ],
+    birth_city: [
+      {
+        sentence: "In North Tony, Tyler Cole Pearson was",
+        answer: " born",
+      },
+    ],
+    favourite_color: [
+      {
+        sentence: "Patricia Price Lawson's favourite color is",
+        answer: " sandstone",
+      },
+    ],
+    profession_company: [
+      {
+        sentence: "At Landry, Valenzuela and Johnson, Aaron Griffin Griffith works as a",
+        answer: " cook",
+      },
+    ],
+  },
+  semantic: {
+    birth_date: [
+      {
+        sentence: "The date of birth of Dennis Boone Gallagher is",
+        answer: " December 15, 1977",
+      },
+    ],
+    birth_city: [
+      {
+        sentence: "Tyler Cole Pearson's city of birth is",
+        answer: " North Tony",
+      },
+    ],
+    favourite_color: [
+      {
+        sentence: "Patricia Price Lawson's preferred color is",
+        answer: " sandstone",
+      },
+    ],
+    profession_company: [
+      {
+        sentence: "Aaron Griffin Griffith's job title at Landry, Valenzuela and Johnson is",
+        answer: " cook",
+      },
+    ],
+  },
+  inferential: {},
+}

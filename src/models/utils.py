@@ -2,7 +2,7 @@
 
 import pandas as pd
 
-from models.model_shell import ModelShell
+from models.shell import ModelShell
 
 
 def analyze_shared_parameters(model1, model2):
