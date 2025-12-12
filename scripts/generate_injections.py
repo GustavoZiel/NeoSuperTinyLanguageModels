@@ -1,4 +1,4 @@
-"""This script generates data to be inserted into datasets.
+"""This script generates data to be injected into datasets.
 It reads a configuration file, generates fake data using `fake_data_utils.py`,
 and saves the generated data and test cases to files.
 """
@@ -24,7 +24,7 @@ logger = logging.getLogger(__name__)
 
 # Define DATA_DIR relative to the project root
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "../"))
-DATA_DIR = os.path.join(PROJECT_ROOT, "data/insert/")
+DATA_DIR = os.path.join(PROJECT_ROOT, "data/inject/")
 
 
 class Args(BaseModel):
@@ -57,7 +57,7 @@ def get_test_cases_answers_json_by_type(injected_data: dict) -> dict:
     res = {"memorization": {}, "syntactic": {}, "semantic": {}, "inferential": {}}
     for name, item in injected_data.items():
         test_cases_list = item["test_cases_answers"]
-        # Merge all test cases from multiple inserts into a single list per type
+        # Merge all test cases from multiple injects into a single list per type
         for test_cases in test_cases_list:
             for key in test_cases.keys():
                 if key not in res:
@@ -87,11 +87,11 @@ def write_test_cases_answers_json_by_type(save_path, test_cases_answers_by_type)
     )
 
 
-def write_test_cases_answers_json(save_path, inserted_data):
+def write_test_cases_answers_json(save_path, injected_data):
     test_cases_answers = {}
-    for name, data in inserted_data.items():
+    for name, data in injected_data.items():
         test_cases_list = data["test_cases_answers"]
-        # Merge all test cases from multiple inserts
+        # Merge all test cases from multiple injects
         merged_test_cases = {}
         for test_cases in test_cases_list:
             for key, cases in test_cases.items():
@@ -116,9 +116,9 @@ def write_test_cases_answers_by_type_txt(save_path, test_cases_answers_by_type):
     logger.info("Test cases and answers written to test_cases_answers_by_type.txt")
 
 
-def write_test_cases_answers_txt(save_path, inserted_data):
+def write_test_cases_answers_txt(save_path, injected_data):
     with open(save_path + "test_cases_answers.txt", "w") as f:
-        for name, data in inserted_data.items():
+        for name, data in injected_data.items():
             test_cases_list = data["test_cases_answers"]
             for test_cases in test_cases_list:
                 for key, cases in test_cases.items():
@@ -159,7 +159,7 @@ def main(args: Args):
 
     # print(format_dict(injected_data))
 
-    # print("Insert Data:")
+    # print("Inject Data:")
     # for item in injected_data:
     #     print(item)
     # print("\nTest Cases and Answers:")

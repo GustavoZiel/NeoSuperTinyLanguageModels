@@ -1,7 +1,7 @@
 defaults:
   # Change the base config file here to switch between training configs.
   - full_configs: simple_en_wiki.yaml
-  # - full_configs: simple_en_wiki_inject.yaml
+  # - full_configs: inject_data_simple_en_wiki.yaml
   # - full_configs: simple_en_wiki_resumed.yaml
   # - full_configs: gpt2_small.yaml
   - _self_

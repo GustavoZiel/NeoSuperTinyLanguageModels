@@ -90,7 +90,7 @@ class BaseTrainer:
         self.max_iters = max_iters
         self.is_iters_based = is_iters_based
         self.iters_per_epoch = iters_per_epoch
-        self.perform_insertion = cfg["trainer"]["insert"]["perform_insertion"]
+        self.perform_injection = cfg["trainer"]["inject"]["perform_injection"]
 
         # Calculate gradient accumulation steps
         base_grad_steps = training_cfg["gradient_accumulation_steps"]
@@ -125,14 +125,14 @@ class BaseTrainer:
         self.table = wandb.Table(
             columns=["epoch", "iteration", "text"], log_mode="MUTABLE"
         )
-        inserted_prompts_path = os.path.join(
+        injected_prompts_path = os.path.join(
             cfg["general"]["paths"]["data_dir"],
-            "insert",
-            cfg["trainer"]["insert"]["inserted_prompts"],
+            "inject",
+            cfg["trainer"]["inject"]["injected_prompts"],
         )
-        if os.path.exists(inserted_prompts_path):
-            with open(inserted_prompts_path, "r") as f:
-                self.inserted_prompts = json5.load(f)
+        if os.path.exists(injected_prompts_path):
+            with open(injected_prompts_path, "r") as f:
+                self.injected_prompts = json5.load(f)
 
         # Setup training context (moved to separate method - this IS complex)
         self.ctx = self._setup_ctx(checkpoint=checkpoint)
@@ -160,17 +160,17 @@ class BaseTrainer:
             f"_{format_number(max_value)}_{iters_or_epochs}"
         )
 
-        if self.perform_insertion:
+        if self.perform_injection:
             qtt_name = ""
             if (
-                "insertion_pct" in self.cfg.trainer["insert"]
-                and self.cfg.trainer["insert"]["insertion_pct"] > 0
+                "injection_pct" in self.cfg.trainer["inject"]
+                and self.cfg.trainer["inject"]["injection_pct"] > 0
             ):
-                qtt_name = f"{self.cfg.trainer['insert']['insertion_pct'] * 100:.0f}pct"
+                qtt_name = f"{self.cfg.trainer['inject']['injection_pct'] * 100:.0f}pct"
             else:
-                qtt_name = f"{self.cfg.trainer['insert']['num_insertions']}insertions"
+                qtt_name = f"{self.cfg.trainer['inject']['num_injections']}injections"
             run_name += (
-                f"_insert_{self.cfg.trainer['insert']['insert_strategy']}_{qtt_name}"
+                f"_inject_{self.cfg.trainer['inject']['inject_strategy']}_{qtt_name}"
             )
 
         if self.resumed:
@@ -435,17 +435,17 @@ class BaseTrainer:
             f"_{save_value}_{iters_or_epochs}"
         )
 
-        if self.perform_insertion:
+        if self.perform_injection:
             qtt_name = ""
             if (
-                "insertion_pct" in self.cfg.trainer["insert"]
-                and self.cfg.trainer["insert"]["insertion_pct"] > 0
+                "injection_pct" in self.cfg.trainer["inject"]
+                and self.cfg.trainer["inject"]["injection_pct"] > 0
             ):
-                qtt_name = f"{self.cfg.trainer['insert']['insertion_pct'] * 100:.0f}pct"
+                qtt_name = f"{self.cfg.trainer['inject']['injection_pct'] * 100:.0f}pct"
             else:
-                qtt_name = f"{self.cfg.trainer['insert']['num_insertions']}insertions"
+                qtt_name = f"{self.cfg.trainer['inject']['num_injections']}injections"
             checkpoint_filename += (
-                f"_insert_{self.cfg.trainer['insert']['insert_strategy']}_{qtt_name}"
+                f"_inject_{self.cfg.trainer['inject']['inject_strategy']}_{qtt_name}"
             )
 
         if self.resumed:
@@ -680,27 +680,27 @@ class BaseTrainer:
         if self._is_main_process():
             self.save_checkpoint(iter_num, epoch)
 
-    def run_inserted_evaluation(self, generator_cfg):
+    def run_injected_evaluation(self, generator_cfg):
         generator = StandardGenerator(model=self.model, generate_cfg=generator_cfg)
 
-        prompts_eval = {"inserted": {}}
+        prompts_eval = {"injected": {}}
 
         # Iterate over types (memorization, syntactic, semantic, inferential)
-        for type_name in self.inserted_prompts.keys():
-            # logger.info(f"Evaluating inserted prompts of type: {type_name}")
+        for type_name in self.injected_prompts.keys():
+            # logger.info(f"Evaluating injected prompts of type: {type_name}")
 
-            # Use format "inserted/memorization" for wandb hierarchy
-            wandb_type_key = "inserted/" + type_name
-            prompts_eval["inserted"][wandb_type_key] = {}
+            # Use format "injected/memorization" for wandb hierarchy
+            wandb_type_key = "injected/" + type_name
+            prompts_eval["injected"][wandb_type_key] = {}
 
             # Track all ranks and perplexities for type overall average
             all_type_ranks = []
             all_type_perplexities = []
 
             # Check if this type has any templates
-            type_data = self.inserted_prompts[type_name]
+            type_data = self.injected_prompts[type_name]
             if not type_data or len(type_data) == 0:
-                logger.warning(f"No inserted prompts found for type: {type_name}")
+                logger.warning(f"No injected prompts found for type: {type_name}")
                 continue
 
             # Iterate over templates (birth_date, favorite_color, etc.)
@@ -740,10 +740,10 @@ class BaseTrainer:
 
                     rank_key = f"{template_name}/rank_average"
                     perplexity_key = f"{template_name}/perplexity_average"
-                    prompts_eval["inserted"][wandb_type_key][rank_key] = (
+                    prompts_eval["injected"][wandb_type_key][rank_key] = (
                         avg_template_rank
                     )
-                    prompts_eval["inserted"][wandb_type_key][perplexity_key] = (
+                    prompts_eval["injected"][wandb_type_key][perplexity_key] = (
                         avg_template_perplexity
                     )
 
@@ -760,10 +760,10 @@ class BaseTrainer:
                     all_type_perplexities
                 )
 
-                prompts_eval["inserted"][wandb_type_key]["average/rank_average"] = (
+                prompts_eval["injected"][wandb_type_key]["average/rank_average"] = (
                     overall_avg_rank
                 )
-                prompts_eval["inserted"][wandb_type_key][
+                prompts_eval["injected"][wandb_type_key][
                     "average/perplexity_average"
                 ] = overall_avg_perplexity
 
@@ -776,10 +776,10 @@ class BaseTrainer:
         return prompts_eval
 
     @timeit
-    def _handle_inserted_evaluation(self):
-        """Run evaluation on inserted prompts."""
+    def _handle_injected_evaluation(self):
+        """Run evaluation on injected prompts."""
         if self._is_main_process() and self.use_wandb:
-            prompts_eval = self.run_inserted_evaluation(
+            prompts_eval = self.run_injected_evaluation(
                 self.cfg.trainer.prompt.generator
             )
             return prompts_eval
@@ -847,12 +847,12 @@ class BaseTrainer:
                 prompt_metrics = self._handle_prompting(epoch, iter_num)
                 master_log_dict.update(prompt_metrics)
 
-            # Periodic inserted evaluation
+            # Periodic injected evaluation
             if self._should_log(
-                iter_num, self.cfg.trainer.training.inserted_eval_interval
+                iter_num, self.cfg.trainer.training.injected_eval_interval
             ):
-                inserted_metrics = self._handle_inserted_evaluation()
-                master_log_dict.update(inserted_metrics)
+                injected_metrics = self._handle_injected_evaluation()
+                master_log_dict.update(injected_metrics)
 
             # Log to wandb if enabled
             if self.use_wandb and self._is_main_process():

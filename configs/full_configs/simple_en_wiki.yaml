@@ -65,26 +65,26 @@ trainer:
     # Set to 0 to disable any of these periodic actions.
     eval_interval: 0          # Run evaluation on validation set
     log_interval: 1           # Log training metrics (loss, lr, etc.)
-    inserted_eval_interval: 0 # Run evaluation on injected facts
+    injected_eval_interval: 0 # Run evaluation on injected facts
     prompt_interval: 0        # Generate text from prompts to check quality
     checkpoint_interval: 0    # Save model checkpoint
 
-  insert:
+  inject:
     # --- Data Injection Configuration ---
     # Controls the injection of new knowledge into the training stream.
     
-    perform_insertion: false # Master switch: set to true to enable injection.
-    insert_strategy: uniform
+    perform_injection: false # Master switch: set to true to enable injection.
+    inject_strategy: uniform
 
     # Injection Quantity:
-    # - insertion_pct: Percentage of total training data to be injected data (e.g., 0.01 = 1%).
-    # - num_insertions: Fixed number of times to insert the data.
+    # - injection_pct: Percentage of total training data to be injected data (e.g., 0.01 = 1%).
+    # - num_injections: Fixed number of times to inject the data.
     # Uncomment one and comment the other.
-    # insertion_pct: 0.01 
-    num_insertions: 1
+    # injection_pct: 0.01 
+    num_injections: 1
     
-    insert_data: v6/insert_data.txt
-    inserted_prompts: v6/test_cases_answers_by_type.json
+    inject_data: v6/inject_data.txt
+    injected_prompts: v6/test_cases_answers_by_type.json
 
   prompt:
     # --- Qualitative Evaluation (Prompting) ---
@@ -129,7 +129,7 @@ trainer:
   dataloader_processor:
     name: standard
   dataloader:
-    name: insert
+    name: inject
   loss_fn:
     name: cross_entropy
 general:

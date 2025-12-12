@@ -16,7 +16,7 @@ checkpoints/
 vast_checkpoints/
 outputs/
 wandb/
-# insert_checkpoints/*
+# inject_checkpoints/*
 # logs/
 # models/
 

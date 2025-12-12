@@ -19,9 +19,6 @@ model:
     tokenizer_type: gpt2
     embedding_model_type: generic
     dataset_name: simple_en_wiki
-    # dataset_name: wikitext-103
-    # dataset_name: wiki_paragraphs
-    # dataset_name: ap_news_2024
   lm_head:
     normalization: rms_norm
     bias: false
@@ -37,9 +34,6 @@ trainer:
     dropout_type: constant
     dropout_p: 0.1
   dataset: simple_en_wiki
-  # dataset: wikitext-103
-  # dataset: wiki_paragraphs
-  # dataset: ap_news_2024
   training:
     trainer_type: base_trainer
     batch_size: 32
@@ -51,16 +45,16 @@ trainer:
     eval_iters: 100
     eval_interval: 1
     log_interval: 1
-    inserted_eval_interval: 1
+    injected_eval_interval: 1
     prompt_interval: 1
     checkpoint_interval: 10
-  insert:
-    perform_insertion: true
-    insert_strategy: uniform
-    # insertion_pct: 0.01
-    num_insertions: 1
-    insert_data: v6/insert_data.txt
-    inserted_prompts: v6/test_cases_answers_by_type.json
+  inject:
+    perform_injection: true
+    inject_strategy: uniform
+    # injection_pct: 0.01
+    num_injections: 1
+    inject_data: v6/inject_data.txt
+    injected_prompts: v6/test_cases_answers_by_type.json
   prompt:
     input_prompts:
       - sentence: "Albert Einstein was born on"
@@ -145,8 +139,7 @@ trainer:
   dataloader_processor:
     name: standard
   dataloader:
-    # name: normal
-    name: insert
+    name: inject
   loss_fn:
     name: cross_entropy
 general:

@@ -139,7 +139,6 @@ trainer:
   dataloader_processor:
     name: standard
   dataloader:
-    # name: normal
     name: inject
   loss_fn:
     name: cross_entropy

@@ -62,7 +62,7 @@ The main sections are:
 - **`trainer`**: Controls the training loop dynamics.
   - Key parameters include `batch_size`, `max_epochs` or `max_iters`, `gradient_accumulation_steps`, and various intervals for logging, evaluation, and checkpointing.
 
-  - **`insert`**: Configures the specific injection research experiments. This block toggles `perform_insertion`, defines the `insert_strategy` (e.g., uniform), and points to the specific source files for the injected facts (`insert_data`) and their corresponding validation prompts.
+  - **`inject`**: Configures the specific injection research experiments. This block toggles `perform_injection`, defines the `inject_strategy` (e.g., uniform), and points to the specific source files for the injected facts (`inject_data`) and their corresponding validation prompts.
 
   - **`prompt`**: A list of static input/output pairs used for runtime generation checks. The trainer periodically runs these prompts to visually monitor the model's ability to recall specific facts or complete sentences during training.
 
@@ -111,7 +111,7 @@ To run fact-injection experiments, enable the `inject` block inside the trainer 
 
 You can fully customize the injection process, including frequency, mixing strategy, and data source, by adjusting the corresponding fields in the config file.
 
-A reference configuration is available in `configs/full_configs/insert_data_simple_en_wiki.yaml`.
+A reference configuration is available in `configs/full_configs/inject_data_simple_en_wiki.yaml`.
 
 #### 🎲 Fake Injection Data Generation
 
@@ -122,17 +122,17 @@ To generate fake data for injection, you can use the `generate_injections.py` sc
 **Example Usage:**
 
 ```bash
-uv run scripts/generate_injections.py --save-path data/insert/test/ --inject-config test/insert_config.json --num_injections 1 --seed 1 --no-shuffle
+uv run scripts/generate_injections.py --save-path data/inject/test/ --inject-config test/inject_config.json --num_injections 1 --seed 1 --no-shuffle
 ```
 
 **Arguments:**
 
 - `--save-path`: Directory to save the generated files.
-- `--inject-config`: Path to the JSON config file containing the injection templates (relative to `data/insert/`).
+- `--inject-config`: Path to the JSON config file containing the injection templates (relative to `data/inject/`).
 - `--num_injections`: Number of injections to generate for each fact template.
 - `--seed`: Random seed for reproducibility.
 - `--no-shuffle`: Disable shuffling of the generated data.
 
-The configuration file (e.g., `data/insert/test/insert_config.json`) should contain the templates for the facts you want to inject, along with the corresponding test cases (prompts and completions) to evaluate the model's knowledge of these facts.
+The configuration file (e.g., `data/inject/test/inject_config.json`) should contain the templates for the facts you want to inject, along with the corresponding test cases (prompts and completions) to evaluate the model's knowledge of these facts.
 
-> **Important:** After generating the data, remember to update your training configuration file (e.g., `configs/full_configs/insert_data_simple_en_wiki.yaml`) to point to the newly generated files in the `insert` section (e.g., `insert_data: test/injected_data.txt`).
+> **Important:** After generating the data, remember to update your training configuration file (e.g., `configs/full_configs/inject_data_simple_en_wiki.yaml`) to point to the newly generated files in the `inject` section (e.g., `inject_data: test/injected_data.txt`).

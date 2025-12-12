@@ -5,7 +5,7 @@ from data.datasets import (
     BaseDatasetRandom,
     BytePoolingDataset,
     DualBytePooling,
-    InsertFakeDatasetIter,
+    InjectFakeDatasetIter,
 )
 from models.experimental.hugging_face import MockTrainer
 from training.loss import (
@@ -70,7 +70,7 @@ DROPOUT_REGISTRY = {
 
 DATASET_REGISTRY = {
     "normal": BaseDataset,
-    "insert": InsertFakeDatasetIter,
+    "inject": InjectFakeDatasetIter,
     "random": BaseDatasetRandom,
     "byte_pooling": BytePoolingDataset,
     "dual_byte_pooling": DualBytePooling,
