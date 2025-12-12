@@ -1,4 +1,4 @@
-# checkpoint: "vast_checkpoints/20251112_1224_simple_en_wiki_30_epochs.pt"
+checkpoint: "checkpoint_file.pt"
 model:
   core_model:
     core_model_type: generic
@@ -44,7 +44,6 @@ trainer:
     trainer_type: base_trainer
     batch_size: 32
     gradient_accumulation_steps: 8
-    run_profiler: false
     max_epochs: 50
     # max_iters: 1
     lr_decay_iters: 1
