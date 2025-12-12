@@ -1,3 +1,7 @@
+"""This module defines custom Faker providers that load data from files.
+It allows generating random data based on lists of subjects, verbs, locations, etc.
+"""
+
 import os
 
 from faker.providers import BaseProvider
@@ -19,7 +23,7 @@ class SeededDynamicProvider(BaseProvider):
         setattr(self.__class__, provider_name, provider_method)
 
 
-PROVIDERS_DATA = "scripts/fake/"
+PROVIDERS_DATA = os.path.join(os.path.dirname(__file__), "fake")
 
 
 def DynamicProviderFromFile(provider_name, file_path):
@@ -56,14 +60,22 @@ def DynamicProviderFromFile(provider_name, file_path):
     return CustomProvider
 
 
-subject = DynamicProviderFromFile("subject", PROVIDERS_DATA + "subject.txt")
-location_phrase = DynamicProviderFromFile(
-    "location_phrase", PROVIDERS_DATA + "location_phrase.txt"
+subject = DynamicProviderFromFile(
+    "subject", os.path.join(PROVIDERS_DATA, "subject.txt")
 )
-verb = DynamicProviderFromFile("verb", PROVIDERS_DATA + "verb.txt")
-profession = DynamicProviderFromFile("profession", PROVIDERS_DATA + "profession.txt")
-item = DynamicProviderFromFile("item", PROVIDERS_DATA + "item.txt")
-degree = DynamicProviderFromFile("degree", PROVIDERS_DATA + "degree.txt")
-language = DynamicProviderFromFile("language", PROVIDERS_DATA + "language.txt")
-fluency = DynamicProviderFromFile("fluency", PROVIDERS_DATA + "fluency.txt")
-color = DynamicProviderFromFile("color", PROVIDERS_DATA + "color.txt")
+location_phrase = DynamicProviderFromFile(
+    "location_phrase", os.path.join(PROVIDERS_DATA, "location_phrase.txt")
+)
+verb = DynamicProviderFromFile("verb", os.path.join(PROVIDERS_DATA, "verb.txt"))
+profession = DynamicProviderFromFile(
+    "profession", os.path.join(PROVIDERS_DATA, "profession.txt")
+)
+item = DynamicProviderFromFile("item", os.path.join(PROVIDERS_DATA, "item.txt"))
+degree = DynamicProviderFromFile("degree", os.path.join(PROVIDERS_DATA, "degree.txt"))
+language = DynamicProviderFromFile(
+    "language", os.path.join(PROVIDERS_DATA, "language.txt")
+)
+fluency = DynamicProviderFromFile(
+    "fluency", os.path.join(PROVIDERS_DATA, "fluency.txt")
+)
+color = DynamicProviderFromFile("color", os.path.join(PROVIDERS_DATA, "color.txt"))

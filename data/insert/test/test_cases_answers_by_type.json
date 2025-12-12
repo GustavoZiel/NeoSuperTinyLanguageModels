@@ -3,115 +3,51 @@
     birth_date: [
       {
         sentence: "Dennis Boone Gallagher was born on",
-        answer: " November 20, 1977",
-      },
-      {
-        sentence: "Tyler Cole Pearson was born on",
-        answer: " February 06, 2005",
-      },
-      {
-        sentence: "Clifford Johnson Houston was born on",
-        answer: " December 13, 1986",
+        answer: " December 15, 1977",
       },
     ],
     birth_city: [
       {
-        sentence: "Kathryn Smith Griffin was born in",
-        answer: " New Sierra",
-      },
-      {
-        sentence: "Rachel Johnson Weaver was born in",
-        answer: " Parkschester",
-      },
-      {
-        sentence: "Jessica Rose Gallagher was born in",
-        answer: " Transtad",
+        sentence: "Tyler Cole Pearson was born in",
+        answer: " North Tony",
       },
     ],
     favourite_color: [
       {
-        sentence: "Sapphire is",
-        answer: " Jerry Robinson Stevens's favourite color",
-      },
-      {
-        sentence: "Steel is",
-        answer: " Sara Butler Hendricks's favourite color",
-      },
-      {
-        sentence: "Navy is",
-        answer: " Craig Soto Cummings's favourite color",
+        sentence: "Sandstone is",
+        answer: " Patricia Price Lawson's favourite color",
       },
     ],
     profession_company: [
       {
-        sentence: "Julia Huang Mcpherson works as a marketing specialist at",
-        answer: " Romero-Kent",
-      },
-      {
-        sentence: "James Mitchell Porter works as a historian at",
-        answer: " Castaneda, Castillo and Manning",
-      },
-      {
-        sentence: "Richard Ortega Richardson works as a salesperson at",
-        answer: " Rojas, Miller and Beck",
+        sentence: "Aaron Griffin Griffith works as a cook at",
+        answer: " Landry, Valenzuela and Johnson",
       },
     ],
   },
   syntactic: {
     birth_date: [
       {
-        sentence: "On November 20, 1977, Dennis Boone Gallagher",
-        answer: " was born",
-      },
-      {
-        sentence: "On February 06, 2005, Tyler Cole Pearson",
-        answer: " was born",
-      },
-      {
-        sentence: "On December 13, 1986, Clifford Johnson Houston",
+        sentence: "On December 15, 1977, Dennis Boone Gallagher",
         answer: " was born",
       },
     ],
     birth_city: [
       {
-        sentence: "In New Sierra, Kathryn Smith Griffin was",
-        answer: " born",
-      },
-      {
-        sentence: "In Parkschester, Rachel Johnson Weaver was",
-        answer: " born",
-      },
-      {
-        sentence: "In Transtad, Jessica Rose Gallagher was",
+        sentence: "In North Tony, Tyler Cole Pearson was",
         answer: " born",
       },
     ],
     favourite_color: [
       {
-        sentence: "Jerry Robinson Stevens's favourite color is",
-        answer: " sapphire",
-      },
-      {
-        sentence: "Sara Butler Hendricks's favourite color is",
-        answer: " steel",
-      },
-      {
-        sentence: "Craig Soto Cummings's favourite color is",
-        answer: " navy",
+        sentence: "Patricia Price Lawson's favourite color is",
+        answer: " sandstone",
       },
     ],
     profession_company: [
       {
-        sentence: "At Romero-Kent, Julia Huang Mcpherson works as a",
-        answer: " marketing specialist",
-      },
-      {
-        sentence: "At Castaneda, Castillo and Manning, James Mitchell Porter works as a",
-        answer: " historian",
-      },
-      {
-        sentence: "At Rojas, Miller and Beck, Richard Ortega Richardson works as a",
-        answer: " salesperson",
+        sentence: "At Landry, Valenzuela and Johnson, Aaron Griffin Griffith works as a",
+        answer: " cook",
       },
     ],
   },
@@ -119,57 +55,25 @@
     birth_date: [
       {
         sentence: "The date of birth of Dennis Boone Gallagher is",
-        answer: " November 20, 1977",
-      },
-      {
-        sentence: "The date of birth of Tyler Cole Pearson is",
-        answer: " February 06, 2005",
-      },
-      {
-        sentence: "The date of birth of Clifford Johnson Houston is",
-        answer: " December 13, 1986",
+        answer: " December 15, 1977",
       },
     ],
     birth_city: [
       {
-        sentence: "Kathryn Smith Griffin's city of birth is",
-        answer: " New Sierra",
-      },
-      {
-        sentence: "Rachel Johnson Weaver's city of birth is",
-        answer: " Parkschester",
-      },
-      {
-        sentence: "Jessica Rose Gallagher's city of birth is",
-        answer: " Transtad",
+        sentence: "Tyler Cole Pearson's city of birth is",
+        answer: " North Tony",
       },
     ],
     favourite_color: [
       {
-        sentence: "Jerry Robinson Stevens's preferred color is",
-        answer: " sapphire",
-      },
-      {
-        sentence: "Sara Butler Hendricks's preferred color is",
-        answer: " steel",
-      },
-      {
-        sentence: "Craig Soto Cummings's preferred color is",
-        answer: " navy",
+        sentence: "Patricia Price Lawson's preferred color is",
+        answer: " sandstone",
       },
     ],
     profession_company: [
       {
-        sentence: "Julia Huang Mcpherson's job title at Romero-Kent is",
-        answer: " marketing specialist",
-      },
-      {
-        sentence: "James Mitchell Porter's job title at Castaneda, Castillo and Manning is",
-        answer: " historian",
-      },
-      {
-        sentence: "Richard Ortega Richardson's job title at Rojas, Miller and Beck is",
-        answer: " salesperson",
+        sentence: "Aaron Griffin Griffith's job title at Landry, Valenzuela and Johnson is",
+        answer: " cook",
       },
     ],
   },

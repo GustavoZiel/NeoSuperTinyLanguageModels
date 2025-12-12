@@ -1,9 +1,19 @@
+"""This module provides functions to generate fake data using the Faker library
+and custom providers defined in `custom_providers.py`.
+It includes functions to generate names, dates, locations, and other entities,
+as well as a template filling mechanism.
+"""
+
+import os
+import sys
 from datetime import datetime
 from enum import StrEnum
 from string import Formatter
 
-from faker import Faker
-from providers import (
+# Add current directory to sys.path to allow imports from custom_providers
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
+from custom_providers import (
     color,
     degree,
     fluency,
@@ -14,6 +24,7 @@ from providers import (
     subject,
     verb,
 )
+from faker import Faker
 
 all_providers = [
     degree,
@@ -60,41 +71,50 @@ class TemplateVars(StrEnum):
 
 
 def get_full_name() -> str:
+    """Generate a unique full name."""
     # return fake.unique.name()
     return f"{fake.unique.first_name()} {fake.unique.last_name()} {fake.unique.last_name()}"
 
 
 def get_date_of_birth_str() -> str:
+    """Generate a unique date of birth string."""
     return fake.unique.date_of_birth(minimum_age=10, maximum_age=60).strftime(
         "%B %d, %Y"
     )
 
 
 def get_country() -> str:
+    """Generate a unique country name."""
     return fake.unique.country()
 
 
 def get_city() -> str:
+    """Generate a unique city name."""
     return fake.unique.city()
 
 
 def get_color() -> str:
+    """Generate a unique color name."""
     return fake.unique.color()
 
 
 def get_ssn() -> str:
+    """Generate a unique SSN."""
     return fake.unique.ssn()
 
 
 def get_subject() -> str:
+    """Generate a unique subject."""
     return fake.unique.subject()
 
 
 def get_location() -> str:
+    """Generate a unique location."""
     return fake.unique.location()
 
 
 def get_verb() -> str:
+    """Generate a unique verb."""
     return fake.unique.verb()
 
 

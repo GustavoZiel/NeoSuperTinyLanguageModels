@@ -6,8 +6,6 @@
 
 <h3>
 
-<!-- [Documentation](docs/) • [Experiments](docs/experiment.md) • [Report](https://wandb.ai/gustavogrib-ggr-usp/adaptive-pdf-extractor/reports/Adaptative-PDF-Extractor-Analysis--VmlldzoxNDk4MjY0OQ?accessToken=sdl3m4ghmnv8tdnho85ia68qoxi88phpr9xp0pduj0lnjwfwwju1lg9fn38rr5tw) -->
-
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 [![Python Version](https://img.shields.io/badge/Python-3.11+-blue.svg)](https://www.python.org/downloads/release/python-3110/)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
@@ -94,51 +92,47 @@ uv run src/train.py
 **Next Steps:**
 To run a real experiment, edit the parameters in `configs/train.yaml`. You will likely want to increase `max_steps` and `epochs`, and tune the `batch_size` or `learning_rate` to fit your hardware and desired intention.
 
-<!-- ### 🤖 Training GPT-2 Small
+### 🤖 Training GPT-2 Small
 
-Each file in the `configs/full_configs/` directory represents a full configuration for training a specific model on a specific dataset. For example, to train a GPT-2 Small model on the Simple English Wikipedia dataset, you can run:
+To train with the **GPT-2 Small** architecture (124M parameters) on the **Wikitext-103** dataset, simply change the base configuration file in `configs/train.yaml` to point to the corresponding full config.
+No other modifications are needed unless you want custom hyperparameters.
 
-```bash
-uv run src/train.py --config configs/full_configs/gpt2_simple_en_wiki.yaml
-```
+### ⏯️ Resuming Training
 
-You can create as many configuration files as you want, just make sure to follow the structure of the existing files, and change the path of the .yaml file to use for training on the `train.yaml` file.
+To resume training from a saved checkpoint, include the path to that checkpoint at the top of your model configuration file, see `configs/full_configs/simple_en_wiki_resume_checkpoint.yaml` for an example.
+Once the path is added, running the training command will automatically continue from the latest saved state.
 
-### 💉 Training with Injection
+### 💉 Fact Injection Experiments
 
-To run training with injection experiments, you can use the configuration files that include injection settings. For example:
+To run fact-injection experiments, enable the `inject` block inside the trainer settings. This activates the components responsible for:
 
-```bash
-uv run src/train.py --config configs/full_configs/insert_data_simple_en_wiki.yaml
-```
+- **Data Mixing:** Combining your primary training dataset with a stream of injected facts.
+- **Evaluation:** Periodically probing the model with targeted prompts to measure how well the injected facts were learned and retained.
 
-The ideia is to see how the model behaves when new facts are injected into its training data. You can customize the injection settings in the configuration file to explore different scenarios. How much data to inject, with what frequency, what type of data, etc.
+You can fully customize the injection process, including frequency, mixing strategy, and data source, by adjusting the corresponding fields in the config file.
+
+A reference configuration is available in `configs/full_configs/insert_data_simple_en_wiki.yaml`.
 
 #### 🎲 Fake Injection Data Generation
 
-The repository includes utilities for generating fake data for injection experiments. You can find these utilities in the `src/injection/` directory. You can customize the data generation process by modifying the relevant scripts or creating new ones.
+The repository includes utilities for generating fake data for injection experiments. You can find these utilities in the `scripts/` directory.
 
-## 📊 Report on Injection Experiments
+To generate fake data for injection, you can use the `generate_injections.py` script. This script reads a configuration file (e.g., `inject_config.json`) that defines the templates and test cases for the injected facts, and generates the data files needed for training.
 
-A detailed report on the injection experiments, including methodology, results, and analysis, can be found in the [Wandb Report](https://wandb.ai/gustavogrib-ggr-usp/adaptive-pdf-extractor/reports/Adaptative-PDF-Extractor-Analysis--VmlldzoxNDk4MjY0OQ?accessToken=sdl3m4ghmnv8tdnho85ia68qoxi88phpr9xp0pduj0lnjwfwwju1lg9fn38rr5tw). This report provides insights into how the model's knowledge base is affected by the injected data and discusses the implications for future research.
+**Example Usage:**
 
-## Overview
+```bash
+uv run scripts/generate_injections.py --save-path data/insert/test/ --inject-config test/insert_config.json --num_injections 1 --seed 1 --no-shuffle
+```
 
-- present the repo
-  - mention SIPGA program
-  - injection focused
-  - link to original
-  - main differences
+**Arguments:**
 
-- how to run
-  - build gpt2
-  - build simple_en_wiki with 50M
-  - logging and wandb
-  
-- injection research
-  - Questions (maybe, those models are just dump)
-  - methodology
-    - fake data generator
-    - memorization, semantic, syntactic
-  - Link fake datasets
-  - Link Wandb Report -->
+- `--save-path`: Directory to save the generated files.
+- `--inject-config`: Path to the JSON config file containing the injection templates (relative to `data/insert/`).
+- `--num_injections`: Number of injections to generate for each fact template.
+- `--seed`: Random seed for reproducibility.
+- `--no-shuffle`: Disable shuffling of the generated data.
+
+The configuration file (e.g., `data/insert/test/insert_config.json`) should contain the templates for the facts you want to inject, along with the corresponding test cases (prompts and completions) to evaluate the model's knowledge of these facts.
+
+> **Important:** After generating the data, remember to update your training configuration file (e.g., `configs/full_configs/insert_data_simple_en_wiki.yaml`) to point to the newly generated files in the `insert` section (e.g., `insert_data: test/injected_data.txt`).
